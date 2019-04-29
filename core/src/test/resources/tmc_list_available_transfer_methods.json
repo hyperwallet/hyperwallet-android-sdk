@@ -1,0 +1,93 @@
+{
+  "data": {
+    "transferMethodConfigurations": {
+      "count": 8,
+      "pageInfo": {
+        "limit": 40,
+        "offset": 0
+      },
+      "nodes": [
+        {
+          "countries": [
+            "CA"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "BANK_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "CA"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "BANK_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "CA"
+          ],
+          "currencies": [
+            "CAD"
+          ],
+          "transferMethodType": "BANK_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "CA"
+          ],
+          "currencies": [
+            "CAD"
+          ],
+          "transferMethodType": "BANK_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "US"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "BANK_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "US"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "BANK_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "US"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "BANK_CARD",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "CA"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "BANK_CARD",
+          "profile": "INDIVIDUAL"
+        }
+      ]
+    }
+  }
+}

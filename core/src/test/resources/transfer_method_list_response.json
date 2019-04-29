@@ -1,0 +1,367 @@
+{
+  "count": 24,
+  "offset": 0,
+  "limit": 10,
+  "data": [
+    {
+      "token": "trm-6a4cb004-e577-45a1-9270-cb0dd5aebced",
+      "type": "BANK_ACCOUNT",
+      "status": "ACTIVATED",
+      "verificationStatus": "NOT_REQUIRED",
+      "createdOn": "2019-02-21T12:12:00",
+      "transferMethodCountry": "US",
+      "transferMethodCurrency": "USD",
+      "bankId": "021000021",
+      "branchId": "021000021",
+      "bankAccountId": "5288606281332",
+      "bankAccountRelationship": "SELF",
+      "bankAccountPurpose": "SAVINGS",
+      "profileType": "INDIVIDUAL",
+      "firstName": "Kevin",
+      "lastName": "Wilcox",
+      "dateOfBirth": "1999-01-01",
+      "gender": "MALE",
+      "phoneNumber": "6041231234",
+      "governmentId": "111222333",
+      "addressLine1": "950 Granville St",
+      "city": "San Jose",
+      "stateProvince": "California",
+      "country": "CA",
+      "postalCode": "H0H0H0",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-6a4cb004-e577-45a1-9270-cb0dd5aebced"
+        }
+      ]
+    },
+    {
+      "token": "trm-33e6a84f-7ed1-4c96-8c1a-d4d456478fc7",
+      "type": "BANK_ACCOUNT",
+      "status": "ACTIVATED",
+      "verificationStatus": "NOT_REQUIRED",
+      "createdOn": "2019-02-22T11:33:56",
+      "transferMethodCountry": "US",
+      "transferMethodCurrency": "USD",
+      "bankId": "021000021",
+      "branchId": "021000021",
+      "bankAccountId": "7140580678424",
+      "bankAccountRelationship": "SELF",
+      "bankAccountPurpose": "SAVINGS",
+      "profileType": "INDIVIDUAL",
+      "firstName": "Kevin",
+      "lastName": "Wilcox",
+      "dateOfBirth": "1999-01-01",
+      "gender": "MALE",
+      "phoneNumber": "6041231234",
+      "governmentId": "111222333",
+      "addressLine1": "950 Granville St",
+      "city": "San Jose",
+      "stateProvince": "California",
+      "country": "CA",
+      "postalCode": "H0H0H0",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-33e6a84f-7ed1-4c96-8c1a-d4d456478fc7"
+        }
+      ]
+    },
+    {
+      "token": "trm-5b7009a1-b94e-4727-8e15-7c94d529b688",
+      "type": "BANK_ACCOUNT",
+      "status": "ACTIVATED",
+      "verificationStatus": "NOT_REQUIRED",
+      "createdOn": "2019-02-22T12:04:51",
+      "transferMethodCountry": "US",
+      "transferMethodCurrency": "USD",
+      "bankId": "021000021",
+      "branchId": "021000021",
+      "bankAccountId": "1488863828337",
+      "bankAccountRelationship": "SELF",
+      "bankAccountPurpose": "SAVINGS",
+      "profileType": "INDIVIDUAL",
+      "firstName": "Kevin",
+      "lastName": "Wilcox",
+      "dateOfBirth": "1999-01-01",
+      "gender": "MALE",
+      "phoneNumber": "6041231234",
+      "governmentId": "111222333",
+      "addressLine1": "950 Granville St",
+      "city": "San Jose",
+      "stateProvince": "California",
+      "country": "CA",
+      "postalCode": "H0H0H0",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-5b7009a1-b94e-4727-8e15-7c94d529b688"
+        }
+      ]
+    },
+    {
+      "token": "trm-92320ebd-c569-4b16-8790-6d22b477ac3c",
+      "type": "BANK_ACCOUNT",
+      "status": "ACTIVATED",
+      "verificationStatus": "NOT_REQUIRED",
+      "createdOn": "2019-02-22T12:05:06",
+      "transferMethodCountry": "US",
+      "transferMethodCurrency": "USD",
+      "bankId": "021000021",
+      "branchId": "021000021",
+      "bankAccountId": "6501537551175",
+      "bankAccountRelationship": "SELF",
+      "bankAccountPurpose": "SAVINGS",
+      "profileType": "INDIVIDUAL",
+      "firstName": "Kevin",
+      "lastName": "Wilcox",
+      "dateOfBirth": "1999-01-01",
+      "gender": "MALE",
+      "phoneNumber": "6041231234",
+      "governmentId": "111222333",
+      "addressLine1": "950 Granville St",
+      "city": "San Jose",
+      "stateProvince": "California",
+      "country": "CA",
+      "postalCode": "H0H0H0",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-92320ebd-c569-4b16-8790-6d22b477ac3c"
+        }
+      ]
+    },
+    {
+      "token": "trm-13141cde-56a1-4bde-ab82-534fde4d1cdb",
+      "type": "BANK_ACCOUNT",
+      "status": "ACTIVATED",
+      "verificationStatus": "NOT_REQUIRED",
+      "createdOn": "2019-02-22T12:05:10",
+      "transferMethodCountry": "US",
+      "transferMethodCurrency": "USD",
+      "bankId": "021000021",
+      "branchId": "021000021",
+      "bankAccountId": "4744706063601",
+      "bankAccountRelationship": "SELF",
+      "bankAccountPurpose": "SAVINGS",
+      "profileType": "INDIVIDUAL",
+      "firstName": "Kevin",
+      "lastName": "Wilcox",
+      "dateOfBirth": "1999-01-01",
+      "gender": "MALE",
+      "phoneNumber": "6041231234",
+      "governmentId": "111222333",
+      "addressLine1": "950 Granville St",
+      "city": "San Jose",
+      "stateProvince": "California",
+      "country": "CA",
+      "postalCode": "H0H0H0",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-13141cde-56a1-4bde-ab82-534fde4d1cdb"
+        }
+      ]
+    },
+    {
+      "token": "trm-5101d1d4-ba88-41d5-af3e-7d8bfef1f2aa",
+      "type": "BANK_ACCOUNT",
+      "status": "ACTIVATED",
+      "verificationStatus": "NOT_REQUIRED",
+      "createdOn": "2019-02-22T12:05:13",
+      "transferMethodCountry": "US",
+      "transferMethodCurrency": "USD",
+      "bankId": "021000021",
+      "branchId": "021000021",
+      "bankAccountId": "7638183578148",
+      "bankAccountRelationship": "SELF",
+      "bankAccountPurpose": "SAVINGS",
+      "profileType": "INDIVIDUAL",
+      "firstName": "Kevin",
+      "lastName": "Wilcox",
+      "dateOfBirth": "1999-01-01",
+      "gender": "MALE",
+      "phoneNumber": "6041231234",
+      "governmentId": "111222333",
+      "addressLine1": "950 Granville St",
+      "city": "San Jose",
+      "stateProvince": "California",
+      "country": "CA",
+      "postalCode": "H0H0H0",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-5101d1d4-ba88-41d5-af3e-7d8bfef1f2aa"
+        }
+      ]
+    },
+    {
+      "token": "trm-76de7e9d-f0e6-41c6-afca-f21b6bc1af94",
+      "type": "BANK_ACCOUNT",
+      "status": "ACTIVATED",
+      "verificationStatus": "NOT_REQUIRED",
+      "createdOn": "2019-02-22T12:05:32",
+      "transferMethodCountry": "US",
+      "transferMethodCurrency": "USD",
+      "bankId": "021000021",
+      "branchId": "021000021",
+      "bankAccountId": "2578010337500",
+      "bankAccountRelationship": "SELF",
+      "bankAccountPurpose": "SAVINGS",
+      "profileType": "INDIVIDUAL",
+      "firstName": "Kevin",
+      "lastName": "Wilcox",
+      "dateOfBirth": "1999-01-01",
+      "gender": "MALE",
+      "phoneNumber": "6041231234",
+      "governmentId": "111222333",
+      "addressLine1": "950 Granville St",
+      "city": "San Jose",
+      "stateProvince": "California",
+      "country": "CA",
+      "postalCode": "H0H0H0",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-76de7e9d-f0e6-41c6-afca-f21b6bc1af94"
+        }
+      ]
+    },
+    {
+      "token": "trm-5bddccee-a2c8-4d1c-af2b-23adc9e5320b",
+      "type": "BANK_ACCOUNT",
+      "status": "ACTIVATED",
+      "verificationStatus": "NOT_REQUIRED",
+      "createdOn": "2019-02-22T12:05:34",
+      "transferMethodCountry": "US",
+      "transferMethodCurrency": "USD",
+      "bankId": "021000021",
+      "branchId": "021000021",
+      "bankAccountId": "5441704342741",
+      "bankAccountRelationship": "SELF",
+      "bankAccountPurpose": "SAVINGS",
+      "profileType": "INDIVIDUAL",
+      "firstName": "Kevin",
+      "lastName": "Wilcox",
+      "dateOfBirth": "1999-01-01",
+      "gender": "MALE",
+      "phoneNumber": "6041231234",
+      "governmentId": "111222333",
+      "addressLine1": "950 Granville St",
+      "city": "San Jose",
+      "stateProvince": "California",
+      "country": "CA",
+      "postalCode": "H0H0H0",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-5bddccee-a2c8-4d1c-af2b-23adc9e5320b"
+        }
+      ]
+    },
+    {
+      "token": "trm-9756af4f-4d8a-4778-a08f-3c48a672dd18",
+      "type": "BANK_ACCOUNT",
+      "status": "ACTIVATED",
+      "verificationStatus": "NOT_REQUIRED",
+      "createdOn": "2019-02-22T12:05:35",
+      "transferMethodCountry": "US",
+      "transferMethodCurrency": "USD",
+      "bankId": "021000021",
+      "branchId": "021000021",
+      "bankAccountId": "1288430864015",
+      "bankAccountRelationship": "SELF",
+      "bankAccountPurpose": "SAVINGS",
+      "profileType": "INDIVIDUAL",
+      "firstName": "Kevin",
+      "lastName": "Wilcox",
+      "dateOfBirth": "1999-01-01",
+      "gender": "MALE",
+      "phoneNumber": "6041231234",
+      "governmentId": "111222333",
+      "addressLine1": "950 Granville St",
+      "city": "San Jose",
+      "stateProvince": "California",
+      "country": "CA",
+      "postalCode": "H0H0H0",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-9756af4f-4d8a-4778-a08f-3c48a672dd18"
+        }
+      ]
+    },
+    {
+      "token": "trm-81b66f57-a1b8-497c-b354-62c27242114c",
+      "type": "BANK_ACCOUNT",
+      "status": "ACTIVATED",
+      "verificationStatus": "NOT_REQUIRED",
+      "createdOn": "2019-02-22T12:06:01",
+      "transferMethodCountry": "US",
+      "transferMethodCurrency": "USD",
+      "bankId": "021000021",
+      "branchId": "021000021",
+      "bankAccountId": "3027206503758",
+      "bankAccountRelationship": "SELF",
+      "bankAccountPurpose": "SAVINGS",
+      "profileType": "INDIVIDUAL",
+      "firstName": "Kevin",
+      "lastName": "Wilcox",
+      "dateOfBirth": "1999-01-01",
+      "gender": "MALE",
+      "phoneNumber": "6041231234",
+      "governmentId": "111222333",
+      "addressLine1": "950 Granville St",
+      "city": "San Jose",
+      "stateProvince": "California",
+      "country": "CA",
+      "postalCode": "H0H0H0",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-81b66f57-a1b8-497c-b354-62c27242114c"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/transfer-methods?offset=0&limit=10"
+    },
+    {
+      "params": {
+        "rel": "next"
+      },
+      "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/transfer-methods?offset=10&limit=10"
+    },
+    {
+      "params": {
+        "rel": "last"
+      },
+      "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/transfer-methods?offset=14&limit=10"
+    }
+  ]
+}

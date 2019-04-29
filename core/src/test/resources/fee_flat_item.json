@@ -1,0 +1,7 @@
+{
+  "country": "US",
+  "currency": "USD",
+  "transferMethodType": "BANK_ACCOUNT",
+  "feeRateType": "FLAT",
+  "value": "500.00"
+}

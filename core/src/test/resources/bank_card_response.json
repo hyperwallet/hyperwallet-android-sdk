@@ -1,0 +1,20 @@
+{
+  "token": "trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636",
+  "type": "BANK_CARD",
+  "status": "ACTIVATED",
+  "createdOn": "2019-01-08T00:56:15",
+  "transferMethodCountry": "US",
+  "transferMethodCurrency": "USD",
+  "cardType": "DEBIT",
+  "cardNumber": "************1114",
+  "cardBrand": "VISA",
+  "dateOfExpiry": "2019-11",
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://localhost:8181/rest/v3/users/usr-83cc9055-e7ee-489e-8fba-3af260cd709c/bank-cards/trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636"
+    }
+  ]
+}

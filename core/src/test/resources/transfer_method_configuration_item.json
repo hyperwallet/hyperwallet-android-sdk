@@ -1,0 +1,64 @@
+{
+  "countries": [
+    "US"
+  ],
+  "currencies": [
+    "USD"
+  ],
+  "transferMethodType": "BANK_ACCOUNT",
+  "profile": "INDIVIDUAL",
+  "fees": {
+    "nodes": [
+      {
+        "transferMethodType": "PAPER_CHECK",
+        "country": "CA",
+        "currency": "CAD",
+        "feeRateType": "PERCENT",
+        "value": "4.9",
+        "minimum": "10",
+        "maximum": "20"
+      }
+    ]
+  },
+  "processingTime": "3 days",
+  "fields": [
+    {
+      "category": "ACCOUNT",
+      "dataType": "NUMBER",
+      "isRequired": true,
+      "label": "Account Number",
+      "maxLength": 17,
+      "minLength": 4,
+      "name": "bankAccountId",
+      "placeholder": "",
+      "regularExpression": "^(?![0-]+$)[0-9-]{4,17}$",
+      "fieldSelectionOptions": null
+    },
+    {
+      "category": "ACCOUNT",
+      "dataType": "SELECTION",
+      "isRequired": true,
+      "label": "Account Type",
+      "maxLength": null,
+      "minLength": null,
+      "name": "bankAccountPurpose",
+      "placeholder": "",
+      "regularExpression": null,
+      "fieldSelectionOptions": [
+        {
+          "label": "CHECKING",
+          "value": "CHECKING"
+        },
+        {
+          "label": "SAVINGS",
+          "value": "SAVINGS"
+        }
+      ],
+      "validationMessage": {
+        "length": "The minimum length of this field is 4 and maximum length is 17.",
+        "pattern": "Account Type is invalid format.",
+        "empty": "You must provide a value for this field"
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "message": "Could not find any currency.",
+  "locations": [
+    {
+      "line": 6,
+      "column": 7
+    }
+  ],
+  "path": [
+    "countries",
+    "nodes",
+    1,
+    "currencies"
+  ],
+  "extensions": {
+    "code": "DataFetchingException",
+    "timestamp": "Fri Feb 9 14:33:09 UTC 2018"
+  }
+}

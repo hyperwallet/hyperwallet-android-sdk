@@ -1,0 +1,12 @@
+{
+  "errors": [{
+      "message": "Validation error of type WrongType: argument 'currency' with value 'EnumValue{name='USDD'}' is not a valid 'Currency' @ 'transferMethodConfigurations'",
+      "locations": [ { "line": 6, "column": 7 } ],
+      "path": [ "transferMethodConfigurations", "currency" ],
+      "extensions": {
+        "code": "CONSTRAINT_VIOLATIONS",
+        "timestamp": "Fri Feb 9 14:33:09 UTC 2018"
+      }
+    }
+  ]
+}

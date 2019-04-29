@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">HyperWallet SDK</string>
+    <string name="authentication_token_provider_exception">Authentication token retrieval attempt
+        resulted in an error
+    </string>
+    <string name="io_exception">We are encountering a problem processing the request. Please check
+        your connectivity.
+    </string>
+    <string name="json_exception">Processing the JSON document resulted in an error</string>
+    <string name="json_parse_exception">A document (JSON) parsing error occurred</string>
+    <string name="unexpected_exception">Oops… Something went wrong, please try again.</string>
+</resources>

@@ -1,0 +1,167 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+apply plugin: 'org.sonarqube'
+apply from: "$projectDir/config/jacoco-settings.gradle"
+
+android {
+    compileSdkVersion 28
+    testOptions.unitTests.includeAndroidResources = true
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName version
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            testCoverageEnabled true
+        }
+    }
+
+    flavorDimensions "server"
+
+    productFlavors {
+        dev {
+
+        }
+        prod {
+
+        }
+    }
+
+    android.variantFilter { variant ->
+        if (variant.buildType.name.equals('release')
+                && variant.getFlavors().get(0).name.equals('debug')) {
+            variant.setIgnore(true)
+        }
+    }
+
+
+
+    lintOptions {
+        abortOnError true
+        warningsAsErrors true
+        lintConfig file("config/lint.xml")
+    }
+}
+
+
+dependencies {
+
+    implementation "androidx.appcompat:appcompat:1.0.2"
+
+    testImplementation "junit:junit:4.12"
+    testImplementation "org.mockito:mockito-core:2.23.4"
+    testImplementation "org.robolectric:robolectric:4.1"
+    testImplementation "com.squareup.okhttp3:mockwebserver:3.11.0"
+    testImplementation group: 'pl.pragmatists', name: 'JUnitParams', version: "1.1.1"
+    testImplementation group: 'org.hamcrest', name: 'java-hamcrest', version: "2.0.0.0"
+
+}
+
+
+task javadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    failOnError false
+}
+
+task javadocsJar(type: Jar, dependsOn: javadocs) {
+    classifier = 'javadoc'
+    from javadocs.destinationDir
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+def aarFile = file("$buildDir/outputs/aar/core-$version"+".aar")
+def aarArtifact = artifacts.add('archives', aarFile) {
+    type 'aar'
+}
+
+def isReleaseVersion = !version.endsWith('SNAPSHOT')
+
+publishing {
+
+    repositories {
+        maven {
+            def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
+            url = isReleaseVersion ? releasesRepoUrl : snapshotsRepoUrl
+            credentials {
+                username sonatypeUsername
+                password sonatypePassword
+            }
+        }
+    }
+
+    publications {
+        hyperwalletCore(MavenPublication) {
+            groupId = 'com.hyperwallet.android'
+            artifactId = 'core-sdk'
+            version = version
+
+            artifact(sourcesJar)
+            artifact(javadocsJar)
+            artifact(aarArtifact)
+
+            pom {
+                pom.withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+                    configurations.implementation.allDependencies.each {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'http://www.opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'devs'
+                        name = 'Hyperwallet Developers'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/hyperwallet/hyperwallet-android-sdk.git'
+                    developerConnection = 'scm:git:git://github.com/hyperwallet/hyperwallet-android-sdk.git'
+                    url = 'https://github.com/hyperwallet/hyperwallet-android-sdk'
+                }
+            }
+        }
+    }
+}
+
+tasks.withType(Sign) {
+    onlyIf {
+        isReleaseVersion
+    }
+}
+
+signing {
+    sign publishing.publications.hyperwalletCore
+}
+
+sonarqube {
+    properties {
+        def libraries = project.android.sdkDirectory.getPath() + "/platforms/android-28/android.jar"
+        property "sonar.sources", "src/main/java"
+        property "sonar.binaries", "build/intermediates/javac/prodRelease/compileProdReleaseJavaWithJavac/classes/com/hyperwallet/android"
+        property "sonar.libraries", libraries
+        !version.endsWith('SNAPSHOT')
+    }
+}

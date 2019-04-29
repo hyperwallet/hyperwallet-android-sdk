@@ -1,0 +1,61 @@
+{
+  "data": {
+    "transferMethodConfigurations": {
+      "count": 1,
+      "pageInfo": {
+        "limit": 10,
+        "offset": 0
+      },
+      "nodes": [
+        {
+          "countries": [
+            "CA"
+          ],
+          "currencies": [
+            "CAD"
+          ],
+          "transferMethodType": "PAPER_CHECK",
+          "profile": "INDIVIDUAL",
+          "processingTime": "1-3 Business days",
+          "fees": {
+            "nodes": [
+              {
+                "transferMethodType": "PAPER_CHECK",
+                "country": "CA",
+                "currency": "CAD",
+                "feeRateType": "PERCENT",
+                "value": "4.9",
+                "minimum": "10",
+                "maximum": "20"
+              }
+            ]
+          },
+          "fields": [
+            {
+              "category": "ACCOUNT",
+              "dataType": "SELECTION",
+              "isRequired": false,
+              "label": "Shipping Method",
+              "maxLength": null,
+              "minLength": null,
+              "name": "shippingMethod",
+              "placeholder": "",
+              "regularExpression": ""
+            },
+            {
+              "category": "ADDRESS",
+              "dataType": "SELECTION",
+              "isRequired": true,
+              "label": "Country",
+              "maxLength": 30,
+              "minLength": 2,
+              "name": "country",
+              "placeholder": "",
+              "regularExpression": ""
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

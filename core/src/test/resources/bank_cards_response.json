@@ -1,0 +1,55 @@
+{
+  "count": 2,
+  "offset": 0,
+  "limit": 10,
+  "data": [
+    {
+      "token": "trm-7e915660-8c97-47bf-8a4f-0c1bc890d46f",
+      "type": "BANK_CARD",
+      "status": "ACTIVATED",
+      "createdOn": "2017-11-09T22:50:14",
+      "transferMethodCountry": "US",
+      "transferMethodCurrency": "USD",
+      "cardType": "DEBIT",
+      "cardNumber": "************0114",
+      "cardBrand": "VISA",
+      "dateOfExpiry": "2018-11",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/bank-cards/trm-7e915660-8c97-47bf-8a4f-0c1bc890d46f"
+        }
+      ]
+    },
+    {
+      "token": "trm-7742f31d-452c-4bf7-8645-c003fa1511d5",
+      "type": "BANK_CARD",
+      "status": "ACTIVATED",
+      "createdOn": "2017-11-09T23:18:34",
+      "transferMethodCountry": "US",
+      "transferMethodCurrency": "USD",
+      "cardType": "DEBIT",
+      "cardNumber": "************0112",
+      "cardBrand": "VISA",
+      "dateOfExpiry": "2018-12",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/bank-cards/trm-7742f31d-452c-4bf7-8645-c003fa1511d5"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/bank-cards?offset=0&limit=10"
+    }
+  ]
+}

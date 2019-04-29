@@ -1,0 +1,11 @@
+{
+  "category": "ACCOUNT",
+  "dataType": "NUMBER",
+  "isRequired": true,
+  "label": "Routing Number",
+  "maxLength": 9,
+  "minLength": 9,
+  "name": "branchId",
+  "placeholder": "A place holder",
+  "regularExpression": "^[0-9]{9}$"
+}

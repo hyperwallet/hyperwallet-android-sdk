@@ -1,0 +1,9 @@
+{
+  "transferMethodType": "PAPER_CHECK",
+  "country": "CA",
+  "currency": "CAD",
+  "feeRateType": "PERCENT",
+  "value": "14.9",
+  "minimum": "10",
+  "maximum": "20"
+}

@@ -1,0 +1,12 @@
+{
+  "errors": [
+    {
+      "message": "The account information you provided is already registered. Based on the external account configuration duplications are not allowed.",
+      "code": "DUPLICATE_EXTERNAL_ACCOUNT_CREATION",
+      "relatedResources": [
+        "trm-09617f4d-40d8-4225-b1da-24b8bca91e65",
+        "trm-09617f4d-40d8-4225-b1da-24b8bca91e72"
+      ]
+    }
+  ]
+}

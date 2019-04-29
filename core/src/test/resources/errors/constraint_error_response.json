@@ -1,0 +1,14 @@
+{
+  "errors": [
+    {
+      "message": "Account Number is invalid. The maximum length of this field is 17.",
+      "fieldName": "bankAccountId",
+      "code": "CONSTRAINT_VIOLATIONS"
+    },
+    {
+      "message": "Routing Number: You must provide a value for this field",
+      "fieldName": "branchId",
+      "code": "CONSTRAINT_VIOLATIONS"
+    }
+  ]
+}

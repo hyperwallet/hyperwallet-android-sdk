@@ -1,0 +1,13 @@
+{
+  "data": {
+    "transferMethodConfigurations": {
+      "count": 0,
+      "pageInfo": {
+        "limit": 40,
+        "offset": 0
+      },
+      "nodes": [
+      ]
+    }
+  }
+}

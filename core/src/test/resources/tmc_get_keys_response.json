@@ -1,0 +1,79 @@
+{
+  "data": {
+    "transferMethodConfigurations": {
+      "count": 3,
+      "nodes": [
+        {
+          "countries": [
+            "US"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "BANK_ACCOUNT",
+          "profile": "BUSINESS",
+          "fees": {
+            "nodes": [
+              {
+                "country": "US",
+                "currency": "USD",
+                "transferMethodType": "BANK_ACCOUNT",
+                "feeRateType": "FLAT",
+                "value": "500.00"
+              }
+            ]
+          }
+        },
+        {
+          "countries": [
+            "US"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "BANK_CARD",
+          "profile": "INDIVIDUAL",
+          "fees": {
+            "nodes": [
+              {
+                "country": "US",
+                "currency": "USD",
+                "transferMethodType": "BANK_CARD",
+                "feeRateType": "FLAT",
+                "value": "200.00"
+              },
+              {
+                "country": "US",
+                "currency": "USD",
+                "transferMethodType": "BANK_CARD",
+                "feeRateType": "FLAT",
+                "value": "175.00"
+              }
+            ]
+          }
+        },
+        {
+          "countries": [
+            "TW"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL",
+          "fees": {
+            "nodes": [
+              {
+                "country": "TW",
+                "currency": "USD",
+                "transferMethodType": "WIRE_ACCOUNT",
+                "feeRateType": "FLAT",
+                "value": "1500.00"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

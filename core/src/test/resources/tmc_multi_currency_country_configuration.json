@@ -1,0 +1,559 @@
+{
+  "data": {
+    "transferMethodConfigurations": {
+      "count": 40,
+      "pageInfo": {
+        "limit": 40,
+        "offset": 0
+      },
+      "nodes": [
+        {
+          "countries": [
+            "CA"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "BANK_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "CA"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "BANK_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "CA"
+          ],
+          "currencies": [
+            "CAD"
+          ],
+          "transferMethodType": "BANK_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "CA"
+          ],
+          "currencies": [
+            "CAD"
+          ],
+          "transferMethodType": "BANK_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "US"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "BANK_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "US"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "BANK_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "US"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "BANK_CARD",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "US"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "BANK_CARD",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "US"
+          ],
+          "currencies": [
+            "GBP",
+            "EUR",
+            "AUD"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "US"
+          ],
+          "currencies": [
+            "GBP",
+            "EUR",
+            "AUD"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "RU"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "RU"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "TW",
+            "LU",
+            "LV",
+            "DO",
+            "UA",
+            "HU",
+            "QA",
+            "MD",
+            "ME",
+            "MG",
+            "ID",
+            "EC",
+            "MN",
+            "UY",
+            "IM",
+            "AE",
+            "IN",
+            "ZA",
+            "MU",
+            "IT",
+            "MY",
+            "AM",
+            "VC",
+            "AN",
+            "ES",
+            "AT",
+            "NG",
+            "AZ",
+            "JE",
+            "VU",
+            "BB",
+            "JM",
+            "BF",
+            "JP",
+            "BH",
+            "BO",
+            "BR",
+            "SG",
+            "BW",
+            "SK",
+            "KE",
+            "SN",
+            "KG",
+            "KH",
+            "GE",
+            "SR",
+            "GH",
+            "GI",
+            "CH",
+            "KR",
+            "KW",
+            "CO",
+            "GT",
+            "KZ",
+            "CR",
+            "PA",
+            "TH",
+            "PE",
+            "PF",
+            "TM",
+            "TR",
+            "LK"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "TW",
+            "LU",
+            "LV",
+            "DO",
+            "UA",
+            "HU",
+            "QA",
+            "MD",
+            "ME",
+            "MG",
+            "ID",
+            "EC",
+            "MN",
+            "UY",
+            "IM",
+            "AE",
+            "IN",
+            "ZA",
+            "MU",
+            "IT",
+            "MY",
+            "AM",
+            "VC",
+            "AN",
+            "ES",
+            "AT",
+            "NG",
+            "AZ",
+            "JE",
+            "VU",
+            "BB",
+            "JM",
+            "BF",
+            "JP",
+            "BH",
+            "BO",
+            "BR",
+            "SG",
+            "BW",
+            "SK",
+            "KE",
+            "SN",
+            "KG",
+            "KH",
+            "GE",
+            "SR",
+            "GH",
+            "GI",
+            "CH",
+            "KR",
+            "KW",
+            "CO",
+            "GT",
+            "KZ",
+            "CR",
+            "PA",
+            "TH",
+            "PE",
+            "PF",
+            "TM",
+            "TR",
+            "LK"
+          ],
+          "currencies": [
+            "USD"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "JP"
+          ],
+          "currencies": [
+            "JPY"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "JP"
+          ],
+          "currencies": [
+            "JPY"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "JO"
+          ],
+          "currencies": [
+            "JOD"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "JO"
+          ],
+          "currencies": [
+            "JOD"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "ZA"
+          ],
+          "currencies": [
+            "ZAR"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "ZA"
+          ],
+          "currencies": [
+            "ZAR"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "AE"
+          ],
+          "currencies": [
+            "AED"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "AE"
+          ],
+          "currencies": [
+            "AED"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "KR"
+          ],
+          "currencies": [
+            "KRW"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "KR"
+          ],
+          "currencies": [
+            "KRW"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "TW"
+          ],
+          "currencies": [
+            "TWD"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "TW"
+          ],
+          "currencies": [
+            "TWD"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "PK"
+          ],
+          "currencies": [
+            "PKR"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "PK"
+          ],
+          "currencies": [
+            "PKR"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "AR"
+          ],
+          "currencies": [
+            "ARS"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "AR"
+          ],
+          "currencies": [
+            "ARS"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "KH"
+          ],
+          "currencies": [
+            "KHR"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "KH"
+          ],
+          "currencies": [
+            "KHR"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "LK"
+          ],
+          "currencies": [
+            "LKR"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "LK"
+          ],
+          "currencies": [
+            "LKR"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "AL"
+          ],
+          "currencies": [
+            "ALL"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "AL"
+          ],
+          "currencies": [
+            "ALL"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "NP"
+          ],
+          "currencies": [
+            "NPR"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "NP"
+          ],
+          "currencies": [
+            "NPR"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "CO"
+          ],
+          "currencies": [
+            "COP"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "CO"
+          ],
+          "currencies": [
+            "COP"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        },
+        {
+          "countries": [
+            "LA"
+          ],
+          "currencies": [
+            "LAK"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "INDIVIDUAL"
+        },
+        {
+          "countries": [
+            "LA"
+          ],
+          "currencies": [
+            "LAK"
+          ],
+          "transferMethodType": "WIRE_ACCOUNT",
+          "profile": "BUSINESS"
+        }
+      ]
+    }
+  }
+}

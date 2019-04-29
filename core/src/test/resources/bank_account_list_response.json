@@ -1,0 +1,73 @@
+{
+  "count": 2,
+  "offset": 0,
+  "limit": 10,
+  "data": [
+    {
+      "token": "trm-56b976c5-26b2-42fa-87cf-14b3366673c6",
+      "type": "BANK_ACCOUNT",
+      "status": "ACTIVATED",
+      "createdOn": "2017-10-31T16:47:15",
+      "transferMethodCountry": "US",
+      "transferMethodCurrency": "USD",
+      "branchId": "026009593",
+      "bankAccountId": "675825206",
+      "bankAccountRelationship": "SELF",
+      "bankAccountPurpose": "CHECKING",
+      "profileType": "INDIVIDUAL",
+      "firstName": "Some",
+      "lastName": "Guy",
+      "dateOfBirth": "1991-01-01",
+      "addressLine1": "575 Market Street",
+      "city": "San Francisco",
+      "stateProvince": "CA",
+      "country": "US",
+      "postalCode": "94105",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/bank-accounts/trm-56b976c5-26b2-42fa-87cf-14b3366673c6"
+        }
+      ]
+    },
+    {
+      "token": "trm-56b976c5-26b2-42fa-87cf-14b3366673c7",
+      "type": "BANK_ACCOUNT",
+      "status": "ACTIVATED",
+      "createdOn": "2017-10-31T16:47:15",
+      "transferMethodCountry": "CA",
+      "transferMethodCurrency": "CAD",
+      "branchId": "026009593",
+      "bankAccountId": "675825206",
+      "bankAccountRelationship": "SELF",
+      "bankAccountPurpose": "CHECKING",
+      "profileType": "INDIVIDUAL",
+      "firstName": "Some",
+      "lastName": "Guy",
+      "dateOfBirth": "1991-01-01",
+      "addressLine1": "575 Market Street",
+      "city": "San Francisco",
+      "stateProvince": "CA",
+      "country": "CA",
+      "postalCode": "94105",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/bank-accounts/trm-56b976c5-26b2-42fa-87cf-14b3366673c6"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://localhost:8181/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/bank-accounts?offset=0&limit=10"
+    }
+  ]
+}

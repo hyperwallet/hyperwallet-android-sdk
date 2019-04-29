@@ -1,0 +1,2 @@
+include ':core'
+rootProject.name = 'hyperwallet-android-sdk'

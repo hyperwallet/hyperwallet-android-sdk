@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "message": "The card cannot be registered - Please contact your issuer or the bank for further information.",
+      "fieldName": "cardNumber",
+      "code": "VISADIRECT_UI_008"
+    }
+  ]
+}

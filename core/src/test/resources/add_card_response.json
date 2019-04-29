@@ -1,0 +1,20 @@
+{
+  "token": "trm-7e915660-8c97-47bf-8a4f-0c1bc890d46f",
+  "type": "BANK_CARD",
+  "status": "ACTIVATED",
+  "createdOn": "2019-01-08T00:56:15",
+  "transferMethodCountry": "US",
+  "transferMethodCurrency": "USD",
+  "cardType": "DEBIT",
+  "cardNumber": "************0114",
+  "cardBrand": "VISA",
+  "dateOfExpiry": "2019-11",
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/bank-cards/trm-7e915660-8c97-47bf-8a4f-0c1bc890d46f"
+    }
+  ]
+}

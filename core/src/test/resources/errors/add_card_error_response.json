@@ -1,0 +1,14 @@
+{
+  "errors": [
+    {
+      "message": "The card account supplied is not currently supported.",
+      "fieldName": "cardNumber",
+      "code": "CARD_NOT_SUPPORTED"
+    },
+    {
+      "message": "Expiration date",
+      "fieldName": "dateOfExpiry",
+      "code": "CARD_EXPIRATION_DATE"
+    }
+  ]
+}

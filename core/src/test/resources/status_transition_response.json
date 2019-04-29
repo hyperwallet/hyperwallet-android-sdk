@@ -1,0 +1,16 @@
+{
+  "token": "sts-be2080a7-3831-488e-b282-129f41d7dbc9",
+  "createdOn": "2019-01-08T23:55:08",
+  "transition": "DE_ACTIVATED",
+  "fromStatus": "ACTIVATED",
+  "toStatus": "DE_ACTIVATED",
+  "notes": "TEST",
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://localhost:8181/rest/v3/users/usr-b7a5fe69-74e4-4a94-8e01-110539667578/bank-accounts/trm-a922f999-9f7a-4f41-b394-298347a6e3ae/status-transitions/sts-be2080a7-3831-488e-b282-129f41d7dbc9"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "token": "trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56",
+  "type": "BANK_ACCOUNT",
+  "status": "ACTIVATED",
+  "createdOn": "2019-01-07T22:03:13",
+  "transferMethodCountry": "US",
+  "transferMethodCurrency": "USD",
+  "bankName": "GREATER WATERBURY HEALTHCARE FCU",
+  "branchName": "TEST BRANCH",
+  "bankId": "211179539",
+  "branchId": "211179539",
+  "bankAccountId": "8017110254",
+  "bankAccountRelationship": "SELF",
+  "bankAccountPurpose": "SAVINGS",
+  "profileType": "INDIVIDUAL",
+  "firstName": "Marsden",
+  "lastName": "Griffin",
+  "dateOfBirth": "1980-01-01",
+  "countryOfBirth": "US",
+  "countryOfNationality": "CA",
+  "gender": "MALE",
+  "phoneNumber": "+1 403-452-3115",
+  "mobileNumber": "604 666 7777",
+  "governmentId": "987654321",
+  "addressLine1": "618 Confluence Way",
+  "city": "Calgary",
+  "stateProvince": "AB",
+  "country": "CA",
+  "postalCode": "T2G0G1",
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://localhost:8181/rest/v3/users/usr-b4ba189e-0a2a-4ae3-acb8-683a19247197/bank-accounts/trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56"
+    }
+  ]
+}

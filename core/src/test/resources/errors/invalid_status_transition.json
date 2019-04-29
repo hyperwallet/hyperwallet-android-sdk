@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "message": "transition is invalid",
+      "fieldName": "transition",
+      "code": "INVALID_FIELD_VALUE"
+    }
+  ]
+}
