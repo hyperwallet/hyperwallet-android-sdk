@@ -204,6 +204,30 @@ public class Hyperwallet {
     }
 
     /**
+     * Creates a {@link PayPalAccount} for the User associated with the authentication token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     *    * processing the request.</p>
+     *
+     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param payPalAccount the {@code PayPalAccount} to be created; must not be null
+     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void createPayPalAccount(@NonNull final PayPalAccount payPalAccount,
+            @NonNull final HyperwalletListener<PayPalAccount> listener) {
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts");
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
+                new TypeReference<PayPalAccount>() {
+                }, listener).jsonModel(payPalAccount);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
      * Returns the {@link HyperwalletBankAccount} linked to the transfer method token specified, or null if none exists.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
