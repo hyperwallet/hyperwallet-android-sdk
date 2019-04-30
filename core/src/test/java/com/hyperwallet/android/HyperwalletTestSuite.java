@@ -6,6 +6,7 @@ import com.hyperwallet.android.transfermethod.HyperwalletCreateBankCardTest;
 import com.hyperwallet.android.transfermethod.HyperwalletCreatePayPalAccountTest;
 import com.hyperwallet.android.transfermethod.HyperwalletDeactivateBankAccountTest;
 import com.hyperwallet.android.transfermethod.HyperwalletDeactivateBankCardTest;
+import com.hyperwallet.android.transfermethod.HyperwalletDeactivatePayPalAccountTest;
 import com.hyperwallet.android.transfermethod.HyperwalletGetBankAccountTest;
 import com.hyperwallet.android.transfermethod.HyperwalletGetBankCardTest;
 import com.hyperwallet.android.transfermethod.HyperwalletGetPayPalTest;
@@ -35,6 +36,7 @@ import org.junit.runners.Suite;
         HyperwalletUpdatePayPalAccountTest.class,
         HyperwalletDeactivateBankAccountTest.class,
         HyperwalletDeactivateBankCardTest.class,
+        HyperwalletDeactivatePayPalAccountTest.class,
         HyperwalletListTransferMethodsTest.class,
         HyperwalletListBankCardsTest.class,
         HyperwalletRetrieveTransferMethodConfigurationKeysTest.class,
