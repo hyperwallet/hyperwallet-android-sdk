@@ -151,7 +151,7 @@ publishing {
 
 tasks.withType(Sign) {
     onlyIf {
-        isReleaseVersion
+        isReleaseVersion && !gradle.taskGraph.hasTask("publishToMavenLocal")
     }
 }
 
