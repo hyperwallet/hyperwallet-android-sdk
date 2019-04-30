@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -137,8 +138,7 @@ public class HyperwalletGetPayPalTest {
         assertThat(exception, is(notNullValue()));
         HyperwalletErrors errors = exception.getHyperwalletErrors();
         assertThat(errors, is(notNullValue()));
-        assertThat(errors.getErrors(), is(notNullValue()));
-        assertThat(errors.getErrors().size(), is(1));
+        assertThat(errors.getErrors(), hasSize(1));
 
         HyperwalletError error = errors.getErrors().get(0);
         assertThat(error.getCode(), is("SYSTEM_ERROR"));
