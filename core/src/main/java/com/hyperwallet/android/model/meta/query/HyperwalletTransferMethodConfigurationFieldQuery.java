@@ -29,54 +29,55 @@ public class HyperwalletTransferMethodConfigurationFieldQuery implements Hyperwa
 
     private static final String GRAPH_QL_REQUEST =
             "query {\n" +
-                    "\ttransferMethodConfigurations (\n" +
-                    "\t\tidToken: \"%s\",\n" +
-                    "\t\tcountry : %s,\n" +
-                    "\t\tcurrency : %s,\n" +
-                    "\t\ttransferMethodType : %s,\n" +
-                    "\t\tprofile : %s \n" +
-                    "\t\t)\n" +
-                    "\t\t{\n" +
-                    "\t\t\tnodes {\n" +
-                    "\t\t\t\tcountries\n" +
-                    "\t\t\t\tcurrencies\n" +
-                    "\t\t\t\ttransferMethodType\n" +
-                    "\t\t\t\tprocessingTime\n" +
-                    "\t\t\t\tfees {\n" +
-                    "\t\t\t\t\tnodes {\n" +
-                    "\t\t\t\t\t\ttransferMethodType\n" +
-                    "\t\t\t\t\t\tcountry\n" +
-                    "\t\t\t\t\t\tcurrency\n" +
-                    "\t\t\t\t\t\tfeeRateType\n" +
-                    "\t\t\t\t\t\tvalue\n" +
-                    "\t\t\t\t\t\tminimum\n" +
-                    "\t\t\t\t\t\tmaximum\n" +
-                    "\t\t\t\t\t}\n" +
-                    "\t\t\t\t}\n" +
-                    "\t\t\t\tprofile\n" +
-                    "\t\t\t\tfields {\n" +
-                    "\t\t\t\t\tcategory\n" +
-                    "\t\t\t\t\tdataType\n" +
-                    "\t\t\t\t\tisRequired\n" +
-                    "\t\t\t\t\tlabel\n" +
-                    "\t\t\t\t\tmaxLength\n" +
-                    "\t\t\t\t\tminLength\n" +
-                    "\t\t\t\t\tname\n" +
-                    "\t\t\t\t\tplaceholder\n" +
-                    "\t\t\t\t\tregularExpression\n" +
-                    "\t\t\t\t\tfieldSelectionOptions {\n" +
+                    "  transferMethodUIConfigurations (idToken: \"%s\",\n" +
+                    "    profileType: \"%s\",\n" +
+                    "    country: \"%s\",\n" +
+                    "    currency: \"%s\",\n" +
+                    "    transferMethodType: \"%s\") {\n" +
+                    "\t\tnodes {\n" +
+                    "\t\t\tcountry\n" +
+                    "\t\t\tcurrency\n" +
+                    "\t\t\ttransferMethodType\n" +
+                    "\t\t\tprofile\n" +
+                    "\t\t\tfieldGroups {\n" +
+                    "\t\t\t\tnodes {\n" +
+                    "\t\t\t\t\tgroup\n" +
+                    "\t\t\t\t\tfields {\n" +
+                    "\t\t\t\t\t\tcategory\n" +
+                    "\t\t\t\t\t\tdataType\n" +
+                    "\t\t\t\t\t\tisRequired\n" +
+                    "\t\t\t\t\t\tisEditable\n" +
+                    "\t\t\t\t\t\tname\n" +
                     "\t\t\t\t\t\tlabel\n" +
+                    "\t\t\t\t\t\tplaceholder\n" +
                     "\t\t\t\t\t\tvalue\n" +
-                    "\t\t\t\t\t}\n" +
-                    "\t\t\t\t\tvalidationMessage {\n" +
-                    "\t\t\t\t\t\tlength\n" +
-                    "\t\t\t\t\t\tpattern\n" +
-                    "\t\t\t\t\t\tempty\n" +
+                    "\t\t\t\t\t\tregularExpression\n" +
+                    "\t\t\t\t\t\tfieldSelectionOptions {\n" +
+                    "\t\t\t\t\t\t\tlabel\n" +
+                    "\t\t\t\t\t\t\tvalue\n" +
+                    "\t\t\t\t\t\t}\n" +
+                    "\t\t\t\t\t\tvalidationMessage {\n" +
+                    "\t\t\t\t\t\t\tlength\n" +
+                    "\t\t\t\t\t\t\tpattern\n" +
+                    "\t\t\t\t\t\t\tempty\n" +
+                    "\t\t\t\t\t\t}\n" +
                     "\t\t\t\t\t}\n" +
                     "\t\t\t\t}\n" +
                     "\t\t\t}\n" +
                     "\t\t}\n" +
-                    "}";
+                    "\t},\n" +
+                    "\tfee: fees (idToken: \"%s\",\n" +
+                    "    country: \"%s\",\n" +
+                    "    currency: \"%s\",\n" +
+                    "    transferMethodType: \"%s\") {\n" +
+                    "\t\tnodes {\n" +
+                    "\t\t  value\n" +
+                    "\t\t  feeRateType\n" +
+                    "\t\t\tminimum\n" +
+                    "\t\t\tmaximum\n" +
+                    "\t\t}\n" +
+                    "\t}\n" +
+                    " }";
 
     private final String mCountry;
     private final String mCurrency;
@@ -110,7 +111,8 @@ public class HyperwalletTransferMethodConfigurationFieldQuery implements Hyperwa
      */
     @Override
     public String toQuery(String idToken) {
-        return String.format(GRAPH_QL_REQUEST, idToken, mCountry, mCurrency, mTransferMethodType, mProfile);
+        return String.format(GRAPH_QL_REQUEST, idToken, mProfile, mCountry, mCurrency, mTransferMethodType,
+                idToken, mCountry, mCurrency, mTransferMethodType);
     }
 }
 

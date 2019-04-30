@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import com.hyperwallet.android.exception.HyperwalletException;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class TransferMethodConfiguration {
 
     private List<HyperwalletField> mFields;
 
-    public TransferMethodConfiguration(@NonNull JSONObject node) throws HyperwalletException {
+    public TransferMethodConfiguration(@NonNull JSONObject node) throws HyperwalletException, JSONException {
         mProfile = node.optString(PROFILE);
         mTransferMethodType = node.optString(TRANSFER_METHOD_TYPE);
         mProcessingTime = node.optString(PROCESSING_TIME);
