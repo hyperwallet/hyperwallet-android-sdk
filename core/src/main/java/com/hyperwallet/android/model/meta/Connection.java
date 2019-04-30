@@ -23,7 +23,6 @@ import androidx.annotation.Nullable;
 import com.hyperwallet.android.exception.HyperwalletException;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Constructor;
@@ -45,7 +44,8 @@ public final class Connection<T> {
     private final long mCount;
     @Nullable
     private final List<T> mNodes;
-    private final PageInfo mPageInfo;
+    @Nullable
+    private PageInfo mPageInfo;
 
     /**
      * Constructor to build Connection based on json and class
@@ -53,10 +53,12 @@ public final class Connection<T> {
      * @param data  Json object
      * @param clazz Class name
      */
-    public Connection(@NonNull JSONObject data, @NonNull Class clazz) throws HyperwalletException, JSONException {
+    public Connection(@NonNull JSONObject data, @NonNull Class clazz) throws HyperwalletException {
         mCount = data.optLong(COUNT, DEFAULT_COUNT);
-        JSONObject pageInfoObject = data.getJSONObject(PAGE_INFO);
-        mPageInfo = new PageInfo(pageInfoObject);
+        JSONObject pageInfoObject = data.optJSONObject(PAGE_INFO);
+        if (pageInfoObject != null) {
+            mPageInfo = new PageInfo(pageInfoObject);
+        }
 
         try {
             Constructor<?> constructor = clazz.getConstructor(JSONObject.class);
@@ -81,5 +83,10 @@ public final class Connection<T> {
     @Nullable
     public List<T> getNodes() {
         return mNodes;
+    }
+
+    @Nullable
+    public PageInfo getPageInfo() {
+        return mPageInfo;
     }
 }
