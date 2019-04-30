@@ -21,6 +21,9 @@ import androidx.annotation.NonNull;
 
 import org.json.JSONObject;
 
+/**
+ * Class that represents the information related to GraphQl pagination.
+ */
 public class PageInfo {
     private static final String LIMIT = "limit";
     private static final String OFFSET = "offset";
