@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "message": "Invalid Email",
+      "fieldName": "email",
+      "code": "CONSTRAINT_VIOLATIONS"
+    }
+  ]
+}

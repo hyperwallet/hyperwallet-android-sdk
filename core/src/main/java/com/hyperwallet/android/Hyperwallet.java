@@ -308,6 +308,34 @@ public class Hyperwallet {
     }
 
     /**
+     * Updates the {@link PayPalAccount} for the User associated with the authentication token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
+     *
+     * <p>To identify the {@code PayPalAccount} that is going to be updated, the transfer method token must be
+     * set as part of the {@code PayPalAccount} object passed in.</p>
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param payPalAccount the {@code PayPalAccount} to be created; must not be null
+     * @param listener    the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void updatePayPalAccount(@NonNull final PayPalAccount payPalAccount,
+            @NonNull final HyperwalletListener<PayPalAccount> listener) {
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts/{1}",
+                payPalAccount.getField(HyperwalletTransferMethod.TransferMethodFields.TOKEN));
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(PUT, pathFormatter,
+                new TypeReference<PayPalAccount>() {
+                }, listener).jsonModel(payPalAccount);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
      * Deactivates the {@link HyperwalletBankAccount} linked to the transfer method token specified. The
      * {@code HyperwalletBankAccount} being deactivated must belong to the User that is associated with the
      * authentication token returned from
