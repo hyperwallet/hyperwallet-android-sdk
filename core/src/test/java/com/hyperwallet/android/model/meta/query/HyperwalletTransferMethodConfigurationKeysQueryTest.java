@@ -14,13 +14,11 @@ public class HyperwalletTransferMethodConfigurationKeysQueryTest {
         HyperwalletTransferMethodConfigurationKeysQuery keysQuery =
                 new HyperwalletTransferMethodConfigurationKeysQuery();
 
-        keysQuery.setLimit(50L);
         String token = String.valueOf("token".hashCode());
         String query = keysQuery.toQuery(token);
 
-        String requestConfigurationFormatted = String.format(GRAPH_QL_REQUEST_CONFIGURATION, token, 50L);
+        String requestConfigurationFormatted = String.format(GRAPH_QL_REQUEST_CONFIGURATION, token);
 
-        assertThat(keysQuery.getLimit(), is(50L));
         assertThat(query, is(requestConfigurationFormatted));
     }
 }
