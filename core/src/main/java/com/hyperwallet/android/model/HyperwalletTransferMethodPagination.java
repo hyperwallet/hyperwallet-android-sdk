@@ -23,6 +23,7 @@ import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDe
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.VERIFIED;
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.WIRE_ACCOUNT;
 import static com.hyperwallet.android.util.DateUtil.fromDateTimeString;
 
@@ -58,7 +59,8 @@ public class HyperwalletTransferMethodPagination extends HyperwalletPagination {
     @StringDef({
             BANK_ACCOUNT,
             WIRE_ACCOUNT,
-            BANK_CARD
+            BANK_CARD,
+            PAYPAL_ACCOUNT
     })
     public @interface TransferMethodTypeQuery {
     }

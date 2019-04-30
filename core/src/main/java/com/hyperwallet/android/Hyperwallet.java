@@ -21,8 +21,6 @@ import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 import static com.hyperwallet.android.util.HttpMethod.PUT;
 
-import android.os.Handler;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -37,6 +35,8 @@ import com.hyperwallet.android.model.HyperwalletPagination;
 import com.hyperwallet.android.model.HyperwalletStatusTransition;
 import com.hyperwallet.android.model.HyperwalletTransferMethod;
 import com.hyperwallet.android.model.HyperwalletTransferMethodPagination;
+import com.hyperwallet.android.model.PayPalAccount;
+import com.hyperwallet.android.model.PayPalAccountPagination;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationFieldResult;
 import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationKeyResult;
@@ -441,6 +441,45 @@ public class Hyperwallet {
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listBankCards(@Nullable final HyperwalletBankCardPagination bankCardPagination,
+            @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletBankCard>> listener) {
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(bankCardPagination);
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards");
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<HyperwalletPageList<HyperwalletBankCard>>() {
+                }, listener).query(urlQuery);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
+     * Returns the {@link PayPalAccount} for the User associated with the authentication token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
+     * or an empty {@code List} if non exist.
+     *
+     * <p>The ordering and filtering of {@code PayPalAccount} will be based on the criteria specified within the
+     * {@link PayPalAccountPagination} object, if it is not null. Otherwise the default ordering and
+     * filtering will be applied.</p>
+     *
+     * <ul>
+     * <li>Offset: 0</li>
+     * <li>Limit: 10</li>
+     * <li>Created Before: N/A</li>
+     * <li>Created After: N/A</li>
+     * <li>Type: Bank Card</li>
+     * <li>Status: All</li>
+     * <li>Sort By: Created On</li>
+     * </ul>
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param bankCardPagination the ordering and filtering criteria
+     * @param listener           the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void listPayPalAccounts(@Nullable final PayPalAccountPagination bankCardPagination,
             @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletBankCard>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(bankCardPagination);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards");
