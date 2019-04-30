@@ -372,6 +372,39 @@ public class Hyperwallet {
     }
 
     /**
+     * Deactivates the {@link PayPalAccount} linked to the transfer method token specified. The
+     * {@code PayPalAccount} being deactivated must belong to the User that is associated with the
+     * authentication token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code PayPalAccount}
+     *                            being deactivated; must not be null
+     * @param notes               a note regarding the status change
+     * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void deactivatePayPalAccount(@NonNull final String transferMethodToken, @Nullable final String notes,
+            @NonNull final HyperwalletListener<HyperwalletStatusTransition> listener) {
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts/{1}/status-transitions",
+                transferMethodToken);
+
+        final HyperwalletStatusTransition deactivatedStatusTransition = new HyperwalletStatusTransition(
+                HyperwalletStatusTransition.StatusDefinition.DE_ACTIVATED);
+        deactivatedStatusTransition.setNotes(notes);
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(PUT, pathFormatter,
+                new TypeReference<HyperwalletStatusTransition>() {
+                }, listener).jsonModel(deactivatedStatusTransition);
+
+        performRestTransaction(builder, listener);
+    }
+
+
+    /**
      * Returns the {@link HyperwalletTransferMethod} (Bank Account, Bank Card, PayPay Account, Prepaid Card,
      * Paper Checks) for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
