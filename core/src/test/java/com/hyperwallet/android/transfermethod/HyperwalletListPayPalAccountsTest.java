@@ -27,6 +27,7 @@ import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
+import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -140,7 +141,7 @@ public class HyperwalletListPayPalAccountsTest {
         HyperwalletErrors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
         assertThat(hyperwalletErrors, is(notNullValue()));
         assertThat(hyperwalletErrors.getErrors(), is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors().size(), is(1));
+        assertThat(hyperwalletErrors.getErrors(), Matchers.<HyperwalletError>hasSize(1));
 
         HyperwalletError hyperwalletError = hyperwalletErrors.getErrors().get(0);
         assertThat(hyperwalletError.getCode(), is("SYSTEM_ERROR"));
