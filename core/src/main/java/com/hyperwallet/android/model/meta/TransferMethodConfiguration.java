@@ -48,7 +48,7 @@ public class TransferMethodConfiguration {
 
     private List<HyperwalletField> mFields;
 
-    public TransferMethodConfiguration(@NonNull JSONObject node) throws HyperwalletException {
+    public TransferMethodConfiguration(@NonNull JSONObject node) throws Exception {
         mProfile = node.optString(PROFILE);
         mTransferMethodType = node.optString(TRANSFER_METHOD_TYPE);
         mProcessingTime = node.optString(PROCESSING_TIME);

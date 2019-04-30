@@ -27,7 +27,7 @@ public class TransferMethodConfigurationTest {
     public MockitoRule mMockito = MockitoJUnit.rule();
 
     @Test
-    public void testTransferMethodConfiguration_convertJsonObject() throws JSONException, HyperwalletException {
+    public void testTransferMethodConfiguration_convertJsonObject() throws Exception {
         JSONObject jsonObject = new JSONObject(mExternalResourceManager.getResourceContent(
                 "transfer_method_configuration_item.json"));
 

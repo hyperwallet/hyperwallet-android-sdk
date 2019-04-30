@@ -23,21 +23,23 @@ import androidx.annotation.Nullable;
 import com.hyperwallet.android.exception.HyperwalletException;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Class for presenting Connection in the TransferMethodConfiguration object @see {@link TransferMethodConfiguration}
  */
-public final class Connection<T> {
+public class Connection<T> {
+
+    protected static final String NODES = "nodes";
 
     private static final String TAG = Connection.class.getName();
     private static final String COUNT = "count";
-    private static final String NODES = "nodes";
-
     private static final long DEFAULT_COUNT = 0L;
 
     private final long mCount;
@@ -50,22 +52,20 @@ public final class Connection<T> {
      * @param data  Json object
      * @param clazz Class name
      */
-    public Connection(@NonNull JSONObject data, @NonNull Class clazz) throws HyperwalletException {
+    public Connection(@NonNull JSONObject data, @NonNull Class clazz) throws NoSuchMethodException, SecurityException,
+            IllegalAccessException, IllegalArgumentException, InstantiationException, InvocationTargetException,
+            JSONException {
         mCount = data.optLong(COUNT, DEFAULT_COUNT);
 
-        try {
-            Constructor<?> constructor = clazz.getConstructor(JSONObject.class);
-            JSONArray jsonArray = data.optJSONArray(NODES);
-            if (jsonArray != null) {
-                mNodes = new ArrayList<>();
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    mNodes.add((T) constructor.newInstance(jsonArray.getJSONObject(i)));
-                }
-            } else {
-                mNodes = null;
+        Constructor<?> constructor = clazz.getConstructor(JSONObject.class);
+        JSONArray jsonArray = data.optJSONArray(NODES);
+        if (jsonArray != null) {
+            mNodes = new ArrayList<>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                mNodes.add((T) constructor.newInstance(jsonArray.getJSONObject(i)));
             }
-        } catch (Exception e) {
-            throw new HyperwalletException(e);
+        } else {
+            mNodes = null;
         }
     }
 
