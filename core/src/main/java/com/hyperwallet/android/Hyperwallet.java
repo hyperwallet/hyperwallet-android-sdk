@@ -641,7 +641,6 @@ public class Hyperwallet {
             @NonNull HyperwalletTransferMethodConfigurationKeysQuery transferMethodConfigurationKeysQuery,
             @NonNull HyperwalletListener<HyperwalletTransferMethodConfigurationKeyResult> listener) {
 
-        transferMethodConfigurationKeysQuery.setLimit(0L);
         GqlTransaction.Builder<TransferMethodConfigurationResult> builder = new GqlTransaction.Builder<>(
                 transferMethodConfigurationKeysQuery, new TypeReference<TransferMethodConfigurationResult>() {
         }, listener);
