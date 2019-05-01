@@ -31,54 +31,42 @@ public class HyperwalletTransferMethodConfigurationKeysQuery implements Hyperwal
     @VisibleForTesting
     static final String GRAPH_QL_REQUEST_CONFIGURATION =
             "query {\n"
-                    + "transferMethodConfigurations (idToken: \"%s\", limit: %s) {\n"
-                    + "\t\tcount\n"
-                    + "\t\tnodes { \n"
-                    + "\t\t\t\tcountries\n"
-                    + "\t\t\t\tcurrencies\n"
-                    + "\t\t\t\ttransferMethodType\n"
-                    + "\t\t\t\tprofile\n"
-                    + "\t\t\t\tprocessingTime\n"
-                    + "\t\t\t\tfees {\n"
-                    + "\t\t\t\t\tnodes {\n"
-                    + "\t\t\t\t\t\tcountry\n"
-                    + "\t\t\t\t\t\tcurrency\n"
-                    + "\t\t\t\t\t\ttransferMethodType\n"
-                    + "\t\t\t\t\t\tfeeRateType\n"
-                    + "\t\t\t\t\t\tvalue\n"
-                    + "\t\t\t\t\t\tminimum\n"
-                    + "\t\t\t\t\t\tmaximum\n"
+                    + "\tcountries(idToken: \"%s\") {\n"
+                    + "\t\tnodes {\n"
+                    + "\t\t\tcode\n"
+                    + "\t\t\tname\n"
+                    + "\t\t\tcurrencies {\n"
+                    + "\t\t\t\tnodes {\n"
+                    + "\t\t\t\t\tcode\n"
+                    + "\t\t\t\t\tname\n"
+                    + "\t\t\t\t\ttransferMethodTypes {\n"
+                    + "\t\t\t\t\t\tnodes {\n"
+                    + "\t\t\t\t\t\t\tcode\n"
+                    + "\t\t\t\t\t\t\tname\n"
+                    + "\t\t\t\t\t\t\tprocessingTime\n"
+                    + "\t\t\t\t\t\t\tfees {\n"
+                    + "\t\t\t\t\t\t\t\tnodes {\n"
+                    + "\t\t\t\t\t\t\t\t\tcountry\n"
+                    + "\t\t\t\t\t\t\t\t\tcurrency\n"
+                    + "\t\t\t\t\t\t\t\t\ttransferMethodType\n"
+                    + "\t\t\t\t\t\t\t\t\tvalue\n"
+                    + "\t\t\t\t\t\t\t\t\tfeeRateType\n"
+                    + "\t\t\t\t\t\t\t\t\tmaximum\n"
+                    + "\t\t\t\t\t\t\t\t\tminimum\n"
+                    + "\t\t\t\t\t\t\t\t\t}\n"
+                    + "\t\t\t\t\t\t\t\t}\n"
+                    + "\t\t\t\t\t\t}\n"
+                    + "\t\t\t\t\t}\n"
                     + "\t\t\t\t}\n"
                     + "\t\t\t}\n"
                     + "\t\t}\n"
                     + "\t}\n"
                     + "}";
 
-
-    private long mLimit = 10L;
-
     /**
      * Constructs a {@code HyperwalletTransferMethodConfigurationKeysQuery}.
      */
     public HyperwalletTransferMethodConfigurationKeysQuery() {
-    }
-
-    /**
-     * Returns the number of key sets to return.
-     *
-     * @return the number of key sets to return
-     */
-    public long getLimit() {
-        return mLimit;
-    }
-
-    /**
-     * Sets the number of key sets to return when executing this query.
-     *
-     * @param mLimit the number of key sets to return when executing this query
-     */
-    public void setLimit(long mLimit) {
-        this.mLimit = mLimit;
     }
 
     /**
@@ -89,7 +77,7 @@ public class HyperwalletTransferMethodConfigurationKeysQuery implements Hyperwal
      */
     @Override
     public String toQuery(String idToken) {
-        return String.format(GRAPH_QL_REQUEST_CONFIGURATION, idToken, mLimit);
+        return String.format(GRAPH_QL_REQUEST_CONFIGURATION, idToken);
     }
 }
 
