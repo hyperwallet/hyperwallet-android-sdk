@@ -30,13 +30,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class for presenting Connection in the TransferMethodConfiguration object @see {@link TransferMethodConfiguration}
+ * Represents Node Connection/Edges that links between Nodes/Vertices that represents a graph of data
  */
-public final class Connection<T> {
+public class Connection<T> {
 
-    private static final String TAG = Connection.class.getName();
-    private static final String COUNT = "count";
-    private static final String NODES = "nodes";
+    public static final String COUNT = "count";
+    public static final String NODES = "nodes";
 
     private static final long DEFAULT_COUNT = 0L;
 

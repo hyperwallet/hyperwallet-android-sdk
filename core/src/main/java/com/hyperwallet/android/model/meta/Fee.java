@@ -30,6 +30,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * Class for presenting Fee
  */
+@Deprecated
 public class Fee {
 
     private static final String COUNTRY = "country";

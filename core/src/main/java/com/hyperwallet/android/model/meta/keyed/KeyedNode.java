@@ -1,6 +1,6 @@
 /*
  *  The MIT License (MIT)
- *  Copyright (c) 2018 Hyperwallet Systems Inc.
+ *  Copyright (c) 2019 Hyperwallet Systems Inc.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  *  associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -10,21 +10,31 @@
  *
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  *  NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- *  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ *  NON INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
  *  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.hyperwallet.android.model.meta;
+package com.hyperwallet.android.model.meta.keyed;
 
-import java.util.List;
+import androidx.annotation.NonNull;
 
-@Deprecated
-public interface HyperwalletTransferMethodConfigurationKeyResult extends TransferMethodConfigurationTransactionResult {
+/**
+ * Represents a Node in GraphQL and is paired with key @see {@link MappedConnection}
+ */
+interface KeyedNode {
 
-    List<String> getCountries();
+    String NODE_CODE = "code";
+    String NODE_NAME = "name";
 
-    List<String> getCurrencies(String country);
+    /**
+     * Represents key of this node
+     */
+    @NonNull
+    String getCode();
 
-    List<String> getTransferMethods(String country, String currency, String profileType);
+    /**
+     * Represents name of this node
+     */
+    @NonNull
+    String getName();
 }
-

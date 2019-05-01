@@ -29,6 +29,7 @@ import java.util.List;
 /**
  * Class holds data about currencies, countries etc. used in TransferMethodConfigurationResult @see
  */
+@Deprecated
 public class TransferMethodConfiguration {
 
     private static final String COUNTRIES = "countries";

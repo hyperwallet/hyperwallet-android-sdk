@@ -21,8 +21,6 @@ import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 import static com.hyperwallet.android.util.HttpMethod.PUT;
 
-import android.os.Handler;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -39,8 +37,9 @@ import com.hyperwallet.android.model.HyperwalletTransferMethod;
 import com.hyperwallet.android.model.HyperwalletTransferMethodPagination;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationFieldResult;
-import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationKeyResult;
+import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationKey;
 import com.hyperwallet.android.model.meta.TransferMethodConfigurationResult;
+import com.hyperwallet.android.model.meta.keyed.HyperwalletTransferMethodConfigurationKeyResult;
 import com.hyperwallet.android.model.meta.query.HyperwalletTransferMethodConfigurationFieldQuery;
 import com.hyperwallet.android.model.meta.query.HyperwalletTransferMethodConfigurationKeysQuery;
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
@@ -462,17 +461,13 @@ public class Hyperwallet {
      * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param transferMethodConfigurationKeysQuery containing the transfer method configuration key query,
-     *                                             must not be null
+     * @param query containing the transfer method configuration key query, must not be null
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void retrieveTransferMethodConfigurationKeys(
-            @NonNull HyperwalletTransferMethodConfigurationKeysQuery transferMethodConfigurationKeysQuery,
-            @NonNull HyperwalletListener<HyperwalletTransferMethodConfigurationKeyResult> listener) {
-
-        transferMethodConfigurationKeysQuery.setLimit(0L);
-        GqlTransaction.Builder<TransferMethodConfigurationResult> builder = new GqlTransaction.Builder<>(
-                transferMethodConfigurationKeysQuery, new TypeReference<TransferMethodConfigurationResult>() {
+    public void retrieveTransferMethodConfigurationKeys(HyperwalletTransferMethodConfigurationKeysQuery query,
+            HyperwalletListener<HyperwalletTransferMethodConfigurationKey> listener) {
+        GqlTransaction.Builder<HyperwalletTransferMethodConfigurationKeyResult> builder = new GqlTransaction.Builder<>(
+                query, new TypeReference<HyperwalletTransferMethodConfigurationKeyResult>() {
         }, listener);
 
         performGqlTransaction(builder, listener);
