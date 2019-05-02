@@ -61,7 +61,7 @@ public class MappedConnection<T extends KeyedNode> extends Connection<T> {
         Constructor<?> constructor = clazz.getConstructor(JSONObject.class);
         JSONArray jsonArray = data.optJSONArray(NODES);
         if (jsonArray != null) {
-            mNodes = new LinkedHashMap<>();
+            mNodes = new LinkedHashMap<>(jsonArray.length());
             for (int i = 0; i < jsonArray.length(); i++) {
                 T obj = (T) constructor.newInstance(jsonArray.getJSONObject(i));
                 mNodes.put(obj.getCode(), obj);

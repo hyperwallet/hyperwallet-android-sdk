@@ -40,8 +40,7 @@ public class Connection<T> {
     private static final long DEFAULT_COUNT = 0L;
 
     private final long mCount;
-    @Nullable
-    private List<T> mNodes;
+    private final List<T> mNodes;
 
     /**
      * Constructor to build Connection based on json and class
@@ -56,10 +55,12 @@ public class Connection<T> {
             Constructor<?> constructor = clazz.getConstructor(JSONObject.class);
             JSONArray jsonArray = data.optJSONArray(NODES);
             if (jsonArray != null) {
-                mNodes = new ArrayList<>(1);
+                mNodes = new ArrayList<>(jsonArray.length());
                 for (int i = 0; i < jsonArray.length(); i++) {
                     mNodes.add((T) constructor.newInstance(jsonArray.getJSONObject(i)));
                 }
+            } else {
+                mNodes = null;
             }
         } catch (Exception e) {
             throw new HyperwalletException(e);
