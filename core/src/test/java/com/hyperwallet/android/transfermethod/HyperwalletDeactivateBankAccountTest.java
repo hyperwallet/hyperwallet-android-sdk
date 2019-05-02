@@ -8,6 +8,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
+import static com.hyperwallet.android.util.HttpMethod.POST;
+
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
@@ -18,6 +20,7 @@ import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +35,8 @@ import java.net.HttpURLConnection;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
 public class HyperwalletDeactivateBankAccountTest {
@@ -75,11 +80,13 @@ public class HyperwalletDeactivateBankAccountTest {
                 is(HyperwalletStatusTransition.StatusDefinition.DE_ACTIVATED));
         assertThat(statusTransitionResponse.getToken(), is("sts-70ddc78a-0c14-4a72-8390-75d49ff376f2"));
         assertNotNull(statusTransitionResponse.getCreatedOn());
-        assertThat(mServer.getRequest().getPath(),
+
+        RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getPath(),
                 endsWith(
                         "users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts/trm-fake-token/status"
                                 + "-transitions"));
-
+        assertThat(recordedRequest.getMethod(), CoreMatchers.is(POST.name()));
     }
 
 
@@ -106,9 +113,12 @@ public class HyperwalletDeactivateBankAccountTest {
         assertThat(statusTransitionError.getCode(), is("INVALID_FIELD_VALUE"));
         assertThat(statusTransitionError.getFieldName(), is("transition"));
         assertThat(statusTransitionError.getMessage(), is("transition is invalid"));
-        assertThat(mServer.getRequest().getPath(),
+
+        RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getPath(),
                 endsWith(
                         "users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts/trm-fake-token/status"
                                 + "-transitions"));
+        assertThat(recordedRequest.getMethod(), CoreMatchers.is(POST.name()));
     }
 }

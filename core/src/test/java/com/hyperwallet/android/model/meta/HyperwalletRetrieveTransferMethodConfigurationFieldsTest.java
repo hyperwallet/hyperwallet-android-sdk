@@ -8,6 +8,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
+import static com.hyperwallet.android.util.HttpMethod.POST;
+
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
@@ -18,8 +20,7 @@ import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.hamcrest.CoreMatchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,6 +34,8 @@ import org.robolectric.RobolectricTestRunner;
 import java.net.HttpURLConnection;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
 public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
@@ -51,16 +54,32 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
     private HyperwalletListener<HyperwalletTransferMethodConfigurationFieldResult> mListener;
     @Captor
     private ArgumentCaptor<HyperwalletException> mExceptionCaptor;
+    @Captor
+    private ArgumentCaptor<TransferMethodConfigurationResult> mFieldsResultCaptor;
 
     private CountDownLatch mAwait = new CountDownLatch(1);
 
     @Test
     public void testRetrieveTransferMethodConfigurationFields_returnsFields()
-            throws ReflectiveOperationException, JSONException {
-        JSONObject jsonObject = new JSONObject(
-                mHyperwalletResourceManager.getResourceContent("tmc_configuration_connection_response.json"));
-        TransferMethodConfigurationResult transferMethodConfigurationResult = new TransferMethodConfigurationResult(
-                jsonObject);
+            throws InterruptedException {
+        String responseBody = mHyperwalletResourceManager.getResourceContent(
+                "tmc_configuration_connection_response.json");
+        mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
+        Hyperwallet.getDefault().retrieveTransferMethodConfigurationFields(
+                new HyperwalletTransferMethodConfigurationFieldQuery("US",
+                        "USD",
+                        "BANK_ACCOUNT",
+                        "INDIVIDUAL"), mListener);
+        mAwait.await(500, TimeUnit.MILLISECONDS);
+
+        RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getPath(), is("/graphql/"));
+        assertThat(recordedRequest.getMethod(), CoreMatchers.is(POST.name()));
+
+        verify(mListener).onSuccess(mFieldsResultCaptor.capture());
+        verify(mListener, never()).onFailure(any(HyperwalletException.class));
+
+        TransferMethodConfigurationResult transferMethodConfigurationResult = mFieldsResultCaptor.getValue();
 
         assertThat(transferMethodConfigurationResult.getFields().size(), is(2));
 
@@ -105,6 +124,9 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
                 mListener);
 
         mAwait.await(500, TimeUnit.MILLISECONDS);
+        RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getPath(), is("/graphql/"));
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
 
         verify(mListener, never()).onSuccess(any(HyperwalletTransferMethodConfigurationFieldResult.class));
         verify(mListener).onFailure(mExceptionCaptor.capture());
