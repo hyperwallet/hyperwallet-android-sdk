@@ -15,12 +15,16 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.hyperwallet.android.model.meta;
+package com.hyperwallet.android.model.meta.field;
 
 import androidx.annotation.NonNull;
 
 import org.json.JSONObject;
 
+/**
+ * {@code HyperwalletFieldSelectionOption} represents selection option that a user can choose based on the
+ * required information from the input field
+ */
 public class HyperwalletFieldSelectionOption {
     private static final String LABEL = "label";
     private static final String VALUE = "value";
@@ -28,7 +32,7 @@ public class HyperwalletFieldSelectionOption {
     private final String mLabel;
     private final String mValue;
 
-    HyperwalletFieldSelectionOption(@NonNull JSONObject selectionOption) {
+    public HyperwalletFieldSelectionOption(@NonNull JSONObject selectionOption) {
         mLabel = selectionOption.optString(LABEL);
         mValue = selectionOption.optString(VALUE);
     }

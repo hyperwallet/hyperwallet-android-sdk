@@ -1,0 +1,62 @@
+/*
+ *  The MIT License (MIT)
+ *  Copyright (c) 2019 Hyperwallet Systems Inc.
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ *  associated documentation files (the "Software"), to deal in the Software without restriction,
+ *  including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ *  sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ *  furnished to do so, subject to the following conditions:
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ *  NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ *  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ *  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+package com.hyperwallet.android.model.meta.field;
+
+import androidx.annotation.NonNull;
+
+import com.hyperwallet.android.exception.HyperwalletException;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * {@code HyperwalletFieldGroup} represents a logical grouping of fields
+ */
+public class HyperwalletFieldGroup {
+
+    private static final String FIELDS = "fields";
+    private static final String GROUP_NAME = "group";
+
+    private List<HyperwalletField> mFields;
+    private String mGroupName;
+
+    public HyperwalletFieldGroup(@NonNull final JSONObject fieldGroup) throws HyperwalletException {
+        try {
+            mGroupName = fieldGroup.getString(GROUP_NAME);
+            JSONArray jsonArray = fieldGroup.optJSONArray(FIELDS);
+            mFields = new ArrayList<>(1);
+            if (jsonArray != null) {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    mFields.add(new HyperwalletField(jsonArray.getJSONObject(i)));
+                }
+            }
+        } catch (Exception e) {
+            throw new HyperwalletException(e);
+        }
+    }
+
+    public List<HyperwalletField> getFields() {
+        return mFields;
+    }
+
+    public String getGroupName() {
+        return mGroupName;
+    }
+}

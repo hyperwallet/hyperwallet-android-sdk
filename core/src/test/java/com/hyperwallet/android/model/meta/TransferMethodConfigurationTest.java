@@ -6,6 +6,8 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hyperwallet.android.exception.HyperwalletException;
+import com.hyperwallet.android.model.meta.field.EDataType;
+import com.hyperwallet.android.model.meta.field.HyperwalletField;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
 import org.json.JSONException;
