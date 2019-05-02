@@ -33,6 +33,7 @@ import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
@@ -226,7 +227,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
         GqlResponse response = (GqlResponse) keyResultCaptorValue;
         assertThat(response, is(notNullValue()));
         assertThat(response.getData(), is(notNullValue()));
-        assertThat(response.getData() instanceof TransferMethodConfigurationKey, is(true));
+        assertThat(response.getData(), CoreMatchers.instanceOf(TransferMethodConfigurationKey.class));
 
         List<GqlError> gqlErrors = response.getErrors();
         assertThat(gqlErrors, Matchers.<GqlError>hasSize(1));

@@ -24,10 +24,10 @@ public class HyperwalletTransferMethodType implements KeyedNode {
     private static final String TRANSFER_METHOD_PROCESSING_TIME = "processingTime";
 
     private final Set<HyperwalletFee> mHyperwalletFees;
-    private String mCode;
-    private Connection<HyperwalletFee> mFeeConnection;
-    private String mName;
-    private String mProcessingTime;
+    private final String mCode;
+    private final Connection<HyperwalletFee> mFeeConnection;
+    private final String mName;
+    private final String mProcessingTime;
 
     /**
      * Constructor to build HyperwalletTransferMethodType based on json
@@ -40,11 +40,8 @@ public class HyperwalletTransferMethodType implements KeyedNode {
             mName = transferMethodType.getString(TRANSFER_METHOD_NAME);
             mProcessingTime = transferMethodType.optString(TRANSFER_METHOD_PROCESSING_TIME);
             mHyperwalletFees = new LinkedHashSet<>(1);
-
-            JSONObject fees = transferMethodType.getJSONObject(TRANSFER_METHOD_FEES);
-            if (fees != null) {
-                mFeeConnection = new Connection<>(fees, HyperwalletFee.class);
-            }
+            mFeeConnection = new Connection<>(transferMethodType.getJSONObject(TRANSFER_METHOD_FEES),
+                    HyperwalletFee.class);
         } catch (Exception e) {
             throw new HyperwalletException(e);
         }

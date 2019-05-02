@@ -17,6 +17,7 @@
 package com.hyperwallet.android.model.meta;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.hyperwallet.android.model.meta.error.GqlError;
 
@@ -36,28 +37,36 @@ public class GqlResponse<T> {
     private static final String ERRORS = "errors";
     private static final String DATA = "data";
 
-    private T mData;
-    private List<GqlError> mErrors;
+    private final T mData;
+    private final List<GqlError> mErrors;
 
+    /**
+     * Constructor to build GqlResponse based on json and class type
+     *
+     * @param response JSON object that represents data
+     * @param clazz    Class name
+     */
     public GqlResponse(@NonNull JSONObject response, Class clazz) throws ReflectiveOperationException, JSONException {
         Constructor<?> constructor = clazz.getConstructor(JSONObject.class);
         mData = (T) constructor.newInstance(response.get(DATA));
 
         JSONArray jsonArray = response.optJSONArray(ERRORS);
-        mErrors = new ArrayList<>(1);
         if (jsonArray != null) {
+            mErrors = new ArrayList<>(jsonArray.length());
             for (int i = 0; i < jsonArray.length(); i++) {
                 mErrors.add(new GqlError(jsonArray.getJSONObject(i)));
             }
+        } else {
+            mErrors = null;
         }
     }
 
     /**
      * Represents list of errors, empty list means no errors
      *
-     * @return list of {@coded GqlError}
+     * @return list of {@code GqlError}
      */
-    @NonNull
+    @Nullable
     public List<GqlError> getErrors() {
         return mErrors;
     }

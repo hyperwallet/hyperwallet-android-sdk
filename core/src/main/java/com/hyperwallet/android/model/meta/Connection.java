@@ -40,7 +40,6 @@ public class Connection<T> {
     private static final long DEFAULT_COUNT = 0L;
 
     private final long mCount;
-    @Nullable
     private final List<T> mNodes;
 
     /**
@@ -56,7 +55,7 @@ public class Connection<T> {
             Constructor<?> constructor = clazz.getConstructor(JSONObject.class);
             JSONArray jsonArray = data.optJSONArray(NODES);
             if (jsonArray != null) {
-                mNodes = new ArrayList<>();
+                mNodes = new ArrayList<>(jsonArray.length());
                 for (int i = 0; i < jsonArray.length(); i++) {
                     mNodes.add((T) constructor.newInstance(jsonArray.getJSONObject(i)));
                 }

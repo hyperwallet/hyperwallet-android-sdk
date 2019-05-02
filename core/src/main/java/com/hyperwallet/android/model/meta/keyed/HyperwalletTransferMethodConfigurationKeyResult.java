@@ -17,6 +17,7 @@
 package com.hyperwallet.android.model.meta.keyed;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.hyperwallet.android.model.meta.GqlResponse;
 import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationKey;
@@ -57,6 +58,7 @@ public class HyperwalletTransferMethodConfigurationKeyResult extends GqlResponse
     }
 
     @Override
+    @Nullable
     public Set<Currency> getCurrencies(@NonNull final String countryCode) {
         for (Country country : mTransferMethodConfigurationKey.getCountries()) {
             if (country.getCode().equals(countryCode)) {
@@ -67,6 +69,7 @@ public class HyperwalletTransferMethodConfigurationKeyResult extends GqlResponse
     }
 
     @Override
+    @Nullable
     public Set<HyperwalletTransferMethodType> getTransferMethodType(@NonNull final String countryCode,
             @NonNull final String currencyCode) {
         for (Country country : mTransferMethodConfigurationKey.getCountries()) {

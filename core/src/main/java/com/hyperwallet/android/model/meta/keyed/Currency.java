@@ -38,9 +38,9 @@ public class Currency implements KeyedNode {
     private static final String TRANSFER_METHOD_TYPES = "transferMethodTypes";
 
     private final Set<HyperwalletTransferMethodType> mHyperwalletTransferMethodTypes;
-    private String mCode;
-    private MappedConnection<HyperwalletTransferMethodType> mHyperwalletTransferMethodTypeMappedConnection;
-    private String mName;
+    private final String mCode;
+    private final MappedConnection<HyperwalletTransferMethodType> mHyperwalletTransferMethodTypeMappedConnection;
+    private final String mName;
 
     /**
      * Constructor to build Currency based on json
@@ -52,12 +52,9 @@ public class Currency implements KeyedNode {
             mCode = currency.getString(CURRENCY_CODE);
             mName = currency.getString(CURRENCY_NAME);
             mHyperwalletTransferMethodTypes = new LinkedHashSet<>(1);
-
-            JSONObject transferMethodTypes = currency.getJSONObject(TRANSFER_METHOD_TYPES);
-            if (transferMethodTypes != null) {
-                mHyperwalletTransferMethodTypeMappedConnection =
-                        new MappedConnection<>(transferMethodTypes, HyperwalletTransferMethodType.class);
-            }
+            mHyperwalletTransferMethodTypeMappedConnection =
+                    new MappedConnection<>(currency.getJSONObject(TRANSFER_METHOD_TYPES),
+                            HyperwalletTransferMethodType.class);
         } catch (Exception e) {
             throw new HyperwalletException(e);
         }
