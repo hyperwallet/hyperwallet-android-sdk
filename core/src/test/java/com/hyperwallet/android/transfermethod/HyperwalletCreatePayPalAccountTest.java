@@ -126,43 +126,14 @@ public class HyperwalletCreatePayPalAccountTest {
         //paypal account info
         assertThat(recordedRequest.getPath(),
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts"));
-        assertThat(paypalAccountResponse.getField(BRANCH_ID), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(BRANCH_NAME), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(BRANCH_ADDRESS_LINE_1), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(BRANCH_ADDRESS_LINE_2), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(BRANCH_CITY), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(BRANCH_COUNTRY), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(BRANCH_POSTAL_CODE), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(BRANCH_STATE_PROVINCE), is(nullValue()));
 
-        assertThat(paypalAccountResponse.getField(IS_DEFAULT_TRANSFER_METHOD), is(nullValue()));
         assertThat(paypalAccountResponse.getField(STATUS), is(ACTIVATED));
         assertThat(paypalAccountResponse.getField(TOKEN), is("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b"));
         assertThat(paypalAccountResponse.getField(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(paypalAccountResponse.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
         assertThat(paypalAccountResponse.getField(TYPE), is(PAYPAL_ACCOUNT));
-        assertThat(paypalAccountResponse.getField(ADDRESS_LINE_1), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(ADDRESS_LINE_2), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(CITY), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(COUNTRY), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(COUNTRY_OF_BIRTH), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(COUNTRY_OF_NATIONALITY), is(nullValue()));
         assertThat(paypalAccountResponse.getField(CREATED_ON), is(notNullValue()));
-        assertThat(paypalAccountResponse.getField(DATE_OF_BIRTH), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(DRIVER_LICENSE_ID), is(nullValue()));
         assertThat(paypalAccountResponse.getField(EMAIL), is("jsmith@paypal.com"));
-        assertThat(paypalAccountResponse.getField(EMPLOYER_ID), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(FIRST_NAME), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(GENDER), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(GOVERNMENT_ID), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(GOVERNMENT_ID_TYPE), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(LAST_NAME), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(MIDDLE_NAME), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(MOBILE_NUMBER), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(PASSPORT_ID), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(PHONE_NUMBER), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(POSTAL_CODE), is(nullValue()));
-        assertThat(paypalAccountResponse.getField(STATE_PROVINCE), is(nullValue()));
     }
 
     @Test
