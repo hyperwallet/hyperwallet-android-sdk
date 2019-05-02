@@ -1,7 +1,6 @@
 package com.hyperwallet.android.model;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -56,8 +55,6 @@ import static com.hyperwallet.android.model.HyperwalletUser.UserStatuses.LOCKED;
 import static com.hyperwallet.android.model.HyperwalletUser.VerificationStatuses.UNDER_REVIEW;
 import static com.hyperwallet.android.util.JsonUtils.fromJsonString;
 
-import android.os.Parcel;
-
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
 import org.json.JSONObject;
@@ -79,23 +76,23 @@ public class HyperwalletUserTest {
                 });
 
         assertThat(actualUser, is(notNullValue()));
-        assertThat(actualUser.getField(TOKEN), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
-        assertThat(actualUser.getField(STATUS), is("PRE_ACTIVATED"));
-        assertThat(actualUser.getField(VERIFICATION_STATUS), is("NOT_REQUIRED"));
-        assertThat(actualUser.getField(CREATED_ON), is("2017-10-30T22:15:45"));
-        assertThat(actualUser.getField(CLIENT_USER_ID), is("CSK7b8Ffch"));
-        assertThat(actualUser.getField(PROFILE_TYPE), is("INDIVIDUAL"));
-        assertThat(actualUser.getField(FIRST_NAME), is("Some"));
-        assertThat(actualUser.getField(LAST_NAME), is("Guy"));
-        assertThat(actualUser.getField(DATE_OF_BIRTH), is("1991-01-01"));
-        assertThat(actualUser.getField(EMAIL), is("user+4satF1xV@hyperwallet.com"));
-        assertThat(actualUser.getField(ADDRESS_LINE_1), is("575 Market Street"));
-        assertThat(actualUser.getField(CITY), is("San Francisco"));
-        assertThat(actualUser.getField(STATE_PROVINCE), is("CA"));
-        assertThat(actualUser.getField(COUNTRY), is("US"));
-        assertThat(actualUser.getField(POSTAL_CODE), is("94105"));
-        assertThat(actualUser.getField(LANGUAGE), is("en"));
-        assertThat(actualUser.getField(PROGRAM_TOKEN), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
+        assertThat(actualUser.getToken(), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
+        assertThat(actualUser.getStatus(), is("PRE_ACTIVATED"));
+        assertThat(actualUser.getVerificationStatus(), is("NOT_REQUIRED"));
+        assertThat(actualUser.getCreatedOn(), is("2017-10-30T22:15:45"));
+        assertThat(actualUser.getClientUserId(), is("123345789"));
+        assertThat(actualUser.getProfileType(), is("INDIVIDUAL"));
+        assertThat(actualUser.getFirstName(), is("Some"));
+        assertThat(actualUser.getLastName(), is("Guy"));
+        assertThat(actualUser.getDateOfBirth(), is("1991-01-01"));
+        assertThat(actualUser.getEmail(), is("someguy@hyperwallet.com"));
+        assertThat(actualUser.getAddressLine1(), is("575 Market Street"));
+        assertThat(actualUser.getCity(), is("San Francisco"));
+        assertThat(actualUser.getStateProvince(), is("CA"));
+        assertThat(actualUser.getCountry(), is("US"));
+        assertThat(actualUser.getPostalCode(), is("94105"));
+        assertThat(actualUser.getLanguage(), is("en"));
+        assertThat(actualUser.getProgramToken(), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
 
     }
 
@@ -107,29 +104,29 @@ public class HyperwalletUserTest {
                 .status(LOCKED)
                 .verificationStatus(UNDER_REVIEW)
                 .createdOn("2017-10-30T22:15:45")
-                .clientUserId("CSK7b8Ffch")
+                .clientUserId("123345789")
                 .addressLine1("575 Market Street")
-                .addressLine2("Valenka 4b")
+                .addressLine2("247 Tottenham Court Rd")
                 .businessContactRole(OWNER)
                 .businessName("My Company")
-                .businessRegistrationCountry("Canada")
+                .businessRegistrationCountry("CA")
                 .businessRegistrationId("werqq")
-                .businessRegistrationStateProvince("Current")
+                .businessRegistrationStateProvince("BC")
                 .businessContactAddressLine1("34 Zoo pl")
                 .businessContactAddressLine2("102 Park ave")
                 .businessContactCity("Zippy")
                 .businessContactStateProvince("Quebec")
-                .businessContactCountry("Canada")
+                .businessContactCountry("CA")
                 .businessContactPostalCode("QC H2Y 2E2")
                 .businessOperatingName("OP name")
                 .businessType(CORPORATION)
                 .city("Montréal")
-                .country("Canada")
-                .countryOfBirth("USA")
-                .countryOfNationality("Canada")
+                .country("CA")
+                .countryOfBirth("US")
+                .countryOfNationality("CA")
                 .dateOfBirth("1991-03-09")
                 .driversLicenseId("ID-45dff")
-                .email("user+4satF1xV@hyperwallet.com")
+                .email("someguy@hyperwallet.com")
                 .employerId("34333")
                 .firstName("Jany")
                 .gender(MALE)
@@ -144,7 +141,7 @@ public class HyperwalletUserTest {
                 .postalCode("94105")
                 .profileType(INDIVIDUAL)
                 .programToken("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c")
-                .stateProvince("Old Port")
+                .stateProvince("BC")
                 .build();
 
         JSONObject jsonObject = expectedUser.toJsonObject();
@@ -153,29 +150,29 @@ public class HyperwalletUserTest {
         assertThat(jsonObject.getString(STATUS), is(LOCKED));
         assertThat(jsonObject.getString(VERIFICATION_STATUS), is(UNDER_REVIEW));
         assertThat(jsonObject.getString(CREATED_ON), is("2017-10-30T22:15:45"));
-        assertThat(jsonObject.getString(CLIENT_USER_ID), is("CSK7b8Ffch"));
+        assertThat(jsonObject.getString(CLIENT_USER_ID), is("123345789"));
         assertThat(jsonObject.getString(ADDRESS_LINE_1), is("575 Market Street"));
-        assertThat(jsonObject.getString(ADDRESS_LINE_2), is("Valenka 4b"));
+        assertThat(jsonObject.getString(ADDRESS_LINE_2), is("247 Tottenham Court Rd"));
         assertThat(jsonObject.getString(BUSINESS_CONTACT_ROLE), is(OWNER));
         assertThat(jsonObject.getString(BUSINESS_NAME), is("My Company"));
-        assertThat(jsonObject.getString(BUSINESS_REGISTRATION_COUNTRY), is("Canada"));
+        assertThat(jsonObject.getString(BUSINESS_REGISTRATION_COUNTRY), is("CA"));
         assertThat(jsonObject.getString(BUSINESS_REGISTRATION_ID), is("werqq"));
-        assertThat(jsonObject.getString(BUSINESS_REGISTRATION_STATE_PROVINCE), is("Current"));
+        assertThat(jsonObject.getString(BUSINESS_REGISTRATION_STATE_PROVINCE), is("BC"));
         assertThat(jsonObject.getString(BUSINESS_CONTACT_ADDRESS_LINE_1), is("34 Zoo pl"));
         assertThat(jsonObject.getString(BUSINESS_CONTACT_ADDRESS_LINE_2), is("102 Park ave"));
         assertThat(jsonObject.getString(BUSINESS_CONTACT_CITY), is("Zippy"));
         assertThat(jsonObject.getString(BUSINESS_CONTACT_STATE_PROVINCE), is("Quebec"));
-        assertThat(jsonObject.getString(BUSINESS_CONTACT_COUNTRY), is("Canada"));
+        assertThat(jsonObject.getString(BUSINESS_CONTACT_COUNTRY), is("CA"));
         assertThat(jsonObject.getString(BUSINESS_CONTACT_POSTAL_CODE), is("QC H2Y 2E2"));
         assertThat(jsonObject.getString(BUSINESS_OPERATING_NAME), is("OP name"));
         assertThat(jsonObject.getString(BUSINESS_TYPE), is(CORPORATION));
         assertThat(jsonObject.getString(CITY), is("Montréal"));
-        assertThat(jsonObject.getString(COUNTRY), is("Canada"));
-        assertThat(jsonObject.getString(COUNTRY_OF_BIRTH), is("USA"));
-        assertThat(jsonObject.getString(COUNTRY_OF_NATIONALITY), is("Canada"));
+        assertThat(jsonObject.getString(COUNTRY), is("CA"));
+        assertThat(jsonObject.getString(COUNTRY_OF_BIRTH), is("US"));
+        assertThat(jsonObject.getString(COUNTRY_OF_NATIONALITY), is("CA"));
         assertThat(jsonObject.getString(DATE_OF_BIRTH), is("1991-03-09"));
         assertThat(jsonObject.getString(DRIVERS_LICENSE_ID), is("ID-45dff"));
-        assertThat(jsonObject.getString(EMAIL), is("user+4satF1xV@hyperwallet.com"));
+        assertThat(jsonObject.getString(EMAIL), is("someguy@hyperwallet.com"));
         assertThat(jsonObject.getString(EMPLOYER_ID), is("34333"));
         assertThat(jsonObject.getString(FIRST_NAME), is("Jany"));
         assertThat(jsonObject.getString(GENDER), is(MALE));
@@ -190,76 +187,6 @@ public class HyperwalletUserTest {
         assertThat(jsonObject.getString(POSTAL_CODE), is("94105"));
         assertThat(jsonObject.getString(PROFILE_TYPE), is(INDIVIDUAL));
         assertThat(jsonObject.getString(PROGRAM_TOKEN), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
-        assertThat(jsonObject.getString(STATE_PROVINCE), is("Old Port"));
-    }
-
-    @Test
-    public void testToJsonString_user() throws Exception {
-
-        final HyperwalletUser actualUser = new HyperwalletUser.Builder()
-                .token("usr-f9154016-94e8-4686-a840-075688ac07b5")
-                .status(LOCKED)
-                .verificationStatus(UNDER_REVIEW)
-                .createdOn("2017-10-30T22:15:45")
-                .clientUserId("CSK7b8Ffch")
-                .addressLine1("575 Market Street")
-                .addressLine2("Valenka 4b")
-                .businessContactRole(OWNER)
-                .businessName("My Company")
-                .businessRegistrationCountry("Canada").build();
-
-        JSONObject expectedUserJson = new JSONObject(actualUser.toJsonString());
-
-        assertThat(actualUser.getField(TOKEN), is(expectedUserJson.optString(TOKEN)));
-        assertThat(actualUser.getField(STATUS), is(expectedUserJson.optString(STATUS)));
-        assertThat(actualUser.getField(VERIFICATION_STATUS), is(expectedUserJson.optString(VERIFICATION_STATUS)));
-        assertThat(actualUser.getField(CREATED_ON), is(expectedUserJson.optString(CREATED_ON)));
-        assertThat(actualUser.getField(CLIENT_USER_ID), is(expectedUserJson.optString(CLIENT_USER_ID)));
-        assertThat(actualUser.getField(ADDRESS_LINE_1), is(expectedUserJson.optString(ADDRESS_LINE_1)));
-        assertThat(actualUser.getField(ADDRESS_LINE_2), is(expectedUserJson.optString(ADDRESS_LINE_2)));
-        assertThat(actualUser.getField(BUSINESS_CONTACT_ROLE), is(expectedUserJson.optString(BUSINESS_CONTACT_ROLE)));
-        assertThat(actualUser.getField(BUSINESS_NAME), is(expectedUserJson.optString(BUSINESS_NAME)));
-        assertThat(actualUser.getField(BUSINESS_REGISTRATION_COUNTRY),
-                is(expectedUserJson.optString(BUSINESS_REGISTRATION_COUNTRY)));
-    }
-
-    @Test
-    public void testHyperwalletUser_isParcelable() throws Exception {
-
-        String json = mExternalResourceManager.getResourceContent("user_response.json");
-
-        HyperwalletUser user = fromJsonString(json, new TypeReference<HyperwalletUser>() {
-        });
-
-        Parcel parcel = Parcel.obtain();
-        user.writeToParcel(parcel, user.describeContents());
-        parcel.setDataPosition(0);
-        HyperwalletUser bundledUser = HyperwalletUser.CREATOR.createFromParcel(parcel);
-
-        assertThat(bundledUser, is(notNullValue()));
-        assertThat(bundledUser.getField(TOKEN), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
-        assertThat(bundledUser.getField(STATUS), is("PRE_ACTIVATED"));
-        assertThat(bundledUser.getField(VERIFICATION_STATUS), is("NOT_REQUIRED"));
-        assertThat(bundledUser.getField(CREATED_ON), is("2017-10-30T22:15:45"));
-        assertThat(bundledUser.getField(CLIENT_USER_ID), is("CSK7b8Ffch"));
-        assertThat(bundledUser.getField(PROFILE_TYPE), is("INDIVIDUAL"));
-        assertThat(bundledUser.getField(FIRST_NAME), is("Some"));
-        assertThat(bundledUser.getField(LAST_NAME), is("Guy"));
-        assertThat(bundledUser.getField(DATE_OF_BIRTH), is("1991-01-01"));
-        assertThat(bundledUser.getField(EMAIL), is("user+4satF1xV@hyperwallet.com"));
-        assertThat(bundledUser.getField(ADDRESS_LINE_1), is("575 Market Street"));
-        assertThat(bundledUser.getField(CITY), is("San Francisco"));
-        assertThat(bundledUser.getField(STATE_PROVINCE), is("CA"));
-        assertThat(bundledUser.getField(COUNTRY), is("US"));
-        assertThat(bundledUser.getField(POSTAL_CODE), is("94105"));
-        assertThat(bundledUser.getField(LANGUAGE), is("en"));
-        assertThat(bundledUser.getField(PROGRAM_TOKEN), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
-    }
-
-    @Test
-    public void testHyperwalletUser_getNullField() {
-        final HyperwalletUser actualUser = new HyperwalletUser.Builder()
-                .token("usr-f9154016-94e8-4686-a840-075688ac07b5").build();
-        assertThat(actualUser.getField("my field"), is(nullValue()));
+        assertThat(jsonObject.getString(STATE_PROVINCE), is("BC"));
     }
 }
