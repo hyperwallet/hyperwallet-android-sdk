@@ -9,6 +9,7 @@ import com.hyperwallet.android.transfermethod.HyperwalletDeactivateBankCardTest;
 import com.hyperwallet.android.transfermethod.HyperwalletDeactivatePayPalAccountTest;
 import com.hyperwallet.android.transfermethod.HyperwalletGetBankAccountTest;
 import com.hyperwallet.android.transfermethod.HyperwalletGetBankCardTest;
+import com.hyperwallet.android.transfermethod.HyperwalletGetUserTest;
 import com.hyperwallet.android.transfermethod.HyperwalletGetPayPalTest;
 import com.hyperwallet.android.transfermethod.HyperwalletGetUserTest;
 import com.hyperwallet.android.transfermethod.HyperwalletListBankAccountsTest;

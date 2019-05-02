@@ -79,7 +79,7 @@ public class HyperwalletGetUserTest {
         String responseBody = mExternalResourceManager.getResourceContent("user_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getUser(mListener);
+        Hyperwallet.getDefault().getUser("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56", mListener);
         mAwait.await(AWAIT_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
@@ -96,12 +96,12 @@ public class HyperwalletGetUserTest {
         assertThat(userResponse.getField(STATUS), is("PRE_ACTIVATED"));
         assertThat(userResponse.getField(VERIFICATION_STATUS), is("NOT_REQUIRED"));
         assertThat(userResponse.getField(CREATED_ON), is("2017-10-30T22:15:45"));
-        assertThat(userResponse.getField(CLIENT_USER_ID), is("CSK7b8Ffch"));
+        assertThat(userResponse.getField(CLIENT_USER_ID), is("123345789"));
         assertThat(userResponse.getField(PROFILE_TYPE), is("INDIVIDUAL"));
         assertThat(userResponse.getField(FIRST_NAME), is("Some"));
         assertThat(userResponse.getField(LAST_NAME), is("Guy"));
         assertThat(userResponse.getField(DATE_OF_BIRTH), is("1991-01-01"));
-        assertThat(userResponse.getField(EMAIL), is("user+4satF1xV@hyperwallet.com"));
+        assertThat(userResponse.getField(EMAIL), is("someguy@hyperwallet.com"));
         assertThat(userResponse.getField(ADDRESS_LINE_1), is("575 Market Street"));
         assertThat(userResponse.getField(CITY), is("San Francisco"));
         assertThat(userResponse.getField(STATE_PROVINCE), is("CA"));
@@ -116,7 +116,7 @@ public class HyperwalletGetUserTest {
         String responseBody = "";
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_NO_CONTENT).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getUser(mListener);
+        Hyperwallet.getDefault().getUser("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56", mListener);
         mAwait.await(AWAIT_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
@@ -136,7 +136,7 @@ public class HyperwalletGetUserTest {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getUser(mListener);
+        Hyperwallet.getDefault().getUser("trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636", mListener);
         mAwait.await(AWAIT_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
