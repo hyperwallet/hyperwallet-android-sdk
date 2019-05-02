@@ -45,7 +45,7 @@ import java.util.Map;
  */
 public class MappedConnection<T extends KeyedNode> extends Connection<T> {
 
-    private Map<String, T> mNodes;
+    private final Map<String, T> mNodes;
 
     /**
      * Constructor to build MappedConnection based on json and class type
@@ -66,6 +66,8 @@ public class MappedConnection<T extends KeyedNode> extends Connection<T> {
                 T obj = (T) constructor.newInstance(jsonArray.getJSONObject(i));
                 mNodes.put(obj.getCode(), obj);
             }
+        } else {
+            mNodes = null;
         }
     }
 

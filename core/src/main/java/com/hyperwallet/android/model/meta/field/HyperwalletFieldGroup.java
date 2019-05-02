@@ -34,14 +34,15 @@ public class HyperwalletFieldGroup {
     private static final String FIELDS = "fields";
     private static final String GROUP_NAME = "group";
 
-    private List<HyperwalletField> mFields;
-    private String mGroupName;
+    private final List<HyperwalletField> mFields;
+    private final String mGroupName;
 
     public HyperwalletFieldGroup(@NonNull final JSONObject fieldGroup) throws HyperwalletException {
         try {
             mGroupName = fieldGroup.getString(GROUP_NAME);
-            JSONArray jsonArray = fieldGroup.optJSONArray(FIELDS);
             mFields = new ArrayList<>(1);
+
+            JSONArray jsonArray = fieldGroup.optJSONArray(FIELDS);
             if (jsonArray != null) {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     mFields.add(new HyperwalletField(jsonArray.getJSONObject(i)));

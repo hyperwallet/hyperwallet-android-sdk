@@ -29,22 +29,23 @@ import org.json.JSONObject;
  */
 public class TransferMethodConfigurationField {
 
-    private static final String TRANSFER_METHOD_CONFIGURATION = "transferMethodUIConfigurations";
     private static final String TRANSFER_FEE = "fees";
+    private static final String TRANSFER_METHOD_CONFIGURATION = "transferMethodUIConfigurations";
 
-    private Connection<HyperwalletFee> mFeeConnection;
-    private Connection<TransferMethodConfiguration> mTransferMethodConfigurationConnection;
+    private final Connection<HyperwalletFee> mFeeConnection;
+    private final Connection<HyperwalletTransferMethodConfiguration> mTransferMethodConfigurationConnection;
 
     /**
      * Constructor to build transfer method configuration based on json
      *
      * @param configuration JSON object that represents transfer method configuration data with fees
      */
-    public TransferMethodConfigurationField(@NonNull final JSONObject configuration) throws HyperwalletException {
+    TransferMethodConfigurationField(@NonNull final JSONObject configuration) throws HyperwalletException {
         try {
             mFeeConnection = new Connection<>(configuration.getJSONObject(TRANSFER_FEE), HyperwalletFee.class);
             mTransferMethodConfigurationConnection = new Connection<>
-                    (configuration.getJSONObject(TRANSFER_METHOD_CONFIGURATION), TransferMethodConfiguration.class);
+                    (configuration.getJSONObject(TRANSFER_METHOD_CONFIGURATION),
+                            HyperwalletTransferMethodConfiguration.class);
         } catch (Exception e) {
             throw new HyperwalletException(e);
         }
@@ -54,7 +55,7 @@ public class TransferMethodConfigurationField {
         return mFeeConnection;
     }
 
-    public Connection<TransferMethodConfiguration> getTransferMethodConfigurationConnection() {
+    public Connection<HyperwalletTransferMethodConfiguration> getTransferMethodConfigurationConnection() {
         return mTransferMethodConfigurationConnection;
     }
 }

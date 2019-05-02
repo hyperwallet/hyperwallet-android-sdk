@@ -63,7 +63,7 @@ public class HyperwalletField {
     private final HyperwalletValidationMessage mHyperwalletValidationMessage;
     private final String mValue;
 
-    public HyperwalletField(@NonNull JSONObject field) {
+    public HyperwalletField(@NonNull final JSONObject field) {
         mCategory = field.optString(CATEGORY);
         mDataType = EDataType.getDataType(field.optString(DATA_TYPE));
         mIsRequired = field.optBoolean(IS_REQUIRED);

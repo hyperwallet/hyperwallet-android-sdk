@@ -38,9 +38,9 @@ public class Country implements KeyedNode {
     private static final String CURRENCIES = "currencies";
 
     private final Set<Currency> mCurrencies;
-    private String mCode;
-    private MappedConnection<Currency> mCurrencyMappedConnection;
-    private String mName;
+    private final String mCode;
+    private final MappedConnection<Currency> mCurrencyMappedConnection;
+    private final String mName;
 
     /**
      * Constructor to build Country based on json
@@ -52,11 +52,7 @@ public class Country implements KeyedNode {
             mCode = country.getString(COUNTRY_CODE);
             mName = country.getString(COUNTRY_NAME);
             mCurrencies = new LinkedHashSet<>(1);
-
-            JSONObject currencies = country.getJSONObject(CURRENCIES);
-            if (currencies != null) {
-                mCurrencyMappedConnection = new MappedConnection<>(currencies, Currency.class);
-            }
+            mCurrencyMappedConnection = new MappedConnection<>(country.getJSONObject(CURRENCIES), Currency.class);
         } catch (Exception e) {
             throw new HyperwalletException(e);
         }

@@ -32,7 +32,7 @@ public class HyperwalletFieldSelectionOption {
     private final String mLabel;
     private final String mValue;
 
-    public HyperwalletFieldSelectionOption(@NonNull JSONObject selectionOption) {
+    public HyperwalletFieldSelectionOption(@NonNull final JSONObject selectionOption) {
         mLabel = selectionOption.optString(LABEL);
         mValue = selectionOption.optString(VALUE);
     }

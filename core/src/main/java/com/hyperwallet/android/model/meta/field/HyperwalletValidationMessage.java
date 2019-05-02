@@ -39,7 +39,7 @@ public class HyperwalletValidationMessage {
     private final String mPattern;
     private final String mEmpty;
 
-    public HyperwalletValidationMessage(@NonNull JSONObject message) {
+    public HyperwalletValidationMessage(@NonNull final JSONObject message) {
         mLength = message.optString(LENGTH);
         mPattern = message.optString(PATTERN);
         mEmpty = message.optString(EMPTY);
