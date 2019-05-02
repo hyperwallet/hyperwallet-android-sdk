@@ -19,12 +19,21 @@ package com.hyperwallet.android.model;
 
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
 
+import androidx.annotation.NonNull;
+
+import com.hyperwallet.android.util.DateUtil;
+
+import java.util.Date;
 import java.util.Map;
 
 /**
  * Represents the bank card pagination fields
  */
 public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagination {
+
+    protected static final String TRANSFER_METHOD_CREATE_ON = "createdOn";
+
+    private Date mCreatedOn;
 
     /**
      * Constructors the bank card pagination
@@ -41,6 +50,21 @@ public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagi
      */
     public HyperwalletBankCardPagination(Map<String, String> urlQueryMap) {
         super(urlQueryMap);
+        mCreatedOn = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_ON);
         setType(BANK_CARD);
+    }
+
+    public Date getCreatedOn() {
+        return mCreatedOn;
+    }
+
+    @NonNull
+    @Override
+    public Map<String, String> buildQuery() {
+        Map<String, String> query = super.buildQuery();
+        if (mCreatedOn != null) {
+            query.put(TRANSFER_METHOD_CREATE_ON, DateUtil.toDateTimeFormat(mCreatedOn));
+        }
+        return query;
     }
 }

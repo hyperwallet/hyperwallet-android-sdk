@@ -136,8 +136,8 @@ public class HyperwalletPayPalAccountPaginationTest {
         assertThat(resultQuery.containsKey(CREATE_AFTER), is(true));
         assertThat(resultQuery.containsKey(TRANSFER_METHOD_TYPE), is(true));
 
-        assertThat(resultQuery.get(LIMIT), is(String.valueOf("200")));
-        assertThat(resultQuery.get(OFFSET), is(String.valueOf("100")));
+        assertThat(resultQuery.get(LIMIT), is("200"));
+        assertThat(resultQuery.get(OFFSET), is("100"));
         assertThat(resultQuery.get(STATUS), is(ACTIVATED));
         assertThat(resultQuery.get(SORT_BY), is(ASCENDANT_CREATE_ON));
         assertThat(resultQuery.get(CREATE_BEFORE), is("2017-01-01T10:12:22"));

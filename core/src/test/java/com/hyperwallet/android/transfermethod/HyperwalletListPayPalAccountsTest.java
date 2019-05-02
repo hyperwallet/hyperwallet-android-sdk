@@ -57,7 +57,7 @@ public class HyperwalletListPayPalAccountsTest {
     @Mock
     private HyperwalletListener<HyperwalletPageList<PayPalAccount>> mListener;
     @Captor
-    private ArgumentCaptor<HyperwalletPageList<PayPalAccount>> mListTransferMethodCaptor;
+    private ArgumentCaptor<HyperwalletPageList<PayPalAccount>> mListPayPalCaptor;
     @Captor
     private ArgumentCaptor<HyperwalletException> mExceptionCaptor;
 
@@ -65,23 +65,23 @@ public class HyperwalletListPayPalAccountsTest {
 
 
     @Test
-    public void testListPayPalAccounts_returnsActivatedCards() throws InterruptedException {
+    public void testListPayPalAccounts_returnsActivatedAccounts() throws InterruptedException {
 
-        String responseBody = mExternalResourceManager.getResourceContent("pay_pal_accounts_response.json");
+        String responseBody = mExternalResourceManager.getResourceContent("paypal_accounts_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
 
-        HyperwalletPayPalAccountPagination bankCardPagination = new HyperwalletPayPalAccountPagination();
+        HyperwalletPayPalAccountPagination payPalAccountPagination = new HyperwalletPayPalAccountPagination();
 
-        assertThat(bankCardPagination, is(notNullValue()));
-        Hyperwallet.getDefault().listPayPalAccounts(bankCardPagination, mListener);
+        assertThat(payPalAccountPagination, is(notNullValue()));
+        Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
 
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
-        verify(mListener).onSuccess(mListTransferMethodCaptor.capture());
+        verify(mListener).onSuccess(mListPayPalCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
 
-        HyperwalletPageList<PayPalAccount> payPalAccountsResponse = mListTransferMethodCaptor.getValue();
+        HyperwalletPageList<PayPalAccount> payPalAccountsResponse = mListPayPalCaptor.getValue();
 
         assertThat(payPalAccountsResponse.getCount(), is(2));
         assertThat(payPalAccountsResponse.getDataList(), hasSize(2));
@@ -94,9 +94,8 @@ public class HyperwalletListPayPalAccountsTest {
     }
 
     @Test
-    public void testListPayPalAccounts_returnsNoCards() throws InterruptedException {
-        String responseBody = mExternalResourceManager.getResourceContent("pay_pal_no_accounts_response.json");
-        mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody(responseBody).mock();
+    public void testListPayPalAccounts_returnsNoAccounts() throws InterruptedException {
+        mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody("").mock();
 
         HyperwalletPayPalAccountPagination payPalAccountPagination = new HyperwalletPayPalAccountPagination();
 
@@ -113,16 +112,16 @@ public class HyperwalletListPayPalAccountsTest {
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
         assertThat(recordedRequest.getPath(), containsString("status=ACTIVATED"));
 
-        verify(mListener).onSuccess(mListTransferMethodCaptor.capture());
+        verify(mListener).onSuccess(mListPayPalCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
 
-        HyperwalletPageList<PayPalAccount> hyperwalletBankCardsResponse = mListTransferMethodCaptor.getValue();
-        assertThat(hyperwalletBankCardsResponse, is(nullValue()));
+        HyperwalletPageList<PayPalAccount> payPalAccountsResponse = mListPayPalCaptor.getValue();
+        assertThat(payPalAccountsResponse, is(nullValue()));
     }
 
     @Test
     public void testListPayPalAccounts_returnsError() throws InterruptedException {
-        String responseBody = mExternalResourceManager.getResourceContentError("pay_pal_accounts_error_response.json");
+        String responseBody = mExternalResourceManager.getResourceContentError("paypal_accounts_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
         HyperwalletPayPalAccountPagination payPalAccountPagination = new HyperwalletPayPalAccountPagination();
