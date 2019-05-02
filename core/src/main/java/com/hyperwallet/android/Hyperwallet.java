@@ -432,7 +432,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code PayPalAccount}
@@ -448,7 +448,7 @@ public class Hyperwallet {
         final HyperwalletStatusTransition deactivatedStatusTransition = new HyperwalletStatusTransition(
                 HyperwalletStatusTransition.StatusDefinition.DE_ACTIVATED);
         deactivatedStatusTransition.setNotes(notes);
-        RestTransaction.Builder builder = new RestTransaction.Builder<>(PUT, pathFormatter,
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
                 new TypeReference<HyperwalletStatusTransition>() {
                 }, listener).jsonModel(deactivatedStatusTransition);
 
