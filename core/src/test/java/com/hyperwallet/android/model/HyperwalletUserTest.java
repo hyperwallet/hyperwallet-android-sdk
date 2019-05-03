@@ -1,6 +1,7 @@
 package com.hyperwallet.android.model;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -54,6 +55,8 @@ import static com.hyperwallet.android.model.HyperwalletUser.UserFields.VERIFICAT
 import static com.hyperwallet.android.model.HyperwalletUser.UserStatuses.LOCKED;
 import static com.hyperwallet.android.model.HyperwalletUser.VerificationStatuses.UNDER_REVIEW;
 import static com.hyperwallet.android.util.JsonUtils.fromJsonString;
+
+import android.os.Parcel;
 
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
@@ -188,5 +191,75 @@ public class HyperwalletUserTest {
         assertThat(jsonObject.getString(PROFILE_TYPE), is(INDIVIDUAL));
         assertThat(jsonObject.getString(PROGRAM_TOKEN), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
         assertThat(jsonObject.getString(STATE_PROVINCE), is("Old Port"));
+    }
+
+    @Test
+    public void testToJsonString_user() throws Exception {
+
+        final HyperwalletUser actualUser = new HyperwalletUser.Builder()
+                .token("usr-f9154016-94e8-4686-a840-075688ac07b5")
+                .status(LOCKED)
+                .verificationStatus(UNDER_REVIEW)
+                .createdOn("2017-10-30T22:15:45")
+                .clientUserId("CSK7b8Ffch")
+                .addressLine1("575 Market Street")
+                .addressLine2("Valenka 4b")
+                .businessContactRole(OWNER)
+                .businessName("My Company")
+                .businessRegistrationCountry("Canada").build();
+
+        JSONObject expectedUserJson = new JSONObject(actualUser.toJsonString());
+
+        assertThat(actualUser.getField(TOKEN), is(expectedUserJson.optString(TOKEN)));
+        assertThat(actualUser.getField(STATUS), is(expectedUserJson.optString(STATUS)));
+        assertThat(actualUser.getField(VERIFICATION_STATUS), is(expectedUserJson.optString(VERIFICATION_STATUS)));
+        assertThat(actualUser.getField(CREATED_ON), is(expectedUserJson.optString(CREATED_ON)));
+        assertThat(actualUser.getField(CLIENT_USER_ID), is(expectedUserJson.optString(CLIENT_USER_ID)));
+        assertThat(actualUser.getField(ADDRESS_LINE_1), is(expectedUserJson.optString(ADDRESS_LINE_1)));
+        assertThat(actualUser.getField(ADDRESS_LINE_2), is(expectedUserJson.optString(ADDRESS_LINE_2)));
+        assertThat(actualUser.getField(BUSINESS_CONTACT_ROLE), is(expectedUserJson.optString(BUSINESS_CONTACT_ROLE)));
+        assertThat(actualUser.getField(BUSINESS_NAME), is(expectedUserJson.optString(BUSINESS_NAME)));
+        assertThat(actualUser.getField(BUSINESS_REGISTRATION_COUNTRY),
+                is(expectedUserJson.optString(BUSINESS_REGISTRATION_COUNTRY)));
+    }
+
+    @Test
+    public void testHyperwalletUser_isParcelable() throws Exception {
+
+        String json = mExternalResourceManager.getResourceContent("user_response.json");
+
+        HyperwalletUser user = fromJsonString(json, new TypeReference<HyperwalletUser>() {
+        });
+
+        Parcel parcel = Parcel.obtain();
+        user.writeToParcel(parcel, user.describeContents());
+        parcel.setDataPosition(0);
+        HyperwalletUser bundledUser = HyperwalletUser.CREATOR.createFromParcel(parcel);
+
+        assertThat(bundledUser, is(notNullValue()));
+        assertThat(bundledUser.getField(TOKEN), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
+        assertThat(bundledUser.getField(STATUS), is("PRE_ACTIVATED"));
+        assertThat(bundledUser.getField(VERIFICATION_STATUS), is("NOT_REQUIRED"));
+        assertThat(bundledUser.getField(CREATED_ON), is("2017-10-30T22:15:45"));
+        assertThat(bundledUser.getField(CLIENT_USER_ID), is("CSK7b8Ffch"));
+        assertThat(bundledUser.getField(PROFILE_TYPE), is("INDIVIDUAL"));
+        assertThat(bundledUser.getField(FIRST_NAME), is("Some"));
+        assertThat(bundledUser.getField(LAST_NAME), is("Guy"));
+        assertThat(bundledUser.getField(DATE_OF_BIRTH), is("1991-01-01"));
+        assertThat(bundledUser.getField(EMAIL), is("user+4satF1xV@hyperwallet.com"));
+        assertThat(bundledUser.getField(ADDRESS_LINE_1), is("575 Market Street"));
+        assertThat(bundledUser.getField(CITY), is("San Francisco"));
+        assertThat(bundledUser.getField(STATE_PROVINCE), is("CA"));
+        assertThat(bundledUser.getField(COUNTRY), is("US"));
+        assertThat(bundledUser.getField(POSTAL_CODE), is("94105"));
+        assertThat(bundledUser.getField(LANGUAGE), is("en"));
+        assertThat(bundledUser.getField(PROGRAM_TOKEN), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
+    }
+
+    @Test
+    public void testHyperwalletUser_getNullField() {
+        final HyperwalletUser actualUser = new HyperwalletUser.Builder()
+                .token("usr-f9154016-94e8-4686-a840-075688ac07b5").build();
+        assertThat(actualUser.getField("my field"), is(nullValue()));
     }
 }

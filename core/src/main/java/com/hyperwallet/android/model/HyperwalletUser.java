@@ -61,12 +61,12 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     public @interface UserStatus {
     }
 
-    public final class UserStatuses {
-        public static final String PRE_ACTIVATED = "PRE_ACTIVATED";
-        public static final String ACTIVATED = "ACTIVATED";
-        public static final String LOCKED = "LOCKED";
-        public static final String FROZEN = "FROZEN";
-        public static final String DE_ACTIVATED = "DE_ACTIVATED";
+    interface UserStatuses {
+        String PRE_ACTIVATED = "PRE_ACTIVATED";
+        String ACTIVATED = "ACTIVATED";
+        String LOCKED = "LOCKED";
+        String FROZEN = "FROZEN";
+        String DE_ACTIVATED = "DE_ACTIVATED";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -81,18 +81,18 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     }
 
 
-    public final class VerificationStatuses {
-        public static final String NOT_REQUIRED = "NOT_REQUIRED";
-        public static final String REQUIRED = "REQUIRED";
-        public static final String FAILED = "FAILED";
-        public static final String UNDER_REVIEW = "UNDER_REVIEW";
-        public static final String VERIFIED = "VERIFIED";
+    public interface VerificationStatuses {
+        String NOT_REQUIRED = "NOT_REQUIRED";
+        String REQUIRED = "REQUIRED";
+        String FAILED = "FAILED";
+        String UNDER_REVIEW = "UNDER_REVIEW";
+        String VERIFIED = "VERIFIED";
     }
 
-    public final class BusinessContactRoles {
-        public static final String DIRECTOR = "DIRECTOR";
-        public static final String OWNER = "OWNER";
-        public static final String OTHER = "OTHER";
+    interface BusinessContactRoles {
+        String DIRECTOR = "DIRECTOR";
+        String OWNER = "OWNER";
+        String OTHER = "OTHER";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -105,9 +105,9 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
 
     }
 
-    public final class BusinessTypes {
-        public static final String CORPORATION = "CORPORATION";
-        public static final String PARTNERSHIP = "PARTNERSHIP";
+    interface BusinessTypes {
+        String CORPORATION = "CORPORATION";
+        String PARTNERSHIP = "PARTNERSHIP";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -119,9 +119,9 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
 
     }
 
-    public final class GovernmentIdTypes {
-        public static final String PASSPORT = "PASSPORT";
-        public static final String NATIONAL_ID_CARD = "NATIONAL_ID_CARD";
+    interface GovernmentIdTypes {
+        String PASSPORT = "PASSPORT";
+        String NATIONAL_ID_CARD = "NATIONAL_ID_CARD";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -133,9 +133,9 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
 
     }
 
-    public final class ProfileTypes {
-        public static final String INDIVIDUAL = "INDIVIDUAL";
-        public static final String BUSINESS = "BUSINESS";
+    interface ProfileTypes {
+        String INDIVIDUAL = "INDIVIDUAL";
+        String BUSINESS = "BUSINESS";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -147,9 +147,9 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
 
     }
 
-    public final class Genders {
-        public static final String MALE = "MALE";
-        public static final String FEMALE = "FEMALE";
+    interface Genders {
+        String MALE = "MALE";
+        String FEMALE = "FEMALE";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -164,49 +164,49 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     /**
      * Common User field keys
      */
-    public final class UserFields {
-        public static final String TOKEN = "token";
-        public static final String STATUS = "status";
-        public static final String VERIFICATION_STATUS = "verificationStatus";
-        public static final String CREATED_ON = "createdOn";
-        public static final String CLIENT_USER_ID = "clientUserId";
-        public static final String ADDRESS_LINE_1 = "addressLine1";
-        public static final String ADDRESS_LINE_2 = "addressLine2";
-        public static final String BUSINESS_CONTACT_ROLE = "businessContactRole";
-        public static final String BUSINESS_NAME = "businessName";
-        public static final String BUSINESS_REGISTRATION_COUNTRY = "businessRegistrationCountry";
-        public static final String BUSINESS_REGISTRATION_ID = "businessRegistrationId";
-        public static final String BUSINESS_REGISTRATION_STATE_PROVINCE = "businessRegistrationStateProvince";
-        public static final String BUSINESS_CONTACT_ADDRESS_LINE_1 = "businessContactAddressLine1";
-        public static final String BUSINESS_CONTACT_ADDRESS_LINE_2 = "businessContactAddressLine2";
-        public static final String BUSINESS_CONTACT_CITY = "businessContactCity";
-        public static final String BUSINESS_CONTACT_STATE_PROVINCE = "businessContactStateProvince";
-        public static final String BUSINESS_CONTACT_COUNTRY = "businessContactCountry";
-        public static final String BUSINESS_CONTACT_POSTAL_CODE = "businessContactPostalCode";
-        public static final String BUSINESS_OPERATING_NAME = "businessOperatingName";
-        public static final String BUSINESS_TYPE = "businessType";
-        public static final String CITY = "city";
-        public static final String COUNTRY = "country";
-        public static final String COUNTRY_OF_BIRTH = "countryOfBirth";
-        public static final String COUNTRY_OF_NATIONALITY = "countryOfNationality";
-        public static final String DATE_OF_BIRTH = "dateOfBirth";
-        public static final String DRIVERS_LICENSE_ID = "driversLicenseId";
-        public static final String EMAIL = "email";
-        public static final String EMPLOYER_ID = "employerId";
-        public static final String FIRST_NAME = "firstName";
-        public static final String GENDER = "gender";
-        public static final String GOVERNMENT_ID = "governmentId";
-        public static final String GOVERNMENT_ID_TYPE = "governmentIdType";
-        public static final String LANGUAGE = "language";
-        public static final String LAST_NAME = "lastName";
-        public static final String MIDDLE_NAME = "middleName";
-        public static final String MOBILE_NUMBER = "mobileNumber";
-        public static final String PASSPORT_ID = "passportId";
-        public static final String PHONE_NUMBER = "phoneNumber";
-        public static final String POSTAL_CODE = "postalCode";
-        public static final String PROFILE_TYPE = "profileType";
-        public static final String PROGRAM_TOKEN = "programToken";
-        public static final String STATE_PROVINCE = "stateProvince";
+    public interface UserFields {
+        String TOKEN = "token";
+        String STATUS = "status";
+        String VERIFICATION_STATUS = "verificationStatus";
+        String CREATED_ON = "createdOn";
+        String CLIENT_USER_ID = "clientUserId";
+        String ADDRESS_LINE_1 = "addressLine1";
+        String ADDRESS_LINE_2 = "addressLine2";
+        String BUSINESS_CONTACT_ROLE = "businessContactRole";
+        String BUSINESS_NAME = "businessName";
+        String BUSINESS_REGISTRATION_COUNTRY = "businessRegistrationCountry";
+        String BUSINESS_REGISTRATION_ID = "businessRegistrationId";
+        String BUSINESS_REGISTRATION_STATE_PROVINCE = "businessRegistrationStateProvince";
+        String BUSINESS_CONTACT_ADDRESS_LINE_1 = "businessContactAddressLine1";
+        String BUSINESS_CONTACT_ADDRESS_LINE_2 = "businessContactAddressLine2";
+        String BUSINESS_CONTACT_CITY = "businessContactCity";
+        String BUSINESS_CONTACT_STATE_PROVINCE = "businessContactStateProvince";
+        String BUSINESS_CONTACT_COUNTRY = "businessContactCountry";
+        String BUSINESS_CONTACT_POSTAL_CODE = "businessContactPostalCode";
+        String BUSINESS_OPERATING_NAME = "businessOperatingName";
+        String BUSINESS_TYPE = "businessType";
+        String CITY = "city";
+        String COUNTRY = "country";
+        String COUNTRY_OF_BIRTH = "countryOfBirth";
+        String COUNTRY_OF_NATIONALITY = "countryOfNationality";
+        String DATE_OF_BIRTH = "dateOfBirth";
+        String DRIVERS_LICENSE_ID = "driversLicenseId";
+        String EMAIL = "email";
+        String EMPLOYER_ID = "employerId";
+        String FIRST_NAME = "firstName";
+        String GENDER = "gender";
+        String GOVERNMENT_ID = "governmentId";
+        String GOVERNMENT_ID_TYPE = "governmentIdType";
+        String LANGUAGE = "language";
+        String LAST_NAME = "lastName";
+        String MIDDLE_NAME = "middleName";
+        String MOBILE_NUMBER = "mobileNumber";
+        String PASSPORT_ID = "passportId";
+        String PHONE_NUMBER = "phoneNumber";
+        String POSTAL_CODE = "postalCode";
+        String PROFILE_TYPE = "profileType";
+        String PROGRAM_TOKEN = "programToken";
+        String STATE_PROVINCE = "stateProvince";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -312,18 +312,6 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     @Nullable
     public String getField(@NonNull @UserField String key) {
         return mFields.get(key) != null ? (String) mFields.get(key) : null;
-    }
-
-    /**
-     * Returns a {@link Class<T>} value of a {@code Map<String, T>}
-     *
-     * @param key can only be {@link String}
-     * @return a {@code T} value
-     */
-    @Nullable
-    public <T> T getField(@NonNull @UserField String key,
-            @NonNull Class<T> clazz) {
-        return clazz.cast(mFields.get(key));
     }
 
     @Override
