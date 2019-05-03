@@ -464,8 +464,9 @@ public class Hyperwallet {
      * @param query containing the transfer method configuration key query, must not be null
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void retrieveTransferMethodConfigurationKeys(HyperwalletTransferMethodConfigurationKeysQuery query,
-            HyperwalletListener<HyperwalletTransferMethodConfigurationKey> listener) {
+    public void retrieveTransferMethodConfigurationKeys(
+            @NonNull final HyperwalletTransferMethodConfigurationKeysQuery query,
+            @NonNull final HyperwalletListener<HyperwalletTransferMethodConfigurationKey> listener) {
         GqlTransaction.Builder<HyperwalletTransferMethodConfigurationKeyResult> builder = new GqlTransaction.Builder<>(
                 query, new TypeReference<HyperwalletTransferMethodConfigurationKeyResult>() {
         }, listener);

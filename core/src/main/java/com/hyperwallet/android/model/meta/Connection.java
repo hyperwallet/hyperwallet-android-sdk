@@ -48,7 +48,7 @@ public class Connection<T> {
      * @param data  Json object
      * @param clazz Class name
      */
-    public Connection(@NonNull JSONObject data, @NonNull Class clazz) throws HyperwalletException {
+    public Connection(@NonNull final JSONObject data, @NonNull final Class clazz) throws HyperwalletException {
         mCount = data.optLong(COUNT, DEFAULT_COUNT);
 
         try {
