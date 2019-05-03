@@ -42,7 +42,7 @@ import java.util.Map;
 public class PayPalAccount extends HyperwalletTransferMethod {
 
     /**
-     * Constructor to build bank card, based on json object
+     * Constructor to build PayPal Account, based on json object
      */
     public PayPalAccount(@NonNull JSONObject jsonObject) throws JSONException {
         super(jsonObject);
