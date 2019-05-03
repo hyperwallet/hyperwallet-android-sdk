@@ -36,6 +36,7 @@ import com.hyperwallet.android.model.HyperwalletPayPalAccountPagination;
 import com.hyperwallet.android.model.HyperwalletStatusTransition;
 import com.hyperwallet.android.model.HyperwalletTransferMethod;
 import com.hyperwallet.android.model.HyperwalletTransferMethodPagination;
+import com.hyperwallet.android.model.HyperwalletUser;
 import com.hyperwallet.android.model.PayPalAccount;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationFieldResult;
@@ -275,6 +276,30 @@ public class Hyperwallet {
     }
 
     /**
+     * Returns the {@link HyperwalletUser} linked to the token specified, or null if none exists.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param userToken the Hyperwallet specific unique identifier for the {@code HyperwalletUser}
+     *                  being requested; must not be null
+     * @param listener  the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void getUser(@NonNull String userToken,
+            @NonNull final HyperwalletListener<HyperwalletUser> listener) {
+        PathFormatter pathFormatter = new PathFormatter("users/{0}", userToken);
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<HyperwalletUser>() {
+                }, listener);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
      * Updates the {@link HyperwalletBankAccount} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
@@ -388,7 +413,7 @@ public class Hyperwallet {
                 new TypeReference<HyperwalletStatusTransition>() {
                 }, listener).jsonModel(deactivatedStatusTransition);
 
-        performRestTransaction(builder, listener); 
+        performRestTransaction(builder, listener);
     }
 
     /**
@@ -523,7 +548,7 @@ public class Hyperwallet {
      * if the current one is expired or about to expire.</p>
      *
      * @param bankCardPagination the ordering and filtering criteria
-     * @param listener           the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listBankCards(@Nullable final HyperwalletBankCardPagination bankCardPagination,
             @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletBankCard>> listener) {
