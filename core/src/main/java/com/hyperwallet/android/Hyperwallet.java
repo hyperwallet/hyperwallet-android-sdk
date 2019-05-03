@@ -258,13 +258,10 @@ public class Hyperwallet {
      * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param userToken the Hyperwallet specific unique identifier for the {@code HyperwalletUser}
-     *                  being requested; must not be null
      * @param listener  the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void getUser(@NonNull String userToken,
-            @NonNull final HyperwalletListener<HyperwalletUser> listener) {
-        PathFormatter pathFormatter = new PathFormatter("users/{0}", userToken);
+    public void getUser(@NonNull final HyperwalletListener<HyperwalletUser> listener) {
+        PathFormatter pathFormatter = new PathFormatter("users/{0}");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<HyperwalletUser>() {
