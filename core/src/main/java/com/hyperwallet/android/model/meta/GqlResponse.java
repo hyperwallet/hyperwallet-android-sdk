@@ -46,7 +46,8 @@ public class GqlResponse<T> {
      * @param response JSON object that represents data
      * @param clazz    Class name
      */
-    public GqlResponse(@NonNull JSONObject response, Class clazz) throws ReflectiveOperationException, JSONException {
+    public GqlResponse(@NonNull final JSONObject response, @NonNull final Class clazz)
+            throws ReflectiveOperationException, JSONException {
         Constructor<?> constructor = clazz.getConstructor(JSONObject.class);
         mData = (T) constructor.newInstance(response.get(DATA));
 
