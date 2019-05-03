@@ -14,6 +14,16 @@ import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
 
+import static com.hyperwallet.android.model.HyperwalletStatusTransition.CREATED_ON;
+import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.EMAIL;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.STATUS;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TOKEN;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TYPE;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
+
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.exception.HyperwalletRestException;
@@ -91,6 +101,15 @@ public class HyperwalletListPayPalAccountsTest {
         assertThat(recordedRequest.getPath(),
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts?limit=10&offset=0&type"
                         + "=PAYPAL_ACCOUNT&status=ACTIVATED"));
+
+        PayPalAccount payPalAccount = payPalAccountsResponse.getDataList().get(0);
+        assertThat(payPalAccount.getField(TOKEN), is("trm-7e915660-8c97-47bf-8a4f-0c1bc890d46f"));
+        assertThat(payPalAccount.getField(TYPE), is(PAYPAL_ACCOUNT));
+        assertThat(payPalAccount.getField(STATUS), is(ACTIVATED));
+        assertThat(payPalAccount.getField(CREATED_ON), is("2019-01-09T22:50:14"));
+        assertThat(payPalAccount.getField(TRANSFER_METHOD_COUNTRY), is("US"));
+        assertThat(payPalAccount.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
+        assertThat(payPalAccount.getField(EMAIL), is("jsmith@paypal.com"));
     }
 
     @Test
