@@ -1,10 +1,8 @@
 package com.hyperwallet.android.model.meta;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -144,7 +142,9 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
                 .get(4).getName(), is("postalCode"));
 
         // assert fees
-        assertThat(resultFields.getFees(), is(not(empty())));
+        assertThat(resultFields.getFees(), Matchers.<HyperwalletFee>hasSize(1));
+        assertThat(resultFields.getFees().get(0).getValue(), is("5.00"));
+        assertThat(resultFields.getFees().get(0).getFeeRateType(), is("FLAT"));
     }
 
     @Test
