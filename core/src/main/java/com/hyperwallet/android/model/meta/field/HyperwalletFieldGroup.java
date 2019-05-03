@@ -17,6 +17,7 @@
 package com.hyperwallet.android.model.meta.field;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.hyperwallet.android.exception.HyperwalletException;
 
@@ -40,23 +41,26 @@ public class HyperwalletFieldGroup {
     public HyperwalletFieldGroup(@NonNull final JSONObject fieldGroup) throws HyperwalletException {
         try {
             mGroupName = fieldGroup.getString(GROUP_NAME);
-            mFields = new ArrayList<>(1);
-
             JSONArray jsonArray = fieldGroup.optJSONArray(FIELDS);
             if (jsonArray != null) {
+                mFields = new ArrayList<>(jsonArray.length());
                 for (int i = 0; i < jsonArray.length(); i++) {
                     mFields.add(new HyperwalletField(jsonArray.getJSONObject(i)));
                 }
+            } else {
+                mFields = null;
             }
         } catch (Exception e) {
             throw new HyperwalletException(e);
         }
     }
 
+    @Nullable
     public List<HyperwalletField> getFields() {
         return mFields;
     }
 
+    @NonNull
     public String getGroupName() {
         return mGroupName;
     }

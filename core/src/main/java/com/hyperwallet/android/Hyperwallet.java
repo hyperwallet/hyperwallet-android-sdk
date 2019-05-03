@@ -36,9 +36,9 @@ import com.hyperwallet.android.model.HyperwalletStatusTransition;
 import com.hyperwallet.android.model.HyperwalletTransferMethod;
 import com.hyperwallet.android.model.HyperwalletTransferMethodPagination;
 import com.hyperwallet.android.model.TypeReference;
-import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationFieldResult;
+import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationField;
 import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationKey;
-import com.hyperwallet.android.model.meta.TransferMethodConfigurationResult;
+import com.hyperwallet.android.model.meta.field.HyperwalletTransferMethodConfigurationFieldResult;
 import com.hyperwallet.android.model.meta.keyed.HyperwalletTransferMethodConfigurationKeyResult;
 import com.hyperwallet.android.model.meta.query.HyperwalletTransferMethodConfigurationFieldQuery;
 import com.hyperwallet.android.model.meta.query.HyperwalletTransferMethodConfigurationKeysQuery;
@@ -491,12 +491,12 @@ public class Hyperwallet {
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void retrieveTransferMethodConfigurationFields(
-            @NonNull HyperwalletTransferMethodConfigurationFieldQuery transferMethodConfigurationFieldQuery,
-            @NonNull HyperwalletListener<HyperwalletTransferMethodConfigurationFieldResult> listener) {
+            @NonNull final HyperwalletTransferMethodConfigurationFieldQuery transferMethodConfigurationFieldQuery,
+            @NonNull final HyperwalletListener<HyperwalletTransferMethodConfigurationField> listener) {
 
-        GqlTransaction.Builder<TransferMethodConfigurationResult> builder =
+        GqlTransaction.Builder<HyperwalletTransferMethodConfigurationFieldResult> builder =
                 new GqlTransaction.Builder<>(transferMethodConfigurationFieldQuery,
-                        new TypeReference<TransferMethodConfigurationResult>() {
+                        new TypeReference<HyperwalletTransferMethodConfigurationFieldResult>() {
                         }, listener);
         performGqlTransaction(builder, listener);
     }
