@@ -21,8 +21,6 @@ import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 import static com.hyperwallet.android.util.HttpMethod.PUT;
 
-import android.os.Handler;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -37,6 +35,7 @@ import com.hyperwallet.android.model.HyperwalletPagination;
 import com.hyperwallet.android.model.HyperwalletStatusTransition;
 import com.hyperwallet.android.model.HyperwalletTransferMethod;
 import com.hyperwallet.android.model.HyperwalletTransferMethodPagination;
+import com.hyperwallet.android.model.HyperwalletUser;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationFieldResult;
 import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationKeyResult;
@@ -247,6 +246,30 @@ public class Hyperwallet {
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<HyperwalletBankCard>() {
                 }, listener);
+        performRestTransaction(builder, listener);
+    }
+
+    /**
+     * Returns the {@link HyperwalletUser} linked to the token specified, or null if none exists.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param userToken the Hyperwallet specific unique identifier for the {@code HyperwalletUser}
+     *                  being requested; must not be null
+     * @param listener  the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void getUser(@NonNull String userToken,
+            @NonNull final HyperwalletListener<HyperwalletUser> listener) {
+        PathFormatter pathFormatter = new PathFormatter("users/{0}", userToken);
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<HyperwalletUser>() {
+                }, listener);
+
         performRestTransaction(builder, listener);
     }
 
