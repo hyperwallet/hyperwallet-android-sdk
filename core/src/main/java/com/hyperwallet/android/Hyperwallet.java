@@ -121,7 +121,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param bankAccount the {@code HyperwalletBankAccount} to be created; must not be null
@@ -161,7 +161,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      *    * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param bankAccountPagination the ordering and filtering criteria
@@ -186,7 +186,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      *    * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param bankCard the {@code HyperwalletBankCard} to be created; must not be null
@@ -233,14 +233,14 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code HyperwalletBankAccount}
      *                            being requested; must not be null
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void getBankAccount(@NonNull String transferMethodToken,
+    public void getBankAccount(@NonNull final String transferMethodToken,
             @NonNull final HyperwalletListener<HyperwalletBankAccount> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts/{1}", transferMethodToken);
 
@@ -257,7 +257,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code HyperwalletBankCard}
@@ -284,7 +284,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param bankAccount the {@code HyperwalletBankAccount} to be created; must not be null
@@ -313,7 +313,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param bankCard the {@code HyperwalletBankCard} to be created; must not be null
@@ -368,7 +368,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code HyperwalletBankAccount}
@@ -400,7 +400,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code HyperwalletBankCard} being
@@ -446,7 +446,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param transferMethodPagination the ordering and filtering criteria
@@ -486,7 +486,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param bankCardPagination the ordering and filtering criteria
@@ -525,7 +525,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param bankCardPagination the ordering and filtering criteria
@@ -543,6 +543,30 @@ public class Hyperwallet {
     }
 
     /**
+     * Returns the {@link PayPalAccount} linked to the transfer method token specified, or null if none exists.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code PayPalAccount}
+     *                            being requested; must not be null
+     * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void getPayPalAccount(@NonNull final String transferMethodToken,
+            @NonNull final HyperwalletListener<PayPalAccount> listener) {
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts/{1}", transferMethodToken);
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<PayPalAccount>() {
+                }, listener);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
      * Returns the transfer method configuration key set, processing times, and fees for the User that is associated
      * with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
@@ -550,7 +574,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param transferMethodConfigurationKeysQuery containing the transfer method configuration key query,
@@ -577,7 +601,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param transferMethodConfigurationFieldQuery containing a transfer method configuration key tuple of
