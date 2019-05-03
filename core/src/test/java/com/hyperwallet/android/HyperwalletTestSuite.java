@@ -3,6 +3,7 @@ package com.hyperwallet.android;
 import com.hyperwallet.android.model.meta.HyperwalletRetrieveTransferMethodConfigurationFieldsTest;
 import com.hyperwallet.android.transfermethod.HyperwalletCreateBankAccountTest;
 import com.hyperwallet.android.transfermethod.HyperwalletCreateBankCardTest;
+import com.hyperwallet.android.transfermethod.HyperwalletCreatePayPalAccountTest;
 import com.hyperwallet.android.transfermethod.HyperwalletDeactivateBankAccountTest;
 import com.hyperwallet.android.transfermethod.HyperwalletDeactivateBankCardTest;
 import com.hyperwallet.android.transfermethod.HyperwalletGetBankAccountTest;
@@ -24,6 +25,7 @@ import org.junit.runners.Suite;
         HyperwalletCreateBankAccountTest.class,
         HyperwalletListBankAccountsTest.class,
         HyperwalletCreateBankCardTest.class,
+        HyperwalletCreatePayPalAccountTest.class,
         HyperwalletGetBankAccountTest.class,
         HyperwalletGetBankCardTest.class,
         HyperwalletUpdateBankAccountTest.class,
