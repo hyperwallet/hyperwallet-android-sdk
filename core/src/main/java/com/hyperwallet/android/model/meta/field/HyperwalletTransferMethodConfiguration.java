@@ -23,6 +23,8 @@ import com.hyperwallet.android.model.meta.Connection;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 /**
  * Represents Users' program context Transfer Method Configuration information
  */
@@ -74,7 +76,7 @@ public class HyperwalletTransferMethodConfiguration {
         return mTransferMethodType;
     }
 
-    public Connection<HyperwalletFieldGroup> getHyperwalletFieldGroupConnection() {
-        return mHyperwalletFieldGroupConnection;
+    public List<HyperwalletFieldGroup> getFieldGroups() {
+        return mHyperwalletFieldGroupConnection.getNodes();
     }
 }

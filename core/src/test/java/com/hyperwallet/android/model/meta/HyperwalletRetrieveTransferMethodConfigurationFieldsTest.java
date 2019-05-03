@@ -75,70 +75,70 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
 
         // assert fields
         assertThat(resultFields.getFields(), is(notNullValue()));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection(), is(notNullValue()));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes(),
+        assertThat(resultFields.getFields().getFieldGroups(), is(notNullValue()));
+        assertThat(resultFields.getFields().getFieldGroups(),
                 Matchers.<HyperwalletFieldGroup>hasSize(6));
         // check group fields sequence
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(0).getGroupName(),
+        assertThat(resultFields.getFields().getFieldGroups().get(0).getGroupName(),
                 is("HOME_ADDRESS"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(0).getFields(),
+        assertThat(resultFields.getFields().getFieldGroups().get(0).getFields(),
                 Matchers.<HyperwalletField>hasSize(5));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(0).getFields()
+        assertThat(resultFields.getFields().getFieldGroups().get(0).getFields()
                 .get(0).getName(), is("country"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(0).getFields()
+        assertThat(resultFields.getFields().getFieldGroups().get(0).getFields()
                 .get(1).getName(), is("stateProvince"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(0).getFields()
+        assertThat(resultFields.getFields().getFieldGroups().get(0).getFields()
                 .get(2).getName(), is("addressLine1"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(0).getFields()
+        assertThat(resultFields.getFields().getFieldGroups().get(0).getFields()
                 .get(3).getName(), is("city"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(0).getFields()
+        assertThat(resultFields.getFields().getFieldGroups().get(0).getFields()
                 .get(4).getName(), is("postalCode"));
 
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(1).getGroupName(),
+        assertThat(resultFields.getFields().getFieldGroups().get(1).getGroupName(),
                 is("IDENTIFICATION"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(1).getFields(),
+        assertThat(resultFields.getFields().getFieldGroups().get(1).getFields(),
                 Matchers.<HyperwalletField>hasSize(6));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(1).getFields()
+        assertThat(resultFields.getFields().getFieldGroups().get(1).getFields()
                 .get(0).getName(), is("firstName"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(1).getFields()
+        assertThat(resultFields.getFields().getFieldGroups().get(1).getFields()
                 .get(1).getName(), is("middleName"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(1).getFields()
+        assertThat(resultFields.getFields().getFieldGroups().get(1).getFields()
                 .get(2).getName(), is("lastName"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(1).getFields()
+        assertThat(resultFields.getFields().getFieldGroups().get(1).getFields()
                 .get(3).getName(), is("phoneNumber"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(1).getFields()
+        assertThat(resultFields.getFields().getFieldGroups().get(1).getFields()
                 .get(4).getName(), is("mobileNumber"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(1).getFields()
+        assertThat(resultFields.getFields().getFieldGroups().get(1).getFields()
                 .get(5).getName(), is("dateOfBirth"));
 
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(2).getGroupName(),
+        assertThat(resultFields.getFields().getFieldGroups().get(2).getGroupName(),
                 is("BUSINESS_CONTACT_INFORMATION"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(2).getFields(),
+        assertThat(resultFields.getFields().getFieldGroups().get(2).getFields(),
                 Matchers.<HyperwalletField>hasSize(4));
 
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(3).getGroupName(),
+        assertThat(resultFields.getFields().getFieldGroups().get(3).getGroupName(),
                 is("BUSINESS_INFORMATION"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(3).getFields(),
+        assertThat(resultFields.getFields().getFieldGroups().get(3).getFields(),
                 Matchers.<HyperwalletField>hasSize(4));
 
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(4).getGroupName(),
+        assertThat(resultFields.getFields().getFieldGroups().get(4).getGroupName(),
                 is("PERSONAL_INFORMATION"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(4).getFields(),
+        assertThat(resultFields.getFields().getFieldGroups().get(4).getFields(),
                 Matchers.<HyperwalletField>hasSize(4));
 
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(5).getGroupName(),
+        assertThat(resultFields.getFields().getFieldGroups().get(5).getGroupName(),
                 is("BUSINESS_ADDRESS"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(5).getFields(),
+        assertThat(resultFields.getFields().getFieldGroups().get(5).getFields(),
                 Matchers.<HyperwalletField>hasSize(5));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(5).getFields()
+        assertThat(resultFields.getFields().getFieldGroups().get(5).getFields()
                 .get(0).getName(), is("country"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(5).getFields()
+        assertThat(resultFields.getFields().getFieldGroups().get(5).getFields()
                 .get(1).getName(), is("stateProvince"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(5).getFields()
+        assertThat(resultFields.getFields().getFieldGroups().get(5).getFields()
                 .get(2).getName(), is("addressLine1"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(5).getFields()
+        assertThat(resultFields.getFields().getFieldGroups().get(5).getFields()
                 .get(3).getName(), is("city"));
-        assertThat(resultFields.getFields().getHyperwalletFieldGroupConnection().getNodes().get(5).getFields()
+        assertThat(resultFields.getFields().getFieldGroups().get(5).getFields()
                 .get(4).getName(), is("postalCode"));
 
         // assert fees
