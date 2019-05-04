@@ -130,7 +130,7 @@ public class HyperwalletTransferMethodPagination extends HyperwalletPagination {
      * @return the valid Date value or null
      */
     @Nullable
-    private Date getDateValueBy(@NonNull Map<String, String> urlQueryMap, @NonNull String queryKey) {
+    Date getDateValueBy(@NonNull Map<String, String> urlQueryMap, @NonNull String queryKey) {
         if (containsKeyAndHasValue(urlQueryMap, queryKey)) {
             return fromDateTimeString(urlQueryMap.get(queryKey));
         }

@@ -18,6 +18,7 @@ public class HyperwalletBankCardPaginationTest {
     private static final String ACCOUNT_TYPE = "type";
     private static final String CREATE_BEFORE = "createdBefore";
     private static final String CREATE_AFTER = "createdAfter";
+    private final static String CREATE_ON = "createdOn";
     private static final String LIMIT = "limit";
     private static final String OFFSET = "offset";
     private static final String SORT_BY = "sortBy";
@@ -36,6 +37,7 @@ public class HyperwalletBankCardPaginationTest {
         query.put(LIMIT, String.valueOf(limit));
         query.put(CREATE_BEFORE, "2017-01-01T10:12:22");
         query.put(CREATE_AFTER, "2017-01-01T00:00:00");
+        query.put(CREATE_ON, "2017-01-01T10:00:40");
 
         HyperwalletBankCardPagination pagination = new HyperwalletBankCardPagination(query);
         assertThat(pagination.getLimit(), is(limit));
@@ -92,6 +94,7 @@ public class HyperwalletBankCardPaginationTest {
         query.put(LIMIT, String.valueOf(limit));
         query.put(CREATE_BEFORE, "2017-01-01T10:12:22");
         query.put(CREATE_AFTER, "2017-01-01T00:00:00");
+        query.put(CREATE_ON, "2017-01-01T10:00:40");
 
         HyperwalletBankCardPagination pagination = new HyperwalletBankCardPagination(query);
         Map<String, String> resultQuery = pagination.buildQuery();
@@ -110,6 +113,7 @@ public class HyperwalletBankCardPaginationTest {
         assertThat(resultQuery.get(SORT_BY), is(ASCENDANT_CREATE_ON));
         assertThat(resultQuery.get(CREATE_BEFORE), is("2017-01-01T10:12:22"));
         assertThat(resultQuery.get(CREATE_AFTER), is("2017-01-01T00:00:00"));
+        assertThat(resultQuery.get(CREATE_ON), is("2017-01-01T10:00:40"));
         assertThat(resultQuery.get(ACCOUNT_TYPE), is(BANK_CARD));
     }
 

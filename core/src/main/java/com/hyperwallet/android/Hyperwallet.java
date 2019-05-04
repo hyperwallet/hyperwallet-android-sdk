@@ -32,11 +32,11 @@ import com.hyperwallet.android.model.HyperwalletBankAccountPagination;
 import com.hyperwallet.android.model.HyperwalletBankCard;
 import com.hyperwallet.android.model.HyperwalletBankCardPagination;
 import com.hyperwallet.android.model.HyperwalletPagination;
+import com.hyperwallet.android.model.HyperwalletPayPalAccountPagination;
 import com.hyperwallet.android.model.HyperwalletStatusTransition;
 import com.hyperwallet.android.model.HyperwalletTransferMethod;
 import com.hyperwallet.android.model.HyperwalletTransferMethodPagination;
 import com.hyperwallet.android.model.PayPalAccount;
-import com.hyperwallet.android.model.PayPalAccountPagination;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationFieldResult;
 import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationKeyResult;
@@ -523,7 +523,7 @@ public class Hyperwallet {
      * if the current one is expired or about to expire.</p>
      *
      * @param bankCardPagination the ordering and filtering criteria
-     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener           the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listBankCards(@Nullable final HyperwalletBankCardPagination bankCardPagination,
             @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletBankCard>> listener) {
@@ -542,7 +542,7 @@ public class Hyperwallet {
      * or an empty {@code List} if non exist.
      *
      * <p>The ordering and filtering of {@code PayPalAccount} will be based on the criteria specified within the
-     * {@link PayPalAccountPagination} object, if it is not null. Otherwise the default ordering and
+     * {@link HyperwalletPayPalAccountPagination} object, if it is not null. Otherwise the default ordering and
      * filtering will be applied.</p>
      *
      * <ul>
@@ -550,7 +550,7 @@ public class Hyperwallet {
      * <li>Limit: 10</li>
      * <li>Created Before: N/A</li>
      * <li>Created After: N/A</li>
-     * <li>Type: Bank Card</li>
+     * <li>Type: PAYPAL_ACCOUNT</li>
      * <li>Status: All</li>
      * <li>Sort By: Created On</li>
      * </ul>
@@ -561,15 +561,16 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param bankCardPagination the ordering and filtering criteria
-     * @param listener           the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param hyperwalletPayPalAccountPagination the ordering and filtering criteria
+     * @param listener                the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listPayPalAccounts(@Nullable final PayPalAccountPagination bankCardPagination,
-            @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletBankCard>> listener) {
-        Map<String, String> urlQuery = buildUrlQueryIfRequired(bankCardPagination);
-        PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards");
+    public void listPayPalAccounts(
+            @Nullable final HyperwalletPayPalAccountPagination hyperwalletPayPalAccountPagination,
+            @NonNull final HyperwalletListener<HyperwalletPageList<PayPalAccount>> listener) {
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(hyperwalletPayPalAccountPagination);
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
-                new TypeReference<HyperwalletPageList<HyperwalletBankCard>>() {
+                new TypeReference<HyperwalletPageList<PayPalAccount>>() {
                 }, listener).query(urlQuery);
 
         performRestTransaction(builder, listener);
@@ -790,7 +791,7 @@ public class Hyperwallet {
         return queryMap;
     }
 
-    public static void clearInstance(){
+    public static void clearInstance() {
         sInstanceLast = null;
     }
 }
