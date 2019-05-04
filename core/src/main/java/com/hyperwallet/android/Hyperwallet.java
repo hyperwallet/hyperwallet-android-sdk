@@ -388,7 +388,7 @@ public class Hyperwallet {
                 new TypeReference<HyperwalletStatusTransition>() {
                 }, listener).jsonModel(deactivatedStatusTransition);
 
-        performRestTransaction(builder, listener);
+        performRestTransaction(builder, listener); 
     }
 
     /**
