@@ -38,6 +38,7 @@ public class HyperwalletField {
     private static final String FIELD_SELECTION_OPTIONS = "fieldSelectionOptions";
     private static final String FILE_SIZE = "fileSize";
     private static final String FILE_TYPE = "fileTypes";
+    private static final String IS_EDITABLE = "isEditable";
     private static final String IS_REQUIRED = "isRequired";
     private static final String LABEL = "label";
     private static final String MAX_LENGTH = "maxLength";
@@ -53,6 +54,7 @@ public class HyperwalletField {
     private final List<HyperwalletFieldSelectionOption> mFieldSelectionOptions;
     private final int mFileSize;
     private final String mFileType;
+    private final boolean mIsEditable;
     private final boolean mIsRequired;
     private final String mLabel;
     private final int mMaxLength;
@@ -66,6 +68,7 @@ public class HyperwalletField {
     public HyperwalletField(@NonNull final JSONObject field) {
         mCategory = field.optString(CATEGORY);
         mDataType = EDataType.getDataType(field.optString(DATA_TYPE));
+        mIsEditable = field.optBoolean(IS_EDITABLE);
         mIsRequired = field.optBoolean(IS_REQUIRED);
         mLabel = field.optString(LABEL);
         mMaxLength = field.optInt(MAX_LENGTH, Integer.MAX_VALUE);
@@ -101,6 +104,10 @@ public class HyperwalletField {
 
     public EDataType getDataType() {
         return mDataType;
+    }
+
+    public boolean isEditable() {
+        return mIsEditable;
     }
 
     public boolean isRequired() {
