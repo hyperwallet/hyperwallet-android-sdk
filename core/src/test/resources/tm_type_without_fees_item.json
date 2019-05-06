@@ -1,0 +1,9 @@
+{
+  "code": "BANK_ACCOUNT",
+  "name": "Bank Account",
+  "processingTime": "1-3",
+  "fees": {
+    "nodes": [
+    ]
+  }
+}

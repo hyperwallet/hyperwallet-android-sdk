@@ -1,0 +1,34 @@
+{
+  "countries": {
+    "nodes": [
+      {
+        "code": "CA",
+        "name": "Canada",
+        "currencies": {
+          "nodes": [
+            {
+              "code": "CAD",
+              "name": "Canadian Dollar",
+              "transferMethodTypes": {
+                "nodes": [
+                  {
+                    "code": "BANK_ACCOUNT",
+                    "name": "Bank Account",
+                    "fees": {
+                      "nodes": [
+                        {
+                          "value": "5.00",
+                          "feeRateType": "FLAT"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
