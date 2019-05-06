@@ -24,6 +24,7 @@ import com.hyperwallet.android.model.meta.HyperwalletFee;
 import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationKey;
 import com.hyperwallet.android.model.meta.TransferMethodConfigurationKey;
 import com.hyperwallet.android.model.meta.error.GqlError;
+import com.hyperwallet.android.model.meta.error.GqlErrors;
 import com.hyperwallet.android.model.meta.keyed.Country;
 import com.hyperwallet.android.model.meta.keyed.Currency;
 import com.hyperwallet.android.model.meta.keyed.HyperwalletTransferMethodConfigurationKeyResult;
@@ -174,7 +175,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
     }
 
     @Test
-    public void testRetrieveTransferMethodConfigurationKeys_withErrorReturningFields_Triggered_by_HTTP_CODE()
+    public void testRetrieveTransferMethodConfigurationKeys_withErrorReturningFields()
             throws InterruptedException {
         String responseBody = mExternalResourceManager.getResourceContentError("tmc_gql_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
@@ -229,7 +230,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
         assertThat(response.getData(), is(notNullValue()));
         assertThat(response.getData(), CoreMatchers.instanceOf(TransferMethodConfigurationKey.class));
 
-        List<GqlError> gqlErrors = response.getErrors();
-        assertThat(gqlErrors, Matchers.<GqlError>hasSize(1));
+        GqlErrors gqlErrors = response.getGqlErrors();
+        assertThat(gqlErrors.getGQLErrors(), Matchers.<GqlError>hasSize(1));
     }
 }

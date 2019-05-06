@@ -60,27 +60,17 @@ public class HyperwalletTransferMethodConfigurationKeyResult extends GqlResponse
     @Override
     @Nullable
     public Set<Currency> getCurrencies(@NonNull final String countryCode) {
-        for (Country country : mTransferMethodConfigurationKey.getCountries()) {
-            if (country.getCode().equals(countryCode)) {
-                return country.getCurrencies();
-            }
-        }
-        return null;
+        return mTransferMethodConfigurationKey.getCountry(countryCode) != null ?
+                mTransferMethodConfigurationKey.getCountry(countryCode).getCurrencies() : null;
     }
 
     @Override
     @Nullable
     public Set<HyperwalletTransferMethodType> getTransferMethodType(@NonNull final String countryCode,
             @NonNull final String currencyCode) {
-        for (Country country : mTransferMethodConfigurationKey.getCountries()) {
-            if (country.getCode().equals(countryCode)) {
-                for (Currency currency : country.getCurrencies()) {
-                    if (currency.getCode().equals(currencyCode)) {
-                        return currency.getTransferMethodTypes();
-                    }
-                }
-            }
-        }
-        return null;
+        return mTransferMethodConfigurationKey.getCountry(countryCode) != null ?
+                mTransferMethodConfigurationKey.getCountry(countryCode).getCurrency(currencyCode) != null ?
+                        mTransferMethodConfigurationKey.getCountry(countryCode).getCurrency(currencyCode)
+                                .getTransferMethodTypes() : null : null;
     }
 }
