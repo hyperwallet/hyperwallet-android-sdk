@@ -107,7 +107,8 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
             TransferMethodFields.CARD_NUMBER,
             TransferMethodFields.CARD_TYPE,
             TransferMethodFields.DATE_OF_EXPIRY,
-            TransferMethodFields.CVV
+            TransferMethodFields.CVV,
+            TransferMethodFields.EMAIL
     })
     public @interface TransferMethodFieldKey {
     }

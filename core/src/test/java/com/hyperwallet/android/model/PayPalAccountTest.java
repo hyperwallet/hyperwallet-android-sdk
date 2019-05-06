@@ -1,6 +1,5 @@
 package com.hyperwallet.android.model;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
@@ -37,12 +36,12 @@ public class PayPalAccountTest {
 
         assertThat(actualPayPalAccount, is(notNullValue()));
         assertThat(actualPayPalAccount.getField(TOKEN), is("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b"));
-        assertThat(actualPayPalAccount.getField(TRANSFER_METHOD_COUNTRY), is("US"));
-        assertThat(actualPayPalAccount.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
+        assertThat(actualPayPalAccount.getCountry(), is("US"));
+        assertThat(actualPayPalAccount.getCurrency(), is("USD"));
         assertThat(actualPayPalAccount.getField(TYPE), is(PAYPAL_ACCOUNT));
-        assertThat(actualPayPalAccount.getField(CREATED_ON), is(equalTo("2019-01-09T22:50:14")));
-        assertThat(actualPayPalAccount.getField(EMAIL), is(equalTo("jsmith@paypal.com")));
-        assertThat(actualPayPalAccount.getField(STATUS), is(equalTo("ACTIVATED")));
+        assertThat(actualPayPalAccount.getField(CREATED_ON), is("2019-01-09T22:50:14"));
+        assertThat(actualPayPalAccount.getEmail(), is("jsmith@paypal.com"));
+        assertThat(actualPayPalAccount.getField(STATUS), is("ACTIVATED"));
     }
 
     @Test
