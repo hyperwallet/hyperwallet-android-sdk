@@ -34,6 +34,7 @@ import org.junit.runners.Suite;
         HyperwalletGetBankCardTest.class,
         HyperwalletGetPayPalTest.class,
         HyperwalletGetUserTest.class,
+        HyperwalletGetPayPalTest.class,
         HyperwalletUpdateBankAccountTest.class,
         HyperwalletUpdateBankCardTest.class,
         HyperwalletUpdatePayPalAccountTest.class,
