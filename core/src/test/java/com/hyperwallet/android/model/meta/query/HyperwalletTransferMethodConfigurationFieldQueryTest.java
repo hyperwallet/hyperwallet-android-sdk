@@ -12,50 +12,55 @@ public class HyperwalletTransferMethodConfigurationFieldQueryTest {
     public void testToQuery_returnsQuery() {
 
         String sampleFieldQuery = String.format("query {\n" +
-                        "\ttransferMethodConfigurations (\n" +
-                        "\t\tidToken: \"%s\",\n" +
-                        "\t\tcountry : %s,\n" +
-                        "\t\tcurrency : %s,\n" +
-                        "\t\ttransferMethodType : %s,\n" +
-                        "\t\tprofile : %s \n" +
-                        "\t\t)\n" +
+                        "\ttransferMethodUIConfigurations (\n" +
+                        "\t\tidToken: \"%1$s\",\n" +
+                        "\t\tprofileType: \"%2$s\",\n" +
+                        "\t\tcountry: \"%3$s\",\n" +
+                        "\t\tcurrency: \"%4$s\",\n" +
+                        "\t\ttransferMethodType: \"%5$s\"" +
+                        "\t\t)" +
                         "\t\t{\n" +
                         "\t\t\tnodes {\n" +
-                        "\t\t\t\tcountries\n" +
-                        "\t\t\t\tcurrencies\n" +
+                        "\t\t\t\tcountry\n" +
+                        "\t\t\t\tcurrency\n" +
                         "\t\t\t\ttransferMethodType\n" +
-                        "\t\t\t\tprocessingTime\n" +
-                        "\t\t\t\tfees {\n" +
+                        "\t\t\t\tprofile\n" +
+                        "\t\t\t\tfieldGroups {\n" +
                         "\t\t\t\t\tnodes {\n" +
-                        "\t\t\t\t\t\ttransferMethodType\n" +
-                        "\t\t\t\t\t\tcountry\n" +
-                        "\t\t\t\t\t\tcurrency\n" +
-                        "\t\t\t\t\t\tfeeRateType\n" +
-                        "\t\t\t\t\t\tvalue\n" +
-                        "\t\t\t\t\t\tminimum\n" +
-                        "\t\t\t\t\t\tmaximum\n" +
+                        "\t\t\t\t\t\tgroup\n" +
+                        "\t\t\t\t\t\tfields {\n" +
+                        "\t\t\t\t\t\t\tcategory\n" +
+                        "\t\t\t\t\t\t\tdataType\n" +
+                        "\t\t\t\t\t\t\tisRequired\n" +
+                        "\t\t\t\t\t\t\tisEditable\n" +
+                        "\t\t\t\t\t\t\tname\n" +
+                        "\t\t\t\t\t\t\tlabel\n" +
+                        "\t\t\t\t\t\t\tplaceholder\n" +
+                        "\t\t\t\t\t\t\tvalue\n" +
+                        "\t\t\t\t\t\t\tregularExpression\n" +
+                        "\t\t\t\t\t\t\tfieldSelectionOptions {\n" +
+                        "\t\t\t\t\t\t\t\tlabel\n" +
+                        "\t\t\t\t\t\t\t\tvalue\n" +
+                        "\t\t\t\t\t\t\t}\n" +
+                        "\t\t\t\t\t\t\tvalidationMessage {\n" +
+                        "\t\t\t\t\t\t\t\tlength\n" +
+                        "\t\t\t\t\t\t\t\tpattern\n" +
+                        "\t\t\t\t\t\t\t\tempty\n" +
+                        "\t\t\t\t\t\t\t}\n" +
+                        "\t\t\t\t\t\t}\n" +
                         "\t\t\t\t\t}\n" +
                         "\t\t\t\t}\n" +
-                        "\t\t\t\tprofile\n" +
-                        "\t\t\t\tfields {\n" +
-                        "\t\t\t\t\tcategory\n" +
-                        "\t\t\t\t\tdataType\n" +
-                        "\t\t\t\t\tisRequired\n" +
-                        "\t\t\t\t\tlabel\n" +
-                        "\t\t\t\t\tmaxLength\n" +
-                        "\t\t\t\t\tminLength\n" +
-                        "\t\t\t\t\tname\n" +
-                        "\t\t\t\t\tplaceholder\n" +
-                        "\t\t\t\t\tregularExpression\n" +
-                        "\t\t\t\t\tfieldSelectionOptions {\n" +
-                        "\t\t\t\t\t\tlabel\n" +
-                        "\t\t\t\t\t\tvalue\n" +
-                        "\t\t\t\t\t}\n" +
-                        "\t\t\t\t\tvalidationMessage {\n" +
-                        "\t\t\t\t\t\tlength\n" +
-                        "\t\t\t\t\t\tpattern\n" +
-                        "\t\t\t\t\t\tempty\n" +
-                        "\t\t\t\t\t}\n" +
+                        "\t\t\t}\n" +
+                        "\t\t},\n" +
+                        "\t\tfee: fees (idToken: \"%1$s\",\n" +
+                        "\t\t\tcountry: \"%3$s\",\n" +
+                        "\t\t\tcurrency: \"%4$s\",\n" +
+                        "\t\t\ttransferMethodType: \"%5$s\") {\n" +
+                        "\t\t\t\tnodes {\n" +
+                        "\t\t\t\t\tvalue\n" +
+                        "\t\t\t\t\tfeeRateType\n" +
+                        "\t\t\t\t\tminimum\n" +
+                        "\t\t\t\t\tmaximum\n" +
                         "\t\t\t\t}\n" +
                         "\t\t\t}\n" +
                         "\t\t}\n" +
