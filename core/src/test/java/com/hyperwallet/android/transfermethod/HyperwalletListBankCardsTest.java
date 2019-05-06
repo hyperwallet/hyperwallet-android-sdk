@@ -120,7 +120,7 @@ public class HyperwalletListBankCardsTest {
 
     @Test
     public void testListBankCards_returnsError() throws InterruptedException {
-        String responseBody = mExternalResourceManager.getResourceContentError("bank_cards_error_response.json");
+        String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
         HyperwalletBankCardPagination actualBankCard = new HyperwalletBankCardPagination();

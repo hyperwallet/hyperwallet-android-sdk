@@ -71,17 +71,13 @@ public class HyperwalletCreatePayPalAccountTest {
         String responseBody = mExternalResourceManager.getResourceContent("paypal_account_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_CREATED).withBody(responseBody).mock();
 
-        final PayPalAccount.Builder builder = new PayPalAccount
+        final PayPalAccount payPalAccount = new PayPalAccount
                 .Builder("US", "USD", "jsmith@paypal.com")
-                .token("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b");
-
-        final PayPalAccount payPalAccount = builder.build();
+                .build();
 
         assertThat(payPalAccount.getField(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(payPalAccount.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
         assertThat(payPalAccount.getField(EMAIL), is("jsmith@paypal.com"));
-        assertThat(payPalAccount.getField(TOKEN), is("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b"));
-
 
         Hyperwallet.getDefault().createPayPalAccount(payPalAccount, mListener);
         mAwait.await(50, TimeUnit.MILLISECONDS);
@@ -113,7 +109,6 @@ public class HyperwalletCreatePayPalAccountTest {
 
         final PayPalAccount payPalAccount = new PayPalAccount
                 .Builder("", "USD", "jsmith@paypal.com")
-                .token("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b")
                 .build();
 
         Hyperwallet.getDefault().createPayPalAccount(payPalAccount, mListener);

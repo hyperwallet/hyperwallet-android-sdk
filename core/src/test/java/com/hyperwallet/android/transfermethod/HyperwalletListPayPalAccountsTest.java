@@ -140,7 +140,7 @@ public class HyperwalletListPayPalAccountsTest {
 
     @Test
     public void testListPayPalAccounts_returnsError() throws InterruptedException {
-        String responseBody = mExternalResourceManager.getResourceContentError("paypal_accounts_error_response.json");
+        String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
         HyperwalletPayPalAccountPagination payPalAccountPagination = new HyperwalletPayPalAccountPagination();
