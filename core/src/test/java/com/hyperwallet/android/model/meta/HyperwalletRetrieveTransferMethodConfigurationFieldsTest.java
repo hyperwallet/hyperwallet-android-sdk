@@ -144,7 +144,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
         // assert fees
         assertThat(resultFields.getFees(), Matchers.<HyperwalletFee>hasSize(1));
         assertThat(resultFields.getFees().get(0).getValue(), is("5.00"));
-        assertThat(resultFields.getFees().get(0).getFeeRateType(), is("FLAT"));
+        assertThat(resultFields.getFees().get(0).getFeeRateType(), is(HyperwalletFee.FeeRate.FLAT));
     }
 
     @Test
