@@ -1,0 +1,16 @@
+{
+  "token": "sts-70ddc78a-0c14-4a72-8390-75d49ff376f2",
+  "createdOn": "2017-10-30T18:50:20",
+  "transition": "DE_ACTIVATED",
+  "fromStatus": "ACTIVATED",
+  "toStatus": "DE_ACTIVATED",
+  "notes": "Closing this account.",
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-f695ef43-9614-4e17-9269-902c234616c3/paypal-accounts/trm-da21954a-3910-4d70-b83d-0c2d96104394/status-transitions/sts-70ddc78a-0c14-4a72-8390-75d49ff376f2"
+    }
+  ]
+}
