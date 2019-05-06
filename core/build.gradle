@@ -115,6 +115,9 @@ publishing {
             artifact(aarArtifact)
 
             pom {
+                name = 'Hyperwallet Android Core SDK'
+                description = 'Hyperwallet Core SDK for Android to integrate with Hyperwallet Platform'
+                url = 'https://github.com/hyperwallet/hyperwallet-android-sdk'
                 pom.withXml {
                     def dependenciesNode = asNode().appendNode('dependencies')
                     configurations.implementation.allDependencies.each {
@@ -148,7 +151,7 @@ publishing {
 
 tasks.withType(Sign) {
     onlyIf {
-        isReleaseVersion
+        isReleaseVersion && !gradle.taskGraph.hasTask("publishToMavenLocal")
     }
 }
 
