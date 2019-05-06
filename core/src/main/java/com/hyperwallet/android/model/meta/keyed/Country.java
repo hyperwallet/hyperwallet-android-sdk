@@ -21,8 +21,10 @@ import androidx.annotation.Nullable;
 
 import com.hyperwallet.android.exception.HyperwalletException;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -47,15 +49,13 @@ public class Country implements KeyedNode {
      *
      * @param country JSON object that represents country data
      */
-    public Country(@NonNull final JSONObject country) throws HyperwalletException {
-        try {
-            mCode = country.getString(COUNTRY_CODE);
-            mName = country.getString(COUNTRY_NAME);
-            mCurrencies = new LinkedHashSet<>(1);
-            mCurrencyMappedConnection = new MappedConnection<>(country.getJSONObject(CURRENCIES), Currency.class);
-        } catch (Exception e) {
-            throw new HyperwalletException(e);
-        }
+    public Country(@NonNull final JSONObject country)
+            throws JSONException, NoSuchMethodException, IllegalAccessException,
+            InvocationTargetException, InstantiationException, HyperwalletException {
+        mCode = country.getString(COUNTRY_CODE);
+        mName = country.getString(COUNTRY_NAME);
+        mCurrencies = new LinkedHashSet<>(1);
+        mCurrencyMappedConnection = new MappedConnection<>(country.getJSONObject(CURRENCIES), Currency.class);
     }
 
     /**
