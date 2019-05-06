@@ -17,15 +17,31 @@
 package com.hyperwallet.android.model.meta;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringDef;
 
 import org.json.JSONObject;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.Objects;
 
 /**
  * Represents Hyperwallet Fees
  */
 public class HyperwalletFee {
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            FeeRate.FLAT,
+            FeeRate.PERCENT
+    })
+    public @interface FeeRateType {
+    }
+
+    public final class FeeRate {
+        public static final String FLAT = "FLAT";
+        public static final String PERCENT = "PERCENT";
+    }
 
     private static final String COUNTRY = "country";
     private static final String CURRENCY = "currency";
@@ -38,7 +54,8 @@ public class HyperwalletFee {
 
     private String mCountry;
     private String mCurrency;
-    private String mFeeRateType;
+    private @FeeRateType
+    String mFeeRateType;
     private String mIdToken;
     private String mMax;
     private String mMin;
@@ -64,7 +81,8 @@ public class HyperwalletFee {
         return mCurrency;
     }
 
-    public String getFeeRateType() {
+    public @FeeRateType
+    String getFeeRateType() {
         return mFeeRateType;
     }
 
