@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.model.meta.Connection;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -47,17 +48,14 @@ public class HyperwalletTransferMethodConfiguration {
      *
      * @param configuration JSON object that represents transfer method configuration data
      */
-    public HyperwalletTransferMethodConfiguration(@NonNull final JSONObject configuration) throws HyperwalletException {
-        try {
-            mCountry = configuration.getString(COUNTRY);
-            mCurrency = configuration.getString(CURRENCY);
-            mProfile = configuration.getString(PROFILE);
-            mTransferMethodType = configuration.getString(TRANSFER_METHOD_TYPE);
-            mHyperwalletFieldGroupConnection = new Connection<>(configuration.getJSONObject(FIELD_GROUPS),
-                    HyperwalletFieldGroup.class);
-        } catch (Exception e) {
-            throw new HyperwalletException(e);
-        }
+    public HyperwalletTransferMethodConfiguration(@NonNull final JSONObject configuration)
+            throws JSONException, HyperwalletException {
+        mCountry = configuration.getString(COUNTRY);
+        mCurrency = configuration.getString(CURRENCY);
+        mProfile = configuration.getString(PROFILE);
+        mTransferMethodType = configuration.getString(TRANSFER_METHOD_TYPE);
+        mHyperwalletFieldGroupConnection = new Connection<>(configuration.getJSONObject(FIELD_GROUPS),
+                HyperwalletFieldGroup.class);
     }
 
     public String getCountry() {

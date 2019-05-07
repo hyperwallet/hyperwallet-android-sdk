@@ -17,6 +17,7 @@
 package com.hyperwallet.android.model.meta.field;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.hyperwallet.android.model.meta.GqlResponse;
 import com.hyperwallet.android.model.meta.HyperwalletFee;
@@ -41,12 +42,14 @@ public class HyperwalletTransferMethodConfigurationFieldResult
     }
 
     @Override
+    @Nullable
     public HyperwalletTransferMethodConfiguration getFields() {
         return !getData().getTransferMethodConfigurationConnection().getNodes().isEmpty()
                 ? getData().getTransferMethodConfigurationConnection().getNodes().get(0) : null;
     }
 
     @Override
+    @Nullable
     public List<HyperwalletFee> getFees() {
         return getData().getFeeConnection().getNodes();
     }
