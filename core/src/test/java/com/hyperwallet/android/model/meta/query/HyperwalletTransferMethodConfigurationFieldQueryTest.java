@@ -52,7 +52,7 @@ public class HyperwalletTransferMethodConfigurationFieldQueryTest {
                         "\t\t\t\t}\n" +
                         "\t\t\t}\n" +
                         "\t\t},\n" +
-                        "\t\tfee: fees (idToken: \"%1$s\",\n" +
+                        "\t\tfees (idToken: \"%1$s\",\n" +
                         "\t\t\tcountry: \"%3$s\",\n" +
                         "\t\t\tcurrency: \"%4$s\",\n" +
                         "\t\t\ttransferMethodType: \"%5$s\") {\n" +
