@@ -54,7 +54,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
     @Captor
     private ArgumentCaptor<HyperwalletException> mExceptionCaptor;
     @Captor
-    private ArgumentCaptor<HyperwalletTransferMethodConfigurationField> mResultArgumentCaptor;
+    private ArgumentCaptor<HyperwalletTransferMethodConfigurationFieldResult> mResultArgumentCaptor;
 
     private CountDownLatch mAwait = new CountDownLatch(1);
 

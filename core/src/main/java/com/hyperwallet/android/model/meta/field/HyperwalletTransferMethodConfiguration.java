@@ -49,7 +49,7 @@ public class HyperwalletTransferMethodConfiguration {
      * @param configuration JSON object that represents transfer method configuration data
      */
     public HyperwalletTransferMethodConfiguration(@NonNull final JSONObject configuration)
-            throws JSONException, HyperwalletException {
+            throws HyperwalletException, JSONException {
         mCountry = configuration.getString(COUNTRY);
         mCurrency = configuration.getString(CURRENCY);
         mProfile = configuration.getString(PROFILE);
