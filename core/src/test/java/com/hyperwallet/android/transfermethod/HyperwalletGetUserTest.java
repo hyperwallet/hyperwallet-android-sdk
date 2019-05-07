@@ -8,23 +8,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.ADDRESS_LINE_1;
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.CITY;
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.CLIENT_USER_ID;
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.COUNTRY;
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.CREATED_ON;
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.DATE_OF_BIRTH;
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.EMAIL;
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.FIRST_NAME;
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.LANGUAGE;
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.LAST_NAME;
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.POSTAL_CODE;
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.PROFILE_TYPE;
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.PROGRAM_TOKEN;
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.STATE_PROVINCE;
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.STATUS;
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.TOKEN;
-import static com.hyperwallet.android.model.HyperwalletUser.UserFields.VERIFICATION_STATUS;
 import static com.hyperwallet.android.util.HttpMethod.GET;
 
 import com.hyperwallet.android.Hyperwallet;
@@ -92,23 +75,23 @@ public class HyperwalletGetUserTest {
 
         HyperwalletUser userResponse = mUserArgumentCaptor.getValue();
         assertThat(userResponse, is(notNullValue()));
-        assertThat(userResponse.getField(TOKEN), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
-        assertThat(userResponse.getField(STATUS), is("PRE_ACTIVATED"));
-        assertThat(userResponse.getField(VERIFICATION_STATUS), is("NOT_REQUIRED"));
-        assertThat(userResponse.getField(CREATED_ON), is("2017-10-30T22:15:45"));
-        assertThat(userResponse.getField(CLIENT_USER_ID), is("123345789"));
-        assertThat(userResponse.getField(PROFILE_TYPE), is("INDIVIDUAL"));
-        assertThat(userResponse.getField(FIRST_NAME), is("Some"));
-        assertThat(userResponse.getField(LAST_NAME), is("Guy"));
-        assertThat(userResponse.getField(DATE_OF_BIRTH), is("1991-01-01"));
-        assertThat(userResponse.getField(EMAIL), is("someguy@hyperwallet.com"));
-        assertThat(userResponse.getField(ADDRESS_LINE_1), is("575 Market Street"));
-        assertThat(userResponse.getField(CITY), is("San Francisco"));
-        assertThat(userResponse.getField(STATE_PROVINCE), is("CA"));
-        assertThat(userResponse.getField(COUNTRY), is("US"));
-        assertThat(userResponse.getField(POSTAL_CODE), is("94105"));
-        assertThat(userResponse.getField(LANGUAGE), is("en"));
-        assertThat(userResponse.getField(PROGRAM_TOKEN), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
+        assertThat(userResponse.getToken(), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
+        assertThat(userResponse.getStatus(), is("PRE_ACTIVATED"));
+        assertThat(userResponse.getVerificationStatus(), is("NOT_REQUIRED"));
+        assertThat(userResponse.getCreatedOn(), is("2017-10-30T22:15:45"));
+        assertThat(userResponse.getClientUserId(), is("123345789"));
+        assertThat(userResponse.getProfileType(), is("INDIVIDUAL"));
+        assertThat(userResponse.getFirstName(), is("Some"));
+        assertThat(userResponse.getLastName(), is("Guy"));
+        assertThat(userResponse.getDateOfBirth(), is("1991-01-01"));
+        assertThat(userResponse.getEmail(), is("someguy@hyperwallet.com"));
+        assertThat(userResponse.getAddressLine1(), is("575 Market Street"));
+        assertThat(userResponse.getCity(), is("San Francisco"));
+        assertThat(userResponse.getStateProvince(), is("CA"));
+        assertThat(userResponse.getCountry(), is("US"));
+        assertThat(userResponse.getPostalCode(), is("94105"));
+        assertThat(userResponse.getLanguage(), is("en"));
+        assertThat(userResponse.getProgramToken(), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
     }
 
     @Test
