@@ -79,7 +79,7 @@ public class HyperwalletGetUserTest {
         String responseBody = mExternalResourceManager.getResourceContent("user_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getUser("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56", mListener);
+        Hyperwallet.getDefault().getUser(mListener);
         mAwait.await(AWAIT_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
@@ -116,7 +116,7 @@ public class HyperwalletGetUserTest {
         String responseBody = "";
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_NO_CONTENT).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getUser("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56", mListener);
+        Hyperwallet.getDefault().getUser(mListener);
         mAwait.await(AWAIT_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
@@ -136,7 +136,7 @@ public class HyperwalletGetUserTest {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getUser("trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636", mListener);
+        Hyperwallet.getDefault().getUser(mListener);
         mAwait.await(AWAIT_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
