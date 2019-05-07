@@ -17,54 +17,30 @@
  */
 package com.hyperwallet.android.model;
 
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
 
-import androidx.annotation.NonNull;
-
-import com.hyperwallet.android.util.DateUtil;
-
-import java.util.Date;
 import java.util.Map;
 
 /**
- * Represents the bank card pagination fields
+ * Represents the PayPal Account pagination fields
  */
-public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagination {
-
-    protected static final String TRANSFER_METHOD_CREATE_ON = "createdOn";
-
-    private Date mCreatedOn;
+public class PayPalAccountPagination extends HyperwalletTransferMethodPagination {
 
     /**
-     * Constructors the bank card pagination
+     * Constructs the default implementation of the PayPal Account pagination.
      */
-    public HyperwalletBankCardPagination() {
+    public PayPalAccountPagination() {
         super();
-        setType(BANK_CARD);
+        setType(PAYPAL_ACCOUNT);
     }
 
     /**
-     * Constructor to build the pagination based in the preview request
+     * Constructs the PayPal Account pagination based in the preview request with extra parameters.
      *
      * @param urlQueryMap the map with properties to build the pagination
      */
-    public HyperwalletBankCardPagination(Map<String, String> urlQueryMap) {
+    public PayPalAccountPagination(Map<String, String> urlQueryMap) {
         super(urlQueryMap);
-        mCreatedOn = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_ON);
-        setType(BANK_CARD);
-    }
-
-    public Date getCreatedOn() {
-        return mCreatedOn;
-    }
-
-    @NonNull
-    @Override
-    public Map<String, String> buildQuery() {
-        Map<String, String> query = super.buildQuery();
-        if (mCreatedOn != null) {
-            query.put(TRANSFER_METHOD_CREATE_ON, DateUtil.toDateTimeFormat(mCreatedOn));
-        }
-        return query;
+        setType(PAYPAL_ACCOUNT);
     }
 }

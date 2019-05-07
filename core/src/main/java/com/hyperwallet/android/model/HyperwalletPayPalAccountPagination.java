@@ -17,7 +17,7 @@
  */
 package com.hyperwallet.android.model;
 
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
 
 import androidx.annotation.NonNull;
 
@@ -27,31 +27,31 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * Represents the bank card pagination fields
+ * Represents the PayPal Account pagination fields
  */
-public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagination {
+public class HyperwalletPayPalAccountPagination extends HyperwalletTransferMethodPagination {
 
     protected static final String TRANSFER_METHOD_CREATE_ON = "createdOn";
 
     private Date mCreatedOn;
 
     /**
-     * Constructors the bank card pagination
+     * Constructs the default implementation of the PayPal Account pagination.
      */
-    public HyperwalletBankCardPagination() {
+    public HyperwalletPayPalAccountPagination() {
         super();
-        setType(BANK_CARD);
+        setType(PAYPAL_ACCOUNT);
     }
 
     /**
-     * Constructor to build the pagination based in the preview request
+     * Constructs the PayPal Account pagination based in the preview request with extra parameters.
      *
      * @param urlQueryMap the map with properties to build the pagination
      */
-    public HyperwalletBankCardPagination(Map<String, String> urlQueryMap) {
+    public HyperwalletPayPalAccountPagination(Map<String, String> urlQueryMap) {
         super(urlQueryMap);
         mCreatedOn = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_ON);
-        setType(BANK_CARD);
+        setType(PAYPAL_ACCOUNT);
     }
 
     public Date getCreatedOn() {
