@@ -37,7 +37,7 @@ import java.util.Set;
 public interface HyperwalletTransferMethodConfigurationKey {
 
     /**
-     * Retrieve a specific Country representation
+     * Retrieve a specific {@link Country} representation
      *
      * @param countryCode represented in ISO 3166-1 alpha-2 code format
      * @return specific Country identified by parameter if exists

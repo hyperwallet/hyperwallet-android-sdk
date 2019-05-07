@@ -7,6 +7,7 @@ import com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTyp
 import com.hyperwallet.android.model.meta.Connection;
 import com.hyperwallet.android.model.meta.HyperwalletFee;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.LinkedHashSet;
@@ -34,17 +35,14 @@ public class HyperwalletTransferMethodType implements KeyedNode {
      *
      * @param transferMethodType JSON object that represents transfer method type data
      */
-    public HyperwalletTransferMethodType(@NonNull final JSONObject transferMethodType) throws HyperwalletException {
-        try {
-            mCode = transferMethodType.getString(TRANSFER_METHOD_CODE);
-            mName = transferMethodType.getString(TRANSFER_METHOD_NAME);
-            mProcessingTime = transferMethodType.optString(TRANSFER_METHOD_PROCESSING_TIME);
-            mHyperwalletFees = new LinkedHashSet<>(1);
-            mFeeConnection = new Connection<>(transferMethodType.getJSONObject(TRANSFER_METHOD_FEES),
-                    HyperwalletFee.class);
-        } catch (Exception e) {
-            throw new HyperwalletException(e);
-        }
+    public HyperwalletTransferMethodType(@NonNull final JSONObject transferMethodType)
+            throws HyperwalletException, JSONException {
+        mCode = transferMethodType.getString(TRANSFER_METHOD_CODE);
+        mName = transferMethodType.getString(TRANSFER_METHOD_NAME);
+        mProcessingTime = transferMethodType.optString(TRANSFER_METHOD_PROCESSING_TIME);
+        mHyperwalletFees = new LinkedHashSet<>(1);
+        mFeeConnection = new Connection<>(transferMethodType.getJSONObject(TRANSFER_METHOD_FEES),
+                HyperwalletFee.class);
     }
 
     /**

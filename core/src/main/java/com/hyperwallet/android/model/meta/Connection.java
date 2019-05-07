@@ -34,13 +34,18 @@ import java.util.List;
  */
 public class Connection<T> {
 
-    public static final String COUNT = "count";
-    public static final String NODES = "nodes";
+    private static final String TAG = Connection.class.getName();
+    private static final String COUNT = "count";
+    private static final String NODES = "nodes";
+    private static final String PAGE_INFO = "pageInfo";
 
     private static final long DEFAULT_COUNT = 0L;
 
     private final long mCount;
+    @Nullable
     private final List<T> mNodes;
+    @Nullable
+    private PageInfo mPageInfo;
 
     /**
      * Constructor to build Connection based on json and class
@@ -50,6 +55,10 @@ public class Connection<T> {
      */
     public Connection(@NonNull final JSONObject data, @NonNull final Class clazz) throws HyperwalletException {
         mCount = data.optLong(COUNT, DEFAULT_COUNT);
+        JSONObject pageInfoObject = data.optJSONObject(PAGE_INFO);
+        if (pageInfoObject != null) {
+            mPageInfo = new PageInfo(pageInfoObject);
+        }
 
         try {
             Constructor<?> constructor = clazz.getConstructor(JSONObject.class);
@@ -74,5 +83,10 @@ public class Connection<T> {
     @Nullable
     public List<T> getNodes() {
         return mNodes;
+    }
+
+    @Nullable
+    public PageInfo getPageInfo() {
+        return mPageInfo;
     }
 }
