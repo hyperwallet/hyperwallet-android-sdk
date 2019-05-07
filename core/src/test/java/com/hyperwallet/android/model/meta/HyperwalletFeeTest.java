@@ -3,6 +3,8 @@ package com.hyperwallet.android.model.meta;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+import static com.hyperwallet.android.model.meta.Fee.FeeRate.FLAT;
+
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
 import org.json.JSONException;
@@ -19,12 +21,12 @@ public class HyperwalletFeeTest {
     public HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
 
     @Test
-    public void testHyperwalletFee_convertJsonObjectWithBankAccount() throws JSONException {
+    public void testHyperwalletFee_convertJsonObject() throws JSONException {
         String data = mResourceManager.getResourceContent("fee_item.json");
         JSONObject jsonObject = new JSONObject(data);
         HyperwalletFee fee = new HyperwalletFee(jsonObject);
         assertThat(fee.getValue(), is("5.00"));
-        assertThat(fee.getFeeRateType(), is("FLAT"));
+        assertThat(fee.getFeeRateType(), is(FLAT));
     }
 
     @Test
@@ -37,19 +39,10 @@ public class HyperwalletFeeTest {
         HyperwalletFee duplicateFee = fee;
         assertThat(fee.equals(duplicateFee), is(true));
 
-        jsonObject.put("value", "40.00");
-        HyperwalletFee anotherValueFee = new HyperwalletFee(jsonObject);
-        assertThat(fee.equals(anotherValueFee), is(false));
-
-        jsonObject.put("value", "5.00");
-        jsonObject.put("feeRateType", "PERCENT");
-        HyperwalletFee anotherRateTypeFee = new HyperwalletFee(jsonObject);
-        assertThat(fee.equals(anotherRateTypeFee), is(false));
-
-        jsonObject.put("feeRateType", "FLAT");
-        jsonObject.put("idToken", "ID_TOKEN");
-        HyperwalletFee anotherTokenTypeFee = new HyperwalletFee(jsonObject);
-        assertThat(fee.equals(anotherTokenTypeFee), is(false));
+        String anotherData = mResourceManager.getResourceContent("fee_another_item.json");
+        JSONObject anotherJsonObject = new JSONObject(anotherData);
+        HyperwalletFee anotherFee = new HyperwalletFee(anotherJsonObject);
+        assertThat(fee.equals(anotherFee), is(false));
     }
 
 }
