@@ -3,6 +3,8 @@ package com.hyperwallet.android.model;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.StringContains.containsString;
 
 import static com.hyperwallet.android.model.HyperwalletUser.BusinessContactRoles.OWNER;
 import static com.hyperwallet.android.model.HyperwalletUser.BusinessTypes.CORPORATION;
@@ -55,8 +57,11 @@ import static com.hyperwallet.android.model.HyperwalletUser.UserStatuses.LOCKED;
 import static com.hyperwallet.android.model.HyperwalletUser.VerificationStatuses.UNDER_REVIEW;
 import static com.hyperwallet.android.util.JsonUtils.fromJsonString;
 
+import android.os.Parcel;
+
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
@@ -188,5 +193,155 @@ public class HyperwalletUserTest {
         assertThat(jsonObject.getString(PROFILE_TYPE), is(INDIVIDUAL));
         assertThat(jsonObject.getString(PROGRAM_TOKEN), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
         assertThat(jsonObject.getString(STATE_PROVINCE), is("BC"));
+    }
+
+    @Test
+    public void testHyperwalletUser_getNullField() {
+        final HyperwalletUser actualUser = new HyperwalletUser.Builder()
+                .token("usr-f9154016-94e8-4686-a840-075688ac07b5").build();
+        assertThat(actualUser.getField("my field"), is(nullValue()));
+    }
+
+    @Test
+    public void testHyperwalletUser_getField() {
+        final HyperwalletUser actualUser = new HyperwalletUser.Builder()
+                .token("usr-f9154016-94e8-4686-a840-075688ac07b5").build();
+        assertThat(actualUser.getField(TOKEN), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
+    }
+
+    @Test
+    public void testToJsonString_user() throws JSONException {
+        final HyperwalletUser actualUser = new HyperwalletUser.Builder()
+                .token("usr-f9154016-94e8-4686-a840-075688ac07b5")
+                .status(LOCKED)
+                .build();
+
+        String actualUserJsonString = actualUser.toJsonString();
+        assertThat(actualUserJsonString, containsString("usr-f9154016-94e8-4686-a840-075688ac07b5"));
+        assertThat(actualUserJsonString, containsString(LOCKED));
+    }
+
+    @Test
+    public void testHyperwalletUser_isParcelable() throws Exception {
+
+        String json = mExternalResourceManager.getResourceContent("user_response.json");
+
+        HyperwalletUser user = fromJsonString(json, new TypeReference<HyperwalletUser>() {
+        });
+
+        Parcel parcel = Parcel.obtain();
+        user.writeToParcel(parcel, user.describeContents());
+        parcel.setDataPosition(0);
+        HyperwalletUser bundledUser = HyperwalletUser.CREATOR.createFromParcel(parcel);
+
+        assertThat(bundledUser, is(notNullValue()));
+        assertThat(bundledUser.getToken(), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
+        assertThat(bundledUser.getStatus(), is("PRE_ACTIVATED"));
+        assertThat(bundledUser.getVerificationStatus(), is("NOT_REQUIRED"));
+        assertThat(bundledUser.getCreatedOn(), is("2017-10-30T22:15:45"));
+        assertThat(bundledUser.getClientUserId(), is("123345789"));
+        assertThat(bundledUser.getProfileType(), is("INDIVIDUAL"));
+        assertThat(bundledUser.getFirstName(), is("Some"));
+        assertThat(bundledUser.getLastName(), is("Guy"));
+        assertThat(bundledUser.getDateOfBirth(), is("1991-01-01"));
+        assertThat(bundledUser.getEmail(), is("someguy@hyperwallet.com"));
+        assertThat(bundledUser.getAddressLine1(), is("575 Market Street"));
+        assertThat(bundledUser.getCity(), is("San Francisco"));
+        assertThat(bundledUser.getStateProvince(), is("CA"));
+        assertThat(bundledUser.getCountry(), is("US"));
+        assertThat(bundledUser.getPostalCode(), is("94105"));
+        assertThat(bundledUser.getLanguage(), is("en"));
+        assertThat(bundledUser.getProgramToken(), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
+    }
+
+    @Test
+    public void testHyperwalletUser_fieldsAccessors() {
+        final HyperwalletUser expectedUser = new HyperwalletUser.Builder()
+                .token("usr-f9154016-94e8-4686-a840-075688ac07b5")
+                .status(LOCKED)
+                .verificationStatus(UNDER_REVIEW)
+                .createdOn("2017-10-30T22:15:45")
+                .clientUserId("123345789")
+                .addressLine1("575 Market Street")
+                .addressLine2("247 Tottenham Court Rd")
+                .businessContactRole(OWNER)
+                .businessName("My Company")
+                .businessRegistrationCountry("CA")
+                .businessRegistrationId("werqq")
+                .businessRegistrationStateProvince("BC")
+                .businessContactAddressLine1("34 Zoo pl")
+                .businessContactAddressLine2("102 Park ave")
+                .businessContactCity("Zippy")
+                .businessContactStateProvince("Quebec")
+                .businessContactCountry("CA")
+                .businessContactPostalCode("QC H2Y 2E2")
+                .businessOperatingName("OP name")
+                .businessType(CORPORATION)
+                .city("Montréal")
+                .country("CA")
+                .countryOfBirth("US")
+                .countryOfNationality("CA")
+                .dateOfBirth("1991-03-09")
+                .driversLicenseId("ID-45dff")
+                .email("someguy@hyperwallet.com")
+                .employerId("34333")
+                .firstName("Jany")
+                .gender(MALE)
+                .governmentId("CA-MO-12")
+                .governmentIdType(PASSPORT)
+                .language("fr")
+                .lastName("Smith")
+                .middleName("de")
+                .mobileNumber("+1514-496-7678")
+                .passportId("AV54467")
+                .phoneNumber("496-7678")
+                .postalCode("94105")
+                .profileType(INDIVIDUAL)
+                .programToken("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c")
+                .stateProvince("BC")
+                .build();
+
+        assertThat(expectedUser.getToken(), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
+        assertThat(expectedUser.getStatus(), is(LOCKED));
+        assertThat(expectedUser.getVerificationStatus(), is(UNDER_REVIEW));
+        assertThat(expectedUser.getCreatedOn(), is("2017-10-30T22:15:45"));
+        assertThat(expectedUser.getClientUserId(), is("123345789"));
+        assertThat(expectedUser.getAddressLine1(), is("575 Market Street"));
+        assertThat(expectedUser.getAddressLine2(), is("247 Tottenham Court Rd"));
+        assertThat(expectedUser.getBusinessContactRole(), is(OWNER));
+        assertThat(expectedUser.getBusinessName(), is("My Company"));
+        assertThat(expectedUser.getBusinessRegistrationCountry(), is("CA"));
+        assertThat(expectedUser.getBusinessRegistrationId(), is("werqq"));
+        assertThat(expectedUser.getBusinessRegistrationStateProvince(), is("BC"));
+        assertThat(expectedUser.getBusinessContactAddressLine1(), is("34 Zoo pl"));
+        assertThat(expectedUser.getBusinessContactAddressLine2(), is("102 Park ave"));
+        assertThat(expectedUser.getBusinessContactCity(), is("Zippy"));
+        assertThat(expectedUser.getBusinessContactStateProvince(), is("Quebec"));
+        assertThat(expectedUser.getBusinessContactCountry(), is("CA"));
+        assertThat(expectedUser.getBusinessContactPostalCode(), is("QC H2Y 2E2"));
+        assertThat(expectedUser.getBusinessOperatingName(), is("OP name"));
+        assertThat(expectedUser.getBusinessType(), is(CORPORATION));
+        assertThat(expectedUser.getCity(), is("Montréal"));
+        assertThat(expectedUser.getCountry(), is("CA"));
+        assertThat(expectedUser.getCountryOfBirth(), is("US"));
+        assertThat(expectedUser.getCountryOfNationality(), is("CA"));
+        assertThat(expectedUser.getDateOfBirth(), is("1991-03-09"));
+        assertThat(expectedUser.getDriversLicenseId(), is("ID-45dff"));
+        assertThat(expectedUser.getEmail(), is("someguy@hyperwallet.com"));
+        assertThat(expectedUser.getEmployerId(), is("34333"));
+        assertThat(expectedUser.getFirstName(), is("Jany"));
+        assertThat(expectedUser.getGender(), is(MALE));
+        assertThat(expectedUser.getGovernmentId(), is("CA-MO-12"));
+        assertThat(expectedUser.getGovernmentIdType(), is(PASSPORT));
+        assertThat(expectedUser.getLanguage(), is("fr"));
+        assertThat(expectedUser.getLastName(), is("Smith"));
+        assertThat(expectedUser.getMiddleName(), is("de"));
+        assertThat(expectedUser.getMobileNumber(), is("+1514-496-7678"));
+        assertThat(expectedUser.getPassportId(), is("AV54467"));
+        assertThat(expectedUser.getPhoneNumber(), is("496-7678"));
+        assertThat(expectedUser.getPostalCode(), is("94105"));
+        assertThat(expectedUser.getProfileType(), is(INDIVIDUAL));
+        assertThat(expectedUser.getProgramToken(), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
+        assertThat(expectedUser.getStateProvince(), is("BC"));
     }
 }

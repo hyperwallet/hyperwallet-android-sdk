@@ -305,18 +305,6 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
         return mFields.get(key) != null ? (String) mFields.get(key) : null;
     }
 
-    /**
-     * Returns a {@link Class<T>} value of a {@code Map<String, T>}
-     *
-     * @param key can only be {@link String}
-     * @return a {@code T} value
-     */
-    @Nullable
-    public <T> T getField(@NonNull @UserField String key,
-            @NonNull Class<T> clazz) {
-        return clazz.cast(mFields.get(key));
-    }
-
     @Nullable
     public String getToken() {
         return (String) mFields.get(UserFields.TOKEN);
@@ -411,8 +399,8 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     }
 
     @Nullable
-    public HyperwalletUser.Builder getBusinessOperatingName() {
-        return (Builder) mFields.get(UserFields.BUSINESS_OPERATING_NAME);
+    public String getBusinessOperatingName() {
+        return (String) mFields.get(UserFields.BUSINESS_OPERATING_NAME);
     }
 
     @Nullable
@@ -494,8 +482,8 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     }
 
     @Nullable
-    public HyperwalletUser.Builder getMiddleName() {
-        return (Builder) mFields.get(UserFields.MIDDLE_NAME);
+    public String getMiddleName() {
+        return (String) mFields.get(UserFields.MIDDLE_NAME);
     }
 
     @Nullable
