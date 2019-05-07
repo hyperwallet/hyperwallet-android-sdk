@@ -3,7 +3,7 @@ package com.hyperwallet.android.model.meta;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-import static com.hyperwallet.android.model.meta.HyperwalletFee.FeeRate.FLAT;
+import static com.hyperwallet.android.model.meta.Fee.FeeRate.FLAT;
 
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
