@@ -6,9 +6,9 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.isEmptyString;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.text.IsEmptyString.emptyString;
 import static org.junit.Assert.assertNotNull;
 
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
@@ -75,7 +75,7 @@ public class TransferMethodConfigurationConnectionTest {
         assertThat(hyperwalletFields.get(0).getMinLength(), is(0));
         assertThat(hyperwalletFields.get(0).getName(), is("shippingMethod"));
         assertThat(hyperwalletFields.get(0).getPlaceholder(), is(""));
-        assertThat(hyperwalletFields.get(0).getRegularExpression(), isEmptyString());
+        assertThat(hyperwalletFields.get(0).getRegularExpression(), is(emptyString()));
 
         assertThat(hyperwalletFields.get(1).getCategory(), is("ADDRESS"));
         assertThat(hyperwalletFields.get(1).getDataType(), is(EDataType.SELECTION));
@@ -85,7 +85,7 @@ public class TransferMethodConfigurationConnectionTest {
         assertThat(hyperwalletFields.get(1).getMinLength(), is(2));
         assertThat(hyperwalletFields.get(1).getName(), is("country"));
         assertThat(hyperwalletFields.get(1).getPlaceholder(), is(""));
-        assertThat(hyperwalletFields.get(1).getRegularExpression(), isEmptyString());
+        assertThat(hyperwalletFields.get(1).getRegularExpression(), is(emptyString()));
 
         // asserting fee info and processing time
         assertThat(result.getProcessingTime("CA", "CAD", "PAPER_CHECK", "INDIVIDUAL"),

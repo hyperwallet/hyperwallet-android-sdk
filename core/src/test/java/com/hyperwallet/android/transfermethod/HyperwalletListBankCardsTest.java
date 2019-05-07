@@ -29,7 +29,6 @@ import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -81,7 +80,7 @@ public class HyperwalletListBankCardsTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         verify(mListener).onSuccess(mListTransferMethodCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
-        assertThat(recordedRequest.getMethod(), CoreMatchers.is(GET.name()));
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         HyperwalletPageList<HyperwalletBankCard> hyperwalletBankCardsResponse = mListTransferMethodCaptor.getValue();
 
@@ -110,7 +109,7 @@ public class HyperwalletListBankCardsTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
                 containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards?"));
-        assertThat(recordedRequest.getMethod(), CoreMatchers.is(GET.name()));
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(), containsString("type=BANK_CARD"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
@@ -156,7 +155,7 @@ public class HyperwalletListBankCardsTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
                 containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards?"));
-        assertThat(recordedRequest.getMethod(), CoreMatchers.is(GET.name()));
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(), containsString("type=BANK_CARD"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));

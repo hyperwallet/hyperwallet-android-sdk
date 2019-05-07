@@ -20,7 +20,6 @@ import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -86,7 +85,7 @@ public class HyperwalletDeactivateBankAccountTest {
                 endsWith(
                         "users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts/trm-fake-token/status"
                                 + "-transitions"));
-        assertThat(recordedRequest.getMethod(), CoreMatchers.is(POST.name()));
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
     }
 
 
@@ -119,6 +118,6 @@ public class HyperwalletDeactivateBankAccountTest {
                 endsWith(
                         "users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts/trm-fake-token/status"
                                 + "-transitions"));
-        assertThat(recordedRequest.getMethod(), CoreMatchers.is(POST.name()));
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
     }
 }

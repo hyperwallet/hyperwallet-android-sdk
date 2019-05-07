@@ -25,7 +25,6 @@ import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -74,7 +73,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(), is("/graphql/"));
-        assertThat(recordedRequest.getMethod(), CoreMatchers.is(POST.name()));
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
 
         verify(mListener).onSuccess(mKeyResultCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
@@ -115,7 +114,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(), is("/graphql/"));
-        assertThat(recordedRequest.getMethod(), CoreMatchers.is(POST.name()));
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
 
         verify(mListener, never()).onSuccess(any(HyperwalletTransferMethodConfigurationKeyResult.class));
         verify(mListener).onFailure(mExceptionCaptor.capture());

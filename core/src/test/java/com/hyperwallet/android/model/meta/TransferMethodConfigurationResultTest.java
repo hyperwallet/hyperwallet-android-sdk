@@ -5,8 +5,8 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
-import static org.hamcrest.Matchers.isEmptyString;
 import static org.hamcrest.Matchers.not;
+import static org.hamcrest.text.IsEmptyString.emptyString;
 
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
@@ -155,8 +155,8 @@ public class TransferMethodConfigurationResultTest {
         assertThat(field1.getMinLength(), is(0));
         assertThat(field1.getMaxLength(), is(Integer.MAX_VALUE));
         assertThat(field1.getName(), is("shippingMethod"));
-        assertThat(field1.getPlaceholder(), isEmptyString());
-        assertThat(field1.getRegularExpression(), isEmptyString());
+        assertThat(field1.getPlaceholder(), is(emptyString()));
+        assertThat(field1.getRegularExpression(), is(emptyString()));
 
         HyperwalletField field2 = transferMethodConfigurationResult.getFields().get(1);
         assertThat(field2.getCategory(), is("ADDRESS"));
@@ -166,8 +166,8 @@ public class TransferMethodConfigurationResultTest {
         assertThat(field2.getMinLength(), is(2));
         assertThat(field2.getMaxLength(), is(30));
         assertThat(field2.getName(), is("country"));
-        assertThat(field2.getPlaceholder(), isEmptyString());
-        assertThat(field2.getRegularExpression(), isEmptyString());
+        assertThat(field2.getPlaceholder(), is(emptyString()));
+        assertThat(field2.getRegularExpression(), is(emptyString()));
     }
 
     @Test
