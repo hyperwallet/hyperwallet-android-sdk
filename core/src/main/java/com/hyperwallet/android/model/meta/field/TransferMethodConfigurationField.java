@@ -40,7 +40,7 @@ public class TransferMethodConfigurationField {
      *
      * @param configuration JSON object that represents transfer method configuration data with fees
      */
-    TransferMethodConfigurationField(@NonNull final JSONObject configuration) throws HyperwalletException {
+    public TransferMethodConfigurationField(@NonNull final JSONObject configuration) throws HyperwalletException {
         try {
             mFeeConnection = new Connection<>(configuration.getJSONObject(TRANSFER_FEE), HyperwalletFee.class);
             mTransferMethodConfigurationConnection = new Connection<>
