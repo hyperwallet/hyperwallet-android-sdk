@@ -9,7 +9,6 @@ import static org.hamcrest.Matchers.nullValue;
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
 
-import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
 import org.json.JSONException;
@@ -29,7 +28,7 @@ public class CurrencyTest {
     public final ExpectedException mThrown = ExpectedException.none();
 
     @Test
-    public void testCurrency_convertJsonObjectWithCaD() throws JSONException, HyperwalletException {
+    public void testCurrency_convertJsonObjectWithCaD() throws Exception {
         String data = mResourceManager.getResourceContent("currency_item.json");
         JSONObject jsonObject = new JSONObject(data);
         Currency currency = new Currency(jsonObject);
@@ -40,7 +39,7 @@ public class CurrencyTest {
     }
 
     @Test
-    public void testCurrency_convertJsonObjectWithoutNodes() throws JSONException, HyperwalletException {
+    public void testCurrency_convertJsonObjectWithoutNodes() throws Exception {
         String data = mResourceManager.getResourceContent("currency_without_nodes_item.json");
         JSONObject jsonObject = new JSONObject(data);
         Currency currency = new Currency(jsonObject);
@@ -52,9 +51,8 @@ public class CurrencyTest {
 
 
     @Test
-    public void testCurrency_convertJsonObjectWithError()
-            throws JSONException, HyperwalletException {
-        mThrown.expect(HyperwalletException.class);
+    public void testCurrency_convertJsonObjectWithError() throws Exception {
+        mThrown.expect(JSONException.class);
 
         String data = mResourceManager.getResourceContent("currency_item.json");
         JSONObject jsonObject = new JSONObject(data);
@@ -63,7 +61,7 @@ public class CurrencyTest {
     }
 
     @Test
-    public void testCurrency_equalsObjects() throws JSONException, HyperwalletException {
+    public void testCurrency_equalsObjects() throws Exception {
         String data = mResourceManager.getResourceContent("currency_item.json");
         JSONObject jsonObject = new JSONObject(data);
         Currency currency = new Currency(jsonObject);

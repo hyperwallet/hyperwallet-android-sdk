@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 
-import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
 import org.json.JSONException;
@@ -26,7 +25,7 @@ public class CountryTest {
     public final ExpectedException mThrown = ExpectedException.none();
 
     @Test
-    public void testCountry_convertValidJsonObject() throws JSONException, HyperwalletException {
+    public void testCountry_convertValidJsonObject() throws Exception {
         String data = mResourceManager.getResourceContent("country_item.json");
         JSONObject jsonObject = new JSONObject(data);
         Country country = new Country(jsonObject);
@@ -37,7 +36,7 @@ public class CountryTest {
     }
 
     @Test
-    public void testCountry_convertJsonObjectWithoutNodes() throws JSONException, HyperwalletException {
+    public void testCountry_convertJsonObjectWithoutNodes() throws Exception {
         String data = mResourceManager.getResourceContent("country_without_nodes_item.json");
         JSONObject jsonObject = new JSONObject(data);
         Country country = new Country(jsonObject);
@@ -48,9 +47,8 @@ public class CountryTest {
     }
 
     @Test
-    public void testCountry_convertJsonObjectWithError()
-            throws JSONException, HyperwalletException {
-        mThrown.expect(HyperwalletException.class);
+    public void testCountry_convertJsonObjectWithError() throws Exception {
+        mThrown.expect(JSONException.class);
 
         String data = mResourceManager.getResourceContent("country_item.json");
         JSONObject jsonObject = new JSONObject(data);
@@ -59,7 +57,7 @@ public class CountryTest {
     }
 
     @Test
-    public void testCountry_equalsObject() throws JSONException, HyperwalletException {
+    public void testCountry_equalsObject() throws Exception {
         String data = mResourceManager.getResourceContent("country_item.json");
         JSONObject jsonObject = new JSONObject(data);
         Country country = new Country(jsonObject);

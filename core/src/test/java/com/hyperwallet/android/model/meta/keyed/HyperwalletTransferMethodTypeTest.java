@@ -4,6 +4,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 
+import static com.hyperwallet.android.model.meta.HyperwalletFee.FeeRate.FLAT;
+
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.model.meta.HyperwalletFee;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
@@ -41,13 +43,13 @@ public class HyperwalletTransferMethodTypeTest {
         final Set<HyperwalletFee> fees = transferMethodType.getFees();
         List<HyperwalletFee> feeList = new ArrayList<>(fees);
         assertThat(feeList.get(0).getValue(), is("5.00"));
-        assertThat(feeList.get(0).getFeeRateType(), is("FLAT"));
+        assertThat(feeList.get(0).getFeeRateType(), is(FLAT));
     }
 
     @Test
     public void testHyperwalletTransferMethodType_convertJsonObjectWithError()
             throws JSONException, HyperwalletException {
-        mThrown.expect(HyperwalletException.class);
+        mThrown.expect(JSONException.class);
 
         String data = mResourceManager.getResourceContent("tm_type_item.json");
         JSONObject jsonObject = new JSONObject(data);
