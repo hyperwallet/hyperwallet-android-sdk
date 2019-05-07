@@ -52,7 +52,7 @@ public class HyperwalletField {
     private final String mCategory;
     private final EDataType mDataType;
     private final List<HyperwalletFieldSelectionOption> mFieldSelectionOptions;
-    private final int mFileSize;
+    private final HyperwalletFileSize mFileSize;
     private final String mFileType;
     private final boolean mIsEditable;
     private final boolean mIsRequired;
@@ -77,9 +77,14 @@ public class HyperwalletField {
         mPlaceholder = field.optString(PLACEHOLDER);
         mRegularExpression = field.optString(REGULAR_EXPRESSION);
         mValue = field.optString(VALUE);
-        mFileSize = field.optInt(FILE_SIZE);
         mFileType = field.optString(FILE_TYPE);
 
+        JSONObject fileSize = field.optJSONObject(FILE_SIZE);
+        if (fileSize != null) {
+            mFileSize = new HyperwalletFileSize(field.optJSONObject(FILE_SIZE));
+        } else {
+            mFileSize = null;
+        }
         JSONArray jsonArray = field.optJSONArray(FIELD_SELECTION_OPTIONS);
         if (jsonArray != null) {
             mFieldSelectionOptions = new ArrayList<>();
@@ -138,7 +143,8 @@ public class HyperwalletField {
         return mRegularExpression;
     }
 
-    public int getFileSize() {
+    @Nullable
+    public HyperwalletFileSize getFileSize() {
         return mFileSize;
     }
 
