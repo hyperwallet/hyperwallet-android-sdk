@@ -281,7 +281,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param listener  the callback handler of responses from the Hyperwallet platform; must not be null
