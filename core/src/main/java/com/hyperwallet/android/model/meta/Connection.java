@@ -34,9 +34,9 @@ import java.util.List;
  */
 public class Connection<T> {
 
-    private static final String TAG = Connection.class.getName();
     public static final String COUNT = "count";
     public static final String NODES = "nodes";
+    private static final String TAG = Connection.class.getName();
     private static final String PAGE_INFO = "pageInfo";
 
     private static final long DEFAULT_COUNT = 0L;

@@ -58,6 +58,7 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
         public static final String PAPER_CHECK = "PAPER_CHECK";
         public static final String PREPAID_CARD = "PREPAID_CARD";
         public static final String WIRE_ACCOUNT = "WIRE_ACCOUNT";
+        public static final String PAYPAL_ACCOUNT = "PAYPAL_ACCOUNT";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -106,7 +107,8 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
             TransferMethodFields.CARD_NUMBER,
             TransferMethodFields.CARD_TYPE,
             TransferMethodFields.DATE_OF_EXPIRY,
-            TransferMethodFields.CVV
+            TransferMethodFields.CVV,
+            TransferMethodFields.EMAIL
     })
     public @interface TransferMethodFieldKey {
     }
@@ -140,6 +142,7 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
         public static final String PHONE_NUMBER = "phoneNumber";
         public static final String POSTAL_CODE = "postalCode";
         public static final String STATE_PROVINCE = "stateProvince";
+        public static final String EMAIL = "email";
 
         // bank account field keys
         public static final String BANK_ACCOUNT_ID = "bankAccountId";
