@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
 import org.json.JSONException;
@@ -26,8 +25,7 @@ public class TransferMethodConfigurationKeyTest {
     public final ExpectedException mThrown = ExpectedException.none();
 
     @Test
-    public void testTransferMethodConfigurationKey_convertJsonObject()
-            throws JSONException, HyperwalletException {
+    public void testTransferMethodConfigurationKey_convertJsonObject() throws Exception {
         String data = mResourceManager.getResourceContent("tmc_key_item.json");
         JSONObject jsonObject = new JSONObject(data);
         TransferMethodConfigurationKey configurationKey =
@@ -38,9 +36,8 @@ public class TransferMethodConfigurationKeyTest {
     }
 
     @Test
-    public void testTransferMethodConfigurationKey_convertIncorrectJsonObject()
-            throws JSONException, HyperwalletException {
-        mThrown.expect(HyperwalletException.class);
+    public void testTransferMethodConfigurationKey_convertIncorrectJsonObject() throws Exception {
+        mThrown.expect(JSONException.class);
 
         String data = mResourceManager.getResourceContent("tmc_key_item.json");
         JSONObject jsonObject = new JSONObject(data);
@@ -51,8 +48,7 @@ public class TransferMethodConfigurationKeyTest {
     }
 
     @Test
-    public void testTransferMethodConfigurationKey_convertEmptyCountriesJsonObject()
-            throws JSONException, HyperwalletException {
+    public void testTransferMethodConfigurationKey_convertEmptyCountriesJsonObject() throws Exception {
         String data = mResourceManager.getResourceContent("tmc_key_empty_nodes_item.json");
         JSONObject jsonObject = new JSONObject(data);
         TransferMethodConfigurationKey configurationKeyResult =
