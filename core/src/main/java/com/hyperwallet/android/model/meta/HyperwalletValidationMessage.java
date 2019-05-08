@@ -14,22 +14,12 @@
  *  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.hyperwallet.android.model.meta.field;
+package com.hyperwallet.android.model.meta;
 
 import androidx.annotation.NonNull;
 
 import org.json.JSONObject;
 
-/**
- * {@code HyperwalletValidationMessage} represents validation error message data to be shown to user when
- * one of the following errors are raised from user input:
- *
- * <ul>
- * <li>Length of input is not met</li>
- * <li>Input pattern does not match</li>
- * <li>If in case the input data is required, then input data should not be empty and will display empty message</li>
- * </ul>
- */
 public class HyperwalletValidationMessage {
     private static final String LENGTH = "length";
     private static final String PATTERN = "pattern";
@@ -39,10 +29,10 @@ public class HyperwalletValidationMessage {
     private final String mPattern;
     private final String mEmpty;
 
-    public HyperwalletValidationMessage(@NonNull final JSONObject message) {
-        mLength = message.optString(LENGTH);
-        mPattern = message.optString(PATTERN);
-        mEmpty = message.optString(EMPTY);
+    public HyperwalletValidationMessage(@NonNull JSONObject selectionOption) {
+        mLength = selectionOption.optString(LENGTH);
+        mPattern = selectionOption.optString(PATTERN);
+        mEmpty = selectionOption.optString(EMPTY);
     }
 
     public String getLength() {

@@ -16,8 +16,6 @@ import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMe
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.WIRE_ACCOUNT;
 
 import com.hyperwallet.android.model.TypeReference;
-import com.hyperwallet.android.model.meta.field.EDataType;
-import com.hyperwallet.android.model.meta.field.HyperwalletField;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.util.JsonUtils;
 

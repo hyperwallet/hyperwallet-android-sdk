@@ -14,14 +14,12 @@
  *  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.hyperwallet.android.model.meta.field;
+
+package com.hyperwallet.android.model.meta;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-/**
- * Input field data type, used to create input widget
- */
 public enum EDataType {
     TEXT,
     SELECTION,

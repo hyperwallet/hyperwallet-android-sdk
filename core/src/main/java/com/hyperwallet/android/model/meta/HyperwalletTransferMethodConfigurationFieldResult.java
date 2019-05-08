@@ -16,8 +16,6 @@
  */
 package com.hyperwallet.android.model.meta;
 
-import com.hyperwallet.android.model.meta.field.HyperwalletField;
-
 import java.util.List;
 
 @Deprecated

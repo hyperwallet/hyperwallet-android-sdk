@@ -19,8 +19,6 @@ package com.hyperwallet.android.model.meta;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.hyperwallet.android.model.meta.field.HyperwalletField;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
