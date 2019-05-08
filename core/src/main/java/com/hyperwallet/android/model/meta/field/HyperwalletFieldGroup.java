@@ -42,7 +42,7 @@ public class HyperwalletFieldGroup {
         try {
             mGroupName = fieldGroup.getString(GROUP_NAME);
             JSONArray jsonArray = fieldGroup.optJSONArray(FIELDS);
-            if (jsonArray != null) {
+            if (jsonArray != null && jsonArray.length() != 0) {
                 mFields = new ArrayList<>(jsonArray.length());
                 for (int i = 0; i < jsonArray.length(); i++) {
                     mFields.add(new HyperwalletField(jsonArray.getJSONObject(i)));
