@@ -1,11 +1,8 @@
-package com.hyperwallet.android.demo.rule;
 package com.hyperwallet.android.model;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
-import static org.hamcrest.core.StringContains.containsString;
 
 import static com.hyperwallet.android.model.HyperwalletUser.BusinessContactRoles.OWNER;
 import static com.hyperwallet.android.model.HyperwalletUser.BusinessTypes.CORPORATION;
@@ -62,7 +59,6 @@ import android.os.Parcel;
 
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
