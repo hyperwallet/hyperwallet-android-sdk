@@ -209,13 +209,13 @@ public class Hyperwallet {
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
-     *    * processing the request.</p>
+     * * processing the request.</p>
      *
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param payPalAccount the {@code PayPalAccount} to be created; must not be null
-     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener      the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void createPayPalAccount(@NonNull final PayPalAccount payPalAccount,
             @NonNull final HyperwalletListener<PayPalAccount> listener) {
@@ -346,7 +346,7 @@ public class Hyperwallet {
      * if the current one is expired or about to expire.</p>
      *
      * @param payPalAccount the {@code PayPalAccount} to be created; must not be null
-     * @param listener    the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener      the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void updatePayPalAccount(@NonNull final PayPalAccount payPalAccount,
             @NonNull final HyperwalletListener<PayPalAccount> listener) {
@@ -563,7 +563,8 @@ public class Hyperwallet {
      * if the current one is expired or about to expire.</p>
      *
      * @param hyperwalletPayPalAccountPagination the ordering and filtering criteria
-     * @param listener                the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener                           the callback handler of responses from the Hyperwallet platform; must
+     *                                           not be null
      */
     public void listPayPalAccounts(
             @Nullable final HyperwalletPayPalAccountPagination hyperwalletPayPalAccountPagination,

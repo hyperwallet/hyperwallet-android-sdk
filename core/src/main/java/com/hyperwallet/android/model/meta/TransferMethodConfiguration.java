@@ -19,6 +19,7 @@ package com.hyperwallet.android.model.meta;
 import androidx.annotation.NonNull;
 
 import com.hyperwallet.android.exception.HyperwalletException;
+import com.hyperwallet.android.model.meta.field.HyperwalletField;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
