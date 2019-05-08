@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
+import static com.hyperwallet.android.model.HyperwalletUser.BusinessContactRoles.DIRECTOR;
 import static com.hyperwallet.android.model.HyperwalletUser.BusinessContactRoles.OWNER;
 import static com.hyperwallet.android.model.HyperwalletUser.BusinessTypes.CORPORATION;
 import static com.hyperwallet.android.model.HyperwalletUser.Genders.MALE;
@@ -74,7 +75,7 @@ public class HyperwalletUserTest {
     @Test
     public void testFromJsonString_userResponse() throws Exception {
         HyperwalletUser actualUser = fromJsonString(
-                mExternalResourceManager.getResourceContent("user_response.json"),
+                mExternalResourceManager.getResourceContent("user_response_all_fields.json"),
                 new TypeReference<HyperwalletUser>() {
                 });
 
@@ -86,15 +87,39 @@ public class HyperwalletUserTest {
         assertThat(actualUser.getField(CLIENT_USER_ID), is("123345789"));
         assertThat(actualUser.getField(PROFILE_TYPE), is("INDIVIDUAL"));
         assertThat(actualUser.getField(FIRST_NAME), is("Some"));
+        assertThat(actualUser.getField(MIDDLE_NAME), is("Nice"));
         assertThat(actualUser.getField(LAST_NAME), is("Guy"));
-        assertThat(actualUser.getField(MIDDLE_NAME), is(nullValue()));
         assertThat(actualUser.getField(DATE_OF_BIRTH), is("1991-01-01"));
+        assertThat(actualUser.getField(GENDER), is(nullValue()));
+        assertThat(actualUser.getField(COUNTRY_OF_BIRTH), is("US"));
+        assertThat(actualUser.getField(COUNTRY_OF_NATIONALITY), is("US"));
         assertThat(actualUser.getField(EMAIL), is("someguy@hyperwallet.com"));
+        assertThat(actualUser.getField(PHONE_NUMBER), is("+1 604 777888"));
+        assertThat(actualUser.getField(MOBILE_NUMBER), is("+1 604 123456"));
+        assertThat(actualUser.getField(GOVERNMENT_ID), is("123456789"));
+        assertThat(actualUser.getField(GOVERNMENT_ID_TYPE), is(PASSPORT));
+        assertThat(actualUser.getField(PASSPORT_ID), is("ABC-12345"));
+        assertThat(actualUser.getField(DRIVERS_LICENSE_ID), is("7788899"));
         assertThat(actualUser.getField(ADDRESS_LINE_1), is("575 Market Street"));
+        assertThat(actualUser.getField(ADDRESS_LINE_2), is("Unit 2"));
         assertThat(actualUser.getField(CITY), is("San Francisco"));
         assertThat(actualUser.getField(STATE_PROVINCE), is("CA"));
         assertThat(actualUser.getField(COUNTRY), is("US"));
         assertThat(actualUser.getField(POSTAL_CODE), is("94105"));
+        assertThat(actualUser.getField(EMPLOYER_ID), is("7778889"));
+        assertThat(actualUser.getField(BUSINESS_CONTACT_ROLE), is(DIRECTOR));
+        assertThat(actualUser.getField(BUSINESS_NAME), is("Hyperwallet"));
+        assertThat(actualUser.getField(BUSINESS_REGISTRATION_COUNTRY), is("US"));
+        assertThat(actualUser.getField(BUSINESS_REGISTRATION_ID), is("ABC-1234"));
+        assertThat(actualUser.getField(BUSINESS_REGISTRATION_STATE_PROVINCE), is("CA"));
+        assertThat(actualUser.getField(BUSINESS_CONTACT_ADDRESS_LINE_1), is("123 Townsend St."));
+        assertThat(actualUser.getField(BUSINESS_CONTACT_ADDRESS_LINE_2), is("Sixth Floor"));
+        assertThat(actualUser.getField(BUSINESS_CONTACT_CITY), is("San Francisco"));
+        assertThat(actualUser.getField(BUSINESS_CONTACT_STATE_PROVINCE), is("CA"));
+        assertThat(actualUser.getField(BUSINESS_CONTACT_COUNTRY), is("US"));
+        assertThat(actualUser.getField(BUSINESS_CONTACT_POSTAL_CODE), is("94107"));
+        assertThat(actualUser.getField(BUSINESS_OPERATING_NAME), is("Hyperwallet"));
+        assertThat(actualUser.getField(BUSINESS_TYPE), is("CORPORATION"));
         assertThat(actualUser.getField(LANGUAGE), is("en"));
         assertThat(actualUser.getField(PROGRAM_TOKEN), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
 
@@ -198,7 +223,7 @@ public class HyperwalletUserTest {
     @Test
     public void testHyperwalletUser_isParcelable() throws Exception {
 
-        String json = mExternalResourceManager.getResourceContent("user_response.json");
+        String json = mExternalResourceManager.getResourceContent("user_response_all_fields.json");
 
         HyperwalletUser user = fromJsonString(json, new TypeReference<HyperwalletUser>() {
         });
