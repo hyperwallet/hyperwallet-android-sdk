@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Constructor;
 
+@Deprecated
 public class TransferMethodConfigurationData implements Data<Connection<TransferMethodConfiguration>> {
 
     private static final String TRANSFER_METHOD_CONFIGURATIONS = "transferMethodConfigurations";
