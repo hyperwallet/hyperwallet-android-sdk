@@ -139,7 +139,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
 
         List<HyperwalletFee> feesCAD = new ArrayList<>(transferMethodTypesCAD.get(0).getFees());
         assertThat(feesCAD, Matchers.<HyperwalletFee>hasSize(1));
-        assertThat(feesCAD.get(0).getFeeRateType(), is(HyperwalletFee.FeeRate.FLAT));
+        assertThat(feesCAD.get(0).getFeeRateType(), is("FLAT"));
         assertThat(feesCAD.get(0).getValue(), is("5.00"));
 
         List<HyperwalletTransferMethodType> transferMethodTypesUSD = new ArrayList<>(
@@ -154,11 +154,11 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
 
         List<HyperwalletFee> feesUSD = new ArrayList<>(transferMethodTypesUSD.get(0).getFees()); //BANK_ACCOUNT
         assertThat(feesUSD, Matchers.<HyperwalletFee>hasSize(3));
-        assertThat(feesUSD.get(0).getFeeRateType(), is(HyperwalletFee.FeeRate.FLAT));
+        assertThat(feesUSD.get(0).getFeeRateType(), is("FLAT"));
         assertThat(feesUSD.get(0).getValue(), is("2.00"));
-        assertThat(feesUSD.get(1).getFeeRateType(), is(HyperwalletFee.FeeRate.FLAT));
+        assertThat(feesUSD.get(1).getFeeRateType(), is("FLAT"));
         assertThat(feesUSD.get(1).getValue(), is("5.00"));
-        assertThat(feesUSD.get(2).getFeeRateType(), is(HyperwalletFee.FeeRate.FLAT));
+        assertThat(feesUSD.get(2).getFeeRateType(), is("FLAT"));
         assertThat(feesUSD.get(2).getValue(), is("0.25"));
 
         // US transfer method data

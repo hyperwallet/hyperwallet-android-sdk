@@ -14,16 +14,39 @@
  *  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.hyperwallet.android.model.meta;
 
-import com.hyperwallet.android.model.meta.field.HyperwalletField;
+package com.hyperwallet.android.model.meta.field;
 
-import java.util.List;
+import androidx.annotation.NonNull;
 
-@Deprecated
-public interface HyperwalletTransferMethodConfigurationFieldResult extends
-        TransferMethodConfigurationTransactionResult {
+import org.json.JSONObject;
 
-    List<HyperwalletField> getFields();
+/**
+ * {@code HyperwalletFieldSelectionOption} represents selection option that a user can choose based on the
+ * required information from the input field
+ */
+public class HyperwalletFieldSelectionOption {
+    private static final String LABEL = "label";
+    private static final String VALUE = "value";
 
+    private final String mLabel;
+    private final String mValue;
+
+    public HyperwalletFieldSelectionOption(@NonNull final JSONObject selectionOption) {
+        mLabel = selectionOption.optString(LABEL);
+        mValue = selectionOption.optString(VALUE);
+    }
+
+    public String getLabel() {
+        return mLabel;
+    }
+
+    public String getValue() {
+        return mValue;
+    }
+
+    @Override
+    public String toString() {
+        return mLabel;
+    }
 }

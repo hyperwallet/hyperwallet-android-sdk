@@ -15,7 +15,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.hyperwallet.android.model.meta;
+package com.hyperwallet.android.model.meta.field;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,11 +26,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@code HyperwalletField} represents the account input field information needed on creation of an account.
+ * This aids on the creation of input widget where rules and information about the input field is described in this
+ * representation
+ */
 public class HyperwalletField {
 
     private static final String CATEGORY = "category";
     private static final String DATA_TYPE = "dataType";
     private static final String FIELD_SELECTION_OPTIONS = "fieldSelectionOptions";
+    private static final String FILE_SIZE = "fileSize";
+    private static final String FILE_TYPE = "fileTypes";
     private static final String IS_REQUIRED = "isRequired";
     private static final String LABEL = "label";
     private static final String MAX_LENGTH = "maxLength";
@@ -39,10 +46,13 @@ public class HyperwalletField {
     private static final String PLACEHOLDER = "placeholder";
     private static final String REGULAR_EXPRESSION = "regularExpression";
     private static final String VALIDATION_MESSAGE = "validationMessage";
+    private static final String VALUE = "value";
 
     private final String mCategory;
     private final EDataType mDataType;
     private final List<HyperwalletFieldSelectionOption> mFieldSelectionOptions;
+    private final int mFileSize;
+    private final String mFileType;
     private final boolean mIsRequired;
     private final String mLabel;
     private final int mMaxLength;
@@ -51,8 +61,9 @@ public class HyperwalletField {
     private final String mPlaceholder;
     private final String mRegularExpression;
     private final HyperwalletValidationMessage mHyperwalletValidationMessage;
+    private final String mValue;
 
-    public HyperwalletField(@NonNull JSONObject field) {
+    public HyperwalletField(@NonNull final JSONObject field) {
         mCategory = field.optString(CATEGORY);
         mDataType = EDataType.getDataType(field.optString(DATA_TYPE));
         mIsRequired = field.optBoolean(IS_REQUIRED);
@@ -62,6 +73,9 @@ public class HyperwalletField {
         mName = field.optString(NAME);
         mPlaceholder = field.optString(PLACEHOLDER);
         mRegularExpression = field.optString(REGULAR_EXPRESSION);
+        mValue = field.optString(VALUE);
+        mFileSize = field.optInt(FILE_SIZE);
+        mFileType = field.optString(FILE_TYPE);
 
         JSONArray jsonArray = field.optJSONArray(FIELD_SELECTION_OPTIONS);
         if (jsonArray != null) {
@@ -115,6 +129,18 @@ public class HyperwalletField {
 
     public String getRegularExpression() {
         return mRegularExpression;
+    }
+
+    public int getFileSize() {
+        return mFileSize;
+    }
+
+    public String getFileType() {
+        return mFileType;
+    }
+
+    public String getValue() {
+        return mValue;
     }
 
     @Nullable

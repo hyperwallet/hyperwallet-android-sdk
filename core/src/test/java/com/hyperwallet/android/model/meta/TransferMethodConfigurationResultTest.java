@@ -12,6 +12,8 @@ import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMe
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.PAPER_CHECK;
 
+import com.hyperwallet.android.model.meta.field.EDataType;
+import com.hyperwallet.android.model.meta.field.HyperwalletField;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
 import org.json.JSONObject;

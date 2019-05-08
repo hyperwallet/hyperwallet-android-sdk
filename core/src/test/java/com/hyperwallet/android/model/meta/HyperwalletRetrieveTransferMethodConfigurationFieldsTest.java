@@ -15,6 +15,8 @@ import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.HyperwalletError;
 import com.hyperwallet.android.model.HyperwalletErrors;
+import com.hyperwallet.android.model.meta.field.EDataType;
+import com.hyperwallet.android.model.meta.field.HyperwalletField;
 import com.hyperwallet.android.model.meta.query.HyperwalletTransferMethodConfigurationFieldQuery;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
