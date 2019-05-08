@@ -24,6 +24,7 @@ package com.hyperwallet.android.model.meta;
  * @param <T> the type of Data
  * @see TransferMethodConfigurationData
  */
+@Deprecated
 interface Data<T> {
     /**
      * Returns the root of type T

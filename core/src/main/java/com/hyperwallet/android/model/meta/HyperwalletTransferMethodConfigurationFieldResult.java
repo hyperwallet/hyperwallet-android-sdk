@@ -18,6 +18,7 @@ package com.hyperwallet.android.model.meta;
 
 import java.util.List;
 
+@Deprecated
 public interface HyperwalletTransferMethodConfigurationFieldResult extends
         TransferMethodConfigurationTransactionResult {
 

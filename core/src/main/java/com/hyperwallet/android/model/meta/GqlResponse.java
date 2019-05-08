@@ -17,22 +17,55 @@
 package com.hyperwallet.android.model.meta;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.hyperwallet.android.model.meta.error.GqlErrors;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Constructor;
 
-public class GqlResponse<T extends Data> {
+/**
+ * Represents the root level response for all GraphQL queries
+ */
+public class GqlResponse<T> {
 
+    private static final String ERRORS = "errors";
     private static final String DATA = "data";
 
-    private T mData;
+    private final T mData;
+    private final GqlErrors mGqlErrors;
 
-    public GqlResponse(@NonNull JSONObject data, Class clazz) throws ReflectiveOperationException {
+    /**
+     * Constructor to build GqlResponse based on json and class type
+     *
+     * @param response JSON object that represents data
+     * @param clazz    Class name
+     */
+    public GqlResponse(@NonNull final JSONObject response, @NonNull final Class clazz)
+            throws ReflectiveOperationException, JSONException {
         Constructor<?> constructor = clazz.getConstructor(JSONObject.class);
-        mData = (T) constructor.newInstance(data.opt(DATA));
+        mData = (T) constructor.newInstance(response.get(DATA));
+        mGqlErrors = new GqlErrors(response);
     }
 
+    /**
+     * Represents GqlErrors
+     *
+     * @return {@code GqlErrors}
+     */
+    @Nullable
+    public GqlErrors getGqlErrors() {
+        return mGqlErrors;
+    }
+
+    /**
+     * Represents data response form GraphQL query
+     *
+     * @return Nodes that represents GraphQL query node
+     */
+    @NonNull
     public T getData() {
         return mData;
     }

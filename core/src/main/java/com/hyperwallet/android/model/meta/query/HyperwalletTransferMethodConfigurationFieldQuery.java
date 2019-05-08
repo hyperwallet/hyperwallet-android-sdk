@@ -27,7 +27,6 @@ import androidx.annotation.NonNull;
  */
 public class HyperwalletTransferMethodConfigurationFieldQuery implements HyperwalletGqlQuery {
 
-    //TODO: this will be updated and remove this todo after update
     private static final String GRAPH_QL_REQUEST =
             "query {\n" +
                     "\ttransferMethodUIConfigurations (\n" +

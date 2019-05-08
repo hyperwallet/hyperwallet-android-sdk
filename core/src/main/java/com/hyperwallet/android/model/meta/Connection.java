@@ -30,13 +30,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class for presenting Connection in the TransferMethodConfiguration object @see {@link TransferMethodConfiguration}
+ * Represents Node Connection/Edges that links between Nodes/Vertices that represents a graph of data
  */
-public final class Connection<T> {
+public class Connection<T> {
 
+    public static final String COUNT = "count";
+    public static final String NODES = "nodes";
     private static final String TAG = Connection.class.getName();
-    private static final String COUNT = "count";
-    private static final String NODES = "nodes";
     private static final String PAGE_INFO = "pageInfo";
 
     private static final long DEFAULT_COUNT = 0L;
@@ -53,7 +53,7 @@ public final class Connection<T> {
      * @param data  Json object
      * @param clazz Class name
      */
-    public Connection(@NonNull JSONObject data, @NonNull Class clazz) throws HyperwalletException {
+    public Connection(@NonNull final JSONObject data, @NonNull final Class clazz) throws HyperwalletException {
         mCount = data.optLong(COUNT, DEFAULT_COUNT);
         JSONObject pageInfoObject = data.optJSONObject(PAGE_INFO);
         if (pageInfoObject != null) {
@@ -64,7 +64,7 @@ public final class Connection<T> {
             Constructor<?> constructor = clazz.getConstructor(JSONObject.class);
             JSONArray jsonArray = data.optJSONArray(NODES);
             if (jsonArray != null) {
-                mNodes = new ArrayList<>();
+                mNodes = new ArrayList<>(jsonArray.length());
                 for (int i = 0; i < jsonArray.length(); i++) {
                     mNodes.add((T) constructor.newInstance(jsonArray.getJSONObject(i)));
                 }
