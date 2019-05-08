@@ -41,9 +41,8 @@ public class HyperwalletFieldGroupTest {
     }
 
     @Test
-    public void testHyperwalletFieldGroup_convertIncorrectJsonObject()
-            throws JSONException, HyperwalletException {
-        mThrown.expect(HyperwalletException.class);
+    public void testHyperwalletFieldGroup_convertIncorrectJsonObject() throws Exception {
+        mThrown.expect(JSONException.class);
 
         String data = mResourceManager.getResourceContent("field_group_item.json");
         JSONObject jsonObject = new JSONObject(data);

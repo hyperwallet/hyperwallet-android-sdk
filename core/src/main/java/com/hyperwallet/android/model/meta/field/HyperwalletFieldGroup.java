@@ -19,9 +19,8 @@ package com.hyperwallet.android.model.meta.field;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.hyperwallet.android.exception.HyperwalletException;
-
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -38,21 +37,17 @@ public class HyperwalletFieldGroup {
     private final List<HyperwalletField> mFields;
     private final String mGroupName;
 
-    public HyperwalletFieldGroup(@NonNull final JSONObject fieldGroup) throws HyperwalletException {
-        try {
-            mGroupName = fieldGroup.getString(GROUP_NAME);
+    public HyperwalletFieldGroup(@NonNull final JSONObject fieldGroup) throws JSONException {
+        mGroupName = fieldGroup.getString(GROUP_NAME);
 
-            JSONArray jsonArray = fieldGroup.optJSONArray(FIELDS);
-            if (jsonArray != null && jsonArray.length() != 0) {
-                mFields = new ArrayList<>(jsonArray.length());
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    mFields.add(new HyperwalletField(jsonArray.getJSONObject(i)));
-                }
-            } else {
-                mFields = null;
+        JSONArray jsonArray = fieldGroup.optJSONArray(FIELDS);
+        if (jsonArray != null && jsonArray.length() != 0) {
+            mFields = new ArrayList<>(jsonArray.length());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                mFields.add(new HyperwalletField(jsonArray.getJSONObject(i)));
             }
-        } catch (Exception e) {
-            throw new HyperwalletException(e);
+        } else {
+            mFields = null;
         }
     }
 
@@ -61,6 +56,7 @@ public class HyperwalletFieldGroup {
         return mFields;
     }
 
+    @NonNull
     public String getGroupName() {
         return mGroupName;
     }
