@@ -1,6 +1,7 @@
 package com.hyperwallet.android.model;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -78,23 +79,24 @@ public class HyperwalletUserTest {
                 });
 
         assertThat(actualUser, is(notNullValue()));
-        assertThat(actualUser.getToken(), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
-        assertThat(actualUser.getStatus(), is("PRE_ACTIVATED"));
-        assertThat(actualUser.getVerificationStatus(), is("NOT_REQUIRED"));
-        assertThat(actualUser.getCreatedOn(), is("2017-10-30T22:15:45"));
-        assertThat(actualUser.getClientUserId(), is("123345789"));
-        assertThat(actualUser.getProfileType(), is("INDIVIDUAL"));
-        assertThat(actualUser.getFirstName(), is("Some"));
-        assertThat(actualUser.getLastName(), is("Guy"));
-        assertThat(actualUser.getDateOfBirth(), is("1991-01-01"));
-        assertThat(actualUser.getEmail(), is("someguy@hyperwallet.com"));
-        assertThat(actualUser.getAddressLine1(), is("575 Market Street"));
-        assertThat(actualUser.getCity(), is("San Francisco"));
-        assertThat(actualUser.getStateProvince(), is("CA"));
-        assertThat(actualUser.getCountry(), is("US"));
-        assertThat(actualUser.getPostalCode(), is("94105"));
-        assertThat(actualUser.getLanguage(), is("en"));
-        assertThat(actualUser.getProgramToken(), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
+        assertThat(actualUser.getField(TOKEN), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
+        assertThat(actualUser.getField(STATUS), is("PRE_ACTIVATED"));
+        assertThat(actualUser.getField(VERIFICATION_STATUS), is("NOT_REQUIRED"));
+        assertThat(actualUser.getField(CREATED_ON), is("2017-10-30T22:15:45"));
+        assertThat(actualUser.getField(CLIENT_USER_ID), is("123345789"));
+        assertThat(actualUser.getField(PROFILE_TYPE), is("INDIVIDUAL"));
+        assertThat(actualUser.getField(FIRST_NAME), is("Some"));
+        assertThat(actualUser.getField(LAST_NAME), is("Guy"));
+        assertThat(actualUser.getField(MIDDLE_NAME), is(nullValue()));
+        assertThat(actualUser.getField(DATE_OF_BIRTH), is("1991-01-01"));
+        assertThat(actualUser.getField(EMAIL), is("someguy@hyperwallet.com"));
+        assertThat(actualUser.getField(ADDRESS_LINE_1), is("575 Market Street"));
+        assertThat(actualUser.getField(CITY), is("San Francisco"));
+        assertThat(actualUser.getField(STATE_PROVINCE), is("CA"));
+        assertThat(actualUser.getField(COUNTRY), is("US"));
+        assertThat(actualUser.getField(POSTAL_CODE), is("94105"));
+        assertThat(actualUser.getField(LANGUAGE), is("en"));
+        assertThat(actualUser.getField(PROGRAM_TOKEN), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
 
     }
 
