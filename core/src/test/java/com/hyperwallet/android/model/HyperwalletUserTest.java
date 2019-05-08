@@ -1,3 +1,4 @@
+package com.hyperwallet.android.demo.rule;
 package com.hyperwallet.android.model;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -195,31 +196,6 @@ public class HyperwalletUserTest {
         assertThat(jsonObject.getString(STATE_PROVINCE), is("BC"));
     }
 
-    @Test
-    public void testHyperwalletUser_getNullField() {
-        final HyperwalletUser actualUser = new HyperwalletUser.Builder()
-                .token("usr-f9154016-94e8-4686-a840-075688ac07b5").build();
-        assertThat(actualUser.getField("my field"), is(nullValue()));
-    }
-
-    @Test
-    public void testHyperwalletUser_getField() {
-        final HyperwalletUser actualUser = new HyperwalletUser.Builder()
-                .token("usr-f9154016-94e8-4686-a840-075688ac07b5").build();
-        assertThat(actualUser.getField(TOKEN), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
-    }
-
-    @Test
-    public void testToJsonString_user() throws JSONException {
-        final HyperwalletUser actualUser = new HyperwalletUser.Builder()
-                .token("usr-f9154016-94e8-4686-a840-075688ac07b5")
-                .status(LOCKED)
-                .build();
-
-        String actualUserJsonString = actualUser.toJsonString();
-        assertThat(actualUserJsonString, containsString("usr-f9154016-94e8-4686-a840-075688ac07b5"));
-        assertThat(actualUserJsonString, containsString(LOCKED));
-    }
 
     @Test
     public void testHyperwalletUser_isParcelable() throws Exception {

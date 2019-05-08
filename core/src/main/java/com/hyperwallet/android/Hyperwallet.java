@@ -37,8 +37,6 @@ import com.hyperwallet.android.model.HyperwalletStatusTransition;
 import com.hyperwallet.android.model.HyperwalletTransferMethod;
 import com.hyperwallet.android.model.HyperwalletTransferMethodPagination;
 import com.hyperwallet.android.model.HyperwalletUser;
-import com.hyperwallet.android.model.HyperwalletUser;
-import com.hyperwallet.android.model.PayPalAccount;
 import com.hyperwallet.android.model.PayPalAccount;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationFieldResult;
