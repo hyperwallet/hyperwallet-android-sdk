@@ -42,7 +42,7 @@ public class TransferMethodConfigurationKey {
         try {
             JSONObject countries = configuration.getJSONObject(TRANSFER_METHOD_COUNTRIES);
             mCountries = new LinkedHashSet<>(1);
-            if (countries != null) {
+            if (countries != null && countries.length() != 0) {
                 mCountryMappedConnection = new MappedConnection<>(countries, Country.class);
             }
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class TransferMethodConfigurationKey {
 
     @NonNull
     public Set<Country> getCountries() {
-        if (mCountryMappedConnection != null && mCountries.isEmpty()) {
+        if (mCountryMappedConnection != null && mCountries.isEmpty() && mCountryMappedConnection.getNodes() != null) {
             mCountries.addAll(mCountryMappedConnection.getNodes());
             return mCountries;
         }
