@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
@@ -125,12 +126,15 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
         assertThat(canadianCurrencies.get(1).getName(), is("United States Dollar"));
         assertThat(countryCA.getCurrencies(), hasItem(canadianCurrencies.get(0)));
         assertThat(countryCA.getCurrencies(), hasItem(canadianCurrencies.get(1)));
+        assertThat(keyResultCaptorValue.getCurrencies("PH"), is(nullValue()));
 
         List<HyperwalletTransferMethodType> transferMethodTypesCAD = new ArrayList<>(
                 keyResultCaptorValue.getTransferMethodType(countryCA.getCode(), canadianCurrencies.get(0).getCode()));
         assertThat(transferMethodTypesCAD, Matchers.<HyperwalletTransferMethodType>hasSize(1));
         assertThat(transferMethodTypesCAD.get(0).getCode(), is(BANK_ACCOUNT));
         assertThat(transferMethodTypesCAD.get(0).getName(), is("Bank Account"));
+        assertThat(keyResultCaptorValue.getTransferMethodType("PH", "PHP"), is(nullValue()));
+        assertThat(keyResultCaptorValue.getTransferMethodType("PH", "PHP"), is(nullValue()));
 
         List<HyperwalletFee> feesCAD = new ArrayList<>(transferMethodTypesCAD.get(0).getFees());
         assertThat(feesCAD, Matchers.<HyperwalletFee>hasSize(1));

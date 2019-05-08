@@ -1,0 +1,8 @@
+{
+  "code": "CAD",
+  "name": "Canadian Dollar",
+  "transferMethodTypes": {
+    "nodes": [
+    ]
+  }
+}
