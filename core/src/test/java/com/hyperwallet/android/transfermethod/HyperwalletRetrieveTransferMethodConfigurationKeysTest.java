@@ -14,6 +14,7 @@ import static org.mockito.Mockito.verify;
 
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
@@ -115,7 +116,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
 
         assertThat(countryCA.getCurrency("USD").getTransferMethodType(BANK_ACCOUNT), is(notNullValue()));
         assertThat(countryCA.getCurrency("USD").getTransferMethodType(BANK_CARD), is(notNullValue()));
-        assertThat(countryCA.getCurrency("USD").getTransferMethodType("PAYPAL_ACCOUNT"), is(notNullValue()));
+        assertThat(countryCA.getCurrency("USD").getTransferMethodType(PAYPAL_ACCOUNT), is(notNullValue()));
 
         // assert elements are filled and in order
         List<Currency> canadianCurrencies = new ArrayList<>(keyResultCaptorValue.getCurrencies(countryCA.getCode()));
@@ -138,7 +139,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
 
         List<HyperwalletFee> feesCAD = new ArrayList<>(transferMethodTypesCAD.get(0).getFees());
         assertThat(feesCAD, Matchers.<HyperwalletFee>hasSize(1));
-        assertThat(feesCAD.get(0).getFeeRateType(), is("FLAT"));
+        assertThat(feesCAD.get(0).getFeeRateType(), is(HyperwalletFee.FeeRate.FLAT));
         assertThat(feesCAD.get(0).getValue(), is("5.00"));
 
         List<HyperwalletTransferMethodType> transferMethodTypesUSD = new ArrayList<>(
@@ -148,7 +149,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
         assertThat(transferMethodTypesUSD.get(0).getName(), is("Bank Account"));
         assertThat(transferMethodTypesUSD.get(1).getCode(), is(BANK_CARD));
         assertThat(transferMethodTypesUSD.get(1).getName(), is("Debit Card"));
-        assertThat(transferMethodTypesUSD.get(2).getCode(), is("PAYPAL_ACCOUNT"));
+        assertThat(transferMethodTypesUSD.get(2).getCode(), is(PAYPAL_ACCOUNT));
         assertThat(transferMethodTypesUSD.get(2).getName(), is("PayPal Account"));
 
         List<HyperwalletFee> feesUSD = new ArrayList<>(transferMethodTypesUSD.get(0).getFees()); //BANK_ACCOUNT
