@@ -9,8 +9,8 @@ import org.json.JSONObject;
  */
 public class HyperwalletFileSize {
 
-    private static String MIN = "min";
-    private static String MAX = "max";
+    private static final String MIN = "min";
+    private static final String MAX = "max";
 
     private final int mMax;
     private final int mMin;
