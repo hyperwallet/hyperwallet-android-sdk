@@ -2,7 +2,6 @@ package com.hyperwallet.android.model.meta.keyed;
 
 import androidx.annotation.NonNull;
 
-import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes;
 import com.hyperwallet.android.model.meta.Connection;
 import com.hyperwallet.android.model.meta.HyperwalletFee;
@@ -10,6 +9,7 @@ import com.hyperwallet.android.model.meta.HyperwalletFee;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -35,8 +35,8 @@ public class HyperwalletTransferMethodType implements KeyedNode {
      *
      * @param transferMethodType JSON object that represents transfer method type data
      */
-    public HyperwalletTransferMethodType(@NonNull final JSONObject transferMethodType)
-            throws HyperwalletException, JSONException {
+    public HyperwalletTransferMethodType(@NonNull final JSONObject transferMethodType) throws JSONException,
+            NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         mCode = transferMethodType.getString(TRANSFER_METHOD_CODE);
         mName = transferMethodType.getString(TRANSFER_METHOD_NAME);
         mProcessingTime = transferMethodType.optString(TRANSFER_METHOD_PROCESSING_TIME);

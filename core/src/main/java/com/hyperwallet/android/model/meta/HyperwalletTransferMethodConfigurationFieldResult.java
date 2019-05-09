@@ -20,6 +20,9 @@ import com.hyperwallet.android.model.meta.field.HyperwalletField;
 
 import java.util.List;
 
+/**
+ * Please use {@link HyperwalletTransferMethodConfigurationField} instead
+ */
 @Deprecated
 public interface HyperwalletTransferMethodConfigurationFieldResult extends
         TransferMethodConfigurationTransactionResult {

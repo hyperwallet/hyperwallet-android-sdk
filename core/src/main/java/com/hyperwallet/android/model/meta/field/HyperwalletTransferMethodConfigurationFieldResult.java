@@ -30,8 +30,7 @@ import java.util.List;
 
 /**
  * {@code HyperwalletTransferMethodConfigurationFieldResult} implementation of
- *
- * @see {@link HyperwalletTransferMethodConfigurationField}
+ * {@link HyperwalletTransferMethodConfigurationField}
  */
 public class HyperwalletTransferMethodConfigurationFieldResult
         extends GqlResponse<TransferMethodConfigurationField> implements HyperwalletTransferMethodConfigurationField {

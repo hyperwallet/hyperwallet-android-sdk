@@ -19,7 +19,6 @@ package com.hyperwallet.android.model.meta.keyed;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.model.meta.Connection;
 
 import org.json.JSONArray;
@@ -53,9 +52,8 @@ public class MappedConnection<T extends KeyedNode> extends Connection<T> {
      * @param data  JSON object that represents data
      * @param clazz Class name
      */
-    public MappedConnection(@NonNull final JSONObject data, @NonNull Class clazz) throws HyperwalletException,
-            NoSuchMethodException, JSONException, IllegalAccessException, InstantiationException,
-            InvocationTargetException {
+    public MappedConnection(@NonNull final JSONObject data, @NonNull Class clazz) throws NoSuchMethodException,
+            JSONException, IllegalAccessException, InstantiationException, InvocationTargetException {
 
         super(data, clazz);
         Constructor<?> constructor = clazz.getConstructor(JSONObject.class);

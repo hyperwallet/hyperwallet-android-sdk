@@ -8,7 +8,6 @@ import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMe
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
 import static com.hyperwallet.android.model.meta.HyperwalletFee.FeeRate.FLAT;
 
-import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.model.meta.HyperwalletFee;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
@@ -33,8 +32,7 @@ public class HyperwalletTransferMethodTypeTest {
     public final ExpectedException mThrown = ExpectedException.none();
 
     @Test
-    public void testHyperwalletTransferMethodType_convertJsonObject()
-            throws JSONException, HyperwalletException {
+    public void testHyperwalletTransferMethodType_convertJsonObject() throws Exception {
         String data = mResourceManager.getResourceContent("tm_type_item.json");
         JSONObject jsonObject = new JSONObject(data);
         HyperwalletTransferMethodType transferMethodType = new HyperwalletTransferMethodType(jsonObject);
@@ -49,8 +47,7 @@ public class HyperwalletTransferMethodTypeTest {
     }
 
     @Test
-    public void testHyperwalletTransferMethodType_convertIncorrectJsonObject()
-            throws JSONException, HyperwalletException {
+    public void testHyperwalletTransferMethodType_convertIncorrectJsonObject() throws Exception {
         mThrown.expect(JSONException.class);
 
         String data = mResourceManager.getResourceContent("tm_type_item.json");
@@ -59,10 +56,8 @@ public class HyperwalletTransferMethodTypeTest {
         new HyperwalletTransferMethodType(jsonObject);
     }
 
-
     @Test
-    public void testHyperwalletTransferMethodType_convertJsonObjectWithoutConnection()
-            throws JSONException, HyperwalletException {
+    public void testHyperwalletTransferMethodType_convertJsonObjectWithoutConnection() throws Exception {
         String data = mResourceManager.getResourceContent("tm_type_without_fees_item.json");
         JSONObject jsonObject = new JSONObject(data);
         HyperwalletTransferMethodType transferMethodType = new HyperwalletTransferMethodType(jsonObject);
@@ -74,8 +69,7 @@ public class HyperwalletTransferMethodTypeTest {
 
 
     @Test
-    public void testHyperwalletTransferMethodType_equalsObjects()
-            throws JSONException, HyperwalletException {
+    public void testHyperwalletTransferMethodType_equalsObjects() throws Exception {
         String data = mResourceManager.getResourceContent("tm_type_item.json");
         JSONObject jsonObject = new JSONObject(data);
         HyperwalletTransferMethodType transferMethodType = new HyperwalletTransferMethodType(jsonObject);
@@ -98,7 +92,5 @@ public class HyperwalletTransferMethodTypeTest {
         jsonObject.put("processingTime", "2-5");
         HyperwalletTransferMethodType anotherTimeTransferMethodType = new HyperwalletTransferMethodType(jsonObject);
         assertThat(transferMethodType.equals(anotherTimeTransferMethodType), is(false));
-
     }
-
 }

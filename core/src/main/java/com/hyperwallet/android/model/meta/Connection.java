@@ -20,12 +20,12 @@ package com.hyperwallet.android.model.meta;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.hyperwallet.android.exception.HyperwalletException;
-
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,26 +53,23 @@ public class Connection<T> {
      * @param data  Json object
      * @param clazz Class name
      */
-    public Connection(@NonNull final JSONObject data, @NonNull final Class clazz) throws HyperwalletException {
+    public Connection(@NonNull final JSONObject data, @NonNull final Class clazz) throws JSONException,
+            NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         mCount = data.optLong(COUNT, DEFAULT_COUNT);
         JSONObject pageInfoObject = data.optJSONObject(PAGE_INFO);
         if (pageInfoObject != null) {
             mPageInfo = new PageInfo(pageInfoObject);
         }
 
-        try {
-            Constructor<?> constructor = clazz.getConstructor(JSONObject.class);
-            JSONArray jsonArray = data.optJSONArray(NODES);
-            if (jsonArray != null) {
-                mNodes = new ArrayList<>(jsonArray.length());
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    mNodes.add((T) constructor.newInstance(jsonArray.getJSONObject(i)));
-                }
-            } else {
-                mNodes = null;
+        Constructor<?> constructor = clazz.getConstructor(JSONObject.class);
+        JSONArray jsonArray = data.optJSONArray(NODES);
+        if (jsonArray != null) {
+            mNodes = new ArrayList<>(jsonArray.length());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                mNodes.add((T) constructor.newInstance(jsonArray.getJSONObject(i)));
             }
-        } catch (Exception e) {
-            throw new HyperwalletException(e);
+        } else {
+            mNodes = null;
         }
     }
 
