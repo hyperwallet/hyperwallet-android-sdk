@@ -209,7 +209,7 @@ public class Hyperwallet {
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
-     * * processing the request.</p>
+     * processing the request.</p>
      *
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
@@ -637,17 +637,17 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param transferMethodConfigurationFieldQuery containing a transfer method configuration key tuple of
-     *                                              country, currency, transfer method type and profile,
-     *                                              must not be null
+     * @param query containing a transfer method configuration key tuple of
+     *              country, currency, transfer method type and profile,
+     *              must not be null
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void retrieveTransferMethodConfigurationFields(
-            @NonNull final HyperwalletTransferMethodConfigurationFieldQuery transferMethodConfigurationFieldQuery,
+            @NonNull final HyperwalletTransferMethodConfigurationFieldQuery query,
             @NonNull final HyperwalletListener<HyperwalletTransferMethodConfigurationField> listener) {
 
         GqlTransaction.Builder<HyperwalletTransferMethodConfigurationFieldResult> builder =
-                new GqlTransaction.Builder<>(transferMethodConfigurationFieldQuery,
+                new GqlTransaction.Builder<>(query,
                         new TypeReference<HyperwalletTransferMethodConfigurationFieldResult>() {
                         }, listener);
         performGqlTransaction(builder, listener);

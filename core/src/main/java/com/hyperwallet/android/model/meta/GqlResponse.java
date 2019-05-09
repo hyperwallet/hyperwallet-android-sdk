@@ -31,6 +31,7 @@ import java.lang.reflect.Constructor;
  */
 public class GqlResponse<T> {
 
+    private static final String ERRORS = "errors";
     private static final String DATA = "data";
 
     private final T mData;

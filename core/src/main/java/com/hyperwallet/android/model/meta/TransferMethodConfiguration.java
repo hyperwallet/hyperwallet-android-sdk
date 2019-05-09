@@ -18,12 +18,13 @@ package com.hyperwallet.android.model.meta;
 
 import androidx.annotation.NonNull;
 
-import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.model.meta.field.HyperwalletField;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +51,8 @@ public class TransferMethodConfiguration {
 
     private List<HyperwalletField> mFields;
 
-    public TransferMethodConfiguration(@NonNull JSONObject node) throws HyperwalletException {
+    public TransferMethodConfiguration(@NonNull JSONObject node) throws JSONException,
+            NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         mProfile = node.optString(PROFILE);
         mTransferMethodType = node.optString(TRANSFER_METHOD_TYPE);
         mProcessingTime = node.optString(PROCESSING_TIME);
