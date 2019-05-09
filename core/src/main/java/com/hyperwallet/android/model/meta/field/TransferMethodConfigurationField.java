@@ -18,12 +18,13 @@ package com.hyperwallet.android.model.meta.field;
 
 import androidx.annotation.NonNull;
 
-import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.model.meta.Connection;
 import com.hyperwallet.android.model.meta.HyperwalletFee;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Represents Users' program context Transfer Method Configuration information with Fees
@@ -41,8 +42,8 @@ public class TransferMethodConfigurationField {
      *
      * @param configuration JSON object that represents transfer method configuration data with fees
      */
-    public TransferMethodConfigurationField(@NonNull final JSONObject configuration) throws HyperwalletException,
-            JSONException {
+    public TransferMethodConfigurationField(@NonNull final JSONObject configuration) throws JSONException,
+            NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         mFeeConnection = new Connection<>(configuration.getJSONObject(TRANSFER_FEE), HyperwalletFee.class);
         mTransferMethodConfigurationConnection = new Connection<>
                 (configuration.getJSONObject(TRANSFER_METHOD_CONFIGURATION),

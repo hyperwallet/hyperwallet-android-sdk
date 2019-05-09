@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents the object to hold data fields
+ * Represents the object to hold transfer method data fields
  */
 public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelable {
 
@@ -47,7 +47,8 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
             TransferMethodTypes.BANK_CARD,
             TransferMethodTypes.WIRE_ACCOUNT,
             TransferMethodTypes.PREPAID_CARD,
-            TransferMethodTypes.PAPER_CHECK
+            TransferMethodTypes.PAPER_CHECK,
+            TransferMethodTypes.PAYPAL_ACCOUNT
     })
     public @interface TransferMethodType {
     }
