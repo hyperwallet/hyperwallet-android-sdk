@@ -8,7 +8,6 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,18 +32,6 @@ public class TransferMethodConfigurationKeyTest {
         assertThat(configurationKey.getCountries(), hasSize(1));
         assertThat(configurationKey.getCountry("CA"), is(notNullValue()));
         assertThat(configurationKey.getCountry("GU"), is(nullValue()));
-    }
-
-    @Test
-    public void testTransferMethodConfigurationKey_convertIncorrectJsonObject() throws Exception {
-        mThrown.expect(JSONException.class);
-
-        String data = mResourceManager.getResourceContent("tmc_key_item.json");
-        JSONObject jsonObject = new JSONObject(data);
-        jsonObject.remove("countries");
-
-        new TransferMethodConfigurationKey(jsonObject);
-
     }
 
     @Test

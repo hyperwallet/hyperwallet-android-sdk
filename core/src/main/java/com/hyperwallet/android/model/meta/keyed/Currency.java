@@ -19,7 +19,6 @@ package com.hyperwallet.android.model.meta.keyed;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.model.HyperwalletTransferMethod;
 
 import org.json.JSONException;
@@ -49,14 +48,18 @@ public class Currency implements KeyedNode {
      *
      * @param currency JSON object that represents currency data
      */
-    public Currency(@NonNull final JSONObject currency) throws HyperwalletException, JSONException,
-            NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
-        mCode = currency.getString(CURRENCY_CODE);
-        mName = currency.getString(CURRENCY_NAME);
+    public Currency(@NonNull final JSONObject currency) throws JSONException, NoSuchMethodException,
+            IllegalAccessException, InstantiationException, InvocationTargetException {
+        mCode = currency.optString(CURRENCY_CODE);
+        mName = currency.optString(CURRENCY_NAME);
         mHyperwalletTransferMethodTypes = new LinkedHashSet<>(1);
-        mHyperwalletTransferMethodTypeMappedConnection =
-                new MappedConnection<>(currency.getJSONObject(TRANSFER_METHOD_TYPES),
-                        HyperwalletTransferMethodType.class);
+        JSONObject transferMethodTypes = currency.optJSONObject(TRANSFER_METHOD_TYPES);
+        if (transferMethodTypes != null && transferMethodTypes.length() != 0) {
+            mHyperwalletTransferMethodTypeMappedConnection =
+                    new MappedConnection<>(transferMethodTypes, HyperwalletTransferMethodType.class);
+        } else {
+            mHyperwalletTransferMethodTypeMappedConnection = null;
+        }
     }
 
     /**

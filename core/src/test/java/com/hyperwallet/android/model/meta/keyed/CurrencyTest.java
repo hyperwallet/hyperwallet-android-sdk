@@ -11,7 +11,6 @@ import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMe
 
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
@@ -47,17 +46,6 @@ public class CurrencyTest {
         assertThat(currency.getName(), is("Canadian Dollar"));
         assertThat(currency.getTransferMethodTypes(), hasSize(0));
         assertThat(currency.getTransferMethodType(BANK_CARD), is(nullValue()));
-    }
-
-
-    @Test
-    public void testCurrency_convertIncorrectJsonObject() throws Exception {
-        mThrown.expect(JSONException.class);
-
-        String data = mResourceManager.getResourceContent("currency_item.json");
-        JSONObject jsonObject = new JSONObject(data);
-        jsonObject.remove("code");
-        new Currency(jsonObject);
     }
 
     @Test
