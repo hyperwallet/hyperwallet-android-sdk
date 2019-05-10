@@ -80,7 +80,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
                 Matchers.<HyperwalletFieldGroup>hasSize(6));
         // check group fields sequence
         assertThat(resultFields.getFields().getFieldGroups().get(0).getGroupName(),
-                is("HOME_ADDRESS"));
+                is(HyperwalletFieldGroup.GroupTypes.ADDRESS));
         assertThat(resultFields.getFields().getFieldGroups().get(0).getFields(),
                 Matchers.<HyperwalletField>hasSize(5));
         assertThat(resultFields.getFields().getFieldGroups().get(0).getFields()
@@ -95,7 +95,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
                 .get(4).getName(), is("postalCode"));
 
         assertThat(resultFields.getFields().getFieldGroups().get(1).getGroupName(),
-                is("IDENTIFICATION"));
+                is(HyperwalletFieldGroup.GroupTypes.IDENTIFICATION));
         assertThat(resultFields.getFields().getFieldGroups().get(1).getFields(),
                 Matchers.<HyperwalletField>hasSize(6));
         assertThat(resultFields.getFields().getFieldGroups().get(1).getFields()
@@ -112,22 +112,22 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
                 .get(5).getName(), is("dateOfBirth"));
 
         assertThat(resultFields.getFields().getFieldGroups().get(2).getGroupName(),
-                is("BUSINESS_CONTACT_INFORMATION"));
+                is(HyperwalletFieldGroup.GroupTypes.CONTACT_INFORMATION));
         assertThat(resultFields.getFields().getFieldGroups().get(2).getFields(),
                 Matchers.<HyperwalletField>hasSize(4));
 
         assertThat(resultFields.getFields().getFieldGroups().get(3).getGroupName(),
-                is("BUSINESS_INFORMATION"));
+                is(HyperwalletFieldGroup.GroupTypes.ACCOUNT_INFORMATION));
         assertThat(resultFields.getFields().getFieldGroups().get(3).getFields(),
                 Matchers.<HyperwalletField>hasSize(4));
 
         assertThat(resultFields.getFields().getFieldGroups().get(4).getGroupName(),
-                is("PERSONAL_INFORMATION"));
+                is(HyperwalletFieldGroup.GroupTypes.INTERMEDIARY_ACCOUNT));
         assertThat(resultFields.getFields().getFieldGroups().get(4).getFields(),
                 Matchers.<HyperwalletField>hasSize(4));
 
         assertThat(resultFields.getFields().getFieldGroups().get(5).getGroupName(),
-                is("BUSINESS_ADDRESS"));
+                is(HyperwalletFieldGroup.GroupTypes.ACCOUNT_HOLDER));
         assertThat(resultFields.getFields().getFieldGroups().get(5).getFields(),
                 Matchers.<HyperwalletField>hasSize(5));
         assertThat(resultFields.getFields().getFieldGroups().get(5).getFields()
