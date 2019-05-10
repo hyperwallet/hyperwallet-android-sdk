@@ -1,0 +1,51 @@
+{
+  "token": "usr-f9154016-94e8-4686-a840-075688ac07b5",
+  "status": "PRE_ACTIVATED",
+  "verificationStatus": "NOT_REQUIRED",
+  "createdOn": "2017-10-30T22:15:45",
+  "clientUserId": "123345789",
+  "profileType": "INDIVIDUAL",
+  "firstName": "Some",
+  "middleName": "Nice",
+  "lastName": "Guy",
+  "dateOfBirth": "1991-01-01",
+  "countryOfBirth": "US",
+  "countryOfNationality": "US",
+  "email": "someguy@hyperwallet.com",
+  "phoneNumber": "+1 604 777888",
+  "mobileNumber": "+1 604 123456",
+  "governmentId": "123456789",
+  "governmentIdType": "PASSPORT",
+  "passportId": "ABC-12345",
+  "driversLicenseId": "7788899",
+  "addressLine1": "575 Market Street",
+  "addressLine2": "Unit 2",
+  "city": "San Francisco",
+  "stateProvince": "CA",
+  "country": "US",
+  "postalCode": "94105",
+  "employerId": "7778889",
+  "businessContactRole": "DIRECTOR",
+  "businessName": "Hyperwallet",
+  "businessRegistrationCountry": "US",
+  "businessRegistrationId": "ABC-1234",
+  "businessRegistrationStateProvince": "CA",
+  "businessContactAddressLine1": "123 Townsend St.",
+  "businessContactAddressLine2": "Sixth Floor",
+  "businessContactCity": "San Francisco",
+  "businessContactStateProvince": "CA",
+  "businessContactCountry": "US",
+  "businessContactPostalCode": "94107",
+  "businessOperatingName": "Hyperwallet",
+  "businessType": "CORPORATION",
+  "language": "en",
+  "programToken": "prg-83836cdf-2ce2-4696-8bc5-f1b86077238c",
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-f9154016-94e8-4686-a840-075688ac07b5"
+    }
+  ]
+}
