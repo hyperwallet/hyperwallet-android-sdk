@@ -52,7 +52,7 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     public @interface UserStatus {
     }
 
-    interface UserStatuses {
+    public interface UserStatuses {
         String PRE_ACTIVATED = "PRE_ACTIVATED";
         String ACTIVATED = "ACTIVATED";
         String LOCKED = "LOCKED";
@@ -80,7 +80,7 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
         String VERIFIED = "VERIFIED";
     }
 
-    interface BusinessContactRoles {
+    public interface BusinessContactRoles {
         String DIRECTOR = "DIRECTOR";
         String OWNER = "OWNER";
         String OTHER = "OTHER";
@@ -96,7 +96,7 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
 
     }
 
-    interface BusinessTypes {
+    public interface BusinessTypes {
         String CORPORATION = "CORPORATION";
         String PARTNERSHIP = "PARTNERSHIP";
     }
@@ -110,7 +110,7 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
 
     }
 
-    interface GovernmentIdTypes {
+    public interface GovernmentIdTypes {
         String PASSPORT = "PASSPORT";
         String NATIONAL_ID_CARD = "NATIONAL_ID_CARD";
     }
@@ -124,7 +124,7 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
 
     }
 
-    interface ProfileTypes {
+    public interface ProfileTypes {
         String INDIVIDUAL = "INDIVIDUAL";
         String BUSINESS = "BUSINESS";
     }
@@ -138,7 +138,7 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
 
     }
 
-    interface Genders {
+    public interface Genders {
         String MALE = "MALE";
         String FEMALE = "FEMALE";
     }
