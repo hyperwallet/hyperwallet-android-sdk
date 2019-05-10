@@ -21,8 +21,6 @@ import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 import static com.hyperwallet.android.util.HttpMethod.PUT;
 
-import android.os.Handler;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -34,9 +32,12 @@ import com.hyperwallet.android.model.HyperwalletBankAccountPagination;
 import com.hyperwallet.android.model.HyperwalletBankCard;
 import com.hyperwallet.android.model.HyperwalletBankCardPagination;
 import com.hyperwallet.android.model.HyperwalletPagination;
+import com.hyperwallet.android.model.HyperwalletPayPalAccountPagination;
 import com.hyperwallet.android.model.HyperwalletStatusTransition;
 import com.hyperwallet.android.model.HyperwalletTransferMethod;
 import com.hyperwallet.android.model.HyperwalletTransferMethodPagination;
+import com.hyperwallet.android.model.HyperwalletUser;
+import com.hyperwallet.android.model.PayPalAccount;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationFieldResult;
 import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationKeyResult;
@@ -121,7 +122,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param bankAccount the {@code HyperwalletBankAccount} to be created; must not be null
@@ -161,7 +162,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      *    * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param bankAccountPagination the ordering and filtering criteria
@@ -186,7 +187,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      *    * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param bankCard the {@code HyperwalletBankCard} to be created; must not be null
@@ -204,19 +205,43 @@ public class Hyperwallet {
     }
 
     /**
+     * Creates a {@link PayPalAccount} for the User associated with the authentication token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     *    * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param payPalAccount the {@code PayPalAccount} to be created; must not be null
+     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void createPayPalAccount(@NonNull final PayPalAccount payPalAccount,
+            @NonNull final HyperwalletListener<PayPalAccount> listener) {
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts");
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
+                new TypeReference<PayPalAccount>() {
+                }, listener).jsonModel(payPalAccount);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
      * Returns the {@link HyperwalletBankAccount} linked to the transfer method token specified, or null if none exists.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code HyperwalletBankAccount}
      *                            being requested; must not be null
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void getBankAccount(@NonNull String transferMethodToken,
+    public void getBankAccount(@NonNull final String transferMethodToken,
             @NonNull final HyperwalletListener<HyperwalletBankAccount> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts/{1}", transferMethodToken);
 
@@ -233,7 +258,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code HyperwalletBankCard}
@@ -251,6 +276,27 @@ public class Hyperwallet {
     }
 
     /**
+     * Returns the {@link HyperwalletUser} linked to the token specified, or null if none exists.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param listener  the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void getUser(@NonNull final HyperwalletListener<HyperwalletUser> listener) {
+        PathFormatter pathFormatter = new PathFormatter("users/{0}");
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<HyperwalletUser>() {
+                }, listener);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
      * Updates the {@link HyperwalletBankAccount} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
@@ -260,7 +306,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param bankAccount the {@code HyperwalletBankAccount} to be created; must not be null
@@ -289,7 +335,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param bankCard the {@code HyperwalletBankCard} to be created; must not be null
@@ -308,6 +354,34 @@ public class Hyperwallet {
     }
 
     /**
+     * Updates the {@link PayPalAccount} for the User associated with the authentication token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
+     *
+     * <p>To identify the {@code PayPalAccount} that is going to be updated, the transfer method token must be
+     * set as part of the {@code PayPalAccount} object passed in.</p>
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param payPalAccount the {@code PayPalAccount} to be created; must not be null
+     * @param listener    the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void updatePayPalAccount(@NonNull final PayPalAccount payPalAccount,
+            @NonNull final HyperwalletListener<PayPalAccount> listener) {
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts/{1}",
+                payPalAccount.getField(HyperwalletTransferMethod.TransferMethodFields.TOKEN));
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(PUT, pathFormatter,
+                new TypeReference<PayPalAccount>() {
+                }, listener).jsonModel(payPalAccount);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
      * Deactivates the {@link HyperwalletBankAccount} linked to the transfer method token specified. The
      * {@code HyperwalletBankAccount} being deactivated must belong to the User that is associated with the
      * authentication token returned from
@@ -316,7 +390,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code HyperwalletBankAccount}
@@ -348,7 +422,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code HyperwalletBankCard} being
@@ -370,6 +444,39 @@ public class Hyperwallet {
 
         performRestTransaction(builder, listener);
     }
+
+    /**
+     * Deactivates the {@link PayPalAccount} linked to the transfer method token specified. The
+     * {@code PayPalAccount} being deactivated must belong to the User that is associated with the
+     * authentication token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code PayPalAccount}
+     *                            being deactivated; must not be null
+     * @param notes               a note regarding the status change
+     * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void deactivatePayPalAccount(@NonNull final String transferMethodToken, @Nullable final String notes,
+            @NonNull final HyperwalletListener<HyperwalletStatusTransition> listener) {
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts/{1}/status-transitions",
+                transferMethodToken);
+
+        final HyperwalletStatusTransition deactivatedStatusTransition = new HyperwalletStatusTransition(
+                HyperwalletStatusTransition.StatusDefinition.DE_ACTIVATED);
+        deactivatedStatusTransition.setNotes(notes);
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
+                new TypeReference<HyperwalletStatusTransition>() {
+                }, listener).jsonModel(deactivatedStatusTransition);
+
+        performRestTransaction(builder, listener);
+    }
+
 
     /**
      * Returns the {@link HyperwalletTransferMethod} (Bank Account, Bank Card, PayPay Account, Prepaid Card,
@@ -394,7 +501,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param transferMethodPagination the ordering and filtering criteria
@@ -434,7 +541,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param bankCardPagination the ordering and filtering criteria
@@ -452,6 +559,70 @@ public class Hyperwallet {
     }
 
     /**
+     * Returns the {@link PayPalAccount} for the User associated with the authentication token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
+     * or an empty {@code List} if non exist.
+     *
+     * <p>The ordering and filtering of {@code PayPalAccount} will be based on the criteria specified within the
+     * {@link HyperwalletPayPalAccountPagination} object, if it is not null. Otherwise the default ordering and
+     * filtering will be applied.</p>
+     *
+     * <ul>
+     * <li>Offset: 0</li>
+     * <li>Limit: 10</li>
+     * <li>Created Before: N/A</li>
+     * <li>Created After: N/A</li>
+     * <li>Type: PAYPAL_ACCOUNT</li>
+     * <li>Status: All</li>
+     * <li>Sort By: Created On</li>
+     * </ul>
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param hyperwalletPayPalAccountPagination the ordering and filtering criteria
+     * @param listener                the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void listPayPalAccounts(
+            @Nullable final HyperwalletPayPalAccountPagination hyperwalletPayPalAccountPagination,
+            @NonNull final HyperwalletListener<HyperwalletPageList<PayPalAccount>> listener) {
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(hyperwalletPayPalAccountPagination);
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts");
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<HyperwalletPageList<PayPalAccount>>() {
+                }, listener).query(urlQuery);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
+     * Returns the {@link PayPalAccount} linked to the transfer method token specified, or null if none exists.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code PayPalAccount}
+     *                            being requested; must not be null
+     * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void getPayPalAccount(@NonNull final String transferMethodToken,
+            @NonNull final HyperwalletListener<PayPalAccount> listener) {
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts/{1}", transferMethodToken);
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<PayPalAccount>() {
+                }, listener);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
      * Returns the transfer method configuration key set, processing times, and fees for the User that is associated
      * with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
@@ -459,7 +630,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param transferMethodConfigurationKeysQuery containing the transfer method configuration key query,
@@ -486,7 +657,7 @@ public class Hyperwallet {
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
      *
-     * <p>This function will requests a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param transferMethodConfigurationFieldQuery containing a transfer method configuration key tuple of
@@ -642,7 +813,7 @@ public class Hyperwallet {
         return queryMap;
     }
 
-    public static void clearInstance(){
+    public static void clearInstance() {
         sInstanceLast = null;
     }
 }

@@ -14,25 +14,35 @@ import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
 
-import static com.hyperwallet.android.util.HttpMethod.GET;
+import static com.hyperwallet.android.model.HyperwalletStatusTransition.CREATED_ON;
+import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.EMAIL;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.STATUS;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TOKEN;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TYPE;
+import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.exception.HyperwalletRestException;
 import com.hyperwallet.android.listener.HyperwalletListener;
-import com.hyperwallet.android.model.HyperwalletBankCard;
-import com.hyperwallet.android.model.HyperwalletBankCardPagination;
 import com.hyperwallet.android.model.HyperwalletError;
 import com.hyperwallet.android.model.HyperwalletErrors;
+import com.hyperwallet.android.model.HyperwalletPayPalAccountPagination;
+import com.hyperwallet.android.model.PayPalAccount;
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
+import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
@@ -45,7 +55,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
-public class HyperwalletListBankCardsTest {
+public class HyperwalletListPayPalAccountsTest {
     @Rule
     public HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
     @Rule
@@ -55,9 +65,9 @@ public class HyperwalletListBankCardsTest {
     @Rule
     public MockitoRule mMockito = MockitoJUnit.rule();
     @Mock
-    private HyperwalletListener<HyperwalletPageList<HyperwalletBankCard>> mListener;
+    private HyperwalletListener<HyperwalletPageList<PayPalAccount>> mListener;
     @Captor
-    private ArgumentCaptor<HyperwalletPageList<HyperwalletBankCard>> mListTransferMethodCaptor;
+    private ArgumentCaptor<HyperwalletPageList<PayPalAccount>> mListPayPalCaptor;
     @Captor
     private ArgumentCaptor<HyperwalletException> mExceptionCaptor;
 
@@ -65,74 +75,80 @@ public class HyperwalletListBankCardsTest {
 
 
     @Test
-    public void testListBankCards_returnsActivatedCards() throws InterruptedException {
+    public void testListPayPalAccounts_returnsActivatedAccounts() throws InterruptedException {
 
-        String responseBody = mExternalResourceManager.getResourceContent("bank_cards_response.json");
+        String responseBody = mExternalResourceManager.getResourceContent("paypal_accounts_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
 
-        HyperwalletBankCardPagination bankCardPagination = new HyperwalletBankCardPagination();
+        HyperwalletPayPalAccountPagination payPalAccountPagination = new HyperwalletPayPalAccountPagination();
 
-        assertThat(bankCardPagination, is(notNullValue()));
-        Hyperwallet.getDefault().listBankCards(bankCardPagination, mListener);
+        assertThat(payPalAccountPagination, is(notNullValue()));
+        Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
 
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
-        verify(mListener).onSuccess(mListTransferMethodCaptor.capture());
+        verify(mListener).onSuccess(mListPayPalCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
-        assertThat(recordedRequest.getMethod(), is(GET.name()));
 
-        HyperwalletPageList<HyperwalletBankCard> hyperwalletBankCardsResponse = mListTransferMethodCaptor.getValue();
+        HyperwalletPageList<PayPalAccount> payPalAccountsResponse = mListPayPalCaptor.getValue();
 
-        assertThat(hyperwalletBankCardsResponse.getCount(), is(2));
-        assertThat(hyperwalletBankCardsResponse.getDataList(), hasSize(2));
-        assertThat(hyperwalletBankCardsResponse.getOffset(), is(0));
-        assertThat(hyperwalletBankCardsResponse.getLimit(), is(10));
+        assertThat(payPalAccountsResponse.getCount(), is(2));
+        assertThat(payPalAccountsResponse.getDataList(), hasSize(2));
+        assertThat(payPalAccountsResponse.getOffset(), is(0));
+        assertThat(payPalAccountsResponse.getLimit(), is(10));
 
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards?limit=10&offset=0&type"
-                        + "=BANK_CARD&status=ACTIVATED"));
+                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts?limit=10&offset=0&type"
+                        + "=PAYPAL_ACCOUNT&status=ACTIVATED"));
+
+        PayPalAccount payPalAccount = payPalAccountsResponse.getDataList().get(0);
+        assertThat(payPalAccount.getField(TOKEN), is("trm-7e915660-8c97-47bf-8a4f-0c1bc890d46f"));
+        assertThat(payPalAccount.getField(TYPE), is(PAYPAL_ACCOUNT));
+        assertThat(payPalAccount.getField(STATUS), is(ACTIVATED));
+        assertThat(payPalAccount.getField(CREATED_ON), is("2019-01-09T22:50:14"));
+        assertThat(payPalAccount.getField(TRANSFER_METHOD_COUNTRY), is("US"));
+        assertThat(payPalAccount.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
+        assertThat(payPalAccount.getField(EMAIL), is("jsmith@paypal.com"));
     }
 
     @Test
-    public void testListBankCards_returnsNoCards() throws InterruptedException {
-        String responseBody = mExternalResourceManager.getResourceContent("bank_no_cards_response.json");
-        mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody(responseBody).mock();
+    public void testListPayPalAccounts_returnsNoAccounts() throws InterruptedException {
+        mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody("").mock();
 
-        HyperwalletBankCardPagination bankCardPagination = new HyperwalletBankCardPagination();
+        HyperwalletPayPalAccountPagination payPalAccountPagination = new HyperwalletPayPalAccountPagination();
 
-        assertThat(bankCardPagination, is(notNullValue()));
-        Hyperwallet.getDefault().listBankCards(bankCardPagination, mListener);
+        assertThat(payPalAccountPagination, is(notNullValue()));
+        Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
 
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards?"));
-        assertThat(recordedRequest.getMethod(), is(GET.name()));
-        assertThat(recordedRequest.getPath(), containsString("type=BANK_CARD"));
+                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts?"));
+        assertThat(recordedRequest.getPath(), containsString("type=PAYPAL_ACCOUNT"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
         assertThat(recordedRequest.getPath(), containsString("status=ACTIVATED"));
 
-        verify(mListener).onSuccess(mListTransferMethodCaptor.capture());
+        verify(mListener).onSuccess(mListPayPalCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
 
-        HyperwalletPageList<HyperwalletBankCard> hyperwalletBankCardsResponse = mListTransferMethodCaptor.getValue();
-        assertThat(hyperwalletBankCardsResponse, is(nullValue()));
+        HyperwalletPageList<PayPalAccount> payPalAccountsResponse = mListPayPalCaptor.getValue();
+        assertThat(payPalAccountsResponse, is(nullValue()));
     }
 
     @Test
-    public void testListBankCards_returnsError() throws InterruptedException {
+    public void testListPayPalAccounts_returnsError() throws InterruptedException {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
-        HyperwalletBankCardPagination actualBankCard = new HyperwalletBankCardPagination();
+        HyperwalletPayPalAccountPagination payPalAccountPagination = new HyperwalletPayPalAccountPagination();
 
-        Hyperwallet.getDefault().listBankCards(actualBankCard, mListener);
+        Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
-        verify(mListener, never()).onSuccess(any(HyperwalletPageList.class));
+        verify(mListener, never()).onSuccess(ArgumentMatchers.<HyperwalletPageList<PayPalAccount>>any());
         verify(mListener).onFailure(mExceptionCaptor.capture());
 
         HyperwalletException hyperwalletException = mExceptionCaptor.getValue();
@@ -143,7 +159,7 @@ public class HyperwalletListBankCardsTest {
         HyperwalletErrors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
         assertThat(hyperwalletErrors, is(notNullValue()));
         assertThat(hyperwalletErrors.getErrors(), is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors().size(), is(1));
+        assertThat(hyperwalletErrors.getErrors(), Matchers.<HyperwalletError>hasSize(1));
 
         HyperwalletError hyperwalletError = hyperwalletErrors.getErrors().get(0);
         assertThat(hyperwalletError.getCode(), is("SYSTEM_ERROR"));
@@ -151,12 +167,10 @@ public class HyperwalletListBankCardsTest {
                 is("A system error has occurred. Please try again. If you continue to receive this error, please "
                         + "contact customer support for assistance (Ref ID: 99b4ad5c-4aac-4cc2-aa9b-4b4f4844ac9b)."));
         assertThat(hyperwalletError.getFieldName(), is(nullValue()));
-
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards?"));
-        assertThat(recordedRequest.getMethod(), is(GET.name()));
-        assertThat(recordedRequest.getPath(), containsString("type=BANK_CARD"));
+                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts?"));
+        assertThat(recordedRequest.getPath(), containsString("type=PAYPAL_ACCOUNT"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
         assertThat(recordedRequest.getPath(), containsString("status=ACTIVATED"));

@@ -1,0 +1,17 @@
+{
+  "token": "trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b",
+  "type": "PAYPAL_ACCOUNT",
+  "status": "ACTIVATED",
+  "createdOn": "2019-01-09T22:50:14",
+  "transferMethodCountry": "US",
+  "transferMethodCurrency": "USD",
+  "email": "jsmith2@paypal.com",
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/paypal-accounts/trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b"
+    }
+  ]
+}
