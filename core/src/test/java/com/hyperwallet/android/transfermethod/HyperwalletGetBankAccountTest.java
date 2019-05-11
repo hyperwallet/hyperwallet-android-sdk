@@ -37,6 +37,7 @@ import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMe
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TYPE;
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
+import static com.hyperwallet.android.util.HttpMethod.GET;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
@@ -98,6 +99,7 @@ public class HyperwalletGetBankAccountTest {
         assertThat(recordedRequest.getPath(),
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts/trm-854c4ec1-9161-49d6-92e2"
                         + "-b8d15aa4bf56"));
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         verify(mListener).onSuccess(mBankCardArgumentCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
@@ -149,6 +151,7 @@ public class HyperwalletGetBankAccountTest {
         assertThat(recordedRequest.getPath(),
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts/trm-854c4ec1-9161-49d6-92e2"
                         + "-b8d15aa4bf56"));
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         verify(mListener).onSuccess(mBankCardArgumentCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
@@ -170,6 +173,7 @@ public class HyperwalletGetBankAccountTest {
         assertThat(recordedRequest.getPath(),
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts/trm-854c4ec1-9161-49d6-92e2"
                         + "-b8d15aa4bf56"));
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         verify(mListener, never()).onSuccess(any(HyperwalletBankAccount.class));
         verify(mListener).onFailure(mExceptionCaptor.capture());

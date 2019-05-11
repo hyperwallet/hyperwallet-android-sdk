@@ -21,6 +21,7 @@ import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMe
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TYPE;
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
+import static com.hyperwallet.android.util.HttpMethod.PUT;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
@@ -114,6 +115,7 @@ public class HyperwalletUpdateBankCardTest {
         assertThat(recordedRequest.getPath(),
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards/trm-d8c65e1e-b3e5-460d-8b24"
                         + "-bee7cdae1636"));
+        assertThat(recordedRequest.getMethod(), is(PUT.name()));
 
     }
 
@@ -147,6 +149,7 @@ public class HyperwalletUpdateBankCardTest {
         assertThat(recordedRequest.getPath(),
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards/trm-d8c65e1e-b3e5-460d-8b24"
                         + "-bee7cdae1636"));
+        assertThat(recordedRequest.getMethod(), is(PUT.name()));
 
         verify(mListener, never()).onSuccess(any(HyperwalletBankCard.class));
         verify(mListener).onFailure(mExceptionCaptor.capture());

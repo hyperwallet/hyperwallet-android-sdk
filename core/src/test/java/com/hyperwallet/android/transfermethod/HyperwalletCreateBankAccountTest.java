@@ -50,6 +50,7 @@ import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMe
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TYPE;
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
+import static com.hyperwallet.android.util.HttpMethod.POST;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
@@ -134,6 +135,7 @@ public class HyperwalletCreateBankAccountTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         verify(mockBankAccountListener).onSuccess(mBankAccountCaptor.capture());
         verify(mockBankAccountListener, never()).onFailure(any(HyperwalletException.class));
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
 
         HyperwalletBankAccount bankAccountResponse = mBankAccountCaptor.getValue();
         assertThat(bankAccountResponse, is(notNullValue()));
@@ -201,6 +203,7 @@ public class HyperwalletCreateBankAccountTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         verify(mockBankAccountListener, never()).onSuccess(any(HyperwalletBankAccount.class));
         verify(mockBankAccountListener).onFailure(mHyperwalletExceptionCaptor.capture());
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
 
         HyperwalletException hyperwalletException = mHyperwalletExceptionCaptor.getValue();
         assertThat(hyperwalletException, is(notNullValue()));

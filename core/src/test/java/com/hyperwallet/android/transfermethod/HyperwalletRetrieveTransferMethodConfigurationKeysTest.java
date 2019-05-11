@@ -11,6 +11,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
+import static com.hyperwallet.android.util.HttpMethod.POST;
+
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
@@ -71,6 +73,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(), is("/graphql/"));
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
 
         verify(mListener).onSuccess(mKeyResultCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
@@ -111,6 +114,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(), is("/graphql/"));
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
 
         verify(mListener, never()).onSuccess(any(HyperwalletTransferMethodConfigurationKeyResult.class));
         verify(mListener).onFailure(mExceptionCaptor.capture());
