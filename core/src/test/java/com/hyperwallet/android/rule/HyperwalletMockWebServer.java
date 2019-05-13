@@ -23,7 +23,7 @@ public final class HyperwalletMockWebServer extends TestWatcher {
         try {
             mServer.start(port);
         } catch (IOException e) {
-            throw new IllegalStateException("Unable to start mock server", e);
+            throw new IllegalStateException("Unable to start mock mServer", e);
         }
     }
 
@@ -34,7 +34,7 @@ public final class HyperwalletMockWebServer extends TestWatcher {
             mServer.shutdown();
             mServer.close();
         } catch (IOException e) {
-            throw new IllegalStateException("Un error occurred when shutting down mock server", e);
+            throw new IllegalStateException("Un error occurred when shutting down mock mServer", e);
         }
     }
 

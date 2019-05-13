@@ -1,0 +1,27 @@
+{
+  "token": "usr-f9154016-94e8-4686-a840-075688ac07b5",
+  "status": "PRE_ACTIVATED",
+  "verificationStatus": "NOT_REQUIRED",
+  "createdOn": "2017-10-30T22:15:45",
+  "clientUserId": "123345789",
+  "profileType": "INDIVIDUAL",
+  "firstName": "Some",
+  "lastName": "Guy",
+  "dateOfBirth": "1991-01-01",
+  "email": "someguy@hyperwallet.com",
+  "addressLine1": "575 Market Street",
+  "city": "San Francisco",
+  "stateProvince": "CA",
+  "country": "US",
+  "postalCode": "94105",
+  "language": "en",
+  "programToken": "prg-83836cdf-2ce2-4696-8bc5-f1b86077238c",
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-f9154016-94e8-4686-a840-075688ac07b5"
+    }
+  ]
+}

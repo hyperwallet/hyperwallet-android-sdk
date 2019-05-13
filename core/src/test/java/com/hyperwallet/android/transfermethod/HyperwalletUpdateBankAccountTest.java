@@ -17,6 +17,7 @@ import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMe
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TOKEN;
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TYPE;
 import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
+import static com.hyperwallet.android.util.HttpMethod.PUT;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
@@ -54,9 +55,9 @@ public class HyperwalletUpdateBankAccountTest {
     public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
-
     @Rule
     public MockitoRule mMockito = MockitoJUnit.rule();
+
     @Mock
     private HyperwalletListener<HyperwalletBankAccount> mockBankAccountListener;
     @Captor
@@ -97,6 +98,7 @@ public class HyperwalletUpdateBankAccountTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         verify(mockBankAccountListener).onSuccess(mBankAccountCaptor.capture());
         verify(mockBankAccountListener, never()).onFailure(any(HyperwalletException.class));
+        assertThat(recordedRequest.getMethod(), is(PUT.name()));
 
         HyperwalletBankAccount bankAccountResponse = mBankAccountCaptor.getValue();
         assertThat(bankAccountResponse, is(notNullValue()));
@@ -141,6 +143,7 @@ public class HyperwalletUpdateBankAccountTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         verify(mockBankAccountListener, never()).onSuccess(any(HyperwalletBankAccount.class));
         verify(mockBankAccountListener).onFailure(mHyperwalletExceptionCaptor.capture());
+        assertThat(recordedRequest.getMethod(), is(PUT.name()));
 
         HyperwalletException hyperwalletException = mHyperwalletExceptionCaptor.getValue();
         assertThat(hyperwalletException, is(notNullValue()));
