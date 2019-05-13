@@ -1,6 +1,7 @@
 package com.hyperwallet.android.model.meta.keyed;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 
@@ -26,7 +27,7 @@ import java.util.Set;
 public class HyperwalletTransferMethodTypeTest {
 
     @Rule
-    public HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
+    public final HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
     @Rule
     public final ExpectedException mThrown = ExpectedException.none();
 
@@ -53,7 +54,7 @@ public class HyperwalletTransferMethodTypeTest {
         assertThat(transferMethodType.getCode(), is(BANK_ACCOUNT));
         assertThat(transferMethodType.getName(), is("Bank Account"));
         assertThat(transferMethodType.getProcessingTime(), is("1-3"));
-        assertThat(transferMethodType.getFees(), hasSize(0));
+        assertThat(transferMethodType.getFees(), is(empty()));
     }
 
 
