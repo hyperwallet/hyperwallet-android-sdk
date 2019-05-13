@@ -2,6 +2,7 @@ package com.hyperwallet.android.model.meta;
 
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -21,7 +22,7 @@ import org.robolectric.RobolectricTestRunner;
 public class TransferMethodConfigurationKeyTest {
 
     @Rule
-    public HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
+    public final HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
     @Rule
     public final ExpectedException mThrown = ExpectedException.none();
 
@@ -57,7 +58,7 @@ public class TransferMethodConfigurationKeyTest {
         JSONObject jsonObject = new JSONObject(data);
         TransferMethodConfigurationKey configurationKeyResult =
                 new TransferMethodConfigurationKey(jsonObject);
-        assertThat(configurationKeyResult.getCountries(), hasSize(0));
+        assertThat(configurationKeyResult.getCountries(), is(empty()));
         assertThat(configurationKeyResult.getCountry("CA"), is(nullValue()));
     }
 }

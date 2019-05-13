@@ -1,6 +1,7 @@
 package com.hyperwallet.android.model.meta.keyed;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -20,7 +21,7 @@ import org.robolectric.RobolectricTestRunner;
 public class CountryTest {
 
     @Rule
-    public HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
+    public final HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
     @Rule
     public final ExpectedException mThrown = ExpectedException.none();
 
@@ -42,7 +43,7 @@ public class CountryTest {
         Country country = new Country(jsonObject);
         assertThat(country.getCode(), is("CA"));
         assertThat(country.getName(), is("CANADA"));
-        assertThat(country.getCurrencies(), hasSize(0));
+        assertThat(country.getCurrencies(), is(empty()));
         assertThat(country.getCurrency("USD"), is(nullValue()));
     }
 
