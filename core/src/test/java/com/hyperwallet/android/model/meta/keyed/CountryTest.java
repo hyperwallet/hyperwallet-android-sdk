@@ -8,7 +8,6 @@ import static org.hamcrest.Matchers.nullValue;
 
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
@@ -44,16 +43,6 @@ public class CountryTest {
         assertThat(country.getName(), is("CANADA"));
         assertThat(country.getCurrencies(), hasSize(0));
         assertThat(country.getCurrency("USD"), is(nullValue()));
-    }
-
-    @Test
-    public void testCountry_convertJsonObjectWithError() throws Exception {
-        mThrown.expect(JSONException.class);
-
-        String data = mResourceManager.getResourceContent("country_item.json");
-        JSONObject jsonObject = new JSONObject(data);
-        jsonObject.remove("code");
-        new Country(jsonObject);
     }
 
     @Test

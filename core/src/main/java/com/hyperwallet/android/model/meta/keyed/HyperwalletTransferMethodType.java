@@ -37,12 +37,16 @@ public class HyperwalletTransferMethodType implements KeyedNode {
      */
     public HyperwalletTransferMethodType(@NonNull final JSONObject transferMethodType) throws JSONException,
             NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        mCode = transferMethodType.getString(TRANSFER_METHOD_CODE);
-        mName = transferMethodType.getString(TRANSFER_METHOD_NAME);
+        mCode = transferMethodType.optString(TRANSFER_METHOD_CODE);
+        mName = transferMethodType.optString(TRANSFER_METHOD_NAME);
         mProcessingTime = transferMethodType.optString(TRANSFER_METHOD_PROCESSING_TIME);
         mHyperwalletFees = new LinkedHashSet<>(1);
-        mFeeConnection = new Connection<>(transferMethodType.getJSONObject(TRANSFER_METHOD_FEES),
-                HyperwalletFee.class);
+        JSONObject fees = transferMethodType.optJSONObject(TRANSFER_METHOD_FEES);
+        if (fees != null && fees.length() != 0) {
+            mFeeConnection = new Connection<>(fees, HyperwalletFee.class);
+        } else {
+            mFeeConnection = null;
+        }
     }
 
     /**

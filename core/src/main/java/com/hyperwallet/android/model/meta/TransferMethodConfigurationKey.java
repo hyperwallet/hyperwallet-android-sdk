@@ -19,7 +19,6 @@ package com.hyperwallet.android.model.meta;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.model.meta.keyed.Country;
 import com.hyperwallet.android.model.meta.keyed.MappedConnection;
 
@@ -38,15 +37,16 @@ public class TransferMethodConfigurationKey {
     private static final String TRANSFER_METHOD_COUNTRIES = "countries";
 
     private final Set<Country> mCountries;
-    private MappedConnection<Country> mCountryMappedConnection;
+    private final MappedConnection<Country> mCountryMappedConnection;
 
-    public TransferMethodConfigurationKey(@NonNull final JSONObject configuration) throws HyperwalletException,
-            JSONException, NoSuchMethodException, IllegalAccessException, InstantiationException,
-            InvocationTargetException {
-        JSONObject countries = configuration.getJSONObject(TRANSFER_METHOD_COUNTRIES);
+    public TransferMethodConfigurationKey(@NonNull final JSONObject configuration) throws JSONException,
+            NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
+        JSONObject countries = configuration.optJSONObject(TRANSFER_METHOD_COUNTRIES);
         mCountries = new LinkedHashSet<>(1);
         if (countries != null && countries.length() != 0) {
             mCountryMappedConnection = new MappedConnection<>(countries, Country.class);
+        } else {
+            mCountryMappedConnection = null;
         }
     }
 

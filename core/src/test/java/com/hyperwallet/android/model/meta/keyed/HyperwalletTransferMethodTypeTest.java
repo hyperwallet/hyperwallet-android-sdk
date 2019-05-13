@@ -11,7 +11,6 @@ import static com.hyperwallet.android.model.meta.HyperwalletFee.FeeRate.FLAT;
 import com.hyperwallet.android.model.meta.HyperwalletFee;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
@@ -44,16 +43,6 @@ public class HyperwalletTransferMethodTypeTest {
         List<HyperwalletFee> feeList = new ArrayList<>(fees);
         assertThat(feeList.get(0).getValue(), is("5.00"));
         assertThat(feeList.get(0).getFeeRateType(), is(FLAT));
-    }
-
-    @Test
-    public void testHyperwalletTransferMethodType_convertIncorrectJsonObject() throws Exception {
-        mThrown.expect(JSONException.class);
-
-        String data = mResourceManager.getResourceContent("tm_type_item.json");
-        JSONObject jsonObject = new JSONObject(data);
-        jsonObject.remove("code");
-        new HyperwalletTransferMethodType(jsonObject);
     }
 
     @Test
