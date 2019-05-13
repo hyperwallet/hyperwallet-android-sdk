@@ -11,7 +11,7 @@
           "fieldGroups": {
             "nodes": [
               {
-                "group": "HOME_ADDRESS",
+                "group": "ADDRESS",
                 "fields": [
                   {
                     "category": "ADDRESS",
@@ -1118,7 +1118,7 @@
                 ]
               },
               {
-                "group": "BUSINESS_CONTACT_INFORMATION",
+                "group": "CONTACT_INFORMATION",
                 "fields": [
                   {
                     "category": "PROFILE",
@@ -1183,7 +1183,7 @@
                 ]
               },
               {
-                "group": "BUSINESS_INFORMATION",
+                "group": "ACCOUNT_INFORMATION",
                 "fields": [
                   {
                     "category": "ACCOUNT",
@@ -1253,7 +1253,7 @@
                 ]
               },
               {
-                "group": "PERSONAL_INFORMATION",
+                "group": "INTERMEDIARY_ACCOUNT",
                 "fields": [
                   {
                     "category": "ACCOUNT",
@@ -1323,7 +1323,7 @@
                 ]
               },
               {
-                "group": "BUSINESS_ADDRESS",
+                "group": "ACCOUNT_HOLDER",
                 "fields": [
                   {
                     "category": "ADDRESS",

@@ -5,7 +5,6 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 
-import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
 import org.json.JSONException;
@@ -24,16 +23,16 @@ public class HyperwalletFieldGroupTest {
     public final ExpectedException mThrown = ExpectedException.none();
 
     @Test
-    public void testHyperwalletFieldGroup_convertJson() throws JSONException, HyperwalletException {
+    public void testHyperwalletFieldGroup_convertJson() throws JSONException {
         String data = mResourceManager.getResourceContent("field_group_item.json");
         JSONObject jsonObject = new JSONObject(data);
         HyperwalletFieldGroup fieldGroup = new HyperwalletFieldGroup(jsonObject);
         assertThat(fieldGroup.getFields(), hasSize(1));
-        assertThat(fieldGroup.getGroupName(), is("HOME_ADDRESS"));
+        assertThat(fieldGroup.getGroupName(), is(HyperwalletFieldGroup.GroupTypes.ADDRESS));
     }
 
     @Test
-    public void testHyperwalletFieldGroup_convertJsonWithEmptyFields() throws JSONException, HyperwalletException {
+    public void testHyperwalletFieldGroup_convertJsonWithEmptyFields() throws JSONException {
         String data = mResourceManager.getResourceContent("field_group_empty_fields_item.json");
         JSONObject jsonObject = new JSONObject(data);
         HyperwalletFieldGroup fieldGroup = new HyperwalletFieldGroup(jsonObject);

@@ -37,8 +37,8 @@ public class Extension {
     private final String mTimestamp;
 
     Extension(@NonNull JSONObject jsonObject) throws JSONException {
-        mCode = jsonObject.getString(CODE);
-        mTimestamp = jsonObject.getString(TIMESTAMP);
+        mCode = jsonObject.optString(CODE);
+        mTimestamp = jsonObject.optString(TIMESTAMP);
     }
 
     /**

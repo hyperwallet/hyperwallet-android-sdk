@@ -52,23 +52,23 @@ public class GqlError {
         mLocations = new ArrayList<>(0);
         mPaths = new ArrayList<>(0);
 
-        mMessage = jsonObject.getString(MESSAGE);
+        mMessage = jsonObject.optString(MESSAGE);
         JSONArray locationJsonArray = jsonObject.optJSONArray(LOCATIONS);
-        if (locationJsonArray != null) {
+        if (locationJsonArray != null && locationJsonArray.length() != 0) {
             for (int i = 0; i < locationJsonArray.length(); i++) {
                 mLocations.add(new Location(locationJsonArray.getJSONObject(i)));
             }
         }
 
         JSONArray pathJsonArray = jsonObject.optJSONArray(PATH);
-        if (pathJsonArray != null) {
+        if (pathJsonArray != null && pathJsonArray.length() != 0) {
             for (int i = 0; i < pathJsonArray.length(); i++) {
                 mPaths.add(pathJsonArray.optString(i));
             }
         }
 
         JSONObject extensionJsonObject = jsonObject.optJSONObject(EXTENSIONS);
-        if (extensionJsonObject != null) {
+        if (extensionJsonObject != null && extensionJsonObject.length() != 0) {
             mExtension = new Extension(extensionJsonObject);
         } else {
             mExtension = null;
