@@ -8,6 +8,8 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
+import static com.hyperwallet.android.util.HttpMethod.POST;
+
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
@@ -33,40 +35,42 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.mockwebserver.RecordedRequest;
+
 @RunWith(RobolectricTestRunner.class)
 public class HyperwalletDeactivateBankCardTest {
 
     @Rule
-    public HyperwalletMockWebServer server = new HyperwalletMockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public HyperwalletSdkMock hyperwalletSdkMock = new HyperwalletSdkMock(server);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
-    public HyperwalletExternalResourceManager externalResourceManager = new HyperwalletExternalResourceManager();
+    public HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
     @Rule
-    public MockitoRule mockito = MockitoJUnit.rule();
+    public MockitoRule mMockito = MockitoJUnit.rule();
     @Mock
-    private HyperwalletListener<HyperwalletStatusTransition> mockStatusTransitionListener;
+    private HyperwalletListener<HyperwalletStatusTransition> mMockStatusTransitionListener;
     @Captor
-    private ArgumentCaptor<HyperwalletStatusTransition> statusTransitionCaptor;
+    private ArgumentCaptor<HyperwalletStatusTransition> mStatusTransitionCaptor;
     @Captor
-    private ArgumentCaptor<HyperwalletException> hyperwalletExceptionCaptor;
+    private ArgumentCaptor<HyperwalletException> mHyperwalletExceptionCaptor;
 
-    private CountDownLatch await = new CountDownLatch(1);
+    private CountDownLatch mAwait = new CountDownLatch(1);
 
 
     @Test
     public void testDeactivateBankCard_successfulStatusTransition() throws Exception {
 
-        String responseBody = externalResourceManager.getResourceContent(
+        String responseBody = mExternalResourceManager.getResourceContent(
                 "successfully_deactivated_bank_card_response.json");
-        server.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_CREATED).withBody(responseBody).mock();
+        mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_CREATED).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().deactivateBankCard("trm-fake-token", null, mockStatusTransitionListener);
-        await.await(1000, TimeUnit.MILLISECONDS);
+        Hyperwallet.getDefault().deactivateBankCard("trm-fake-token", null, mMockStatusTransitionListener);
+        mAwait.await(1000, TimeUnit.MILLISECONDS);
 
-        verify(mockStatusTransitionListener).onSuccess(statusTransitionCaptor.capture());
-        verify(mockStatusTransitionListener, never()).onFailure(any(HyperwalletException.class));
-        HyperwalletStatusTransition statusTransitionResponse = statusTransitionCaptor.getValue();
+        verify(mMockStatusTransitionListener).onSuccess(mStatusTransitionCaptor.capture());
+        verify(mMockStatusTransitionListener, never()).onFailure(any(HyperwalletException.class));
+        HyperwalletStatusTransition statusTransitionResponse = mStatusTransitionCaptor.getValue();
         assertNotNull(statusTransitionResponse);
         assertThat(statusTransitionResponse.getFromStatus(),
                 is(HyperwalletStatusTransition.StatusDefinition.ACTIVATED));
@@ -76,25 +80,27 @@ public class HyperwalletDeactivateBankCardTest {
                 is(HyperwalletStatusTransition.StatusDefinition.DE_ACTIVATED));
         assertThat(statusTransitionResponse.getToken(), is("sts-70ddc78a-0c14-4a72-8390-75d49ff376f2"));
         assertNotNull(statusTransitionResponse.getCreatedOn());
-        assertThat(server.getRequest().getPath(),
+
+        RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getPath(),
                 endsWith(
                         "users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards/trm-fake-token/status-transitions"));
-
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
     }
 
 
     @Test
     public void testDeactivateBankCard_unsuccessfulStatusTransition() throws Exception {
 
-        String responseBody = externalResourceManager.getResourceContentError("invalid_status_transition.json");
-        server.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
+        String responseBody = mExternalResourceManager.getResourceContentError("invalid_status_transition.json");
+        mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().deactivateBankCard("trm-fake-token", null, mockStatusTransitionListener);
-        await.await(1000, TimeUnit.MILLISECONDS);
+        Hyperwallet.getDefault().deactivateBankCard("trm-fake-token", null, mMockStatusTransitionListener);
+        mAwait.await(1000, TimeUnit.MILLISECONDS);
 
-        verify(mockStatusTransitionListener).onFailure(hyperwalletExceptionCaptor.capture());
-        verify(mockStatusTransitionListener, never()).onSuccess(any(HyperwalletStatusTransition.class));
-        HyperwalletException hyperwalletException = hyperwalletExceptionCaptor.getValue();
+        verify(mMockStatusTransitionListener).onFailure(mHyperwalletExceptionCaptor.capture());
+        verify(mMockStatusTransitionListener, never()).onSuccess(any(HyperwalletStatusTransition.class));
+        HyperwalletException hyperwalletException = mHyperwalletExceptionCaptor.getValue();
         assertNotNull(hyperwalletException);
         final HyperwalletErrors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
         assertNotNull(hyperwalletErrors);
@@ -106,9 +112,12 @@ public class HyperwalletDeactivateBankCardTest {
         assertThat(statusTransitionError.getCode(), is("INVALID_FIELD_VALUE"));
         assertThat(statusTransitionError.getFieldName(), is("transition"));
         assertThat(statusTransitionError.getMessage(), is("transition is invalid"));
-        assertThat(server.getRequest().getPath(),
+
+        RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getPath(),
                 endsWith(
                         "users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards/trm-fake-token/status-transitions"));
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
     }
 
 
