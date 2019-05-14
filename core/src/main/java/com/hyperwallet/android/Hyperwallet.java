@@ -296,6 +296,7 @@ public class Hyperwallet {
 
         performRestTransaction(builder, listener);
     }
+
     /**
      * Updates the {@link HyperwalletBankAccount} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
