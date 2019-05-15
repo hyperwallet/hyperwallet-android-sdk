@@ -90,6 +90,7 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
             TransferMethodFields.PASSPORT_ID,
             TransferMethodFields.PHONE_NUMBER,
             TransferMethodFields.POSTAL_CODE,
+            TransferMethodFields.PROFILE_TYPE,
             TransferMethodFields.STATE_PROVINCE,
             TransferMethodFields.BANK_ACCOUNT_ID,
             TransferMethodFields.BANK_ACCOUNT_PURPOSE,
@@ -142,6 +143,7 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
         public static final String PASSPORT_ID = "passportId";
         public static final String PHONE_NUMBER = "phoneNumber";
         public static final String POSTAL_CODE = "postalCode";
+        public static final String PROFILE_TYPE = "profileType";
         public static final String STATE_PROVINCE = "stateProvince";
         public static final String EMAIL = "email";
 
