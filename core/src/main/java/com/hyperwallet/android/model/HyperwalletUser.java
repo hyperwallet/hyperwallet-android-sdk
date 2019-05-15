@@ -25,7 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringDef;
 
-import com.hyperwallet.android.model.meta.field.HyperwalletField;
+import com.hyperwallet.android.model.meta.HyperwalletField;
 import com.hyperwallet.android.util.JsonUtils;
 
 import org.json.JSONException;
