@@ -285,7 +285,7 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param listener  the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void getUser(@NonNull final HyperwalletListener<HyperwalletUser> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}");
