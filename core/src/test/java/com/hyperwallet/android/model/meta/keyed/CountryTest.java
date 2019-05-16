@@ -25,7 +25,7 @@ public class CountryTest {
     public final ExpectedException mThrown = ExpectedException.none();
 
     @Test
-    public void testCountry_convertValidJsonObject() throws Exception {
+    public void testCountry_convertJsonObject() throws Exception {
         String data = mResourceManager.getResourceContent("country_item.json");
         JSONObject jsonObject = new JSONObject(data);
         Country country = new Country(jsonObject);

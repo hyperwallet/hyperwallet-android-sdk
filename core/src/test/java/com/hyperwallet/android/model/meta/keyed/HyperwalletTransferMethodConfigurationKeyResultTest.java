@@ -25,7 +25,7 @@ public class HyperwalletTransferMethodConfigurationKeyResultTest {
     public final ExpectedException mThrown = ExpectedException.none();
 
     @Test
-    public void testTransferMethodConfigurationFieldResult_convertJson()
+    public void testTransferMethodConfigurationFieldResult_convertJsonObject()
             throws JSONException, ReflectiveOperationException {
         String data = mResourceManager.getResourceContent("tmc_get_keys_response.json");
         JSONObject jsonObject = new JSONObject(data);
@@ -36,7 +36,7 @@ public class HyperwalletTransferMethodConfigurationKeyResultTest {
     }
 
     @Test
-    public void testTransferMethodConfigurationFieldResult_onInvalidCountryReturnNull()
+    public void testTransferMethodConfigurationFieldResult_returnsNullWhenCountryInvalid()
             throws JSONException, ReflectiveOperationException {
         String data = mResourceManager.getResourceContent("tmc_get_keys_response.json");
         JSONObject jsonObject = new JSONObject(data);
