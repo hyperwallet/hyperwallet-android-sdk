@@ -1,6 +1,7 @@
 package com.hyperwallet.android.model.meta.keyed;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -22,7 +23,7 @@ import org.robolectric.RobolectricTestRunner;
 public class CurrencyTest {
 
     @Rule
-    public HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
+    public final HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
     @Rule
     public final ExpectedException mThrown = ExpectedException.none();
 
@@ -44,7 +45,7 @@ public class CurrencyTest {
         Currency currency = new Currency(jsonObject);
         assertThat(currency.getCode(), is("CAD"));
         assertThat(currency.getName(), is("Canadian Dollar"));
-        assertThat(currency.getTransferMethodTypes(), hasSize(0));
+        assertThat(currency.getTransferMethodTypes(), is(empty()));
         assertThat(currency.getTransferMethodType(BANK_CARD), is(nullValue()));
     }
 

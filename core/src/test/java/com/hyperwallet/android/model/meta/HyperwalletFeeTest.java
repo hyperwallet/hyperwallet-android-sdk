@@ -18,7 +18,7 @@ import org.robolectric.RobolectricTestRunner;
 public class HyperwalletFeeTest {
 
     @Rule
-    public HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
+    public final HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
 
     @Test
     public void testHyperwalletFee_convertJsonObject() throws JSONException {
