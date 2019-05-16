@@ -1,6 +1,7 @@
 package com.hyperwallet.android.model.meta;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.notNullValue;
@@ -46,7 +47,7 @@ public class HyperwalletFieldTest {
     }
 
     @Test
-    public void testHyperwalletField_convertJsonObjectWithFieldSelection() throws JSONException {
+    public void testHyperwalletField_convertJsonObject() throws JSONException {
         String jsonResponse = mExternalResourceManager.getResourceContent(
                 "field_selection_response.json");
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);
@@ -59,8 +60,8 @@ public class HyperwalletFieldTest {
         assertThat(hyperwalletField.getMaxLength(), is(Integer.MAX_VALUE));
         assertThat(hyperwalletField.getMinLength(), is(0));
         assertThat(hyperwalletField.getName(), is("country"));
-        assertThat(hyperwalletField.getPlaceholder(), is(isEmptyOrNullString()));
-        assertThat(hyperwalletField.getRegularExpression(), is(isEmptyOrNullString()));
+        assertThat(hyperwalletField.getPlaceholder(), is(emptyOrNullString()));
+        assertThat(hyperwalletField.getRegularExpression(), is(emptyOrNullString()));
 
         assertThat(hyperwalletField.getFieldSelectionOptions(), is(hasSize(2)));
         assertThat(hyperwalletField.getHyperwalletValidationMessage(), is(notNullValue()));
