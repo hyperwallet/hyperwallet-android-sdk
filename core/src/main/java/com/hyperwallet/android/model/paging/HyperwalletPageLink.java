@@ -17,29 +17,45 @@
  */
 package com.hyperwallet.android.model.paging;
 
+import android.net.Uri;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 
 import org.json.JSONObject;
 
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class HyperwalletPageLink {
     private static final String PAGE_HREF = "href";
     private static final String PAGE_PARAMS = "params";
 
     private HyperwalletPageParameter mPageParameter;
-    private String mPageRef;
+    private Uri mPageRef;
 
     public HyperwalletPageLink(@NonNull final JSONObject fields) {
-        mPageRef = fields.optString(PAGE_HREF);
+        mPageRef = Uri.parse(fields.optString(PAGE_HREF));
         mPageParameter = new HyperwalletPageParameter(fields.optJSONObject(PAGE_PARAMS));
     }
 
-    public String getPageHref() {
+    public Uri getPageHref() {
         return mPageRef;
     }
 
     public HyperwalletPageParameter getPageParameter() {
         return mPageParameter;
+    }
+
+    public int getLimit() {
+        String limit = getQueryParameter("limit");
+        return limit != null ? Integer.parseInt(limit) : -1;
+    }
+
+
+    public int getOffset() {
+        String limit = getQueryParameter("offset");
+        return limit != null ? Integer.parseInt(limit) : -1;
+    }
+
+    private String getQueryParameter(String paramName) {
+        return mPageRef != null ? mPageRef.getQueryParameter(paramName) : null;
     }
 }

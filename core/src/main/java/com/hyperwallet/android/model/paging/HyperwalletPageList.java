@@ -102,4 +102,25 @@ public class HyperwalletPageList<T> {
     public List<HyperwalletPageLink> getPageLinks() {
         return mHyperwalletPageLinks;
     }
+
+
+    public HyperwalletPageLink getNextPageLink() {
+        return getPageLink("next");
+    }
+
+    public HyperwalletPageLink getPreviousageLink() {
+        return getPageLink("previous");
+    }
+
+
+    private HyperwalletPageLink getPageLink(String name) {
+        if (mHyperwalletPageLinks != null) {
+            for (HyperwalletPageLink pageLink : mHyperwalletPageLinks) {
+                if (pageLink.getPageParameter().getRel().equals(name)) {
+                    return pageLink;
+                }
+            }
+        }
+        return null;
+    }
 }
