@@ -9,6 +9,7 @@
   "cardNumber": "************1114",
   "cardBrand": "VISA",
   "dateOfExpiry": "2019-11",
+  "profileType": "INDIVIDUAL",
   "links": [
     {
       "params": {
