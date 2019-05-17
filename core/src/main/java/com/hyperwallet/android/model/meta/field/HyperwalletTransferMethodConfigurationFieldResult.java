@@ -50,6 +50,6 @@ public class HyperwalletTransferMethodConfigurationFieldResult
     @Override
     @Nullable
     public List<HyperwalletFee> getFees() {
-        return getData().getFeeConnection().getNodes();
+        return getData().getFeeConnection() != null ? getData().getFeeConnection().getNodes() : null;
     }
 }
