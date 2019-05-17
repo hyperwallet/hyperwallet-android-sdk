@@ -2,6 +2,7 @@ package com.hyperwallet.android.model.meta;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
@@ -60,6 +61,28 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
 
     @Test
     public void testRetrieveTransferMethodConfigurationFields_returnsFields() throws Exception {
+        // prepare test
+        String responseBody = mExternalResourceManager.getResourceContent("tmc_get_fields_no_fees_v2_response.json");
+        mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
+
+        // run test
+        Hyperwallet.getDefault().retrieveTransferMethodConfigurationFields(mMockedQuery, mListener);
+        mAwait.await(100, TimeUnit.MILLISECONDS);
+
+        // retrieve response
+        verify(mListener).onSuccess(mResultArgumentCaptor.capture());
+        verify(mListener, never()).onFailure(any(HyperwalletException.class));
+        HyperwalletTransferMethodConfigurationField resultFields = mResultArgumentCaptor.getValue();
+
+        // assert fields
+        assertThat(resultFields.getFields(), is(notNullValue()));
+
+        // assert fees
+        assertThat(resultFields.getFees(), is(nullValue()));
+    }
+
+    @Test
+    public void testRetrieveTransferMethodConfigurationFields_returnsFieldsAndFees() throws Exception {
         // prepare test
         String responseBody = mExternalResourceManager.getResourceContent("tmc_get_fields_v2_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();

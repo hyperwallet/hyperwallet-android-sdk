@@ -17,6 +17,7 @@
 package com.hyperwallet.android.model.meta.field;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.hyperwallet.android.model.meta.Connection;
 import com.hyperwallet.android.model.meta.HyperwalletFee;
@@ -44,12 +45,18 @@ public class TransferMethodConfigurationField {
      */
     public TransferMethodConfigurationField(@NonNull final JSONObject configuration) throws JSONException,
             NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        mFeeConnection = new Connection<>(configuration.getJSONObject(TRANSFER_FEE), HyperwalletFee.class);
+        JSONObject fees = configuration.optJSONObject(TRANSFER_FEE);
+        if (fees != null && fees.length() != 0) {
+            mFeeConnection = new Connection<>(fees, HyperwalletFee.class);
+        } else {
+            mFeeConnection = null;
+        }
         mTransferMethodConfigurationConnection = new Connection<>
                 (configuration.getJSONObject(TRANSFER_METHOD_CONFIGURATION),
                         HyperwalletTransferMethodConfiguration.class);
     }
 
+    @Nullable
     public Connection<HyperwalletFee> getFeeConnection() {
         return mFeeConnection;
     }
