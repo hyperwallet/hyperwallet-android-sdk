@@ -60,7 +60,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
     private CountDownLatch mAwait = new CountDownLatch(1);
 
     @Test
-    public void testRetrieveTransferMethodConfigurationFields_returnsFieldsOnly() throws Exception {
+    public void testRetrieveTransferMethodConfigurationFields_returnsFields() throws Exception {
         // prepare test
         String responseBody = mExternalResourceManager.getResourceContent("tmc_get_fields_no_fees_v2_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
