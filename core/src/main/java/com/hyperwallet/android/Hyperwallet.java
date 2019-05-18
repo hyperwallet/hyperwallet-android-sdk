@@ -809,7 +809,10 @@ public class Hyperwallet {
         } else {
             queryMap = pagination.buildQuery();
         }
-        queryMap.put(STATUS, HyperwalletStatusTransition.StatusDefinition.ACTIVATED);
+        if (!queryMap.containsKey(STATUS)) {
+            queryMap.put(STATUS, HyperwalletStatusTransition.StatusDefinition.ACTIVATED);
+        }
+
         return queryMap;
     }
 
