@@ -65,8 +65,10 @@ public class HyperwalletTransferMethodConfigurationFieldQueryTest {
                         + "\t\t\tnodes {\n"
                         + "\t\t\t\tvalue\n"
                         + "\t\t\t\tfeeRateType\n"
-                        + "\t\t\t\t\tminimum\n"
-                        + "\t\t\t\t\tmaximum\n"
+                        + "\t\t\t\tminimum\n"
+                        + "\t\t\t\tmaximum\n"
+                        + "\t\t\t\tcountry\n"
+                        + "\t\t\t\tcurrency\n"
                         + "\t\t}\n"
                         + "\t}\n"
                         + "}",
