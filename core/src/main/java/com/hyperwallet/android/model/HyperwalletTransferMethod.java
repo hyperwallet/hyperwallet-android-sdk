@@ -25,7 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringDef;
 
-import com.hyperwallet.android.model.meta.HyperwalletField;
+import com.hyperwallet.android.model.meta.field.HyperwalletField;
 import com.hyperwallet.android.util.JsonUtils;
 
 import org.json.JSONException;
@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents the object to hold data fields
+ * Represents the object to hold transfer method data fields
  */
 public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelable {
 
@@ -47,7 +47,8 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
             TransferMethodTypes.BANK_CARD,
             TransferMethodTypes.WIRE_ACCOUNT,
             TransferMethodTypes.PREPAID_CARD,
-            TransferMethodTypes.PAPER_CHECK
+            TransferMethodTypes.PAPER_CHECK,
+            TransferMethodTypes.PAYPAL_ACCOUNT
     })
     public @interface TransferMethodType {
     }
@@ -89,7 +90,14 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
             TransferMethodFields.PASSPORT_ID,
             TransferMethodFields.PHONE_NUMBER,
             TransferMethodFields.POSTAL_CODE,
+            TransferMethodFields.PROFILE_TYPE,
             TransferMethodFields.STATE_PROVINCE,
+            TransferMethodFields.BUSINESS_TYPE,
+            TransferMethodFields.BUSINESS_NAME,
+            TransferMethodFields.BUSINESS_REGISTRATION_ID,
+            TransferMethodFields.BUSINESS_REGISTRATION_STATE_PROVINCE,
+            TransferMethodFields.BUSINESS_REGISTRATION_COUNTRY,
+            TransferMethodFields.BUSINESS_OPERATING_NAME,
             TransferMethodFields.BANK_ACCOUNT_ID,
             TransferMethodFields.BANK_ACCOUNT_PURPOSE,
             TransferMethodFields.BANK_ACCOUNT_RELATIONSHIP,
@@ -122,27 +130,6 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
         public static final String TRANSFER_METHOD_COUNTRY = "transferMethodCountry";
         public static final String TRANSFER_METHOD_CURRENCY = "transferMethodCurrency";
         public static final String TYPE = "type";
-        public static final String ADDRESS_LINE_1 = "addressLine1";
-        public static final String ADDRESS_LINE_2 = "addressLine2";
-        public static final String CITY = "city";
-        public static final String COUNTRY = "country";
-        public static final String COUNTRY_OF_BIRTH = "countryOfBirth";
-        public static final String COUNTRY_OF_NATIONALITY = "countryOfNationality";
-        public static final String DATE_OF_BIRTH = "dateOfBirth";
-        public static final String DRIVER_LICENSE_ID = "driversLicenseId";
-        public static final String EMPLOYER_ID = "employerId";
-        public static final String FIRST_NAME = "firstName";
-        public static final String GENDER = "gender";
-        public static final String GOVERNMENT_ID = "governmentId";
-        public static final String GOVERNMENT_ID_TYPE = "governmentIdType";
-        public static final String LAST_NAME = "lastName";
-        public static final String MIDDLE_NAME = "middleName";
-        public static final String MOBILE_NUMBER = "mobileNumber";
-        public static final String PASSPORT_ID = "passportId";
-        public static final String PHONE_NUMBER = "phoneNumber";
-        public static final String POSTAL_CODE = "postalCode";
-        public static final String STATE_PROVINCE = "stateProvince";
-        public static final String EMAIL = "email";
 
         // bank account field keys
         public static final String BANK_ACCOUNT_ID = "bankAccountId";
@@ -158,12 +145,43 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
         public static final String BRANCH_COUNTRY = "branchCountry";
         public static final String BRANCH_POSTAL_CODE = "branchPostalCode";
         public static final String BRANCH_STATE_PROVINCE = "branchStateProvince";
+
         // bank card field keys
         public static final String CARD_BRAND = "cardBrand";
         public static final String CARD_NUMBER = "cardNumber";
         public static final String CARD_TYPE = "cardType";
         public static final String DATE_OF_EXPIRY = "dateOfExpiry";
         public static final String CVV = "cvv";
+
+        // profile information
+        public static final String PROFILE_TYPE = "profileType";
+        public static final String BUSINESS_TYPE = "businessType";
+        public static final String BUSINESS_NAME = "businessName";
+        public static final String BUSINESS_REGISTRATION_ID = "businessRegistrationId";
+        public static final String BUSINESS_REGISTRATION_STATE_PROVINCE = "businessRegistrationStateProvince";
+        public static final String BUSINESS_REGISTRATION_COUNTRY = "businessRegistrationCountry";
+        public static final String BUSINESS_OPERATING_NAME = "businessOperatingName";
+        public static final String FIRST_NAME = "firstName";
+        public static final String MIDDLE_NAME = "middleName";
+        public static final String LAST_NAME = "lastName";
+        public static final String DATE_OF_BIRTH = "dateOfBirth";
+        public static final String COUNTRY_OF_BIRTH = "countryOfBirth";
+        public static final String COUNTRY_OF_NATIONALITY = "countryOfNationality";
+        public static final String GENDER = "gender";
+        public static final String PHONE_NUMBER = "phoneNumber";
+        public static final String MOBILE_NUMBER = "mobileNumber";
+        public static final String EMAIL = "email";
+        public static final String GOVERNMENT_ID = "governmentId";
+        public static final String GOVERNMENT_ID_TYPE = "governmentIdType";
+        public static final String PASSPORT_ID = "passportId";
+        public static final String DRIVER_LICENSE_ID = "driversLicenseId";
+        public static final String EMPLOYER_ID = "employerId";
+        public static final String ADDRESS_LINE_1 = "addressLine1";
+        public static final String ADDRESS_LINE_2 = "addressLine2";
+        public static final String CITY = "city";
+        public static final String STATE_PROVINCE = "stateProvince";
+        public static final String COUNTRY = "country";
+        public static final String POSTAL_CODE = "postalCode";
     }
 
     private Map<String, Object> mFields;

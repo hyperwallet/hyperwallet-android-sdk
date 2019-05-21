@@ -21,6 +21,10 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
+/**
+ * Please use {@link HyperwalletTransferMethodConfigurationField}
+ */
+@Deprecated
 public interface TransferMethodConfigurationTransactionResult {
 
     List<Fee> getFees(@NonNull final String country, @NonNull final String currency,

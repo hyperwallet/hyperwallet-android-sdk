@@ -19,6 +19,9 @@ package com.hyperwallet.android.model.meta;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.hyperwallet.android.model.meta.field.HyperwalletField;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -28,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Deprecated
 public class TransferMethodConfigurationResult extends GqlResponse<TransferMethodConfigurationData> implements
         HyperwalletTransferMethodConfigurationKeyResult, HyperwalletTransferMethodConfigurationFieldResult {
 
@@ -35,7 +39,7 @@ public class TransferMethodConfigurationResult extends GqlResponse<TransferMetho
     private List<String> mCountries;
     private Map<String, Set<String>> mCountryToCurrencyMap;
 
-    public TransferMethodConfigurationResult(JSONObject data) throws ReflectiveOperationException {
+    public TransferMethodConfigurationResult(JSONObject data) throws ReflectiveOperationException, JSONException {
         super(data, TransferMethodConfigurationData.class);
     }
 

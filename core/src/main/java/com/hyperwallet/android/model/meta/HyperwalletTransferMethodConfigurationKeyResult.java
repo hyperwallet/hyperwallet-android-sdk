@@ -18,6 +18,10 @@ package com.hyperwallet.android.model.meta;
 
 import java.util.List;
 
+/**
+ * Please use {@link HyperwalletTransferMethodConfigurationKey} instead
+ */
+@Deprecated
 public interface HyperwalletTransferMethodConfigurationKeyResult extends TransferMethodConfigurationTransactionResult {
 
     List<String> getCountries();

@@ -39,9 +39,10 @@ import com.hyperwallet.android.model.HyperwalletTransferMethodPagination;
 import com.hyperwallet.android.model.HyperwalletUser;
 import com.hyperwallet.android.model.PayPalAccount;
 import com.hyperwallet.android.model.TypeReference;
-import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationFieldResult;
-import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationKeyResult;
-import com.hyperwallet.android.model.meta.TransferMethodConfigurationResult;
+import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationField;
+import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationKey;
+import com.hyperwallet.android.model.meta.field.HyperwalletTransferMethodConfigurationFieldResult;
+import com.hyperwallet.android.model.meta.keyed.HyperwalletTransferMethodConfigurationKeyResult;
 import com.hyperwallet.android.model.meta.query.HyperwalletTransferMethodConfigurationFieldQuery;
 import com.hyperwallet.android.model.meta.query.HyperwalletTransferMethodConfigurationKeysQuery;
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
@@ -209,13 +210,13 @@ public class Hyperwallet {
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
-     *    * processing the request.</p>
+     * processing the request.</p>
      *
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param payPalAccount the {@code PayPalAccount} to be created; must not be null
-     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener      the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void createPayPalAccount(@NonNull final PayPalAccount payPalAccount,
             @NonNull final HyperwalletListener<PayPalAccount> listener) {
@@ -284,7 +285,7 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param listener  the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void getUser(@NonNull final HyperwalletListener<HyperwalletUser> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}");
@@ -367,7 +368,7 @@ public class Hyperwallet {
      * if the current one is expired or about to expire.</p>
      *
      * @param payPalAccount the {@code PayPalAccount} to be created; must not be null
-     * @param listener    the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener      the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void updatePayPalAccount(@NonNull final PayPalAccount payPalAccount,
             @NonNull final HyperwalletListener<PayPalAccount> listener) {
@@ -584,7 +585,8 @@ public class Hyperwallet {
      * if the current one is expired or about to expire.</p>
      *
      * @param hyperwalletPayPalAccountPagination the ordering and filtering criteria
-     * @param listener                the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener                           the callback handler of responses from the Hyperwallet platform; must
+     *                                           not be null
      */
     public void listPayPalAccounts(
             @Nullable final HyperwalletPayPalAccountPagination hyperwalletPayPalAccountPagination,
@@ -633,17 +635,14 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param transferMethodConfigurationKeysQuery containing the transfer method configuration key query,
-     *                                             must not be null
+     * @param query containing the transfer method configuration key query, must not be null
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void retrieveTransferMethodConfigurationKeys(
-            @NonNull HyperwalletTransferMethodConfigurationKeysQuery transferMethodConfigurationKeysQuery,
-            @NonNull HyperwalletListener<HyperwalletTransferMethodConfigurationKeyResult> listener) {
-
-        transferMethodConfigurationKeysQuery.setLimit(0L);
-        GqlTransaction.Builder<TransferMethodConfigurationResult> builder = new GqlTransaction.Builder<>(
-                transferMethodConfigurationKeysQuery, new TypeReference<TransferMethodConfigurationResult>() {
+            @NonNull final HyperwalletTransferMethodConfigurationKeysQuery query,
+            @NonNull final HyperwalletListener<HyperwalletTransferMethodConfigurationKey> listener) {
+        GqlTransaction.Builder<HyperwalletTransferMethodConfigurationKeyResult> builder = new GqlTransaction.Builder<>(
+                query, new TypeReference<HyperwalletTransferMethodConfigurationKeyResult>() {
         }, listener);
 
         performGqlTransaction(builder, listener);
@@ -660,18 +659,18 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param transferMethodConfigurationFieldQuery containing a transfer method configuration key tuple of
-     *                                              country, currency, transfer method type and profile,
-     *                                              must not be null
+     * @param query containing a transfer method configuration key tuple of
+     *              country, currency, transfer method type and profile,
+     *              must not be null
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void retrieveTransferMethodConfigurationFields(
-            @NonNull HyperwalletTransferMethodConfigurationFieldQuery transferMethodConfigurationFieldQuery,
-            @NonNull HyperwalletListener<HyperwalletTransferMethodConfigurationFieldResult> listener) {
+            @NonNull final HyperwalletTransferMethodConfigurationFieldQuery query,
+            @NonNull final HyperwalletListener<HyperwalletTransferMethodConfigurationField> listener) {
 
-        GqlTransaction.Builder<TransferMethodConfigurationResult> builder =
-                new GqlTransaction.Builder<>(transferMethodConfigurationFieldQuery,
-                        new TypeReference<TransferMethodConfigurationResult>() {
+        GqlTransaction.Builder<HyperwalletTransferMethodConfigurationFieldResult> builder =
+                new GqlTransaction.Builder<>(query,
+                        new TypeReference<HyperwalletTransferMethodConfigurationFieldResult>() {
                         }, listener);
         performGqlTransaction(builder, listener);
     }

@@ -1,0 +1,18 @@
+{
+  "data": {
+    "transferMethodUIConfigurations": {
+      "count": 1,
+      "nodes": [
+
+      ]
+    },
+    "fees": {
+      "nodes": [
+        {
+          "value": "5.00",
+          "feeRateType": "FLAT"
+        }
+      ]
+    }
+  }
+}

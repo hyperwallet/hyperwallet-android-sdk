@@ -29,7 +29,10 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Class for presenting Fee
+ *
+ * Please use @see {@link HyperwalletFee} instead
  */
+@Deprecated
 public class Fee {
 
     private static final String COUNTRY = "country";

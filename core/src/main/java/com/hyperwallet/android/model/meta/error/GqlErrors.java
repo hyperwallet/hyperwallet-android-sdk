@@ -49,7 +49,7 @@ public class GqlErrors {
      */
     public GqlErrors(@NonNull JSONObject jsonObject) throws JSONException {
         mGqlErrors = new ArrayList<>(0);
-        JSONArray jsonArray = jsonObject.getJSONArray(ERRORS);
+        JSONArray jsonArray = jsonObject.optJSONArray(ERRORS);
         if (jsonArray != null) {
             for (int i = 0; i < jsonArray.length(); i++) {
                 mGqlErrors.add(new GqlError(jsonArray.getJSONObject(i)));

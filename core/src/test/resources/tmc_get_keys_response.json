@@ -1,74 +1,152 @@
 {
+  "errors": [
+    {
+      "message": "Validation error of type WrongType: argument 'orderBy' with value 'StringValue{value='ASC'}' must be an object type @ 'countries'",
+      "locations": [
+        {
+          "line": 2,
+          "column": 66
+        }
+      ]
+    }
+  ],
   "data": {
-    "transferMethodConfigurations": {
-      "count": 3,
+    "countries": {
       "nodes": [
         {
-          "countries": [
-            "US"
-          ],
-          "currencies": [
-            "USD"
-          ],
-          "transferMethodType": "BANK_ACCOUNT",
-          "profile": "BUSINESS",
-          "fees": {
+          "code": "CA",
+          "name": "Canada",
+          "currencies": {
             "nodes": [
               {
-                "country": "US",
-                "currency": "USD",
-                "transferMethodType": "BANK_ACCOUNT",
-                "feeRateType": "FLAT",
-                "value": "500.00"
-              }
-            ]
-          }
-        },
-        {
-          "countries": [
-            "US"
-          ],
-          "currencies": [
-            "USD"
-          ],
-          "transferMethodType": "BANK_CARD",
-          "profile": "INDIVIDUAL",
-          "fees": {
-            "nodes": [
-              {
-                "country": "US",
-                "currency": "USD",
-                "transferMethodType": "BANK_CARD",
-                "feeRateType": "FLAT",
-                "value": "200.00"
+                "code": "CAD",
+                "name": "Canadian Dollar",
+                "transferMethodTypes": {
+                  "nodes": [
+                    {
+                      "code": "BANK_ACCOUNT",
+                      "name": "Bank Account",
+                      "fees": {
+                        "nodes": [
+                          {
+                            "value": "5.00",
+                            "feeRateType": "FLAT"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
               },
               {
-                "country": "US",
-                "currency": "USD",
-                "transferMethodType": "BANK_CARD",
-                "feeRateType": "FLAT",
-                "value": "175.00"
+                "code": "USD",
+                "name": "United States Dollar",
+                "transferMethodTypes": {
+                  "nodes": [
+                    {
+                      "code": "BANK_ACCOUNT",
+                      "name": "Bank Account",
+                      "fees": {
+                        "nodes": [
+                          {
+                            "value": "2.00",
+                            "feeRateType": "FLAT"
+                          },
+                          {
+                            "value": "5.00",
+                            "feeRateType": "FLAT"
+                          },
+                          {
+                            "value": "5.00",
+                            "feeRateType": "FLAT"
+                          },
+                          {
+                            "value": "0.25",
+                            "feeRateType": "FLAT"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "code": "BANK_CARD",
+                      "name": "Debit Card",
+                      "fees": {
+                        "nodes": [
+                          {
+                            "value": "5.00",
+                            "feeRateType": "FLAT"
+                          },
+                          {
+                            "value": "5.00",
+                            "feeRateType": "FLAT"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "code": "PAYPAL_ACCOUNT",
+                      "name": "PayPal Account",
+                      "fees": {
+                        "nodes": [
+                          {
+                            "value": "2.00",
+                            "feeRateType": "FLAT"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
               }
             ]
           }
         },
         {
-          "countries": [
-            "TW"
-          ],
-          "currencies": [
-            "USD"
-          ],
-          "transferMethodType": "WIRE_ACCOUNT",
-          "profile": "INDIVIDUAL",
-          "fees": {
+          "code": "US",
+          "name": "The United States of America",
+          "currencies": {
             "nodes": [
               {
-                "country": "TW",
-                "currency": "USD",
-                "transferMethodType": "WIRE_ACCOUNT",
-                "feeRateType": "FLAT",
-                "value": "1500.00"
+                "code": "CAD",
+                "name": "Canadian Dollar",
+                "transferMethodTypes": {
+                  "nodes": [
+                    {
+                      "code": "BANK_ACCOUNT",
+                      "name": "Bank Account",
+                      "processingTime": "1-3",
+                      "fees": {
+                        "nodes": [
+                          {
+                            "value": "5.00",
+                            "feeRateType": "FLAT"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "code": "USD",
+                "name": "United States Dollar",
+                "transferMethodTypes": {
+                  "nodes": [
+                    {
+                      "code": "BANK_ACCOUNT",
+                      "name": "Bank Account",
+                      "processingTime": "1-3",
+                      "fees": {
+                        "nodes": [
+                          {
+                            "value": "5.00",
+                            "feeRateType": "FLAT"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
               }
             ]
           }

@@ -18,37 +18,29 @@
 package com.hyperwallet.android.model.meta;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-public enum EDataType {
-    TEXT,
-    SELECTION,
-    BOOLEAN,
-    NUMBER,
-    RANGE,
-    DATE,
-    DATETIME,
-    PHONE,
-    EMAIL,
-    EXPIRY_DATE,
-    FILE;
+import org.json.JSONObject;
 
-    private static final String TAG = EDataType.class.getName();
+/**
+ * Class that represents the information related to GraphQl pagination.
+ */
+public class PageInfo {
+    private static final String LIMIT = "limit";
+    private static final String OFFSET = "offset";
 
-    /**
-     * Get {@link EDataType} by name.
-     *
-     * @param name of the type.
-     * @return {@link EDataType} or null if there is no constant with specified name
-     */
-    @Nullable
-    public static EDataType getDataType(@NonNull String name) {
-        EDataType dataType = null;
-        try {
-            dataType = EDataType.valueOf(name);
-        } catch (IllegalArgumentException e) {
-        }
+    private int mLimit;
+    private int mOffset;
 
-        return dataType;
+    public PageInfo(@NonNull final JSONObject page) {
+        mLimit = page.optInt(LIMIT, 0);
+        mOffset = page.optInt(OFFSET, 0);
+    }
+
+    public int getLimit() {
+        return mLimit;
+    }
+
+    public int getOffset() {
+        return mOffset;
     }
 }

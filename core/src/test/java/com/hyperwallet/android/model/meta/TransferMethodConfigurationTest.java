@@ -5,10 +5,10 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hyperwallet.android.exception.HyperwalletException;
+import com.hyperwallet.android.model.meta.field.EDataType;
+import com.hyperwallet.android.model.meta.field.HyperwalletField;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,7 +27,7 @@ public class TransferMethodConfigurationTest {
     public MockitoRule mMockito = MockitoJUnit.rule();
 
     @Test
-    public void testTransferMethodConfiguration_convertJsonObject() throws JSONException, HyperwalletException {
+    public void testTransferMethodConfiguration_convertJsonObject() throws Exception {
         JSONObject jsonObject = new JSONObject(mExternalResourceManager.getResourceContent(
                 "transfer_method_configuration_item.json"));
 
