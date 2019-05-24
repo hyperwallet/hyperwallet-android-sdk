@@ -47,6 +47,7 @@ import com.hyperwallet.android.model.meta.query.HyperwalletTransferMethodConfigu
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -818,6 +819,13 @@ public class Hyperwallet {
 
     public static void clearInstance() {
         sInstanceLast = null;
+    }
+
+
+    public static String test(String field, String json) throws Exception {
+        JSONObject jsonObject = new JSONObject(json);
+        HyperwalletUser hyperwalletUser = new HyperwalletUser(jsonObject);
+        return hyperwalletUser.getField(field);
     }
 }
 
