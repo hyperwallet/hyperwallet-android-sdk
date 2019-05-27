@@ -43,6 +43,15 @@ import java.util.Map;
  */
 public class HyperwalletBankAccount extends HyperwalletTransferMethod {
 
+    public HyperwalletBankAccount(@NonNull JSONObject jsonObject) throws JSONException {
+        super(jsonObject);
+    }
+
+    private HyperwalletBankAccount(@NonNull Map<String, Object> fields) {
+        super();
+        setFields(fields);
+    }
+
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
             Purpose.CHECKING,
@@ -67,15 +76,6 @@ public class HyperwalletBankAccount extends HyperwalletTransferMethod {
     public final class BankAccountRelationships {
         public static final String OWN_COMPANY = "OWN_COMPANY";
         public static final String SELF = "SELF";
-    }
-
-    public HyperwalletBankAccount(@NonNull JSONObject jsonObject) throws JSONException {
-        super(jsonObject);
-    }
-
-    private HyperwalletBankAccount(@NonNull Map<String, Object> fields) {
-        super();
-        setFields(fields);
     }
 
     public static class Builder {

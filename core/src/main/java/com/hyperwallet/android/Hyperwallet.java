@@ -93,6 +93,7 @@ public class Hyperwallet {
     /**
      * Creates a new instance of the Hyperwallet Core SDK interface object. If a previously created instance exists,
      * it will be replaced.
+     *
      * @param hyperwalletAuthenticationTokenProvider a provider of Hyperwallet authentication tokens; must not be null
      * @return A {@code Hyperwallet} instance
      */
@@ -104,16 +105,21 @@ public class Hyperwallet {
 
     /**
      * Returns the previously initialized instance of the Hyperwallet Core SDK interface object.
+     *
      * @return A previously initialized instance of Hyperwallet; maintaining its
      * {@link HyperwalletAuthenticationTokenProvider}
      * @throws HyperwalletInitializationException if this Hyperwallet object was not initialized with
-     * {@link #getInstance(HyperwalletAuthenticationTokenProvider)}
+     *                                            {@link #getInstance(HyperwalletAuthenticationTokenProvider)}
      */
     public static Hyperwallet getDefault() {
         if (sInstanceLast == null) {
             throw new HyperwalletInitializationException();
         }
         return sInstanceLast;
+    }
+
+    public static void clearInstance() {
+        sInstanceLast = null;
     }
 
     /**
@@ -127,7 +133,7 @@ public class Hyperwallet {
      * if the current one is expired or about to expire.</p>
      *
      * @param bankAccount the {@code HyperwalletBankAccount} to be created; must not be null
-     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener    the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void createBankAccount(@NonNull final HyperwalletBankAccount bankAccount,
             @NonNull final HyperwalletListener<HyperwalletBankAccount> listener) {
@@ -151,23 +157,23 @@ public class Hyperwallet {
      * filtering will be applied:</p>
      *
      * <ul>
-     *     <li>Offset: 0</li>
-     *     <li>Limit: 10</li>
-     *     <li>Created Before: N/A</li>
-     *     <li>Created After: N/A</li>
-     *     <li>Type: Bank Account</li>
-     *     <li>Status: All</li>
-     *     <li>Sort By: Created On</li>
+     * <li>Offset: 0</li>
+     * <li>Limit: 10</li>
+     * <li>Created Before: N/A</li>
+     * <li>Created After: N/A</li>
+     * <li>Type: Bank Account</li>
+     * <li>Status: All</li>
+     * <li>Sort By: Created On</li>
      * </ul>
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
-     *    * processing the request.</p>
+     * * processing the request.</p>
      *
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
      * @param bankAccountPagination the ordering and filtering criteria
-     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener              the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listBankAccounts(@Nullable final HyperwalletBankAccountPagination bankAccountPagination,
             @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletBankAccount>> listener) {
@@ -186,7 +192,7 @@ public class Hyperwallet {
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
-     *    * processing the request.</p>
+     * * processing the request.</p>
      *
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
@@ -478,7 +484,6 @@ public class Hyperwallet {
         performRestTransaction(builder, listener);
     }
 
-
     /**
      * Returns the {@link HyperwalletTransferMethod} (Bank Account, Bank Card, PayPay Account, Prepaid Card,
      * Paper Checks) for the User associated with the authentication token returned from
@@ -490,13 +495,13 @@ public class Hyperwallet {
      * ordering and filtering will be applied.</p>
      *
      * <ul>
-     *     <li>Offset: 0</li>
-     *     <li>Limit: 10</li>
-     *     <li>Created Before: N/A</li>
-     *     <li>Created After: N/A</li>
-     *     <li>Type: Bank Account</li>
-     *     <li>Status: All</li>
-     *     <li>Sort By: Created On</li>
+     * <li>Offset: 0</li>
+     * <li>Limit: 10</li>
+     * <li>Created Before: N/A</li>
+     * <li>Created After: N/A</li>
+     * <li>Type: Bank Account</li>
+     * <li>Status: All</li>
+     * <li>Sort By: Created On</li>
      * </ul>
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
@@ -506,7 +511,7 @@ public class Hyperwallet {
      * if the current one is expired or about to expire.</p>
      *
      * @param transferMethodPagination the ordering and filtering criteria
-     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener                 the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listTransferMethods(@Nullable final HyperwalletTransferMethodPagination transferMethodPagination,
             @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletTransferMethod>> listener) {
@@ -530,13 +535,13 @@ public class Hyperwallet {
      * filtering will be applied.</p>
      *
      * <ul>
-     *     <li>Offset: 0</li>
-     *     <li>Limit: 10</li>
-     *     <li>Created Before: N/A</li>
-     *     <li>Created After: N/A</li>
-     *     <li>Type: Bank Card</li>
-     *     <li>Status: All</li>
-     *     <li>Sort By: Created On</li>
+     * <li>Offset: 0</li>
+     * <li>Limit: 10</li>
+     * <li>Created Before: N/A</li>
+     * <li>Created After: N/A</li>
+     * <li>Type: Bank Card</li>
+     * <li>Status: All</li>
+     * <li>Sort By: Created On</li>
      * </ul>
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
@@ -546,7 +551,7 @@ public class Hyperwallet {
      * if the current one is expired or about to expire.</p>
      *
      * @param bankCardPagination the ordering and filtering criteria
-     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener           the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listBankCards(@Nullable final HyperwalletBankCardPagination bankCardPagination,
             @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletBankCard>> listener) {
@@ -585,8 +590,8 @@ public class Hyperwallet {
      * if the current one is expired or about to expire.</p>
      *
      * @param payPalAccountPagination the ordering and filtering criteria
-     * @param listener                           the callback handler of responses from the Hyperwallet platform; must
-     *                                           not be null
+     * @param listener                the callback handler of responses from the Hyperwallet platform; must
+     *                                not be null
      */
     public void listPayPalAccounts(
             @Nullable final PayPalAccountPagination payPalAccountPagination,
@@ -635,7 +640,7 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param query containing the transfer method configuration key query, must not be null
+     * @param query    containing the transfer method configuration key query, must not be null
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void retrieveTransferMethodConfigurationKeys(
@@ -659,9 +664,9 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param query containing a transfer method configuration key tuple of
-     *              country, currency, transfer method type and profile,
-     *              must not be null
+     * @param query    containing a transfer method configuration key tuple of
+     *                 country, currency, transfer method type and profile,
+     *                 must not be null
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void retrieveTransferMethodConfigurationFields(
@@ -810,10 +815,6 @@ public class Hyperwallet {
         }
         queryMap.put(STATUS, HyperwalletStatusTransition.StatusDefinition.ACTIVATED);
         return queryMap;
-    }
-
-    public static void clearInstance() {
-        sInstanceLast = null;
     }
 }
 

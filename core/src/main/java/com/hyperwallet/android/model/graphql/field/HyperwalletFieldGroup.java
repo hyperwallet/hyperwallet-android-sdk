@@ -40,27 +40,6 @@ public class HyperwalletFieldGroup {
     private final List<HyperwalletField> mFields;
     private final String mGroupName;
 
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            GroupTypes.ACCOUNT_HOLDER,
-            GroupTypes.ACCOUNT_INFORMATION,
-            GroupTypes.ADDRESS,
-            GroupTypes.CONTACT_INFORMATION,
-            GroupTypes.IDENTIFICATION,
-            GroupTypes.INTERMEDIARY_ACCOUNT
-    })
-    public @interface GroupType {
-    }
-
-    public final class GroupTypes {
-        public static final String ACCOUNT_HOLDER = "ACCOUNT_HOLDER";
-        public static final String ACCOUNT_INFORMATION = "ACCOUNT_INFORMATION";
-        public static final String ADDRESS = "ADDRESS";
-        public static final String CONTACT_INFORMATION = "CONTACT_INFORMATION";
-        public static final String IDENTIFICATION = "IDENTIFICATION";
-        public static final String INTERMEDIARY_ACCOUNT = "INTERMEDIARY_ACCOUNT";
-    }
-
     public HyperwalletFieldGroup(@NonNull final JSONObject fieldGroup) throws JSONException {
         mGroupName = fieldGroup.getString(GROUP_NAME);
 
@@ -84,5 +63,26 @@ public class HyperwalletFieldGroup {
     @GroupType
     public String getGroupName() {
         return mGroupName;
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            GroupTypes.ACCOUNT_HOLDER,
+            GroupTypes.ACCOUNT_INFORMATION,
+            GroupTypes.ADDRESS,
+            GroupTypes.CONTACT_INFORMATION,
+            GroupTypes.IDENTIFICATION,
+            GroupTypes.INTERMEDIARY_ACCOUNT
+    })
+    public @interface GroupType {
+    }
+
+    public final class GroupTypes {
+        public static final String ACCOUNT_HOLDER = "ACCOUNT_HOLDER";
+        public static final String ACCOUNT_INFORMATION = "ACCOUNT_INFORMATION";
+        public static final String ADDRESS = "ADDRESS";
+        public static final String CONTACT_INFORMATION = "CONTACT_INFORMATION";
+        public static final String IDENTIFICATION = "IDENTIFICATION";
+        public static final String INTERMEDIARY_ACCOUNT = "INTERMEDIARY_ACCOUNT";
     }
 }

@@ -157,13 +157,6 @@ public class HyperwalletTransferMethodPagination extends HyperwalletPagination {
     }
 
     /**
-     * Defines the begin date criteria to list the data created before this date.
-     */
-    public void setCreatedBefore(@NonNull Date createdBefore) {
-        this.mCreatedBefore = createdBefore;
-    }
-
-    /**
      * Returns the begin date criteria.
      *
      * @return the begin date criteria
@@ -174,15 +167,22 @@ public class HyperwalletTransferMethodPagination extends HyperwalletPagination {
     }
 
     /**
-     * Returns data created after this datetime.
+     * Defines the begin date criteria to list the data created before this date.
      */
-    public void setCreatedAfter(@NonNull Date createdAfter) {
-        this.mCreatedAfter = createdAfter;
+    public void setCreatedBefore(@NonNull Date createdBefore) {
+        this.mCreatedBefore = createdBefore;
     }
 
     @Nullable
     public Date getCreatedAfter() {
         return this.mCreatedAfter;
+    }
+
+    /**
+     * Returns data created after this datetime.
+     */
+    public void setCreatedAfter(@NonNull Date createdAfter) {
+        this.mCreatedAfter = createdAfter;
     }
 
     @Nullable
