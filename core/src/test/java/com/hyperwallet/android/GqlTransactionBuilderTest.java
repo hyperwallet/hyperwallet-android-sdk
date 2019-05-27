@@ -8,9 +8,9 @@ import static com.hyperwallet.android.util.HttpMethod.POST;
 
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.TypeReference;
-import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationKeyResult;
-import com.hyperwallet.android.model.meta.TransferMethodConfigurationResult;
-import com.hyperwallet.android.model.meta.query.HyperwalletTransferMethodConfigurationKeysQuery;
+import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKeyResult;
+import com.hyperwallet.android.model.graphql.TransferMethodConfigurationResult;
+import com.hyperwallet.android.model.graphql.query.HyperwalletTransferMethodConfigurationKeysQuery;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
 import org.junit.Rule;

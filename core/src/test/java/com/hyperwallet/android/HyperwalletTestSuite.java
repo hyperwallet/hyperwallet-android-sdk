@@ -1,6 +1,6 @@
 package com.hyperwallet.android;
 
-import com.hyperwallet.android.model.meta.HyperwalletRetrieveTransferMethodConfigurationFieldsTest;
+import com.hyperwallet.android.model.graphql.HyperwalletRetrieveTransferMethodConfigurationFieldsTest;
 import com.hyperwallet.android.transfermethod.HyperwalletCreateBankAccountTest;
 import com.hyperwallet.android.transfermethod.HyperwalletCreateBankCardTest;
 import com.hyperwallet.android.transfermethod.HyperwalletCreatePayPalAccountTest;

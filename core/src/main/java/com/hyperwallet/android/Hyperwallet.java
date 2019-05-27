@@ -16,7 +16,7 @@
  */
 package com.hyperwallet.android;
 
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.STATUS;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.STATUS;
 import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 import static com.hyperwallet.android.util.HttpMethod.PUT;
@@ -27,25 +27,25 @@ import androidx.annotation.Nullable;
 import com.hyperwallet.android.exception.AuthenticationTokenProviderException;
 import com.hyperwallet.android.exception.HyperwalletInitializationException;
 import com.hyperwallet.android.listener.HyperwalletListener;
-import com.hyperwallet.android.model.HyperwalletBankAccount;
-import com.hyperwallet.android.model.HyperwalletBankAccountPagination;
-import com.hyperwallet.android.model.HyperwalletBankCard;
-import com.hyperwallet.android.model.HyperwalletBankCardPagination;
 import com.hyperwallet.android.model.HyperwalletPagination;
-import com.hyperwallet.android.model.HyperwalletPayPalAccountPagination;
 import com.hyperwallet.android.model.HyperwalletStatusTransition;
-import com.hyperwallet.android.model.HyperwalletTransferMethod;
-import com.hyperwallet.android.model.HyperwalletTransferMethodPagination;
-import com.hyperwallet.android.model.HyperwalletUser;
-import com.hyperwallet.android.model.PayPalAccount;
 import com.hyperwallet.android.model.TypeReference;
-import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationField;
-import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationKey;
-import com.hyperwallet.android.model.meta.field.HyperwalletTransferMethodConfigurationFieldResult;
-import com.hyperwallet.android.model.meta.keyed.HyperwalletTransferMethodConfigurationKeyResult;
-import com.hyperwallet.android.model.meta.query.HyperwalletTransferMethodConfigurationFieldQuery;
-import com.hyperwallet.android.model.meta.query.HyperwalletTransferMethodConfigurationKeysQuery;
+import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationField;
+import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
+import com.hyperwallet.android.model.graphql.field.HyperwalletTransferMethodConfigurationFieldResult;
+import com.hyperwallet.android.model.graphql.keyed.HyperwalletTransferMethodConfigurationKeyResult;
+import com.hyperwallet.android.model.graphql.query.HyperwalletTransferMethodConfigurationFieldQuery;
+import com.hyperwallet.android.model.graphql.query.HyperwalletTransferMethodConfigurationKeysQuery;
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountPagination;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankCard;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankCardPagination;
+import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
+import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodPagination;
+import com.hyperwallet.android.model.transfermethod.PayPalAccount;
+import com.hyperwallet.android.model.transfermethod.PayPalAccountPagination;
+import com.hyperwallet.android.model.user.HyperwalletUser;
 
 import org.json.JSONException;
 
@@ -565,7 +565,7 @@ public class Hyperwallet {
      * or an empty {@code List} if non exist.
      *
      * <p>The ordering and filtering of {@code PayPalAccount} will be based on the criteria specified within the
-     * {@link HyperwalletPayPalAccountPagination} object, if it is not null. Otherwise the default ordering and
+     * {@link PayPalAccountPagination} object, if it is not null. Otherwise the default ordering and
      * filtering will be applied.</p>
      *
      * <ul>
@@ -584,14 +584,14 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param hyperwalletPayPalAccountPagination the ordering and filtering criteria
+     * @param payPalAccountPagination the ordering and filtering criteria
      * @param listener                           the callback handler of responses from the Hyperwallet platform; must
      *                                           not be null
      */
     public void listPayPalAccounts(
-            @Nullable final HyperwalletPayPalAccountPagination hyperwalletPayPalAccountPagination,
+            @Nullable final PayPalAccountPagination payPalAccountPagination,
             @NonNull final HyperwalletListener<HyperwalletPageList<PayPalAccount>> listener) {
-        Map<String, String> urlQuery = buildUrlQueryIfRequired(hyperwalletPayPalAccountPagination);
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(payPalAccountPagination);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<HyperwalletPageList<PayPalAccount>>() {
