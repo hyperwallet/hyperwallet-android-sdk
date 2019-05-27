@@ -16,13 +16,13 @@ import static java.net.HttpURLConnection.HTTP_OK;
 
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.CREATED_ON;
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.EMAIL;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.STATUS;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TOKEN;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TYPE;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.EMAIL;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.STATUS;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TOKEN;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TYPE;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
@@ -30,9 +30,9 @@ import com.hyperwallet.android.exception.HyperwalletRestException;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.HyperwalletError;
 import com.hyperwallet.android.model.HyperwalletErrors;
-import com.hyperwallet.android.model.HyperwalletPayPalAccountPagination;
-import com.hyperwallet.android.model.PayPalAccount;
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
+import com.hyperwallet.android.model.transfermethod.PayPalAccount;
+import com.hyperwallet.android.model.transfermethod.PayPalAccountPagination;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
@@ -80,7 +80,7 @@ public class HyperwalletListPayPalAccountsTest {
         String responseBody = mExternalResourceManager.getResourceContent("paypal_accounts_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
 
-        HyperwalletPayPalAccountPagination payPalAccountPagination = new HyperwalletPayPalAccountPagination();
+        PayPalAccountPagination payPalAccountPagination = new PayPalAccountPagination();
 
         assertThat(payPalAccountPagination, is(notNullValue()));
         Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
@@ -116,7 +116,7 @@ public class HyperwalletListPayPalAccountsTest {
     public void testListPayPalAccounts_returnsNoAccounts() throws InterruptedException {
         mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody("").mock();
 
-        HyperwalletPayPalAccountPagination payPalAccountPagination = new HyperwalletPayPalAccountPagination();
+        PayPalAccountPagination payPalAccountPagination = new PayPalAccountPagination();
 
         assertThat(payPalAccountPagination, is(notNullValue()));
         Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
@@ -143,7 +143,7 @@ public class HyperwalletListPayPalAccountsTest {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
-        HyperwalletPayPalAccountPagination payPalAccountPagination = new HyperwalletPayPalAccountPagination();
+        PayPalAccountPagination payPalAccountPagination = new PayPalAccountPagination();
 
         Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);

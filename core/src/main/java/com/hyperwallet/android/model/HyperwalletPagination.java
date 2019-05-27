@@ -88,13 +88,6 @@ public class HyperwalletPagination {
     }
 
     /**
-     * Defines the number of records to skip.
-     */
-    public void setOffset(int offset) {
-        this.mOffset = offset;
-    }
-
-    /**
      * Returns the number of records to skip.
      *
      * @return the number of records to skip.
@@ -104,11 +97,10 @@ public class HyperwalletPagination {
     }
 
     /**
-     * Defines the maximum number of records that will be returned per page.
-     * Default value is 10. Range is from 1 to 100.
+     * Defines the number of records to skip.
      */
-    public void setLimit(int limit) {
-        this.mLimit = limit;
+    public void setOffset(int offset) {
+        this.mOffset = offset;
     }
 
     /**
@@ -118,6 +110,14 @@ public class HyperwalletPagination {
      */
     public int getLimit() {
         return this.mLimit;
+    }
+
+    /**
+     * Defines the maximum number of records that will be returned per page.
+     * Default value is 10. Range is from 1 to 100.
+     */
+    public void setLimit(int limit) {
+        this.mLimit = limit;
     }
 
     /**

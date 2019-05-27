@@ -22,8 +22,8 @@ import androidx.annotation.NonNull;
 
 import com.hyperwallet.android.model.HyperwalletError;
 import com.hyperwallet.android.model.HyperwalletErrors;
-import com.hyperwallet.android.model.meta.error.GqlError;
-import com.hyperwallet.android.model.meta.error.GqlErrors;
+import com.hyperwallet.android.model.graphql.error.GqlError;
+import com.hyperwallet.android.model.graphql.error.GqlErrors;
 
 import java.util.ArrayList;
 import java.util.List;

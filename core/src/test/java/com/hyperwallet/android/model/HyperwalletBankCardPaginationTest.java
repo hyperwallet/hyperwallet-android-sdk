@@ -5,8 +5,10 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.VERIFIED;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
-import static com.hyperwallet.android.model.HyperwalletTransferMethodPagination.TransferMethodSortable.ASCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodPagination.TransferMethodSortable.ASCENDANT_CREATE_ON;
+
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankCardPagination;
 
 import org.junit.Test;
 
