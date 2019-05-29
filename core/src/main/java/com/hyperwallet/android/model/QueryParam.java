@@ -44,6 +44,7 @@ public class QueryParam {
     public static final String PAGINATION_OFFSET = "offset";
     public static final String PAGINATION_LIMIT = "limit";
     protected static final int DEFAULT_LIMIT = 10;
+    protected final static int DEFAULT_OFFSET = 0;
     private final Date mCreatedAfter;
     private final Date mCreatedBefore;
     private final String mSortBy;
@@ -370,5 +371,14 @@ public class QueryParam {
         public QueryParam build() {
             return new QueryParam(this);
         }
+
+    }
+
+    protected QueryParam(Builder<?> builder) {
+        mOffset = builder.offset;
+        mLimit = builder.limit;
+        mCreatedAfter = builder.createdAfter;
+        mCreatedBefore = builder.createdBefore;
+        mSortBy = builder.sortBy;
     }
 }
