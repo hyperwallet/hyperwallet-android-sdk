@@ -39,7 +39,7 @@ public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagi
      * Constructors the bank card pagination
      */
     private HyperwalletBankCardPagination(Builder builder) {
-        super(builder);
+        super(builder.type(BANK_CARD));
         mCreatedOn = builder.mCreatedOn;
     }
 
@@ -70,13 +70,10 @@ public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagi
     /**
      * Builder Class for the {@link HyperwalletBankAccountPagination}
      */
-    public static class Builder<T extends Builder> extends HyperwalletTransferMethodPagination.Builder<T> {
-        private Date mCreatedOn;
+    public static abstract class Builder<S extends HyperwalletBankCardPagination, B extends Builder<S, B>> extends
+            HyperwalletTransferMethodPagination.Builder<S, B> {
 
-        public HyperwalletBankCardPagination build() {
-            T builder = type(BANK_CARD);
-            return new HyperwalletBankCardPagination(builder);
-        }
+        private Date mCreatedOn;
 
         /**
          * Define a Date created on.
@@ -84,9 +81,18 @@ public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagi
          * @param createdOn Date
          * @return Builder
          */
-        public T createdAfter(Date createdOn) {
+        public B createdOn(Date createdOn) {
             this.mCreatedOn = createdOn;
-            return (T) this;
+            return (B) this;
         }
+    }
+
+    public static Builder<?, ?> builder() {
+        return new Builder() {
+            @Override
+            public HyperwalletBankCardPagination build() {
+                return new HyperwalletBankCardPagination(this);
+            }
+        };
     }
 }

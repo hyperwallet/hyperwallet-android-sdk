@@ -39,7 +39,8 @@ public class PayPalAccountPagination extends HyperwalletTransferMethodPagination
      * Constructs the default implementation of the PayPal Account pagination.
      */
     private PayPalAccountPagination(Builder builder) {
-        super(builder);
+        super(builder.type(PAYPAL_ACCOUNT));
+        mCreatedOn = builder.mCreatedOn;
     }
 
     /**
@@ -70,13 +71,9 @@ public class PayPalAccountPagination extends HyperwalletTransferMethodPagination
     /**
      * Builder Class for the {@link HyperwalletBankAccountPagination}
      */
-    public static class Builder<T extends Builder> extends HyperwalletTransferMethodPagination.Builder<T> {
+    public static abstract class Builder<S extends PayPalAccountPagination, B extends Builder<S, B>> extends
+            HyperwalletTransferMethodPagination.Builder<S, B> {
         private Date mCreatedOn;
-
-        public PayPalAccountPagination build() {
-            T builder = type(PAYPAL_ACCOUNT);
-            return new PayPalAccountPagination(builder);
-        }
 
         /**
          * Define a Date created on.
@@ -84,10 +81,19 @@ public class PayPalAccountPagination extends HyperwalletTransferMethodPagination
          * @param createdOn Date
          * @return Builder
          */
-        public T createdAfter(Date createdOn) {
+        public B createdOn(Date createdOn) {
             this.mCreatedOn = createdOn;
-            return (T) this;
+            return (B) this;
         }
 
+    }
+
+    public static Builder<?, ?> builder() {
+        return new Builder() {
+            @Override
+            public PayPalAccountPagination build() {
+                return new PayPalAccountPagination(this);
+            }
+        };
     }
 }

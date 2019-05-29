@@ -52,20 +52,11 @@ public class QueryParam {
     private int mLimit;
 
     /**
-     * Constructors the Hyperwallet Pagination
-     */
-    public QueryParam() {
-        mLimit = DEFAULT_LIMIT;
-        mOffset = DEFAULT_OFFSET;
-    }
-
-    /**
      * Constructors a Hyperwallet Pagination based on Map object
      *
      * @param urlQueryMap the URL query map with the specific parameters
      */
     public QueryParam(@NonNull Map<String, String> urlQueryMap) {
-        this();
         mOffset = getIntegerValueBy(urlQueryMap, PAGINATION_OFFSET, DEFAULT_OFFSET);
         mLimit = getIntegerValueBy(urlQueryMap, PAGINATION_LIMIT, DEFAULT_LIMIT);
         mCreatedBefore = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_BEFORE);
@@ -73,6 +64,17 @@ public class QueryParam {
         if (containsKeyAndHasValue(urlQueryMap, TRANSFER_METHOD_SORT_BY)) {
             mSortBy = urlQueryMap.get(TRANSFER_METHOD_SORT_BY);
         }
+    }
+
+    /**
+     * Constructors the Hyperwallet Pagination
+     */
+    protected QueryParam(Builder<?, ?> builder) {
+        mOffset = builder.mOffset;
+        mLimit = builder.mLimit == 0 ? DEFAULT_LIMIT : builder.mLimit;
+        mCreatedAfter = builder.mCreatedAfter;
+        mCreatedBefore = builder.mCreatedBefore;
+        mSortBy = builder.mSortBy;
     }
 
     /**
@@ -203,25 +205,38 @@ public class QueryParam {
         public static final String DESCENDANT_STATUS = "-status";
     }
 
+    public static Builder<?, ?> builder() {
+        return new Builder() {
+            @Override
+            public QueryParam build() {
+                return new QueryParam(this);
+            }
+        };
+    }
+
     /**
      * Builder Class for the {@link QueryParam}
      */
-    public static class Builder<T extends Builder> {
-        private Date createdAfter;
-        private Date createdBefore;
-        private String sortBy;
-        private int offset;
-        private int limit;
+    public static abstract class Builder<S extends QueryParam, B extends Builder<S, B>> {
+        private Date mCreatedAfter;
+        private Date mCreatedBefore;
+        private String mSortBy;
+        private int mOffset;
+        private int mLimit;
 
-        public Builder() {
-        }
+        /**
+         * Builds an instance of T with the set of params.
+         *
+         * @return QueryParam
+         */
+        public abstract S build();
 
         /**
          * Defines the number of records to skip.
          */
-        public T offset(int offset) {
-            this.offset = offset;
-            return (T) this;
+        public B offset(int offset) {
+            this.mOffset = offset;
+            return (B) this;
         }
 
         /**
@@ -231,9 +246,9 @@ public class QueryParam {
          * @param limit The limit of records to be returned.
          * @return Builder
          */
-        public T limit(int limit) {
-            this.limit = limit;
-            return (T) this;
+        public B limit(int limit) {
+            this.mLimit = limit;
+            return (B) this;
         }
 
         /**
@@ -242,9 +257,9 @@ public class QueryParam {
          * @param createdAfter Date
          * @return Builder
          */
-        public T createdAfter(Date createdAfter) {
-            this.createdAfter = createdAfter;
-            return (T) this;
+        public B createdAfter(Date createdAfter) {
+            this.mCreatedAfter = createdAfter;
+            return (B) this;
         }
 
         /**
@@ -253,9 +268,9 @@ public class QueryParam {
          * @param createdBefore Date
          * @return Builder
          */
-        public T createdBefore(Date createdBefore) {
-            this.createdBefore = createdBefore;
-            return (T) this;
+        public B createdBefore(Date createdBefore) {
+            this.mCreatedBefore = createdBefore;
+            return (B) this;
         }
 
         /**
@@ -264,27 +279,9 @@ public class QueryParam {
          * @param sortBy Sort order string
          * @return Builder
          */
-        public T sortBy(@NonNull @TransferMethodSortableQuery String sortBy) {
-            this.sortBy = sortBy;
-            return (T) this;
+        public B sortBy(@NonNull @TransferMethodSortableQuery String sortBy) {
+            this.mSortBy = sortBy;
+            return (B) this;
         }
-
-        /**
-         * Build the {@link QueryParam} instance with the set of params.
-         *
-         * @return QueryParam
-         */
-        public QueryParam build() {
-            return new QueryParam(this);
-        }
-
-    }
-
-    protected QueryParam(Builder<?> builder) {
-        mOffset = builder.offset;
-        mLimit = builder.limit;
-        mCreatedAfter = builder.createdAfter;
-        mCreatedBefore = builder.createdBefore;
-        mSortBy = builder.sortBy;
     }
 }

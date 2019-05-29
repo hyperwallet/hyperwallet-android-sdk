@@ -67,16 +67,9 @@ public class HyperwalletTransferMethodPagination extends QueryParam {
             ACTIVATED,
             DE_ACTIVATED,
             INVALID,
-            VERIFIED
+            VERIFIED,
     })
     public @interface TransferMethodStatusQuery {
-    }
-
-    /**
-     * Constructors the Hyperwallet Transfer Method Pagination
-     */
-    public HyperwalletTransferMethodPagination() {
-        super();
     }
 
     /**
@@ -124,16 +117,22 @@ public class HyperwalletTransferMethodPagination extends QueryParam {
         return query;
     }
 
+    public static Builder<?, ?> builder() {
+        return new Builder() {
+            @Override
+            public HyperwalletTransferMethodPagination build() {
+                return new HyperwalletTransferMethodPagination(this);
+            }
+        };
+    }
+
     /**
      * Builder Class for the {@link HyperwalletTransferMethodPagination}
      */
-    public static class Builder<T extends Builder> extends QueryParam.Builder<T> {
+    public static abstract class Builder<S extends HyperwalletTransferMethodPagination, B extends Builder<S, B>> extends
+            QueryParam.Builder<S, B> {
         private String status;
         private String type;
-
-        public HyperwalletTransferMethodPagination build() {
-            return new HyperwalletTransferMethodPagination(this);
-        }
 
         /**
          * Specify status of this method. Which is one of the
@@ -142,21 +141,21 @@ public class HyperwalletTransferMethodPagination extends QueryParam {
          * @param status The status of this method
          * @return Builder
          */
-        public T status(@NonNull @TransferMethodStatusQuery String status) {
+        public B status(@NonNull @TransferMethodStatusQuery String status) {
             this.status = status;
-            return (T) this;
+            return (B) this;
         }
 
         /**
-         * Specify status of this method. Which is one of the
+         * Specify type of this method. Which is one of the
          * {@link com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes}.
          *
          * @param type The type of this method
          * @return Builder
          */
-        public T type(@NonNull @TransferMethodTypeQuery String type) {
+        public B type(@NonNull @TransferMethodTypeQuery String type) {
             this.type = type;
-            return (T) this;
+            return (B) this;
         }
     }
 }

@@ -35,20 +35,26 @@ public class HyperwalletBankAccountPagination extends HyperwalletTransferMethodP
      */
     public HyperwalletBankAccountPagination(@NonNull Map<String, String> urlQueryMap) {
         super(urlQueryMap);
-        urlQueryMap.put(TRANSFER_METHOD_TYPE, BANK_ACCOUNT);
     }
 
     private HyperwalletBankAccountPagination(Builder builder) {
-        super(builder);
+        super(builder.type(BANK_ACCOUNT));
     }
 
     /**
      * Builder Class for the {@link HyperwalletBankAccountPagination}
      */
-    public static class Builder<T extends Builder> extends HyperwalletTransferMethodPagination.Builder<T> {
-        public HyperwalletBankAccountPagination build() {
-            T builder = type(BANK_ACCOUNT);
-            return new HyperwalletBankAccountPagination(builder);
-        }
+    public static abstract class Builder<S extends HyperwalletBankAccountPagination, B extends Builder<S, B>> extends
+            HyperwalletTransferMethodPagination.Builder<S, B> {
+
+    }
+
+    public static Builder<?, ?> builder() {
+        return new Builder() {
+            @Override
+            public HyperwalletBankAccountPagination build() {
+                return new HyperwalletBankAccountPagination(this);
+            }
+        };
     }
 }
