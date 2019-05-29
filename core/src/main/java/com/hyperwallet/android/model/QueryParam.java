@@ -371,14 +371,5 @@ public class QueryParam {
         public QueryParam build() {
             return new QueryParam(this);
         }
-
-    }
-
-    protected QueryParam(Builder<?> builder) {
-        mOffset = builder.offset;
-        mLimit = builder.limit;
-        mCreatedAfter = builder.createdAfter;
-        mCreatedBefore = builder.createdBefore;
-        mSortBy = builder.sortBy;
     }
 }

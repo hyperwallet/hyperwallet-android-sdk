@@ -5,7 +5,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.Test;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class QueryParamTest {
@@ -19,11 +18,7 @@ public class QueryParamTest {
 
     @Test
     public void testHyperwalletPagination_verifyQueryValues() {
-        Map<String, String> urlQueryMap = new HashMap<>();
-        urlQueryMap.put("limit", "23");
-        urlQueryMap.put("offset", "11");
-
-        QueryParam pagination = new QueryParam(urlQueryMap);
+        QueryParam pagination = QueryParam.builder().limit(23).offset(11).build();
         assertThat(pagination.getLimit(), is(23));
         assertThat(pagination.getOffset(), is(11));
     }
@@ -40,14 +35,5 @@ public class QueryParamTest {
         Map<String, String> resultGetQueryMap = pagination.buildQuery();
         assertThat(resultGetQueryMap.get("limit"), is("9"));
         assertThat(resultGetQueryMap.get("offset"), is("13"));
-
-        Map<String, String> urlQueryMap = new HashMap<>();
-        urlQueryMap.put("limit", "3");
-        urlQueryMap.put("offset", "7");
-
-        QueryParam mapPagination = new QueryParam(urlQueryMap);
-        Map<String, String> resultQueryMap = mapPagination.buildQuery();
-        assertThat(resultQueryMap.get("limit"), is("3"));
-        assertThat(resultQueryMap.get("offset"), is("7"));
     }
 }
