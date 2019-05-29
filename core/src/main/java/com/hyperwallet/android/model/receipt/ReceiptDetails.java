@@ -81,7 +81,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents the receipt detail fields
+ * Represents the receipt detail mFields
  */
 public final class ReceiptDetails implements HyperwalletJsonModel, Parcelable {
 
