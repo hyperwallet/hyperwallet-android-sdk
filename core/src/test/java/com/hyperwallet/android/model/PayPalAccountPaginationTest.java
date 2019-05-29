@@ -7,6 +7,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
 import static com.hyperwallet.android.model.QueryParam.TransferMethodSortable.ASCENDANT_CREATE_ON;
 import static com.hyperwallet.android.model.QueryParam.TransferMethodSortable.ASCENDANT_STATUS;
+import static com.hyperwallet.android.model.QueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
 
 import com.hyperwallet.android.model.transfermethod.PayPalAccountPagination;
@@ -82,7 +83,7 @@ public class PayPalAccountPaginationTest {
     @Test
     public void testHyperwalletPayPalAccountPagination_verifyDefaultValues() {
 
-        PayPalAccountPagination pagination = new PayPalAccountPagination.Builder<>().build();
+        PayPalAccountPagination pagination = PayPalAccountPagination.builder().build();
         assertThat(pagination.getLimit(), is(10));
         assertThat(pagination.getOffset(), is(0));
         assertThat(pagination.getType(), is(PAYPAL_ACCOUNT));
@@ -95,7 +96,7 @@ public class PayPalAccountPaginationTest {
 
     @Test
     public void testBuildQuery_verifyDefaultValues() {
-        QueryParam pagination = new QueryParam();
+        QueryParam pagination = QueryParam.builder().build();
 
         Map<String, String> query = pagination.buildQuery();
 
@@ -149,5 +150,31 @@ public class PayPalAccountPaginationTest {
 
     }
 
+    @Test
+    public void testBuilder_verifyValues() {
+        Calendar dateAfter = Calendar.getInstance();
+        dateAfter.set(2019, 6, 21, 12, 45);
+        Calendar dateBefore = Calendar.getInstance();
+        dateBefore.set(2019, 6, 20, 9, 10);
+        Calendar dateOn = Calendar.getInstance();
+        dateOn.set(2019, 6, 20, 10, 21);
+        PayPalAccountPagination pagination = PayPalAccountPagination.builder()
+                .offset(100)
+                .limit(20)
+                .sortBy(DESCENDANT_CREATE_ON)
+                .status(ACTIVATED)
+                .createdAfter(dateAfter.getTime())
+                .createdBefore(dateBefore.getTime())
+                .createdOn(dateOn.getTime())
+                .build();
 
+        assertThat(pagination.getOffset(), is(100));
+        assertThat(pagination.getLimit(), is(20));
+        assertThat(pagination.getSortBy(), is(DESCENDANT_CREATE_ON));
+        assertThat(pagination.getStatus(), is(ACTIVATED));
+        assertThat(pagination.getType(), is(PAYPAL_ACCOUNT));
+        assertThat(pagination.getCreatedAfter().getTime(), is(dateAfter.getTimeInMillis()));
+        assertThat(pagination.getCreatedBefore().getTime(), is(dateBefore.getTimeInMillis()));
+        assertThat(pagination.getCreatedOn().getTime(), is(dateOn.getTimeInMillis()));
+    }
 }
