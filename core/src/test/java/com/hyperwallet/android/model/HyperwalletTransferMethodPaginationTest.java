@@ -5,8 +5,8 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
+import static com.hyperwallet.android.model.QueryParam.TransferMethodSortable.ASCENDANT_CREATE_ON;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodPagination.TransferMethodSortable.ASCENDANT_CREATE_ON;
 
 import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodPagination;
 
@@ -84,7 +84,7 @@ public class HyperwalletTransferMethodPaginationTest {
 
     @Test
     public void testBuildQuery_verifyDefaultValues() {
-        HyperwalletPagination pagination = new HyperwalletPagination();
+        QueryParam pagination = new QueryParam();
 
         Map<String, String> query = pagination.buildQuery();
 
@@ -106,15 +106,22 @@ public class HyperwalletTransferMethodPaginationTest {
     public void testBuildQuery_returnsQueryParameters() {
 
         Map<String, String> query = new HashMap<>();
-        query.put(OFFSET, "100");
-        query.put(LIMIT, "200");
+        //query.put(OFFSET, "100");
+        //query.put(LIMIT, "200");
         query.put(CREATE_BEFORE, "2017-01-01T10:12:22");
         query.put(CREATE_AFTER, "2017-01-01T00:00:000");
-        query.put(TRANSFER_METHOD_TYPE, BANK_ACCOUNT);
-        query.put(STATUS, ACTIVATED);
+        //query.put(TRANSFER_METHOD_TYPE, );
+        //query.put(STATUS, );
         query.put(SORT_BY, ASCENDANT_CREATE_ON);
 
-        HyperwalletTransferMethodPagination pagination = new HyperwalletTransferMethodPagination(query);
+        //HyperwalletTransferMethodPagination pagination = new HyperwalletTransferMethodPagination(query);
+        HyperwalletTransferMethodPagination pagination = new HyperwalletTransferMethodPagination.Builder()
+                .status(ACTIVATED)
+                .type(BANK_ACCOUNT)
+                //.sortBy(ASCENDANT_CREATE_ON)
+                //.offset(100)
+                //.limit(200)
+                .build();
         Map<String, String> resultQuery = pagination.buildQuery();
 
         assertThat(resultQuery.containsKey(STATUS), is(true));

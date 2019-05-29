@@ -27,8 +27,8 @@ import androidx.annotation.Nullable;
 import com.hyperwallet.android.exception.AuthenticationTokenProviderException;
 import com.hyperwallet.android.exception.HyperwalletInitializationException;
 import com.hyperwallet.android.listener.HyperwalletListener;
-import com.hyperwallet.android.model.HyperwalletPagination;
 import com.hyperwallet.android.model.HyperwalletStatusTransition;
+import com.hyperwallet.android.model.QueryParam;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationField;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
@@ -806,7 +806,7 @@ public class Hyperwallet {
 
     @NonNull
     @SuppressWarnings("unchecked")
-    private Map<String, String> buildUrlQueryIfRequired(@Nullable HyperwalletPagination pagination) {
+    private Map<String, String> buildUrlQueryIfRequired(@Nullable QueryParam pagination) {
         Map<String, String> queryMap;
         if (pagination == null) {
             queryMap = new HashMap<>();

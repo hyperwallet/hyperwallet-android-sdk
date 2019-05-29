@@ -5,8 +5,8 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.VERIFIED;
+import static com.hyperwallet.android.model.QueryParam.TransferMethodSortable.ASCENDANT_CREATE_ON;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodPagination.TransferMethodSortable.ASCENDANT_CREATE_ON;
 
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountPagination;
 
@@ -74,7 +74,7 @@ public class HyperwalletBankAccountPaginationTest {
     @Test
     public void testHyperwalletBankAccountPagination_verifyDefaultValues() {
 
-        HyperwalletBankAccountPagination pagination = new HyperwalletBankAccountPagination();
+        HyperwalletBankAccountPagination pagination = new HyperwalletBankAccountPagination.Builder().build();
         assertThat(pagination.getLimit(), is(10));
         assertThat(pagination.getOffset(), is(0));
         assertThat(pagination.getType(), is(BANK_ACCOUNT));
@@ -122,7 +122,7 @@ public class HyperwalletBankAccountPaginationTest {
     @Test
     public void testBuildQuery_verifyDefaultValues() {
 
-        HyperwalletBankAccountPagination pagination = new HyperwalletBankAccountPagination();
+        HyperwalletBankAccountPagination pagination = new HyperwalletBankAccountPagination.Builder<>().build();
 
         Map<String, String> resultQuery = pagination.buildQuery();
         assertThat(resultQuery.size(), is(3));
