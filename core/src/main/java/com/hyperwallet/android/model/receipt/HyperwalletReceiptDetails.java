@@ -1,4 +1,66 @@
+/*
+ * Copyright 2018 Hyperwallet
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated
+ * documentation files (the "Software"), to deal in the Software without restriction, including
+ * without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and
+ * to permit persons to whom the Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of
+ * the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO
+ * THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+ * EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+ * AN ACTION OF
+ * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+ * USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
+ */
+
 package com.hyperwallet.android.model.receipt;
+
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.BANK_ACCOUNT_ID;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.BANK_ACCOUNT_PURPOSE;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.BANK_ID;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.BANK_NAME;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.BRANCH_ADDRESS_LINE_1;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.BRANCH_ADDRESS_LINE_2;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.BRANCH_CITY;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.BRANCH_COUNTRY;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.BRANCH_ID;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.BRANCH_NAME;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.BRANCH_POSTAL_CODE;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.BRANCH_STATE_PROVINCE;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.CARD_EXPIRY_DATE;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.CARD_HOLDER_NAME;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.CARD_NUMBER;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.CHARITY_NAME;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.CHECK_NUMBER;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.CLIENT_PAYMENT_ID;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.MEMO;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.NOTES;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.PAYEE_ADDRESS_LINE_1;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.PAYEE_ADDRESS_LINE_2;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.PAYEE_CITY;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.PAYEE_COUNTRY;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.PAYEE_EMAIL;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.PAYEE_NAME;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.PAYEE_POSTAL_CODE;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.PAYEE_STATE_PROVINCE;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.PAYER_NAME;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.PAYMENT_EXPIRY_DATE;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.RETURN_OR_RECALL_REASON;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.SECURITY_ANSWER;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.SECURITY_QUESTION;
+import static com.hyperwallet.android.model.receipt.HyperwalletReceiptDetails.ReceiptDetailsFields.WEBSITE;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -18,6 +80,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents the receipt detail fields
+ */
 public final class HyperwalletReceiptDetails implements HyperwalletJsonModel, Parcelable {
 
     /**
@@ -63,40 +128,40 @@ public final class HyperwalletReceiptDetails implements HyperwalletJsonModel, Pa
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
-            ReceiptDetailsFields.BANK_ACCOUNT_ID,
-            ReceiptDetailsFields.BANK_ACCOUNT_PURPOSE,
-            ReceiptDetailsFields.BANK_ID,
-            ReceiptDetailsFields.BANK_NAME,
-            ReceiptDetailsFields.BRANCH_ADDRESS_LINE_1,
-            ReceiptDetailsFields.BRANCH_ADDRESS_LINE_2,
-            ReceiptDetailsFields.BRANCH_CITY,
-            ReceiptDetailsFields.BRANCH_COUNTRY,
-            ReceiptDetailsFields.BRANCH_ID,
-            ReceiptDetailsFields.BRANCH_NAME,
-            ReceiptDetailsFields.BRANCH_POSTAL_CODE,
-            ReceiptDetailsFields.BRANCH_STATE_PROVINCE,
-            ReceiptDetailsFields.CARD_NUMBER,
-            ReceiptDetailsFields.CARD_EXPIRY_DATE,
-            ReceiptDetailsFields.CARD_HOLDER_NAME,
-            ReceiptDetailsFields.CHARITY_NAME,
-            ReceiptDetailsFields.CHECK_NUMBER,
-            ReceiptDetailsFields.CLIENT_PAYMENT_ID,
-            ReceiptDetailsFields.MEMO,
-            ReceiptDetailsFields.NOTES,
-            ReceiptDetailsFields.PAYEE_ADDRESS_LINE_1,
-            ReceiptDetailsFields.PAYEE_ADDRESS_LINE_2,
-            ReceiptDetailsFields.PAYEE_CITY,
-            ReceiptDetailsFields.PAYEE_COUNTRY,
-            ReceiptDetailsFields.PAYEE_EMAIL,
-            ReceiptDetailsFields.PAYEE_NAME,
-            ReceiptDetailsFields.PAYEE_POSTAL_CODE,
-            ReceiptDetailsFields.PAYEE_STATE_PROVINCE,
-            ReceiptDetailsFields.PAYER_NAME,
-            ReceiptDetailsFields.PAYMENT_EXPIRY_DATE,
-            ReceiptDetailsFields.RETURN_OR_RECALL_REASON,
-            ReceiptDetailsFields.SECURITY_ANSWER,
-            ReceiptDetailsFields.SECURITY_QUESTION,
-            ReceiptDetailsFields.WEBSITE
+            BANK_ACCOUNT_ID,
+            BANK_ACCOUNT_PURPOSE,
+            BANK_ID,
+            BANK_NAME,
+            BRANCH_ADDRESS_LINE_1,
+            BRANCH_ADDRESS_LINE_2,
+            BRANCH_CITY,
+            BRANCH_COUNTRY,
+            BRANCH_ID,
+            BRANCH_NAME,
+            BRANCH_POSTAL_CODE,
+            BRANCH_STATE_PROVINCE,
+            CARD_NUMBER,
+            CARD_EXPIRY_DATE,
+            CARD_HOLDER_NAME,
+            CHARITY_NAME,
+            CHECK_NUMBER,
+            CLIENT_PAYMENT_ID,
+            MEMO,
+            NOTES,
+            PAYEE_ADDRESS_LINE_1,
+            PAYEE_ADDRESS_LINE_2,
+            PAYEE_CITY,
+            PAYEE_COUNTRY,
+            PAYEE_EMAIL,
+            PAYEE_NAME,
+            PAYEE_POSTAL_CODE,
+            PAYEE_STATE_PROVINCE,
+            PAYER_NAME,
+            PAYMENT_EXPIRY_DATE,
+            RETURN_OR_RECALL_REASON,
+            SECURITY_ANSWER,
+            SECURITY_QUESTION,
+            WEBSITE
     })
     public @interface ReceiptDetailsField {
     }
@@ -110,6 +175,176 @@ public final class HyperwalletReceiptDetails implements HyperwalletJsonModel, Pa
     private HyperwalletReceiptDetails(@NonNull Map<String, Object> fields) {
         super();
         setFields(fields);
+    }
+
+    @Nullable
+    public String getBankAccountId() {
+        return (String) mFields.get(BANK_ACCOUNT_ID);
+    }
+
+    @Nullable
+    public String getBankAccountPurpose() {
+        return (String) mFields.get(BANK_ACCOUNT_PURPOSE);
+    }
+
+    @Nullable
+    public String getBankId() {
+        return (String) mFields.get(BANK_ID);
+    }
+
+    @Nullable
+    public String getBankName() {
+        return (String) mFields.get(BANK_NAME);
+    }
+
+    @Nullable
+    public String getBranchAddressLine1() {
+        return (String) mFields.get(BRANCH_ADDRESS_LINE_1);
+    }
+
+    @Nullable
+    public String getBranchAddressLine2() {
+        return (String) mFields.get(BRANCH_ADDRESS_LINE_2);
+    }
+
+    @Nullable
+    public String getBranchCity() {
+        return (String) mFields.get(BRANCH_CITY);
+    }
+
+    @Nullable
+    public String getBranchCountry() {
+        return (String) mFields.get(BRANCH_COUNTRY);
+    }
+
+    @Nullable
+    public String getBranchId() {
+        return (String) mFields.get(BRANCH_ID);
+    }
+
+    @Nullable
+    public String getBranchName() {
+        return (String) mFields.get(BRANCH_NAME);
+    }
+
+    @Nullable
+    public String getBranchPostalCode() {
+        return (String) mFields.get(BRANCH_POSTAL_CODE);
+    }
+
+    @Nullable
+    public String getBranchStateProvince() {
+        return (String) mFields.get(BRANCH_STATE_PROVINCE);
+    }
+
+    @Nullable
+    public String getCardNumber() {
+        return (String) mFields.get(CARD_NUMBER);
+    }
+
+    @Nullable
+    public String getCardExpiryDate() {
+        return (String) mFields.get(CARD_EXPIRY_DATE);
+    }
+
+    @Nullable
+    public String getCardHolderName() {
+        return (String) mFields.get(CARD_HOLDER_NAME);
+    }
+
+    @Nullable
+    public String getCharityName() {
+        return (String) mFields.get(CHARITY_NAME);
+    }
+
+    @Nullable
+    public String getCheckNumber() {
+        return (String) mFields.get(CHECK_NUMBER);
+    }
+
+    @Nullable
+    public String getClientPaymentId() {
+        return (String) mFields.get(CLIENT_PAYMENT_ID);
+    }
+
+    @Nullable
+    public String getMemo() {
+        return (String) mFields.get(MEMO);
+    }
+
+    @Nullable
+    public String getNotes() {
+        return (String) mFields.get(NOTES);
+    }
+
+    @Nullable
+    public String getPayeeAddressLine1() {
+        return (String) mFields.get(PAYEE_ADDRESS_LINE_1);
+    }
+
+    @Nullable
+    public String getPayeeAddressLine2() {
+        return (String) mFields.get(PAYEE_ADDRESS_LINE_2);
+    }
+
+    @Nullable
+    public String getPayeeCity() {
+        return (String) mFields.get(PAYEE_CITY);
+    }
+
+    @Nullable
+    public String getPayeeCountry() {
+        return (String) mFields.get(PAYEE_COUNTRY);
+    }
+
+    @Nullable
+    public String getPayeeEmail() {
+        return (String) mFields.get(PAYEE_EMAIL);
+    }
+
+    @Nullable
+    public String getPayeeName() {
+        return (String) mFields.get(PAYEE_NAME);
+    }
+
+    @Nullable
+    public String getPayeePostalCode() {
+        return (String) mFields.get(PAYEE_POSTAL_CODE);
+    }
+
+    @Nullable
+    public String getPayeeStateProvince() {
+        return (String) mFields.get(PAYEE_STATE_PROVINCE);
+    }
+
+    @Nullable
+    public String getPayerName() {
+        return (String) mFields.get(PAYER_NAME);
+    }
+
+    @Nullable
+    public String getPaymentExpiryDate() {
+        return (String) mFields.get(PAYMENT_EXPIRY_DATE);
+    }
+
+    @Nullable
+    public String getReturnOrRecallReason() {
+        return (String) mFields.get(RETURN_OR_RECALL_REASON);
+    }
+
+    @Nullable
+    public String getSecurityAnswer() {
+        return (String) mFields.get(SECURITY_ANSWER);
+    }
+
+    @Nullable
+    public String getSecurityQuestion() {
+        return (String) mFields.get(SECURITY_QUESTION);
+    }
+
+    @Nullable
+    public String getWebsite() {
+        return (String) mFields.get(WEBSITE);
     }
 
     /* Converts a {@code Map<String, Object>} to a {@link JSONObject}
@@ -187,4 +422,186 @@ public final class HyperwalletReceiptDetails implements HyperwalletJsonModel, Pa
         mFields = fields;
     }
 
+
+    public static class Builder {
+        private Map<String, Object> mFields;
+
+        public Builder() {
+            mFields = new HashMap<>();
+        }
+
+        public HyperwalletReceiptDetails.Builder bankAccountId(@NonNull final String bankAccountId) {
+            mFields.put(BANK_ACCOUNT_ID, bankAccountId);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder bankAccountPurpose(@NonNull final String bankAccountPurpose) {
+            mFields.put(BANK_ACCOUNT_PURPOSE, bankAccountPurpose);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder bankId(@NonNull final String bankId) {
+            mFields.put(BANK_ID, bankId);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder bankName(@NonNull final String bankName) {
+            mFields.put(BANK_NAME, bankName);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder branchAddressLine1(@NonNull final String branchAddressLine1) {
+            mFields.put(BRANCH_ADDRESS_LINE_1, branchAddressLine1);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder branchAddressLine2(@NonNull final String branchAddressLine2) {
+            mFields.put(BRANCH_ADDRESS_LINE_2, branchAddressLine2);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder branchCity(@NonNull final String branchCity) {
+            mFields.put(BRANCH_CITY, branchCity);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder branchCountry(@NonNull final String branchCountry) {
+            mFields.put(BRANCH_COUNTRY, branchCountry);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder branchId(@NonNull final String branchId) {
+            mFields.put(BRANCH_ID, branchId);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder branchName(@NonNull final String branchName) {
+            mFields.put(BRANCH_NAME, branchName);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder branchPostalCode(@NonNull final String branchPostalCode) {
+            mFields.put(BRANCH_POSTAL_CODE, branchPostalCode);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder branchStateProvince(@NonNull final String branchStateProvince) {
+            mFields.put(BRANCH_STATE_PROVINCE, branchStateProvince);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder cardNumber(@NonNull final String cardNumber) {
+            mFields.put(CARD_NUMBER, cardNumber);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder cardExpiryDate(@NonNull final String cardExpiryDate) {
+            mFields.put(CARD_EXPIRY_DATE, cardExpiryDate);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder cardHolderName(@NonNull final String cardHolderName) {
+            mFields.put(CARD_HOLDER_NAME, cardHolderName);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder charityName(@NonNull final String charityName) {
+            mFields.put(CHARITY_NAME, charityName);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder checkNumber(@NonNull final String checkNumber) {
+            mFields.put(CHECK_NUMBER, checkNumber);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder clientPaymentId(@NonNull final String clientPaymentId) {
+            mFields.put(CLIENT_PAYMENT_ID, clientPaymentId);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder memo(@NonNull final String memo) {
+            mFields.put(MEMO, memo);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder notes(@NonNull final String notes) {
+            mFields.put(NOTES, notes);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder payeeAddressLine1(@NonNull final String payeeAddressLine1) {
+            mFields.put(PAYEE_ADDRESS_LINE_1, payeeAddressLine1);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder payeeAddressLine2(@NonNull final String payeeAddressLine2) {
+            mFields.put(PAYEE_ADDRESS_LINE_2, payeeAddressLine2);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder payeeCity(@NonNull final String payeeCity) {
+            mFields.put(PAYEE_CITY, payeeCity);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder payeeCountry(@NonNull final String payeeCountry) {
+            mFields.put(PAYEE_COUNTRY, payeeCountry);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder payeeEmail(@NonNull final String payeeEmail) {
+            mFields.put(PAYEE_EMAIL, payeeEmail);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder payeeName(@NonNull final String payeeName) {
+            mFields.put(PAYEE_NAME, payeeName);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder payeePostalCode(@NonNull final String payeePostalCode) {
+            mFields.put(PAYEE_POSTAL_CODE, payeePostalCode);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder payeeStateProvince(@NonNull final String payeeStateProvince) {
+            mFields.put(PAYEE_STATE_PROVINCE, payeeStateProvince);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder payerName(@NonNull final String payerName) {
+            mFields.put(PAYER_NAME, payerName);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder paymentExpiryDate(@NonNull final String paymentExpiryDate) {
+            mFields.put(PAYMENT_EXPIRY_DATE, paymentExpiryDate);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder returnOrRecallReason(@NonNull final String returnOrRecallReason) {
+            mFields.put(RETURN_OR_RECALL_REASON, returnOrRecallReason);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder securityAnswer(@NonNull final String securityAnswer) {
+            mFields.put(SECURITY_ANSWER, securityAnswer);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder securityQuestion(@NonNull final String securityQuestion) {
+            mFields.put(SECURITY_QUESTION, securityQuestion);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails.Builder website(@NonNull final String website) {
+            mFields.put(WEBSITE, website);
+            return this;
+        }
+
+        public HyperwalletReceiptDetails build() {
+            return new HyperwalletReceiptDetails(mFields);
+        }
+    }
 }

@@ -1,6 +1,31 @@
-package com.hyperwallet.android.model.receipt;
+/*
+ * Copyright 2018 Hyperwallet
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated
+ * documentation files (the "Software"), to deal in the Software without restriction, including
+ * without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and
+ * to permit persons to whom the Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of
+ * the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO
+ * THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+ * EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+ * AN ACTION OF
+ * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+ * USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
+ */
 
-import static com.hyperwallet.android.model.receipt.HyperwalletReceipt.ReceiptFields.TYPE;
+package com.hyperwallet.android.model.receipt;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -21,6 +46,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represents the receipt fields
+ */
 public final class HyperwalletReceipt implements HyperwalletJsonModel, Parcelable {
 
     public interface Entries {
@@ -36,6 +64,52 @@ public final class HyperwalletReceipt implements HyperwalletJsonModel, Parcelabl
     public @interface Entry {
     }
 
+    public interface ReceiptTypes {
+        String CARD_ACTIVATION_FEE = "CARD_ACTIVATION_FEE";
+        String CARD_ACTIVATION_FEE_WAIVER = "CARD_ACTIVATION_FEE_WAIVER";
+        String CARD_FEE = "CARD_FEE";
+        String MANUAL_TRANSFER_TO_PREPAID_CARD = "MANUAL_TRANSFER_TO_PREPAID_CARD";
+        String PREPAID_CARD_BALANCE_INQUIRY_FEE = "PREPAID_CARD_BALANCE_INQUIRY_FEE";
+        String PREPAID_CARD_CASH_ADVANCE = "PREPAID_CARD_CASH_ADVANCE";
+        String PREPAID_CARD_DISPUTED_CHARGE_REFUND = "PREPAID_CARD_DISPUTED_CHARGE_REFUND";
+        String PREPAID_CARD_DISPUTE_DEPOSIT = "PREPAID_CARD_DISPUTE_DEPOSIT";
+        String PREPAID_CARD_DOMESTIC_CASH_WITHDRAWAL_FEE = "PREPAID_CARD_DOMESTIC_CASH_WITHDRAWAL_FEE";
+        String PREPAID_CARD_EXCHANGE_RATE_DIFFERENCE = "PREPAID_CARD_EXCHANGE_RATE_DIFFERENCE";
+        String PREPAID_CARD_MANUAL_UNLOAD = "PREPAID_CARD_MANUAL_UNLOAD";
+        String PREPAID_CARD_OVERSEAS_CASH_WITHDRAWAL_FEE = "PREPAID_CARD_OVERSEAS_CASH_WITHDRAWAL_FEE";
+        String PREPAID_CARD_PIN_CHANGE_FEE = "PREPAID_CARD_PIN_CHANGE_FEE";
+        String PREPAID_CARD_REFUND = "PREPAID_CARD_REFUND";
+        String PREPAID_CARD_REPLACEMENT_FEE = "PREPAID_CARD_REPLACEMENT_FEE";
+        String PREPAID_CARD_SALE = "PREPAID_CARD_SALE";
+        String PREPAID_CARD_SALE_REVERSAL = "PREPAID_CARD_SALE_REVERSAL";
+        String PREPAID_CARD_UNLOAD = "PREPAID_CARD_UNLOAD";
+        String TRANSFER_TO_PREPAID_CARD = "TRANSFER_TO_PREPAID_CARD";
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            ReceiptTypes.CARD_ACTIVATION_FEE,
+            ReceiptTypes.CARD_ACTIVATION_FEE_WAIVER,
+            ReceiptTypes.CARD_FEE,
+            ReceiptTypes.MANUAL_TRANSFER_TO_PREPAID_CARD,
+            ReceiptTypes.PREPAID_CARD_BALANCE_INQUIRY_FEE,
+            ReceiptTypes.PREPAID_CARD_CASH_ADVANCE,
+            ReceiptTypes.PREPAID_CARD_DISPUTED_CHARGE_REFUND,
+            ReceiptTypes.PREPAID_CARD_DISPUTE_DEPOSIT,
+            ReceiptTypes.PREPAID_CARD_DOMESTIC_CASH_WITHDRAWAL_FEE,
+            ReceiptTypes.PREPAID_CARD_EXCHANGE_RATE_DIFFERENCE,
+            ReceiptTypes.PREPAID_CARD_MANUAL_UNLOAD,
+            ReceiptTypes.PREPAID_CARD_OVERSEAS_CASH_WITHDRAWAL_FEE,
+            ReceiptTypes.PREPAID_CARD_PIN_CHANGE_FEE,
+            ReceiptTypes.PREPAID_CARD_REFUND,
+            ReceiptTypes.PREPAID_CARD_REPLACEMENT_FEE,
+            ReceiptTypes.PREPAID_CARD_SALE,
+            ReceiptTypes.PREPAID_CARD_SALE_REVERSAL,
+            ReceiptTypes.PREPAID_CARD_UNLOAD,
+            ReceiptTypes.TRANSFER_TO_PREPAID_CARD
+    })
+    public @interface ReceiptType {
+    }
 
     /**
      * Common Receipt field keys
@@ -58,7 +132,7 @@ public final class HyperwalletReceipt implements HyperwalletJsonModel, Parcelabl
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
             ReceiptFields.JOURNAL_ID,
-            TYPE,
+            ReceiptFields.TYPE,
             ReceiptFields.CREATED_ON,
             ReceiptFields.ENTRY,
             ReceiptFields.SOURCE_TOKEN,
@@ -90,11 +164,13 @@ public final class HyperwalletReceipt implements HyperwalletJsonModel, Parcelabl
     }
 
     @Nullable
+    @ReceiptType
     public String getType() {
         return (String) mFields.get(ReceiptFields.TYPE);
     }
 
     @Nullable
+    @Entry
     public String getCreatedOn() {
         return (String) mFields.get(ReceiptFields.CREATED_ON);
     }
@@ -178,7 +254,8 @@ public final class HyperwalletReceipt implements HyperwalletJsonModel, Parcelabl
     /**
      * Returns a {@link String} value of a {@code Map<String, String>}
      * <p>
-     * Please use {@code getField(@NonNull String key, @NonNull Class<T> clazz)} if the value is not a {@link String}
+     * Please use {@code getField(@NonNull String key, @NonNull Class<T> clazz)} if the value is not a {@link
+     * String}
      * </p>
      *
      * @param key can only be a {@link String} that represents a {@link ReceiptField} name
@@ -230,52 +307,52 @@ public final class HyperwalletReceipt implements HyperwalletJsonModel, Parcelabl
             return this;
         }
 
-        public HyperwalletReceipt.Builder type(@Nullable final String type) {
+        public HyperwalletReceipt.Builder type(@NonNull @ReceiptType final String type) {
             mFields.put(ReceiptFields.TYPE, type);
             return this;
         }
 
-        public HyperwalletReceipt.Builder createdOn(@Nullable final String createdOn) {
+        public HyperwalletReceipt.Builder createdOn(@NonNull final String createdOn) {
             mFields.put(ReceiptFields.CREATED_ON, createdOn);
             return this;
         }
 
-        public HyperwalletReceipt.Builder entry(@Nullable @Entry final String entry) {
+        public HyperwalletReceipt.Builder entry(@NonNull @Entry final String entry) {
             mFields.put(ReceiptFields.ENTRY, entry);
             return this;
         }
 
-        public HyperwalletReceipt.Builder sourceToken(@Nullable String sourceToken) {
+        public HyperwalletReceipt.Builder sourceToken(@NonNull String sourceToken) {
             mFields.put(ReceiptFields.SOURCE_TOKEN, sourceToken);
             return this;
         }
 
-        public HyperwalletReceipt.Builder destinationToken(@Nullable final String destinationToken) {
+        public HyperwalletReceipt.Builder destinationToken(@NonNull final String destinationToken) {
             mFields.put(ReceiptFields.DESTINATION_TOKEN, destinationToken);
             return this;
         }
 
-        public HyperwalletReceipt.Builder fee(@Nullable final String fee) {
+        public HyperwalletReceipt.Builder fee(@NonNull final String fee) {
             mFields.put(ReceiptFields.DESTINATION_TOKEN, fee);
             return this;
         }
 
-        public HyperwalletReceipt.Builder foreignExchangeRate(@Nullable final String foreignExchangeRate) {
+        public HyperwalletReceipt.Builder foreignExchangeRate(@NonNull final String foreignExchangeRate) {
             mFields.put(ReceiptFields.FOREIGN_EXCHANGE_RATE, foreignExchangeRate);
             return this;
         }
 
-        public HyperwalletReceipt.Builder foreignExchangeCurrency(@Nullable final String foreignExchangeCurrency) {
+        public HyperwalletReceipt.Builder foreignExchangeCurrency(@NonNull final String foreignExchangeCurrency) {
             mFields.put(ReceiptFields.FOREIGN_EXCHANGE_CURRENCY, foreignExchangeCurrency);
             return this;
         }
 
-        public HyperwalletReceipt.Builder currency(@Nullable final String currency) {
+        public HyperwalletReceipt.Builder currency(@NonNull final String currency) {
             mFields.put(ReceiptFields.CURRENCY, currency);
             return this;
         }
 
-        public HyperwalletReceipt.Builder details(@Nullable final List<HyperwalletReceiptDetails> details) {
+        public HyperwalletReceipt.Builder details(@NonNull final List<HyperwalletReceiptDetails> details) {
             mFields.put(ReceiptFields.DETAILS, details);
             return this;
         }
