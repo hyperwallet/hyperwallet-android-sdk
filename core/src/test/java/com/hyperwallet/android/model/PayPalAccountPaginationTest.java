@@ -5,9 +5,9 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
+import static com.hyperwallet.android.model.QueryParam.TransferMethodSortable.ASCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.QueryParam.TransferMethodSortable.ASCENDANT_STATUS;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodPagination.TransferMethodSortable.ASCENDANT_CREATE_ON;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodPagination.TransferMethodSortable.ASCENDANT_STATUS;
 
 import com.hyperwallet.android.model.transfermethod.PayPalAccountPagination;
 
@@ -82,7 +82,7 @@ public class PayPalAccountPaginationTest {
     @Test
     public void testHyperwalletPayPalAccountPagination_verifyDefaultValues() {
 
-        PayPalAccountPagination pagination = new PayPalAccountPagination();
+        PayPalAccountPagination pagination = new PayPalAccountPagination.Builder<>().build();
         assertThat(pagination.getLimit(), is(10));
         assertThat(pagination.getOffset(), is(0));
         assertThat(pagination.getType(), is(PAYPAL_ACCOUNT));
@@ -95,7 +95,7 @@ public class PayPalAccountPaginationTest {
 
     @Test
     public void testBuildQuery_verifyDefaultValues() {
-        HyperwalletPagination pagination = new HyperwalletPagination();
+        QueryParam pagination = new QueryParam();
 
         Map<String, String> query = pagination.buildQuery();
 

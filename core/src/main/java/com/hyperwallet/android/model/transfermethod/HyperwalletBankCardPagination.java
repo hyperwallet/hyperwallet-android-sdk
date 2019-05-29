@@ -38,9 +38,9 @@ public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagi
     /**
      * Constructors the bank card pagination
      */
-    public HyperwalletBankCardPagination() {
-        super();
-        setType(BANK_CARD);
+    private HyperwalletBankCardPagination(Builder builder) {
+        super(builder);
+        mCreatedOn = builder.mCreatedOn;
     }
 
     /**
@@ -51,7 +51,6 @@ public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagi
     public HyperwalletBankCardPagination(Map<String, String> urlQueryMap) {
         super(urlQueryMap);
         mCreatedOn = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_ON);
-        setType(BANK_CARD);
     }
 
     public Date getCreatedOn() {
@@ -66,5 +65,28 @@ public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagi
             query.put(TRANSFER_METHOD_CREATE_ON, DateUtil.toDateTimeFormat(mCreatedOn));
         }
         return query;
+    }
+
+    /**
+     * Builder Class for the {@link HyperwalletBankAccountPagination}
+     */
+    public static class Builder<T extends Builder> extends HyperwalletTransferMethodPagination.Builder<T> {
+        private Date mCreatedOn;
+
+        public HyperwalletBankCardPagination build() {
+            T builder = type(BANK_CARD);
+            return new HyperwalletBankCardPagination(builder);
+        }
+
+        /**
+         * Define a Date created on.
+         *
+         * @param createdOn Date
+         * @return Builder
+         */
+        public T createdAfter(Date createdOn) {
+            this.mCreatedOn = createdOn;
+            return (T) this;
+        }
     }
 }
