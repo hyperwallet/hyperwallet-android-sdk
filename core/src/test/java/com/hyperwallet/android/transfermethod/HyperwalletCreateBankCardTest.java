@@ -8,24 +8,25 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.CARD_BRAND;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.CARD_NUMBER;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.CARD_TYPE;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.CREATED_ON;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.DATE_OF_EXPIRY;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.STATUS;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TOKEN;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TYPE;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.CARD_BRAND;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.CARD_NUMBER;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.CARD_TYPE;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.CREATED_ON;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.DATE_OF_EXPIRY;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.STATUS;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TOKEN;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TYPE;
+import static com.hyperwallet.android.util.HttpMethod.POST;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.exception.HyperwalletRestException;
 import com.hyperwallet.android.listener.HyperwalletListener;
-import com.hyperwallet.android.model.HyperwalletBankCard;
 import com.hyperwallet.android.model.HyperwalletError;
 import com.hyperwallet.android.model.HyperwalletErrors;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankCard;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
@@ -95,6 +96,7 @@ public class HyperwalletCreateBankCardTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards"));
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
 
         assertThat(hyperwalletBankCardResponse.getField(CARD_BRAND), is("VISA"));
         assertThat(hyperwalletBankCardResponse.getField(CARD_NUMBER), is(equalTo("************0114")));
@@ -132,6 +134,7 @@ public class HyperwalletCreateBankCardTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards"));
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
 
         HyperwalletException hyperwalletException = mExceptionCaptor.getValue();
         assertThat(hyperwalletException, is(notNullValue()));

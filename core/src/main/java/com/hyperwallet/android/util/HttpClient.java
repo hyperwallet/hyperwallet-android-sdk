@@ -42,6 +42,16 @@ public final class HttpClient {
     private final Map<String, String> mHeaderMap;
     private final HttpURLConnection mHttpUrlConnection;
 
+    private HttpClient(final Builder builder) {
+        mHeaderMap = builder.mHeaderMap;
+        mQueryMap = builder.mQueryMap;
+        mHttpUrlConnection = builder.mHttpUrlConnection;
+    }
+
+    public static boolean isSuccess(int httpCode) {
+        return httpCode >= 200 && httpCode < 300;
+    }
+
     public String getResponse() throws IOException {
         InputStream in = isSuccess(getResponseCode()) ? mHttpUrlConnection.getInputStream()
                 : mHttpUrlConnection.getErrorStream();
@@ -58,12 +68,6 @@ public final class HttpClient {
             in.close();
             disconnect();
         }
-    }
-
-    private HttpClient(final Builder builder) {
-        mHeaderMap = builder.mHeaderMap;
-        mQueryMap = builder.mQueryMap;
-        mHttpUrlConnection = builder.mHttpUrlConnection;
     }
 
     public Map<String, String> getQueryMap() {
@@ -113,6 +117,10 @@ public final class HttpClient {
         if (mHttpUrlConnection != null) {
             mHttpUrlConnection.disconnect();
         }
+    }
+
+    private int getResponseCode() throws IOException {
+        return mHttpUrlConnection.getResponseCode();
     }
 
     public static class Builder {
@@ -220,14 +228,6 @@ public final class HttpClient {
                 }
             }
         }
-    }
-
-    public static boolean isSuccess(int httpCode) {
-        return httpCode >= 200 && httpCode < 300;
-    }
-
-    private int getResponseCode() throws IOException {
-        return mHttpUrlConnection.getResponseCode();
     }
 
 }

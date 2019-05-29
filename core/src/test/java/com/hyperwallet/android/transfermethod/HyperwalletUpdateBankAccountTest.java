@@ -7,24 +7,25 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.ADDRESS_LINE_1;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.CITY;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.MOBILE_NUMBER;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.PHONE_NUMBER;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.POSTAL_CODE;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.STATE_PROVINCE;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.STATUS;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TOKEN;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TYPE;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.ADDRESS_LINE_1;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.CITY;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.MOBILE_NUMBER;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.PHONE_NUMBER;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.POSTAL_CODE;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.STATE_PROVINCE;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.STATUS;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TOKEN;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TYPE;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
+import static com.hyperwallet.android.util.HttpMethod.PUT;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.exception.HyperwalletRestException;
 import com.hyperwallet.android.listener.HyperwalletListener;
-import com.hyperwallet.android.model.HyperwalletBankAccount;
 import com.hyperwallet.android.model.HyperwalletError;
 import com.hyperwallet.android.model.HyperwalletErrors;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
@@ -54,9 +55,9 @@ public class HyperwalletUpdateBankAccountTest {
     public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
-
     @Rule
     public MockitoRule mMockito = MockitoJUnit.rule();
+
     @Mock
     private HyperwalletListener<HyperwalletBankAccount> mockBankAccountListener;
     @Captor
@@ -97,6 +98,7 @@ public class HyperwalletUpdateBankAccountTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         verify(mockBankAccountListener).onSuccess(mBankAccountCaptor.capture());
         verify(mockBankAccountListener, never()).onFailure(any(HyperwalletException.class));
+        assertThat(recordedRequest.getMethod(), is(PUT.name()));
 
         HyperwalletBankAccount bankAccountResponse = mBankAccountCaptor.getValue();
         assertThat(bankAccountResponse, is(notNullValue()));
@@ -141,6 +143,7 @@ public class HyperwalletUpdateBankAccountTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         verify(mockBankAccountListener, never()).onSuccess(any(HyperwalletBankAccount.class));
         verify(mockBankAccountListener).onFailure(mHyperwalletExceptionCaptor.capture());
+        assertThat(recordedRequest.getMethod(), is(PUT.name()));
 
         HyperwalletException hyperwalletException = mHyperwalletExceptionCaptor.getValue();
         assertThat(hyperwalletException, is(notNullValue()));

@@ -1,0 +1,25 @@
+{
+  "group": "ADDRESS",
+  "fields": [
+    {
+      "category": "ADDRESS",
+      "dataType": "SELECTION",
+      "isRequired": false,
+      "isEditable": true,
+      "name": "country",
+      "label": "Country",
+      "placeholder": "",
+      "fieldSelectionOptions": [
+        {
+          "label": "Bahamas",
+          "value": "BS"
+        }
+      ],
+      "validationMessage": {
+        "length": "",
+        "pattern": "is invalid length or format.",
+        "empty": "You must provide a value for this field"
+      }
+    }
+  ]
+}

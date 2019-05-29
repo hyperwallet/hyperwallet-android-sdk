@@ -1,0 +1,28 @@
+{
+  "code": "CA",
+  "name": "CANADA",
+  "currencies": {
+    "nodes": [
+      {
+        "code": "USD",
+        "name": "USD",
+        "transferMethodTypes": {
+          "nodes": [
+            {
+              "code": "WIRE_ACCOUNT",
+              "name": "Wire Transfer",
+              "fees": {
+                "nodes": [
+                  {
+                    "value": "15.00",
+                    "feeRateType": "FLAT"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

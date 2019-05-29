@@ -14,15 +14,17 @@ import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
 
+import static com.hyperwallet.android.util.HttpMethod.GET;
+
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.exception.HyperwalletRestException;
 import com.hyperwallet.android.listener.HyperwalletListener;
-import com.hyperwallet.android.model.HyperwalletBankCard;
-import com.hyperwallet.android.model.HyperwalletBankCardPagination;
 import com.hyperwallet.android.model.HyperwalletError;
 import com.hyperwallet.android.model.HyperwalletErrors;
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankCard;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankCardPagination;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
@@ -78,6 +80,7 @@ public class HyperwalletListBankCardsTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         verify(mListener).onSuccess(mListTransferMethodCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         HyperwalletPageList<HyperwalletBankCard> hyperwalletBankCardsResponse = mListTransferMethodCaptor.getValue();
 
@@ -106,6 +109,7 @@ public class HyperwalletListBankCardsTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
                 containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards?"));
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(), containsString("type=BANK_CARD"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
@@ -147,9 +151,11 @@ public class HyperwalletListBankCardsTest {
                 is("A system error has occurred. Please try again. If you continue to receive this error, please "
                         + "contact customer support for assistance (Ref ID: 99b4ad5c-4aac-4cc2-aa9b-4b4f4844ac9b)."));
         assertThat(hyperwalletError.getFieldName(), is(nullValue()));
+
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
                 containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards?"));
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(), containsString("type=BANK_CARD"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
