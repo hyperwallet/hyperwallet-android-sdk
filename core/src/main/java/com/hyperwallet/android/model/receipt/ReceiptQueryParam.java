@@ -206,6 +206,8 @@ public class ReceiptQueryParam extends HyperwalletPagination {
         Map<String, String> mFields = new HashMap<>();
 
         public Builder() {
+            mFields.put(LIMIT, String.valueOf(DEFAULT_LIMIT));
+            mFields.put(OFFSET, String.valueOf(DEFAULT_OFFSET));
         }
 
         public Builder createdOn(@NonNull final Date createdOn) {
