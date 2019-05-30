@@ -43,7 +43,6 @@ import org.json.JSONObject;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -218,8 +217,8 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
     }
 
     @Nullable
-    public List<ReceiptDetails> getDetails() {
-        return (List<ReceiptDetails>) mFields.get(ReceiptFields.DETAILS);
+    public ReceiptDetails getDetails() {
+        return (ReceiptDetails) mFields.get(ReceiptFields.DETAILS);
     }
 
     /* Converts a {@code Map<String, Object>} to a {@link JSONObject}
@@ -251,6 +250,9 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
      */
     private void toMap(@NonNull JSONObject jsonObject) throws JSONException {
         mFields = JsonUtils.jsonObjectToMap(jsonObject);
+        if (jsonObject.has(ReceiptFields.DETAILS)) {
+            mFields.put(ReceiptFields.DETAILS, new ReceiptDetails(jsonObject.getJSONObject(ReceiptFields.DETAILS)));
+        }
     }
 
     /**
@@ -354,7 +356,7 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
             return this;
         }
 
-        public Receipt.Builder details(@NonNull final List<ReceiptDetails> details) {
+        public Receipt.Builder details(@NonNull final ReceiptDetails details) {
             mFields.put(ReceiptFields.DETAILS, details);
             return this;
         }

@@ -172,7 +172,7 @@ public final class ReceiptDetails implements HyperwalletJsonModel, Parcelable {
         toMap(jsonObject);
     }
 
-    private ReceiptDetails(@NonNull Map<String, Object> fields) {
+    ReceiptDetails(@NonNull Map<String, Object> fields) {
         super();
         setFields(fields);
     }
