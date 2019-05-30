@@ -2,6 +2,7 @@ package com.hyperwallet.android.model.receipt;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -50,10 +51,26 @@ public class ReceiptTest {
         assertThat(receipt.getField(AMOUNT), is(equalTo("20.00")));
         assertThat(receipt.getField(FEE), is(equalTo("0.00")));
         assertThat(receipt.getField(CURRENCY), is(equalTo("USD")));
+
         ReceiptDetails receiptDetails = receipt.getDetails();
         assertThat(receiptDetails, is(notNullValue()));
         assertThat(receiptDetails.getClientPaymentId(), is(equalTo("8OxXefx5")));
         assertThat(receiptDetails.getPayeeName(), is(equalTo("A Person")));
+
+        assertThat(receipt.getField(FOREIGN_EXCHANGE_CURRENCY), is(nullValue()));
+        assertThat(receipt.getJournalId(), is("3051579"));
+        assertThat(receipt.getType(), is(Receipt.ReceiptTypes.PAYMENT));
+        assertThat(receipt.getCreatedOn(), is(equalTo("2017-11-01T17:08:58")));
+        assertThat(receipt.getEntry(), is(equalTo(Receipt.Entries.CREDIT)));
+        assertThat(receipt.getSourceToken(), is(equalTo("act-123")));
+        assertThat(receipt.getDestinationToken(), is(equalTo("usr-123")));
+        assertThat(receipt.getAmount(), is(equalTo("20.00")));
+        assertThat(receipt.getAmount(), is(equalTo("20.00")));
+        assertThat(receipt.getAmount(), is(equalTo("20.00")));
+        assertThat(receipt.getAmount(), is(equalTo("20.00")));
+        assertThat(receipt.getFee(), is(equalTo("0.00")));
+        assertThat(receipt.getCurrency(), is(equalTo("USD")));
+        assertThat(receipt.getForeignExchangeCurrency(), is(nullValue()));
     }
 
     @Test

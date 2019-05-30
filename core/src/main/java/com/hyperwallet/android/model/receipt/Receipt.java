@@ -362,11 +362,8 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
             return this;
         }
 
-        public Receipt.Builder details(@NonNull final ReceiptDetails details) {
-            try {
-                mFields.put(ReceiptFields.DETAILS, details.toJsonString());
-            } catch (JSONException e) {
-            }
+        public Receipt.Builder details(@NonNull final ReceiptDetails details) throws JSONException {
+            mFields.put(ReceiptFields.DETAILS, details.toJsonString());
             return this;
         }
 

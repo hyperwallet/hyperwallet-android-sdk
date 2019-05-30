@@ -2,6 +2,7 @@ package com.hyperwallet.android.model.receipt;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -27,6 +28,7 @@ import static com.hyperwallet.android.model.receipt.ReceiptDetails.ReceiptDetail
 import static com.hyperwallet.android.model.receipt.ReceiptDetails.ReceiptDetailsFields.PAYEE_NAME;
 import static com.hyperwallet.android.model.receipt.ReceiptDetails.ReceiptDetailsFields.PAYEE_POSTAL_CODE;
 import static com.hyperwallet.android.model.receipt.ReceiptDetails.ReceiptDetailsFields.PAYEE_STATE_PROVINCE;
+import static com.hyperwallet.android.model.receipt.ReceiptDetails.ReceiptDetailsFields.PAYER_NAME;
 import static com.hyperwallet.android.model.receipt.ReceiptDetails.ReceiptDetailsFields.PAYMENT_EXPIRY_DATE;
 import static com.hyperwallet.android.model.receipt.ReceiptDetails.ReceiptDetailsFields.RETURN_OR_RECALL_REASON;
 import static com.hyperwallet.android.model.receipt.ReceiptDetails.ReceiptDetailsFields.SECURITY_ANSWER;
@@ -62,10 +64,17 @@ public class ReceiptDetailsTest {
                 });
         assertThat(receiptDetails, is(notNullValue()));
         assertThat(receiptDetails.getField(CLIENT_PAYMENT_ID), is("8OxXefx5"));
+        assertThat(receiptDetails.getClientPaymentId(), is("8OxXefx5"));
         assertThat(receiptDetails.getField(CARD_NUMBER), is("************7917"));
+        assertThat(receiptDetails.getCardNumber(), is("************7917"));
         assertThat(receiptDetails.getField(PAYEE_NAME), is(equalTo("A Person")));
+        assertThat(receiptDetails.getPayeeName(), is(equalTo("A Person")));
         assertThat(receiptDetails.getField(NOTES), is(equalTo("Buying something")));
+        assertThat(receiptDetails.getNotes(), is(equalTo("Buying something")));
         assertThat(receiptDetails.getField(MEMO), is(equalTo("Wallet required")));
+        assertThat(receiptDetails.getMemo(), is(equalTo("Wallet required")));
+        assertThat(receiptDetails.getField(BRANCH_CITY), is(nullValue()));
+        assertThat(receiptDetails.getBranchCity(), is(nullValue()));
     }
 
     @Test
@@ -100,6 +109,7 @@ public class ReceiptDetailsTest {
                 .payeeName("Payed Name")
                 .payeePostalCode("A2468")
                 .payeeStateProvince("CA")
+                .payerName("Payer Name")
                 .paymentExpiryDate("2020-03-24")
                 .returnOrRecallReason("Some reason")
                 .securityAnswer("Yes")
@@ -109,6 +119,41 @@ public class ReceiptDetailsTest {
         final ReceiptDetails receiptDetails = builder.build();
 
         final JSONObject jsonObject = receiptDetails.toJsonObject();
+
+        assertThat(receiptDetails.getBankAccountId(), is("8017110254"));
+        assertThat(receiptDetails.getBankAccountPurpose(), is("SAVINGS"));
+        assertThat(receiptDetails.getBankId(), is("211179539"));
+        assertThat(receiptDetails.getBankName(), is("GREATER WATERBURY HEALTHCARE FCU"));
+        assertThat(receiptDetails.getBranchAddressLine1(), is("Address 1"));
+        assertThat(receiptDetails.getBranchAddressLine2(), is("Address 2"));
+        assertThat(receiptDetails.getBranchCity(), is("New York"));
+        assertThat(receiptDetails.getBranchCountry(), is("US"));
+        assertThat(receiptDetails.getBranchId(), is("211179539"));
+        assertThat(receiptDetails.getBranchName(), is("TEST BRANCH"));
+        assertThat(receiptDetails.getBranchPostalCode(), is("W123456"));
+        assertThat(receiptDetails.getBranchStateProvince(), is("PA"));
+        assertThat(receiptDetails.getCardNumber(), is("123456"));
+        assertThat(receiptDetails.getCardExpiryDate(), is("2021-12"));
+        assertThat(receiptDetails.getCardHolderName(), is("CardHolder"));
+        assertThat(receiptDetails.getCharityName(), is("Mars"));
+        assertThat(receiptDetails.getCheckNumber(), is("321654"));
+        assertThat(receiptDetails.getClientPaymentId(), is("1357"));
+        assertThat(receiptDetails.getMemo(), is("Some memo"));
+        assertThat(receiptDetails.getNotes(), is("Some notes"));
+        assertThat(receiptDetails.getPayeeAddressLine1(), is("Payee Address 1"));
+        assertThat(receiptDetails.getPayeeAddressLine2(), is("Payee Address 2"));
+        assertThat(receiptDetails.getPayeeCity(), is("San Fransisco"));
+        assertThat(receiptDetails.getPayeeCountry(), is("CA"));
+        assertThat(receiptDetails.getPayeeEmail(), is("payed@email.com"));
+        assertThat(receiptDetails.getPayeeName(), is("Payed Name"));
+        assertThat(receiptDetails.getPayeePostalCode(), is("A2468"));
+        assertThat(receiptDetails.getPayeeStateProvince(), is("CA"));
+        assertThat(receiptDetails.getPayerName(), is("Payer Name"));
+        assertThat(receiptDetails.getPaymentExpiryDate(), is("2020-03-24"));
+        assertThat(receiptDetails.getReturnOrRecallReason(), is("Some reason"));
+        assertThat(receiptDetails.getSecurityQuestion(), is("Security?"));
+        assertThat(receiptDetails.getSecurityAnswer(), is("Yes"));
+        assertThat(receiptDetails.getWebsite(), is("www.some.site.com"));
 
         assertThat(jsonObject.getString(BANK_ACCOUNT_ID), is("8017110254"));
         assertThat(jsonObject.getString(BANK_ACCOUNT_PURPOSE), is("SAVINGS"));
@@ -138,6 +183,7 @@ public class ReceiptDetailsTest {
         assertThat(jsonObject.getString(PAYEE_NAME), is("Payed Name"));
         assertThat(jsonObject.getString(PAYEE_POSTAL_CODE), is("A2468"));
         assertThat(jsonObject.getString(PAYEE_STATE_PROVINCE), is("CA"));
+        assertThat(jsonObject.getString(PAYER_NAME), is("Payer Name"));
         assertThat(jsonObject.getString(PAYMENT_EXPIRY_DATE), is("2020-03-24"));
         assertThat(jsonObject.getString(RETURN_OR_RECALL_REASON), is("Some reason"));
         assertThat(jsonObject.getString(SECURITY_ANSWER), is("Yes"));
