@@ -49,7 +49,7 @@ import java.util.Map;
 /**
  * Represents the receipt fields
  */
-public final class HyperwalletReceipt implements HyperwalletJsonModel, Parcelable {
+public final class Receipt implements HyperwalletJsonModel, Parcelable {
 
     public interface Entries {
         String CREDIT = "CREDIT";
@@ -149,11 +149,11 @@ public final class HyperwalletReceipt implements HyperwalletJsonModel, Parcelabl
 
     private Map<String, Object> mFields;
 
-    public HyperwalletReceipt(@NonNull JSONObject jsonObject) throws JSONException {
+    public Receipt(@NonNull JSONObject jsonObject) throws JSONException {
         toMap(jsonObject);
     }
 
-    private HyperwalletReceipt(@NonNull Map<String, Object> fields) {
+    private Receipt(@NonNull Map<String, Object> fields) {
         super();
         setFields(fields);
     }
@@ -216,8 +216,8 @@ public final class HyperwalletReceipt implements HyperwalletJsonModel, Parcelabl
     }
 
     @Nullable
-    public List<HyperwalletReceiptDetails> getDetails() {
-        return (List<HyperwalletReceiptDetails>) mFields.get(ReceiptFields.DETAILS);
+    public List<ReceiptDetails> getDetails() {
+        return (List<ReceiptDetails>) mFields.get(ReceiptFields.DETAILS);
     }
 
     /* Converts a {@code Map<String, Object>} to a {@link JSONObject}
@@ -262,7 +262,7 @@ public final class HyperwalletReceipt implements HyperwalletJsonModel, Parcelabl
      * @return a {@link String} value that represents the value of a {@link ReceiptField}
      */
     @Nullable
-    public String getField(@NonNull @HyperwalletReceipt.ReceiptField String key) {
+    public String getField(@NonNull @Receipt.ReceiptField String key) {
         return mFields.get(key) != null ? (String) mFields.get(key) : null;
     }
 
@@ -276,18 +276,18 @@ public final class HyperwalletReceipt implements HyperwalletJsonModel, Parcelabl
         dest.writeMap(mFields);
     }
 
-    public static final Creator<HyperwalletReceipt> CREATOR =
-            new Creator<HyperwalletReceipt>() {
+    public static final Creator<Receipt> CREATOR =
+            new Creator<Receipt>() {
                 @Override
-                public HyperwalletReceipt createFromParcel(Parcel source) {
+                public Receipt createFromParcel(Parcel source) {
                     final Map<String, Object> fields = new HashMap<>();
                     source.readMap(fields, this.getClass().getClassLoader());
-                    return new HyperwalletReceipt(fields);
+                    return new Receipt(fields);
                 }
 
                 @Override
-                public HyperwalletReceipt[] newArray(int size) {
-                    return new HyperwalletReceipt[0];
+                public Receipt[] newArray(int size) {
+                    return new Receipt[0];
                 }
             };
 
@@ -302,63 +302,63 @@ public final class HyperwalletReceipt implements HyperwalletJsonModel, Parcelabl
             mFields = new HashMap<>();
         }
 
-        public HyperwalletReceipt.Builder journalId(@NonNull final String journalId) {
+        public Receipt.Builder journalId(@NonNull final String journalId) {
             mFields.put(ReceiptFields.JOURNAL_ID, journalId);
             return this;
         }
 
-        public HyperwalletReceipt.Builder type(@NonNull @ReceiptType final String type) {
+        public Receipt.Builder type(@NonNull @ReceiptType final String type) {
             mFields.put(ReceiptFields.TYPE, type);
             return this;
         }
 
-        public HyperwalletReceipt.Builder createdOn(@NonNull final String createdOn) {
+        public Receipt.Builder createdOn(@NonNull final String createdOn) {
             mFields.put(ReceiptFields.CREATED_ON, createdOn);
             return this;
         }
 
-        public HyperwalletReceipt.Builder entry(@NonNull @Entry final String entry) {
+        public Receipt.Builder entry(@NonNull @Entry final String entry) {
             mFields.put(ReceiptFields.ENTRY, entry);
             return this;
         }
 
-        public HyperwalletReceipt.Builder sourceToken(@NonNull String sourceToken) {
+        public Receipt.Builder sourceToken(@NonNull String sourceToken) {
             mFields.put(ReceiptFields.SOURCE_TOKEN, sourceToken);
             return this;
         }
 
-        public HyperwalletReceipt.Builder destinationToken(@NonNull final String destinationToken) {
+        public Receipt.Builder destinationToken(@NonNull final String destinationToken) {
             mFields.put(ReceiptFields.DESTINATION_TOKEN, destinationToken);
             return this;
         }
 
-        public HyperwalletReceipt.Builder fee(@NonNull final String fee) {
+        public Receipt.Builder fee(@NonNull final String fee) {
             mFields.put(ReceiptFields.DESTINATION_TOKEN, fee);
             return this;
         }
 
-        public HyperwalletReceipt.Builder foreignExchangeRate(@NonNull final String foreignExchangeRate) {
+        public Receipt.Builder foreignExchangeRate(@NonNull final String foreignExchangeRate) {
             mFields.put(ReceiptFields.FOREIGN_EXCHANGE_RATE, foreignExchangeRate);
             return this;
         }
 
-        public HyperwalletReceipt.Builder foreignExchangeCurrency(@NonNull final String foreignExchangeCurrency) {
+        public Receipt.Builder foreignExchangeCurrency(@NonNull final String foreignExchangeCurrency) {
             mFields.put(ReceiptFields.FOREIGN_EXCHANGE_CURRENCY, foreignExchangeCurrency);
             return this;
         }
 
-        public HyperwalletReceipt.Builder currency(@NonNull final String currency) {
+        public Receipt.Builder currency(@NonNull final String currency) {
             mFields.put(ReceiptFields.CURRENCY, currency);
             return this;
         }
 
-        public HyperwalletReceipt.Builder details(@NonNull final List<HyperwalletReceiptDetails> details) {
+        public Receipt.Builder details(@NonNull final List<ReceiptDetails> details) {
             mFields.put(ReceiptFields.DETAILS, details);
             return this;
         }
 
-        public HyperwalletReceipt build() {
-            return new HyperwalletReceipt(mFields);
+        public Receipt build() {
+            return new Receipt(mFields);
         }
     }
 }
