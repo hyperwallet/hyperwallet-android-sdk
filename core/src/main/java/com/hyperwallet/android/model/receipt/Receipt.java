@@ -149,9 +149,13 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
     }
 
     private Map<String, Object> mFields;
+    private ReceiptDetails mReceiptDetails;
 
     public Receipt(@NonNull JSONObject jsonObject) throws JSONException {
         toMap(jsonObject);
+        if (jsonObject.has(ReceiptFields.DETAILS)) {
+            mReceiptDetails = new ReceiptDetails(jsonObject.getJSONObject(ReceiptFields.DETAILS));
+        }
     }
 
     private Receipt(@NonNull Map<String, Object> fields) {
@@ -218,7 +222,7 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
 
     @Nullable
     public ReceiptDetails getDetails() {
-        return (ReceiptDetails) mFields.get(ReceiptFields.DETAILS);
+        return mReceiptDetails;
     }
 
     /* Converts a {@code Map<String, Object>} to a {@link JSONObject}
@@ -250,9 +254,6 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
      */
     private void toMap(@NonNull JSONObject jsonObject) throws JSONException {
         mFields = JsonUtils.jsonObjectToMap(jsonObject);
-        if (jsonObject.has(ReceiptFields.DETAILS)) {
-            mFields.put(ReceiptFields.DETAILS, new ReceiptDetails(jsonObject.getJSONObject(ReceiptFields.DETAILS)));
-        }
     }
 
     /**
@@ -336,8 +337,13 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
             return this;
         }
 
+        public Receipt.Builder amount(@NonNull final String amount) {
+            mFields.put(ReceiptFields.AMOUNT, amount);
+            return this;
+        }
+
         public Receipt.Builder fee(@NonNull final String fee) {
-            mFields.put(ReceiptFields.DESTINATION_TOKEN, fee);
+            mFields.put(ReceiptFields.FEE, fee);
             return this;
         }
 
@@ -357,7 +363,10 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
         }
 
         public Receipt.Builder details(@NonNull final ReceiptDetails details) {
-            mFields.put(ReceiptFields.DETAILS, details);
+            try {
+                mFields.put(ReceiptFields.DETAILS, details.toJsonString());
+            } catch (JSONException e) {
+            }
             return this;
         }
 
