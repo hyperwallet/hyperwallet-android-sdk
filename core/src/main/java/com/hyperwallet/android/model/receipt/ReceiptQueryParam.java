@@ -27,23 +27,23 @@
 
 package com.hyperwallet.android.model.receipt;
 
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptQueryParamFields.AMOUNT;
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptQueryParamFields.CREATED_AFTER;
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptQueryParamFields.CREATED_BEFORE;
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptQueryParamFields.CREATED_ON;
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptQueryParamFields.CURRENCY;
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptQueryParamFields.LIMIT;
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptQueryParamFields.OFFSET;
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptQueryParamFields.SORT_BY;
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptQueryParamFields.TYPE;
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptSortables.ASCENDANT_AMOUNT;
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptSortables.ASCENDANT_CREATE_ON;
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptSortables.ASCENDANT_CURRENCY;
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptSortables.ASCENDANT_TYPE;
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptSortables.DESCENDANT_AMOUNT;
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptSortables.DESCENDANT_CREATE_ON;
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptSortables.DESCENDANT_CURRENCY;
-import static com.hyperwallet.android.model.receipt.HyperwalletReceiptQueryParam.ReceiptSortables.DESCENDANT_TYPE;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.AMOUNT;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.CREATED_AFTER;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.CREATED_BEFORE;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.CREATED_ON;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.CURRENCY;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.LIMIT;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.OFFSET;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.SORT_BY;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.TYPE;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.ASCENDANT_AMOUNT;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.ASCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.ASCENDANT_CURRENCY;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.ASCENDANT_TYPE;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.DESCENDANT_AMOUNT;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.DESCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.DESCENDANT_CURRENCY;
+import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.DESCENDANT_TYPE;
 import static com.hyperwallet.android.util.DateUtil.fromDateTimeString;
 import static com.hyperwallet.android.util.DateUtil.toDateTimeFormat;
 
@@ -60,9 +60,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents the query parameters for getting list of receipts {@link HyperwalletReceipt}
+ * Represents the query parameters for getting list of receipts {@link Receipt}
  */
-public class HyperwalletReceiptQueryParam extends HyperwalletPagination {
+public class ReceiptQueryParam extends HyperwalletPagination {
 
     /**
      * Common Receipt detail field keys
@@ -128,7 +128,7 @@ public class HyperwalletReceiptQueryParam extends HyperwalletPagination {
     private final String mAmount;
     private final String mCurrency;
 
-    public HyperwalletReceiptQueryParam(@NonNull final Map<String, String> fields) {
+    public ReceiptQueryParam(@NonNull final Map<String, String> fields) {
         super(fields);
         mFields = fields;
         mCreatedOn = getDateValueBy(fields, CREATED_ON);
@@ -288,8 +288,8 @@ public class HyperwalletReceiptQueryParam extends HyperwalletPagination {
             return this;
         }
 
-        public HyperwalletReceiptQueryParam build() {
-            return new HyperwalletReceiptQueryParam(mFields);
+        public ReceiptQueryParam build() {
+            return new ReceiptQueryParam(mFields);
         }
     }
 }
