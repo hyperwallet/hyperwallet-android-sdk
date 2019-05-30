@@ -37,6 +37,8 @@ import com.hyperwallet.android.model.graphql.keyed.HyperwalletTransferMethodConf
 import com.hyperwallet.android.model.graphql.query.HyperwalletTransferMethodConfigurationFieldQuery;
 import com.hyperwallet.android.model.graphql.query.HyperwalletTransferMethodConfigurationKeysQuery;
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
+import com.hyperwallet.android.model.receipt.Receipt;
+import com.hyperwallet.android.model.receipt.ReceiptQueryParam;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountPagination;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankCard;
@@ -678,6 +680,47 @@ public class Hyperwallet {
                         new TypeReference<HyperwalletTransferMethodConfigurationFieldResult>() {
                         }, listener);
         performGqlTransaction(builder, listener);
+    }
+
+
+    /**
+     * Returns the list of {@link Receipt}s for the User associated with the authentication token
+     * returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
+     * or an empty {@code List} if non exist.
+     *
+     * <p>The ordering and filtering of {@code HyperwalletReceipts} will be based on the criteria specified within
+     * the {@link ReceiptQueryParam} object, if it is not null. Otherwise the default ordering and
+     * filtering will be applied:</p>
+     *
+     * <ul>
+     * <li>Offset: 0</li>
+     * <li>Limit: 10</li>
+     * <li>Created Before: N/A</li>
+     * <li>Created After: N/A</li>
+     * <li>currency: N/A</li>
+     * <li>Sort By: Created On, Type, Amount, Currency</li>
+     * </ul>
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param receiptQueryParam the ordering and filtering criteria
+     * @param listener          the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void listReceipts(@NonNull final ReceiptQueryParam receiptQueryParam,
+            @NonNull final HyperwalletListener<HyperwalletPageList<Receipt>> listener) {
+        Map<String, String> urlQuery = receiptQueryParam.buildQuery();
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/receipts");
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<HyperwalletPageList<Receipt>>() {
+                }, listener).query(urlQuery);
+
+        performRestTransaction(builder, listener);
     }
 
     private void performGqlTransaction(@NonNull final GqlTransaction.Builder builder,
