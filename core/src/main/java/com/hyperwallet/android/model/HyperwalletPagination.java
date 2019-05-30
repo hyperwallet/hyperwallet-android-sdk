@@ -31,8 +31,8 @@ public class HyperwalletPagination {
     private static final String TAG = HyperwalletPagination.class.getName();
     private final static String PAGINATION_OFFSET = "offset";
     private final static String PAGINATION_LIMIT = "limit";
-    private final static int DEFAULT_LIMIT = 10;
-    private final static int DEFAULT_OFFSET = 0;
+    protected final static int DEFAULT_LIMIT = 10;
+    protected final static int DEFAULT_OFFSET = 0;
     private int mOffset;
     private int mLimit;
 
