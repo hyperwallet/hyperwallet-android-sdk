@@ -65,6 +65,7 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
     }
 
     public interface ReceiptTypes {
+        String PAYMENT = "PAYMENT"; // todo: check
         String CARD_ACTIVATION_FEE = "CARD_ACTIVATION_FEE";
         String CARD_ACTIVATION_FEE_WAIVER = "CARD_ACTIVATION_FEE_WAIVER";
         String CARD_FEE = "CARD_FEE";
@@ -88,6 +89,7 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
+            ReceiptTypes.PAYMENT,
             ReceiptTypes.CARD_ACTIVATION_FEE,
             ReceiptTypes.CARD_ACTIVATION_FEE_WAIVER,
             ReceiptTypes.CARD_FEE,
@@ -170,14 +172,14 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
     }
 
     @Nullable
-    @Entry
     public String getCreatedOn() {
         return (String) mFields.get(ReceiptFields.CREATED_ON);
     }
 
     @Nullable
+    @Entry
     public String getEntry() {
-        return (String) mFields.get(ReceiptFields.JOURNAL_ID);
+        return (String) mFields.get(ReceiptFields.ENTRY);
     }
 
     @Nullable
@@ -202,12 +204,12 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
 
     @Nullable
     public String getForeignExchangeRate() {
-        return (String) mFields.get(ReceiptFields.FEE);
+        return (String) mFields.get(ReceiptFields.FOREIGN_EXCHANGE_RATE);
     }
 
     @Nullable
     public String getForeignExchangeCurrency() {
-        return (String) mFields.get(ReceiptFields.FEE);
+        return (String) mFields.get(ReceiptFields.FOREIGN_EXCHANGE_CURRENCY);
     }
 
     @Nullable
