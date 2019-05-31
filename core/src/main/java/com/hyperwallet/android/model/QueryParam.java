@@ -38,9 +38,9 @@ import java.util.Map;
 public class QueryParam {
 
     private static final String TAG = QueryParam.class.getName();
-    protected static final String TRANSFER_METHOD_CREATE_BEFORE = "createdBefore";
-    protected static final String TRANSFER_METHOD_CREATE_AFTER = "createdAfter";
-    protected static final String TRANSFER_METHOD_SORT_BY = "sortBy";
+    protected static final String CREATE_BEFORE = "createdBefore";
+    protected static final String CREATE_AFTER = "createdAfter";
+    protected static final String SORT_BY = "sortBy";
     private final static String PAGINATION_OFFSET = "offset";
     private final static String PAGINATION_LIMIT = "limit";
     private final static int DEFAULT_LIMIT = 10;
@@ -59,9 +59,9 @@ public class QueryParam {
     public QueryParam(@NonNull Map<String, String> urlQueryMap) {
         mOffset = getIntegerValueBy(urlQueryMap, PAGINATION_OFFSET, DEFAULT_OFFSET);
         mLimit = getIntegerValueBy(urlQueryMap, PAGINATION_LIMIT, DEFAULT_LIMIT);
-        mCreatedBefore = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_BEFORE);
-        mCreatedAfter = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_AFTER);
-        mSortBy = urlQueryMap.get(TRANSFER_METHOD_SORT_BY);
+        mCreatedBefore = getDateValueBy(urlQueryMap, CREATE_BEFORE);
+        mCreatedAfter = getDateValueBy(urlQueryMap, CREATE_AFTER);
+        mSortBy = urlQueryMap.get(SORT_BY);
 
     }
 
@@ -173,15 +173,15 @@ public class QueryParam {
         query.put(PAGINATION_LIMIT, String.valueOf(mLimit));
 
         if (mCreatedBefore != null) {
-            query.put(TRANSFER_METHOD_CREATE_BEFORE, DateUtil.toDateTimeFormat(mCreatedBefore));
+            query.put(CREATE_BEFORE, DateUtil.toDateTimeFormat(mCreatedBefore));
         }
 
         if (mCreatedAfter != null) {
-            query.put(TRANSFER_METHOD_CREATE_AFTER, DateUtil.toDateTimeFormat(mCreatedAfter));
+            query.put(CREATE_AFTER, DateUtil.toDateTimeFormat(mCreatedAfter));
         }
 
         if (mSortBy != null) {
-            query.put(TRANSFER_METHOD_SORT_BY, mSortBy);
+            query.put(SORT_BY, mSortBy);
         }
 
         return query;
@@ -189,19 +189,19 @@ public class QueryParam {
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
-            TransferMethodSortable.ASCENDANT_CREATE_ON,
-            TransferMethodSortable.ASCENDANT_STATUS,
-            TransferMethodSortable.DESCENDANT_CREATE_ON,
-            TransferMethodSortable.DESCENDANT_STATUS
+            Sortable.ASCENDANT_CREATE_ON,
+            Sortable.ASCENDANT_STATUS,
+            Sortable.DESCENDANT_CREATE_ON,
+            Sortable.DESCENDANT_STATUS
     })
     public @interface TransferMethodSortableQuery {
     }
 
-    interface TransferMethodSortable {
-        String ASCENDANT_CREATE_ON = "+createdOn";
-        String ASCENDANT_STATUS = "+status";
-        String DESCENDANT_CREATE_ON = "-createdOn";
-        String DESCENDANT_STATUS = "-status";
+    public static final class Sortable {
+        public static final String ASCENDANT_CREATE_ON = "+createdOn";
+        public static final String ASCENDANT_STATUS = "+status";
+        public static final String DESCENDANT_CREATE_ON = "-createdOn";
+        public static final String DESCENDANT_STATUS = "-status";
     }
 
     @NonNull
@@ -278,7 +278,7 @@ public class QueryParam {
         }
 
         /**
-         * Specify the sort order one of the {@link TransferMethodSortable}.
+         * Specify the sort order one of the {@link Sortable}.
          *
          * @param sortBy Sort order string
          * @return Builder

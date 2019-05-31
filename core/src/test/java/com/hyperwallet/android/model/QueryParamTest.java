@@ -3,7 +3,7 @@ package com.hyperwallet.android.model;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import static com.hyperwallet.android.model.QueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_CREATE_ON;
 
 import org.junit.Test;
 
