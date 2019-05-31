@@ -3,8 +3,11 @@ package com.hyperwallet.android.model;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import static com.hyperwallet.android.model.QueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON;
+
 import org.junit.Test;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,5 +52,26 @@ public class QueryParamTest {
         Map<String, String> resultQueryMap = mapPagination.buildQuery();
         assertThat(resultQueryMap.get("limit"), is("3"));
         assertThat(resultQueryMap.get("offset"), is("7"));
+    }
+
+    @Test
+    public void testBuilder_verifyValues() {
+        Calendar dateAfter = Calendar.getInstance();
+        dateAfter.set(2019, 6, 21, 12, 45);
+        Calendar dateBefore = Calendar.getInstance();
+        dateBefore.set(2019, 6, 20, 9, 10);
+        QueryParam pagination = QueryParam.builder()
+                .offset(100)
+                .limit(20)
+                .sortBy(DESCENDANT_CREATE_ON)
+                .createdAfter(dateAfter.getTime())
+                .createdBefore(dateBefore.getTime())
+                .build();
+
+        assertThat(pagination.getOffset(), is(100));
+        assertThat(pagination.getLimit(), is(20));
+        assertThat(pagination.getSortBy(), is(DESCENDANT_CREATE_ON));
+        assertThat(pagination.getCreatedAfter().getTime(), is(dateAfter.getTimeInMillis()));
+        assertThat(pagination.getCreatedBefore().getTime(), is(dateBefore.getTimeInMillis()));
     }
 }
