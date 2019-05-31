@@ -197,11 +197,11 @@ public class QueryParam {
     public @interface TransferMethodSortableQuery {
     }
 
-    public final class TransferMethodSortable {
-        public static final String ASCENDANT_CREATE_ON = "+createdOn";
-        public static final String ASCENDANT_STATUS = "+status";
-        public static final String DESCENDANT_CREATE_ON = "-createdOn";
-        public static final String DESCENDANT_STATUS = "-status";
+    interface TransferMethodSortable {
+        String ASCENDANT_CREATE_ON = "+createdOn";
+        String ASCENDANT_STATUS = "+status";
+        String DESCENDANT_CREATE_ON = "-createdOn";
+        String DESCENDANT_STATUS = "-status";
     }
 
     @NonNull
