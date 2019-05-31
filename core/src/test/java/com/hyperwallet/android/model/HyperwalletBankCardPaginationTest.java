@@ -151,13 +151,13 @@ public class HyperwalletBankCardPaginationTest {
         Calendar dateOn = Calendar.getInstance();
         dateOn.set(2019, 6, 20, 10, 21);
         HyperwalletBankCardPagination pagination = HyperwalletBankCardPagination.builder()
+                .createdAfter(dateAfter.getTime())
+                .createdBefore(dateBefore.getTime())
+                .createdOn(dateOn.getTime())
                 .offset(100)
                 .limit(20)
                 .sortBy(DESCENDANT_CREATE_ON)
                 .status(ACTIVATED)
-                .createdAfter(dateAfter.getTime())
-                .createdBefore(dateBefore.getTime())
-                .createdOn(dateOn.getTime())
                 .build();
 
         assertThat(pagination.getOffset(), is(100));

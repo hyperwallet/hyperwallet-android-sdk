@@ -194,7 +194,7 @@ public class QueryParam {
             Sortable.DESCENDANT_CREATE_ON,
             Sortable.DESCENDANT_STATUS
     })
-    public @interface TransferMethodSortableQuery {
+    public @interface SortableQuery {
     }
 
     public static final class Sortable {
@@ -284,7 +284,7 @@ public class QueryParam {
          * @return Builder
          */
         @SuppressWarnings("unchecked")
-        public B sortBy(@NonNull @TransferMethodSortableQuery String sortBy) {
+        public B sortBy(@NonNull @SortableQuery String sortBy) {
             mSortBy = sortBy;
             return (B) this;
         }
