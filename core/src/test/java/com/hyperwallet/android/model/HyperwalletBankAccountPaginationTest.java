@@ -6,8 +6,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.VERIFIED;
-import static com.hyperwallet.android.model.QueryParam.TransferMethodSortable.ASCENDANT_CREATE_ON;
-import static com.hyperwallet.android.model.QueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_CREATE_ON;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountPagination;
