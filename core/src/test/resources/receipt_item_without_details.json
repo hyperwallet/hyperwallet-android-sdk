@@ -1,0 +1,9 @@
+{
+  "journalId": "3051582",
+  "type": "CARD_ACTIVATION_FEE",
+  "createdOn": "2017-11-01T17:09:16",
+  "entry": "DEBIT",
+  "sourceToken": "usr-123",
+  "amount": "1.95",
+  "currency": "USD"
+}
