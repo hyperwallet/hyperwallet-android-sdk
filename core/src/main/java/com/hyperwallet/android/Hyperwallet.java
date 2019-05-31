@@ -58,11 +58,11 @@ import java.util.concurrent.Executors;
 
 /**
  * The {@code Hyperwallet} class is an Android specific implementation of the
- * <a href="https://portal.hyperwallet.com/docs">Hyperwallet platform HyperwalletUser APIs.</a>
+ * <a href="https://portal.hyperwallet.com/docs">Hyperwallet platform tUser APIs.</a>
  *
  * <p>A single instance of the {@code Hyperwallet} class is maintained. Resetting the current instance by calling
  * {@link #getInstance(HyperwalletAuthenticationTokenProvider)} is critical when switching between authenticated Users.
- * Failure to do so will result in incorrect access and incorrect modifications to HyperwalletUser data.</p>
+ * Failure to do so will result in incorrect access and incorrect modifications to User data.</p>
  *
  * <p>Authentication with the Hyperwallet platform is accomplished through the usage of JSON Web Tokens. At
  * instantiation an {@link HyperwalletAuthenticationTokenProvider} is set as a member variable to provide the
@@ -123,7 +123,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Creates a {@link HyperwalletBankAccount} for the HyperwalletUser associated with the authentication token returned from
+     * Creates a {@link HyperwalletBankAccount} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
@@ -147,7 +147,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Returns the list of {@link HyperwalletBankAccount}s for the HyperwalletUser associated with the authentication token
+     * Returns the list of {@link HyperwalletBankAccount}s for the User associated with the authentication token
      * returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
      * or an empty {@code List} if non exist.
@@ -188,7 +188,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Creates a {@link HyperwalletBankCard} for the HyperwalletUser associated with the authentication token returned from
+     * Creates a {@link HyperwalletBankCard} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
@@ -212,7 +212,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Creates a {@link PayPalAccount} for the HyperwalletUser associated with the authentication token returned from
+     * Creates a {@link PayPalAccount} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
@@ -304,7 +304,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Updates the {@link HyperwalletBankAccount} for the HyperwalletUser associated with the authentication token returned from
+     * Updates the {@link HyperwalletBankAccount} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
      * <p>To identify the {@code HyperwalletBankAccount} that is going to be updated, the transfer method token must be
@@ -332,7 +332,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Updates the {@link HyperwalletBankCard} for the HyperwalletUser associated with the authentication token returned from
+     * Updates the {@link HyperwalletBankCard} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
      * <p>To identify the {@code HyperwalletBankCard} that is going to be updated, the transfer method token must be
@@ -361,7 +361,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Updates the {@link PayPalAccount} for the HyperwalletUser associated with the authentication token returned from
+     * Updates the {@link PayPalAccount} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
      * <p>To identify the {@code PayPalAccount} that is going to be updated, the transfer method token must be
@@ -390,7 +390,7 @@ public class Hyperwallet {
 
     /**
      * Deactivates the {@link HyperwalletBankAccount} linked to the transfer method token specified. The
-     * {@code HyperwalletBankAccount} being deactivated must belong to the HyperwalletUser that is associated with the
+     * {@code HyperwalletBankAccount} being deactivated must belong to the User that is associated with the
      * authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
@@ -422,7 +422,7 @@ public class Hyperwallet {
 
     /**
      * Deactivates the {@link HyperwalletBankCard} linked to the transfer method token specified. The
-     * {@code HyperwalletBankCard} being deactivated must\ belong to the HyperwalletUser that is associated with the
+     * {@code HyperwalletBankCard} being deactivated must\ belong to the User that is associated with the
      * authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
@@ -454,7 +454,7 @@ public class Hyperwallet {
 
     /**
      * Deactivates the {@link PayPalAccount} linked to the transfer method token specified. The
-     * {@code PayPalAccount} being deactivated must belong to the HyperwalletUser that is associated with the
+     * {@code PayPalAccount} being deactivated must belong to the User that is associated with the
      * authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
@@ -486,7 +486,7 @@ public class Hyperwallet {
 
     /**
      * Returns the {@link HyperwalletTransferMethod} (Bank Account, Bank Card, PayPay Account, Prepaid Card,
-     * Paper Checks) for the HyperwalletUser associated with the authentication token returned from
+     * Paper Checks) for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
      * or an empty {@code List} if non exist.
      *
@@ -526,7 +526,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Returns the {@link HyperwalletBankCard} for the HyperwalletUser associated with the authentication token returned from
+     * Returns the {@link HyperwalletBankCard} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
      * or an empty {@code List} if non exist.
      *
@@ -565,7 +565,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Returns the {@link PayPalAccount} for the HyperwalletUser associated with the authentication token returned from
+     * Returns the {@link PayPalAccount} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
      * or an empty {@code List} if non exist.
      *
@@ -630,7 +630,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Returns the transfer method configuration key set, processing times, and fees for the HyperwalletUser that is associated
+     * Returns the transfer method configuration key set, processing times, and fees for the User that is associated
      * with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
@@ -654,7 +654,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Returns the transfer method configuration field set for the HyperwalletUser that is associated with the authentication
+     * Returns the transfer method configuration field set for the User that is associated with the authentication
      * token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
