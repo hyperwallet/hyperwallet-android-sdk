@@ -14,6 +14,8 @@ import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
 
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.CARD_ACTIVATION_FEE;
+
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.exception.HyperwalletRestException;
@@ -40,6 +42,8 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.robolectric.RobolectricTestRunner;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -113,6 +117,74 @@ public class HyperwalletListReceiptsTest {
     }
 
     @Test
+    public void testListReceipts_returnsCreditReceipt() throws InterruptedException {
+
+        String responseBody = mExternalResourceManager.getResourceContent("receipt_credit_response.json");
+        mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
+
+        final ReceiptQueryParam.Builder builder = new ReceiptQueryParam.Builder();
+        ReceiptQueryParam receiptQueryParam = builder.build();
+
+        assertThat(receiptQueryParam, is(notNullValue()));
+        Hyperwallet.getDefault().listReceipts(receiptQueryParam, mListener);
+
+        mAwait.await(150, TimeUnit.MILLISECONDS);
+
+        RecordedRequest recordedRequest = mServer.getRequest();
+        verify(mListener).onSuccess(mCaptor.capture());
+        verify(mListener, never()).onFailure(any(HyperwalletException.class));
+
+        HyperwalletPageList<Receipt> receiptResponse = mCaptor.getValue();
+
+        assertThat(receiptResponse.getCount(), is(1));
+        assertThat(receiptResponse.getDataList(), hasSize(1));
+        assertThat(receiptResponse.getOffset(), is(0));
+        assertThat(receiptResponse.getLimit(), is(10));
+
+        assertThat(recordedRequest.getPath(),
+                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/receipts?"));
+        assertThat(recordedRequest.getPath(), containsString("limit=10"));
+        assertThat(recordedRequest.getPath(), containsString("offset=0"));
+
+        Receipt receipt = receiptResponse.getDataList().get(0);
+        assertThat(receipt.getEntry(), is(Receipt.Entries.CREDIT));
+    }
+
+    @Test
+    public void testListReceipts_returnsDebitReceipt() throws InterruptedException {
+
+        String responseBody = mExternalResourceManager.getResourceContent("receipt_debit_response.json");
+        mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
+
+        final ReceiptQueryParam.Builder builder = new ReceiptQueryParam.Builder();
+        ReceiptQueryParam receiptQueryParam = builder.build();
+
+        assertThat(receiptQueryParam, is(notNullValue()));
+        Hyperwallet.getDefault().listReceipts(receiptQueryParam, mListener);
+
+        mAwait.await(150, TimeUnit.MILLISECONDS);
+
+        RecordedRequest recordedRequest = mServer.getRequest();
+        verify(mListener).onSuccess(mCaptor.capture());
+        verify(mListener, never()).onFailure(any(HyperwalletException.class));
+
+        HyperwalletPageList<Receipt> receiptResponse = mCaptor.getValue();
+
+        assertThat(receiptResponse.getCount(), is(1));
+        assertThat(receiptResponse.getDataList(), hasSize(1));
+        assertThat(receiptResponse.getOffset(), is(0));
+        assertThat(receiptResponse.getLimit(), is(10));
+
+        assertThat(recordedRequest.getPath(),
+                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/receipts?"));
+        assertThat(recordedRequest.getPath(), containsString("limit=10"));
+        assertThat(recordedRequest.getPath(), containsString("offset=0"));
+
+        Receipt receipt = receiptResponse.getDataList().get(0);
+        assertThat(receipt.getEntry(), is(Receipt.Entries.DEBIT));
+    }
+
+    @Test
     public void testListReceipts_returnsNoReceipts() throws InterruptedException {
         mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody("").mock();
 
@@ -122,7 +194,7 @@ public class HyperwalletListReceiptsTest {
         assertThat(receiptQueryParam, is(notNullValue()));
         Hyperwallet.getDefault().listReceipts(receiptQueryParam, mListener);
 
-        mAwait.await(50, TimeUnit.MILLISECONDS);
+        mAwait.await(100, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
@@ -173,4 +245,73 @@ public class HyperwalletListReceiptsTest {
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
     }
+
+    @Test
+    public void testListReceipts_verifyQueryParams() throws InterruptedException {
+
+        String responseBody = mExternalResourceManager.getResourceContent("receipts_response.json");
+        mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
+
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2019, 5, 30, 0, 0, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date createdOn = calendar.getTime();
+        calendar.set(2019, 4, 20);
+        Date createdBefore = calendar.getTime();
+        calendar.set(2018, 8, 10);
+        Date createdAfter = calendar.getTime();
+
+        final ReceiptQueryParam.Builder builder = new ReceiptQueryParam.Builder()
+                .createdOn(createdOn)
+                .createdBefore(createdBefore)
+                .createdAfter(createdAfter)
+                .sortByCreatedOnAsc()
+                .amount("20.00")
+                .currency("USD")
+                .type(CARD_ACTIVATION_FEE)
+                .limit(40)
+                .offset(120)
+                .currency("USD");
+
+        ReceiptQueryParam receiptQueryParam = builder.build();
+        Hyperwallet.getDefault().listReceipts(receiptQueryParam, mListener);
+        mAwait.await(50, TimeUnit.MILLISECONDS);
+
+        RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getPath(),
+                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/receipts?"));
+        assertThat(recordedRequest.getPath(), containsString("amount=20.00"));
+        assertThat(recordedRequest.getPath(), containsString("limit=40"));
+        assertThat(recordedRequest.getPath(), containsString("offset=120"));
+        assertThat(recordedRequest.getPath(), containsString("type=CARD_ACTIVATION_FEE"));
+        assertThat(recordedRequest.getPath(), containsString("currency=USD"));
+        assertThat(recordedRequest.getPath(), containsString("createdOn=2019-06-30T00:00:00"));
+        assertThat(recordedRequest.getPath(), containsString("createdAfter=2018-09-10T00:00:00"));
+        assertThat(recordedRequest.getPath(), containsString("createdBefore=2019-05-20T00:00:00"));
+        assertThat(recordedRequest.getPath(), containsString("sortBy=+createdOn"));
+    }
+
+    @Test
+    public void testListReceipts_verifyDescSortQueryParams() throws InterruptedException {
+
+        String responseBody = mExternalResourceManager.getResourceContent("receipts_response.json");
+        mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
+
+
+        final ReceiptQueryParam.Builder builder = new ReceiptQueryParam.Builder()
+                .sortByCurrencyDesc();
+
+        ReceiptQueryParam receiptQueryParam = builder.build();
+        Hyperwallet.getDefault().listReceipts(receiptQueryParam, mListener);
+        mAwait.await(50, TimeUnit.MILLISECONDS);
+
+        RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getPath(),
+                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/receipts?"));
+        assertThat(recordedRequest.getPath(), containsString("limit=10"));
+        assertThat(recordedRequest.getPath(), containsString("offset=0"));
+        assertThat(recordedRequest.getPath(), containsString("sortBy=-currency"));
+    }
+
 }
