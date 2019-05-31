@@ -40,7 +40,7 @@ import java.util.Map;
 /**
  * Represents the User fields.
  */
-public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
+public final class User implements HyperwalletJsonModel, Parcelable {
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
@@ -53,12 +53,12 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     public @interface UserStatus {
     }
 
-    public interface UserStatuses {
-        String PRE_ACTIVATED = "PRE_ACTIVATED";
-        String ACTIVATED = "ACTIVATED";
-        String LOCKED = "LOCKED";
-        String FROZEN = "FROZEN";
-        String DE_ACTIVATED = "DE_ACTIVATED";
+    public final class UserStatuses {
+        public static final String PRE_ACTIVATED = "PRE_ACTIVATED";
+        public static final String ACTIVATED = "ACTIVATED";
+        public static final String LOCKED = "LOCKED";
+        public static final String FROZEN = "FROZEN";
+        public static final String DE_ACTIVATED = "DE_ACTIVATED";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -73,18 +73,18 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     }
 
 
-    public interface VerificationStatuses {
-        String NOT_REQUIRED = "NOT_REQUIRED";
-        String REQUIRED = "REQUIRED";
-        String FAILED = "FAILED";
-        String UNDER_REVIEW = "UNDER_REVIEW";
-        String VERIFIED = "VERIFIED";
+    public final class VerificationStatuses {
+        public static final String NOT_REQUIRED = "NOT_REQUIRED";
+        public static final String REQUIRED = "REQUIRED";
+        public static final String FAILED = "FAILED";
+        public static final String UNDER_REVIEW = "UNDER_REVIEW";
+        public static final String VERIFIED = "VERIFIED";
     }
 
-    public interface BusinessContactRoles {
-        String DIRECTOR = "DIRECTOR";
-        String OWNER = "OWNER";
-        String OTHER = "OTHER";
+    public final class BusinessContactRoles {
+        public static final String DIRECTOR = "DIRECTOR";
+        public static final String OWNER = "OWNER";
+        public static final String OTHER = "OTHER";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -97,9 +97,9 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
 
     }
 
-    public interface BusinessTypes {
-        String CORPORATION = "CORPORATION";
-        String PARTNERSHIP = "PARTNERSHIP";
+    public final class BusinessTypes {
+        public static final String CORPORATION = "CORPORATION";
+        public static final String PARTNERSHIP = "PARTNERSHIP";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -111,9 +111,9 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
 
     }
 
-    public interface GovernmentIdTypes {
-        String PASSPORT = "PASSPORT";
-        String NATIONAL_ID_CARD = "NATIONAL_ID_CARD";
+    public final class GovernmentIdTypes {
+        public static final String PASSPORT = "PASSPORT";
+        public static final String NATIONAL_ID_CARD = "NATIONAL_ID_CARD";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -125,9 +125,9 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
 
     }
 
-    public interface ProfileTypes {
-        String INDIVIDUAL = "INDIVIDUAL";
-        String BUSINESS = "BUSINESS";
+    public final class ProfileTypes {
+        public static final String INDIVIDUAL = "INDIVIDUAL";
+        public static final String BUSINESS = "BUSINESS";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -139,9 +139,9 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
 
     }
 
-    public interface Genders {
-        String MALE = "MALE";
-        String FEMALE = "FEMALE";
+    public final class Genders {
+        public static final String MALE = "MALE";
+        public static final String FEMALE = "FEMALE";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -251,11 +251,11 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
 
     private Map<String, Object> mFields;
 
-    public HyperwalletUser(@NonNull JSONObject jsonObject) throws JSONException {
+    public User(@NonNull JSONObject jsonObject) throws JSONException {
         toMap(jsonObject);
     }
 
-    public HyperwalletUser(@NonNull Map<String, Object> fields) {
+    public User(@NonNull Map<String, Object> fields) {
         super();
         setFields(fields);
     }
@@ -298,7 +298,7 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
      * Please use {@code getField(@NonNull String key, @NonNull Class<T> clazz)} if the value is not a {@link String}
      * </p>
      *
-     * @param key can only be a {@link String} that represents a {@link HyperwalletUser.UserField} name
+     * @param key can only be a {@link String} that represents a {@link User.UserField} name
      * @return a {@link String} value that represents the value of a {@link HyperwalletField}
      */
     @Nullable
@@ -533,18 +533,18 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
         dest.writeMap(mFields);
     }
 
-    public static final Creator<HyperwalletUser> CREATOR =
-            new Creator<HyperwalletUser>() {
+    public static final Creator<User> CREATOR =
+            new Creator<User>() {
                 @Override
-                public HyperwalletUser createFromParcel(Parcel source) {
+                public User createFromParcel(Parcel source) {
                     final Map<String, Object> fields = new HashMap<>();
                     source.readMap(fields, this.getClass().getClassLoader());
-                    return new HyperwalletUser(fields);
+                    return new User(fields);
                 }
 
                 @Override
-                public HyperwalletUser[] newArray(int size) {
-                    return new HyperwalletUser[0];
+                public User[] newArray(int size) {
+                    return new User[0];
                 }
             };
 
@@ -559,222 +559,222 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
             mFields = new HashMap<>();
         }
 
-        public HyperwalletUser.Builder token(@NonNull final String token) {
+        public User.Builder token(@NonNull final String token) {
             mFields.put(UserFields.TOKEN, token);
             return this;
         }
 
-        public HyperwalletUser.Builder status(@Nullable @UserStatus final String status) {
+        public User.Builder status(@Nullable @UserStatus final String status) {
             mFields.put(UserFields.STATUS, status);
             return this;
         }
 
-        public HyperwalletUser.Builder verificationStatus(
+        public User.Builder verificationStatus(
                 @Nullable @VerificationStatus final String verificationStatus) {
             mFields.put(UserFields.VERIFICATION_STATUS, verificationStatus);
             return this;
         }
 
-        public HyperwalletUser.Builder createdOn(@Nullable final String createdOn) {
+        public User.Builder createdOn(@Nullable final String createdOn) {
             mFields.put(UserFields.CREATED_ON, createdOn);
             return this;
         }
 
-        public HyperwalletUser.Builder clientUserId(@Nullable final String clientUserId) {
+        public User.Builder clientUserId(@Nullable final String clientUserId) {
             mFields.put(UserFields.CLIENT_USER_ID, clientUserId);
             return this;
         }
 
-        public HyperwalletUser.Builder addressLine1(@Nullable final String addressLine1) {
+        public User.Builder addressLine1(@Nullable final String addressLine1) {
             mFields.put(UserFields.ADDRESS_LINE_1, addressLine1);
             return this;
         }
 
-        public HyperwalletUser.Builder addressLine2(@Nullable final String addressLine2) {
+        public User.Builder addressLine2(@Nullable final String addressLine2) {
             mFields.put(UserFields.ADDRESS_LINE_2, addressLine2);
             return this;
         }
 
-        public HyperwalletUser.Builder businessContactRole(
+        public User.Builder businessContactRole(
                 @Nullable final @BusinessContactRole String businessContactRole) {
             mFields.put(UserFields.BUSINESS_CONTACT_ROLE, businessContactRole);
             return this;
         }
 
-        public HyperwalletUser.Builder businessName(@Nullable final String businessName) {
+        public User.Builder businessName(@Nullable final String businessName) {
             mFields.put(UserFields.BUSINESS_NAME, businessName);
             return this;
         }
 
-        public HyperwalletUser.Builder businessRegistrationCountry(@Nullable final String businessRegistrationCountry) {
+        public User.Builder businessRegistrationCountry(@Nullable final String businessRegistrationCountry) {
             mFields.put(UserFields.BUSINESS_REGISTRATION_COUNTRY, businessRegistrationCountry);
             return this;
         }
 
-        public HyperwalletUser.Builder businessRegistrationId(@Nullable final String businessRegistrationId) {
+        public User.Builder businessRegistrationId(@Nullable final String businessRegistrationId) {
             mFields.put(UserFields.BUSINESS_REGISTRATION_ID, businessRegistrationId);
             return this;
         }
 
-        public HyperwalletUser.Builder businessRegistrationStateProvince(
+        public User.Builder businessRegistrationStateProvince(
                 @Nullable final String businessRegistrationStateProvince) {
             mFields.put(UserFields.BUSINESS_REGISTRATION_STATE_PROVINCE, businessRegistrationStateProvince);
             return this;
         }
 
-        public HyperwalletUser.Builder businessContactAddressLine1(@Nullable final String businessContactAddressLine1) {
+        public User.Builder businessContactAddressLine1(@Nullable final String businessContactAddressLine1) {
             mFields.put(UserFields.BUSINESS_CONTACT_ADDRESS_LINE_1, businessContactAddressLine1);
             return this;
         }
 
-        public HyperwalletUser.Builder businessContactAddressLine2(@Nullable final String businessContactAddressLine2) {
+        public User.Builder businessContactAddressLine2(@Nullable final String businessContactAddressLine2) {
             mFields.put(UserFields.BUSINESS_CONTACT_ADDRESS_LINE_2, businessContactAddressLine2);
             return this;
         }
 
-        public HyperwalletUser.Builder businessContactCity(@Nullable final String businessContactCity) {
+        public User.Builder businessContactCity(@Nullable final String businessContactCity) {
             mFields.put(UserFields.BUSINESS_CONTACT_CITY, businessContactCity);
             return this;
         }
 
-        public HyperwalletUser.Builder businessContactStateProvince(
+        public User.Builder businessContactStateProvince(
                 @Nullable final String businessContactStateProvince) {
             mFields.put(UserFields.BUSINESS_CONTACT_STATE_PROVINCE, businessContactStateProvince);
             return this;
         }
 
-        public HyperwalletUser.Builder businessContactCountry(@Nullable final String businessContactCountry) {
+        public User.Builder businessContactCountry(@Nullable final String businessContactCountry) {
             mFields.put(UserFields.BUSINESS_CONTACT_COUNTRY, businessContactCountry);
             return this;
         }
 
-        public HyperwalletUser.Builder businessContactPostalCode(@Nullable final String businessContactPostalCode) {
+        public User.Builder businessContactPostalCode(@Nullable final String businessContactPostalCode) {
             mFields.put(UserFields.BUSINESS_CONTACT_POSTAL_CODE, businessContactPostalCode);
             return this;
         }
 
-        public HyperwalletUser.Builder businessOperatingName(@Nullable final String businessOperatingName) {
+        public User.Builder businessOperatingName(@Nullable final String businessOperatingName) {
             mFields.put(UserFields.BUSINESS_OPERATING_NAME, businessOperatingName);
             return this;
         }
 
-        public HyperwalletUser.Builder businessType(@Nullable @BusinessType final String businessType) {
+        public User.Builder businessType(@Nullable @BusinessType final String businessType) {
             mFields.put(UserFields.BUSINESS_TYPE, businessType);
             return this;
         }
 
-        public HyperwalletUser.Builder city(@Nullable final String city) {
+        public User.Builder city(@Nullable final String city) {
             mFields.put(UserFields.CITY, city);
             return this;
         }
 
-        public HyperwalletUser.Builder country(@Nullable final String country) {
+        public User.Builder country(@Nullable final String country) {
             mFields.put(UserFields.COUNTRY, country);
             return this;
         }
 
-        public HyperwalletUser.Builder countryOfBirth(@Nullable final String countryOfBirth) {
+        public User.Builder countryOfBirth(@Nullable final String countryOfBirth) {
             mFields.put(UserFields.COUNTRY_OF_BIRTH, countryOfBirth);
             return this;
         }
 
-        public HyperwalletUser.Builder countryOfNationality(@Nullable final String countryOfNationality) {
+        public User.Builder countryOfNationality(@Nullable final String countryOfNationality) {
             mFields.put(UserFields.COUNTRY_OF_NATIONALITY, countryOfNationality);
             return this;
         }
 
-        public HyperwalletUser.Builder dateOfBirth(@Nullable final String dateOfBirth) {
+        public User.Builder dateOfBirth(@Nullable final String dateOfBirth) {
             mFields.put(UserFields.DATE_OF_BIRTH, dateOfBirth);
             return this;
         }
 
-        public HyperwalletUser.Builder driversLicenseId(@Nullable final String driversLicenseId) {
+        public User.Builder driversLicenseId(@Nullable final String driversLicenseId) {
             mFields.put(UserFields.DRIVERS_LICENSE_ID, driversLicenseId);
             return this;
         }
 
-        public HyperwalletUser.Builder email(@Nullable final String email) {
+        public User.Builder email(@Nullable final String email) {
             mFields.put(UserFields.EMAIL, email);
             return this;
         }
 
-        public HyperwalletUser.Builder employerId(@Nullable final String employerId) {
+        public User.Builder employerId(@Nullable final String employerId) {
             mFields.put(UserFields.EMPLOYER_ID, employerId);
             return this;
         }
 
-        public HyperwalletUser.Builder firstName(@Nullable final String firstName) {
+        public User.Builder firstName(@Nullable final String firstName) {
             mFields.put(UserFields.FIRST_NAME, firstName);
             return this;
         }
 
-        public HyperwalletUser.Builder gender(@Nullable @Gender final String gender) {
+        public User.Builder gender(@Nullable @Gender final String gender) {
             mFields.put(UserFields.GENDER, gender);
             return this;
         }
 
-        public HyperwalletUser.Builder governmentId(@Nullable final String governmentId) {
+        public User.Builder governmentId(@Nullable final String governmentId) {
             mFields.put(UserFields.GOVERNMENT_ID, governmentId);
             return this;
         }
 
-        public HyperwalletUser.Builder governmentIdType(@Nullable @GovernmentIdType final String governmentIdType) {
+        public User.Builder governmentIdType(@Nullable @GovernmentIdType final String governmentIdType) {
             mFields.put(UserFields.GOVERNMENT_ID_TYPE, governmentIdType);
             return this;
         }
 
-        public HyperwalletUser.Builder language(@Nullable final String language) {
+        public User.Builder language(@Nullable final String language) {
             mFields.put(UserFields.LANGUAGE, language);
             return this;
         }
 
-        public HyperwalletUser.Builder lastName(@Nullable final String lastName) {
+        public User.Builder lastName(@Nullable final String lastName) {
             mFields.put(UserFields.LAST_NAME, lastName);
             return this;
         }
 
-        public HyperwalletUser.Builder middleName(@Nullable final String middleName) {
+        public User.Builder middleName(@Nullable final String middleName) {
             mFields.put(UserFields.MIDDLE_NAME, middleName);
             return this;
         }
 
-        public HyperwalletUser.Builder mobileNumber(@Nullable final String mobileNumber) {
+        public User.Builder mobileNumber(@Nullable final String mobileNumber) {
             mFields.put(UserFields.MOBILE_NUMBER, mobileNumber);
             return this;
         }
 
-        public HyperwalletUser.Builder passportId(@Nullable final String passportId) {
+        public User.Builder passportId(@Nullable final String passportId) {
             mFields.put(UserFields.PASSPORT_ID, passportId);
             return this;
         }
 
-        public HyperwalletUser.Builder phoneNumber(@Nullable final String phoneNumber) {
+        public User.Builder phoneNumber(@Nullable final String phoneNumber) {
             mFields.put(UserFields.PHONE_NUMBER, phoneNumber);
             return this;
         }
 
-        public HyperwalletUser.Builder postalCode(@Nullable final String postalCode) {
+        public User.Builder postalCode(@Nullable final String postalCode) {
             mFields.put(UserFields.POSTAL_CODE, postalCode);
             return this;
         }
 
-        public HyperwalletUser.Builder profileType(@Nullable @ProfileType final String profileType) {
+        public User.Builder profileType(@Nullable @ProfileType final String profileType) {
             mFields.put(UserFields.PROFILE_TYPE, profileType);
             return this;
         }
 
-        public HyperwalletUser.Builder programToken(@Nullable final String programToken) {
+        public User.Builder programToken(@Nullable final String programToken) {
             mFields.put(UserFields.PROGRAM_TOKEN, programToken);
             return this;
         }
 
-        public HyperwalletUser.Builder stateProvince(@Nullable final String stateProvince) {
+        public User.Builder stateProvince(@Nullable final String stateProvince) {
             mFields.put(UserFields.STATE_PROVINCE, stateProvince);
             return this;
         }
 
-        public HyperwalletUser build() {
-            return new HyperwalletUser(mFields);
+        public User build() {
+            return new User(mFields);
         }
     }
 }

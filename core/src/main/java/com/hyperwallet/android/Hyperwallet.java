@@ -45,7 +45,7 @@ import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
 import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodPagination;
 import com.hyperwallet.android.model.transfermethod.PayPalAccount;
 import com.hyperwallet.android.model.transfermethod.PayPalAccountPagination;
-import com.hyperwallet.android.model.user.HyperwalletUser;
+import com.hyperwallet.android.model.user.User;
 
 import org.json.JSONException;
 
@@ -283,7 +283,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Returns the {@link HyperwalletUser} linked to the token specified, or null if none exists.
+     * Returns the {@link User} linked to the token specified, or null if none exists.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
@@ -293,11 +293,11 @@ public class Hyperwallet {
      *
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void getUser(@NonNull final HyperwalletListener<HyperwalletUser> listener) {
+    public void getUser(@NonNull final HyperwalletListener<User> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
-                new TypeReference<HyperwalletUser>() {
+                new TypeReference<User>() {
                 }, listener);
 
         performRestTransaction(builder, listener);

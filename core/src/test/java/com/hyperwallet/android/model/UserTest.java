@@ -5,61 +5,61 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
-import static com.hyperwallet.android.model.user.HyperwalletUser.BusinessContactRoles.DIRECTOR;
-import static com.hyperwallet.android.model.user.HyperwalletUser.BusinessContactRoles.OWNER;
-import static com.hyperwallet.android.model.user.HyperwalletUser.BusinessTypes.CORPORATION;
-import static com.hyperwallet.android.model.user.HyperwalletUser.Genders.MALE;
-import static com.hyperwallet.android.model.user.HyperwalletUser.GovernmentIdTypes.PASSPORT;
-import static com.hyperwallet.android.model.user.HyperwalletUser.ProfileTypes.INDIVIDUAL;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.ADDRESS_LINE_1;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.ADDRESS_LINE_2;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.BUSINESS_CONTACT_ADDRESS_LINE_1;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.BUSINESS_CONTACT_ADDRESS_LINE_2;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.BUSINESS_CONTACT_CITY;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.BUSINESS_CONTACT_COUNTRY;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.BUSINESS_CONTACT_POSTAL_CODE;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.BUSINESS_CONTACT_ROLE;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.BUSINESS_CONTACT_STATE_PROVINCE;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.BUSINESS_NAME;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.BUSINESS_OPERATING_NAME;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.BUSINESS_REGISTRATION_COUNTRY;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.BUSINESS_REGISTRATION_ID;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.BUSINESS_REGISTRATION_STATE_PROVINCE;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.BUSINESS_TYPE;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.CITY;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.CLIENT_USER_ID;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.COUNTRY;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.COUNTRY_OF_BIRTH;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.COUNTRY_OF_NATIONALITY;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.CREATED_ON;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.DATE_OF_BIRTH;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.DRIVERS_LICENSE_ID;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.EMAIL;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.EMPLOYER_ID;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.FIRST_NAME;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.GENDER;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.GOVERNMENT_ID;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.GOVERNMENT_ID_TYPE;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.LANGUAGE;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.LAST_NAME;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.MIDDLE_NAME;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.MOBILE_NUMBER;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.PASSPORT_ID;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.PHONE_NUMBER;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.POSTAL_CODE;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.PROFILE_TYPE;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.PROGRAM_TOKEN;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.STATE_PROVINCE;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.STATUS;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.TOKEN;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserFields.VERIFICATION_STATUS;
-import static com.hyperwallet.android.model.user.HyperwalletUser.UserStatuses.LOCKED;
-import static com.hyperwallet.android.model.user.HyperwalletUser.VerificationStatuses.UNDER_REVIEW;
+import static com.hyperwallet.android.model.user.User.BusinessContactRoles.DIRECTOR;
+import static com.hyperwallet.android.model.user.User.BusinessContactRoles.OWNER;
+import static com.hyperwallet.android.model.user.User.BusinessTypes.CORPORATION;
+import static com.hyperwallet.android.model.user.User.Genders.MALE;
+import static com.hyperwallet.android.model.user.User.GovernmentIdTypes.PASSPORT;
+import static com.hyperwallet.android.model.user.User.ProfileTypes.INDIVIDUAL;
+import static com.hyperwallet.android.model.user.User.UserFields.ADDRESS_LINE_1;
+import static com.hyperwallet.android.model.user.User.UserFields.ADDRESS_LINE_2;
+import static com.hyperwallet.android.model.user.User.UserFields.BUSINESS_CONTACT_ADDRESS_LINE_1;
+import static com.hyperwallet.android.model.user.User.UserFields.BUSINESS_CONTACT_ADDRESS_LINE_2;
+import static com.hyperwallet.android.model.user.User.UserFields.BUSINESS_CONTACT_CITY;
+import static com.hyperwallet.android.model.user.User.UserFields.BUSINESS_CONTACT_COUNTRY;
+import static com.hyperwallet.android.model.user.User.UserFields.BUSINESS_CONTACT_POSTAL_CODE;
+import static com.hyperwallet.android.model.user.User.UserFields.BUSINESS_CONTACT_ROLE;
+import static com.hyperwallet.android.model.user.User.UserFields.BUSINESS_CONTACT_STATE_PROVINCE;
+import static com.hyperwallet.android.model.user.User.UserFields.BUSINESS_NAME;
+import static com.hyperwallet.android.model.user.User.UserFields.BUSINESS_OPERATING_NAME;
+import static com.hyperwallet.android.model.user.User.UserFields.BUSINESS_REGISTRATION_COUNTRY;
+import static com.hyperwallet.android.model.user.User.UserFields.BUSINESS_REGISTRATION_ID;
+import static com.hyperwallet.android.model.user.User.UserFields.BUSINESS_REGISTRATION_STATE_PROVINCE;
+import static com.hyperwallet.android.model.user.User.UserFields.BUSINESS_TYPE;
+import static com.hyperwallet.android.model.user.User.UserFields.CITY;
+import static com.hyperwallet.android.model.user.User.UserFields.CLIENT_USER_ID;
+import static com.hyperwallet.android.model.user.User.UserFields.COUNTRY;
+import static com.hyperwallet.android.model.user.User.UserFields.COUNTRY_OF_BIRTH;
+import static com.hyperwallet.android.model.user.User.UserFields.COUNTRY_OF_NATIONALITY;
+import static com.hyperwallet.android.model.user.User.UserFields.CREATED_ON;
+import static com.hyperwallet.android.model.user.User.UserFields.DATE_OF_BIRTH;
+import static com.hyperwallet.android.model.user.User.UserFields.DRIVERS_LICENSE_ID;
+import static com.hyperwallet.android.model.user.User.UserFields.EMAIL;
+import static com.hyperwallet.android.model.user.User.UserFields.EMPLOYER_ID;
+import static com.hyperwallet.android.model.user.User.UserFields.FIRST_NAME;
+import static com.hyperwallet.android.model.user.User.UserFields.GENDER;
+import static com.hyperwallet.android.model.user.User.UserFields.GOVERNMENT_ID;
+import static com.hyperwallet.android.model.user.User.UserFields.GOVERNMENT_ID_TYPE;
+import static com.hyperwallet.android.model.user.User.UserFields.LANGUAGE;
+import static com.hyperwallet.android.model.user.User.UserFields.LAST_NAME;
+import static com.hyperwallet.android.model.user.User.UserFields.MIDDLE_NAME;
+import static com.hyperwallet.android.model.user.User.UserFields.MOBILE_NUMBER;
+import static com.hyperwallet.android.model.user.User.UserFields.PASSPORT_ID;
+import static com.hyperwallet.android.model.user.User.UserFields.PHONE_NUMBER;
+import static com.hyperwallet.android.model.user.User.UserFields.POSTAL_CODE;
+import static com.hyperwallet.android.model.user.User.UserFields.PROFILE_TYPE;
+import static com.hyperwallet.android.model.user.User.UserFields.PROGRAM_TOKEN;
+import static com.hyperwallet.android.model.user.User.UserFields.STATE_PROVINCE;
+import static com.hyperwallet.android.model.user.User.UserFields.STATUS;
+import static com.hyperwallet.android.model.user.User.UserFields.TOKEN;
+import static com.hyperwallet.android.model.user.User.UserFields.VERIFICATION_STATUS;
+import static com.hyperwallet.android.model.user.User.UserStatuses.LOCKED;
+import static com.hyperwallet.android.model.user.User.VerificationStatuses.UNDER_REVIEW;
 import static com.hyperwallet.android.util.JsonUtils.fromJsonString;
 
 import android.os.Parcel;
 
-import com.hyperwallet.android.model.user.HyperwalletUser;
+import com.hyperwallet.android.model.user.User;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
 import org.json.JSONObject;
@@ -69,15 +69,15 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 @RunWith(RobolectricTestRunner.class)
-public class HyperwalletUserTest {
+public class UserTest {
     @Rule
     public HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
 
     @Test
     public void testFromJsonString_userResponse() throws Exception {
-        HyperwalletUser actualUser = fromJsonString(
+        User actualUser = fromJsonString(
                 mExternalResourceManager.getResourceContent("user_response_all_fields.json"),
-                new TypeReference<HyperwalletUser>() {
+                new TypeReference<User>() {
                 });
 
         assertThat(actualUser, is(notNullValue()));
@@ -129,7 +129,7 @@ public class HyperwalletUserTest {
     @Test
     public void testToJsonObject_user() throws Exception {
 
-        final HyperwalletUser expectedUser = new HyperwalletUser.Builder()
+        final User expectedUser = new User.Builder()
                 .token("usr-f9154016-94e8-4686-a840-075688ac07b5")
                 .status(LOCKED)
                 .verificationStatus(UNDER_REVIEW)
@@ -222,17 +222,17 @@ public class HyperwalletUserTest {
 
 
     @Test
-    public void testHyperwalletUser_isParcelable() throws Exception {
+    public void testUser_isParcelable() throws Exception {
 
         String json = mExternalResourceManager.getResourceContent("user_response_all_fields.json");
 
-        HyperwalletUser user = fromJsonString(json, new TypeReference<HyperwalletUser>() {
+        User user = fromJsonString(json, new TypeReference<User>() {
         });
 
         Parcel parcel = Parcel.obtain();
         user.writeToParcel(parcel, user.describeContents());
         parcel.setDataPosition(0);
-        HyperwalletUser bundledUser = HyperwalletUser.CREATOR.createFromParcel(parcel);
+        User bundledUser = User.CREATOR.createFromParcel(parcel);
 
         assertThat(bundledUser, is(notNullValue()));
         assertThat(bundledUser.getToken(), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
@@ -255,8 +255,8 @@ public class HyperwalletUserTest {
     }
 
     @Test
-    public void testHyperwalletUser_fieldsAccessors() {
-        final HyperwalletUser expectedUser = new HyperwalletUser.Builder()
+    public void testUser_fieldsAccessors() {
+        final User expectedUser = new User.Builder()
                 .token("usr-f9154016-94e8-4686-a840-075688ac07b5")
                 .status(LOCKED)
                 .verificationStatus(UNDER_REVIEW)
