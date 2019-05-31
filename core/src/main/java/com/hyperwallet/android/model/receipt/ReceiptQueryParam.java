@@ -67,16 +67,16 @@ public class ReceiptQueryParam extends HyperwalletPagination {
     /**
      * Common Receipt detail field keys
      */
-    public interface ReceiptQueryParamFields {
-        String LIMIT = "limit";
-        String OFFSET = "offset";
-        String CREATED_ON = "createdOn";
-        String CREATED_BEFORE = "createdBefore";
-        String CREATED_AFTER = "createdAfter";
-        String TYPE = "type";
-        String AMOUNT = "amount";
-        String CURRENCY = "currency";
-        String SORT_BY = "sortBy";
+    public final class ReceiptQueryParamFields {
+        public static final String LIMIT = "limit";
+        public static final String OFFSET = "offset";
+        public static final String CREATED_ON = "createdOn";
+        public static final String CREATED_BEFORE = "createdBefore";
+        public static final String CREATED_AFTER = "createdAfter";
+        public static final String TYPE = "type";
+        public static final String AMOUNT = "amount";
+        public static final String CURRENCY = "currency";
+        public static final String SORT_BY = "sortBy";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -94,15 +94,15 @@ public class ReceiptQueryParam extends HyperwalletPagination {
     public @interface ReceiptQueryParamField {
     }
 
-    public interface ReceiptSortables {
-        String ASCENDANT_CREATE_ON = "+createdOn";
-        String ASCENDANT_TYPE = "+type";
-        String ASCENDANT_AMOUNT = "+amount";
-        String ASCENDANT_CURRENCY = "+currency";
-        String DESCENDANT_CREATE_ON = "-createdOn";
-        String DESCENDANT_TYPE = "-type";
-        String DESCENDANT_AMOUNT = "-amount";
-        String DESCENDANT_CURRENCY = "-currency";
+    public final class ReceiptSortables {
+        public static final String ASCENDANT_CREATE_ON = "+createdOn";
+        public static final String ASCENDANT_TYPE = "+type";
+        public static final String ASCENDANT_AMOUNT = "+amount";
+        public static final String ASCENDANT_CURRENCY = "+currency";
+        public static final String DESCENDANT_CREATE_ON = "-createdOn";
+        public static final String DESCENDANT_TYPE = "-type";
+        public static final String DESCENDANT_AMOUNT = "-amount";
+        public static final String DESCENDANT_CURRENCY = "-currency";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -169,6 +169,7 @@ public class ReceiptQueryParam extends HyperwalletPagination {
     }
 
     @Nullable
+    @Receipt.ReceiptType
     public String getType() {
         return mType;
     }
@@ -225,7 +226,7 @@ public class ReceiptQueryParam extends HyperwalletPagination {
             return this;
         }
 
-        public Builder type(@NonNull final String type) {
+        public Builder type(@NonNull @Receipt.ReceiptType final String type) {
             mFields.put(TYPE, type);
             return this;
         }
