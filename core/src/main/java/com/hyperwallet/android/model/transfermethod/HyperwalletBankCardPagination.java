@@ -33,7 +33,7 @@ public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagi
 
     protected static final String TRANSFER_METHOD_CREATE_ON = "createdOn";
 
-    private Date mCreatedOn;
+    private final Date mCreatedOn;
 
     /**
      * Constructors the bank card pagination
@@ -81,12 +81,15 @@ public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagi
          * @param createdOn Date
          * @return Builder
          */
+
+        @SuppressWarnings("unchecked")
         public B createdOn(Date createdOn) {
-            this.mCreatedOn = createdOn;
+            mCreatedOn = createdOn;
             return (B) this;
         }
     }
 
+    @NonNull
     public static Builder<?, ?> builder() {
         return new Builder() {
             @Override

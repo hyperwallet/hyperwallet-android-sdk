@@ -45,11 +45,11 @@ public class QueryParam {
     private final static String PAGINATION_LIMIT = "limit";
     private final static int DEFAULT_LIMIT = 10;
     private final static int DEFAULT_OFFSET = 0;
-    private Date mCreatedAfter;
-    private Date mCreatedBefore;
-    private String mSortBy;
-    private int mOffset;
-    private int mLimit;
+    private final Date mCreatedAfter;
+    private final Date mCreatedBefore;
+    private final String mSortBy;
+    private final int mOffset;
+    private final int mLimit;
 
     /**
      * Constructors a Hyperwallet Pagination based on Map object
@@ -61,9 +61,8 @@ public class QueryParam {
         mLimit = getIntegerValueBy(urlQueryMap, PAGINATION_LIMIT, DEFAULT_LIMIT);
         mCreatedBefore = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_BEFORE);
         mCreatedAfter = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_AFTER);
-        if (containsKeyAndHasValue(urlQueryMap, TRANSFER_METHOD_SORT_BY)) {
-            mSortBy = urlQueryMap.get(TRANSFER_METHOD_SORT_BY);
-        }
+        mSortBy = urlQueryMap.get(TRANSFER_METHOD_SORT_BY);
+
     }
 
     /**
@@ -130,7 +129,7 @@ public class QueryParam {
      * @return the number of records to skip.
      */
     public int getOffset() {
-        return this.mOffset;
+        return mOffset;
     }
 
     /**
@@ -139,7 +138,7 @@ public class QueryParam {
      * @return the maximum number of records that will be returned per page
      */
     public int getLimit() {
-        return this.mLimit;
+        return mLimit;
     }
 
     @Nullable
@@ -154,12 +153,12 @@ public class QueryParam {
      */
     @Nullable
     public Date getCreatedBefore() {
-        return this.mCreatedBefore;
+        return mCreatedBefore;
     }
 
     @Nullable
     public Date getCreatedAfter() {
-        return this.mCreatedAfter;
+        return mCreatedAfter;
     }
 
     /**
@@ -205,6 +204,7 @@ public class QueryParam {
         public static final String DESCENDANT_STATUS = "-status";
     }
 
+    @NonNull
     public static Builder<?, ?> builder() {
         return new Builder() {
             @Override
@@ -234,8 +234,9 @@ public class QueryParam {
         /**
          * Defines the number of records to skip.
          */
+        @SuppressWarnings("unchecked")
         public B offset(int offset) {
-            this.mOffset = offset;
+            mOffset = offset;
             return (B) this;
         }
 
@@ -246,8 +247,9 @@ public class QueryParam {
          * @param limit The limit of records to be returned.
          * @return Builder
          */
+        @SuppressWarnings("unchecked")
         public B limit(int limit) {
-            this.mLimit = limit;
+            mLimit = limit;
             return (B) this;
         }
 
@@ -257,8 +259,9 @@ public class QueryParam {
          * @param createdAfter Date
          * @return Builder
          */
+        @SuppressWarnings("unchecked")
         public B createdAfter(Date createdAfter) {
-            this.mCreatedAfter = createdAfter;
+            mCreatedAfter = createdAfter;
             return (B) this;
         }
 
@@ -268,8 +271,9 @@ public class QueryParam {
          * @param createdBefore Date
          * @return Builder
          */
+        @SuppressWarnings("unchecked")
         public B createdBefore(Date createdBefore) {
-            this.mCreatedBefore = createdBefore;
+            mCreatedBefore = createdBefore;
             return (B) this;
         }
 
@@ -279,8 +283,9 @@ public class QueryParam {
          * @param sortBy Sort order string
          * @return Builder
          */
+        @SuppressWarnings("unchecked")
         public B sortBy(@NonNull @TransferMethodSortableQuery String sortBy) {
-            this.mSortBy = sortBy;
+            mSortBy = sortBy;
             return (B) this;
         }
     }
