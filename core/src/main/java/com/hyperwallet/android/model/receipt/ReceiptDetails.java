@@ -88,42 +88,42 @@ public final class ReceiptDetails implements HyperwalletJsonModel, Parcelable {
     /**
      * Common Receipt detail field keys
      */
-    public interface ReceiptDetailsFields {
+    public final class ReceiptDetailsFields {
 
-        String BANK_ACCOUNT_ID = "bankAccountId";
-        String BANK_ACCOUNT_PURPOSE = "bankAccountPurpose";
-        String BANK_ID = "bankId";
-        String BANK_NAME = "bankName";
-        String BRANCH_ADDRESS_LINE_1 = "branchAddressLine1";
-        String BRANCH_ADDRESS_LINE_2 = "branchAddressLine2";
-        String BRANCH_CITY = "branchCity";
-        String BRANCH_COUNTRY = "branchCountry";
-        String BRANCH_ID = "branchId";
-        String BRANCH_NAME = "branchName";
-        String BRANCH_POSTAL_CODE = "branchPostalCode";
-        String BRANCH_STATE_PROVINCE = "branchStateProvince";
-        String CARD_NUMBER = "cardNumber";
-        String CARD_EXPIRY_DATE = "cardExpiryDate";
-        String CARD_HOLDER_NAME = "cardHolderName";
-        String CHARITY_NAME = "charityName";
-        String CHECK_NUMBER = "checkNumber";
-        String CLIENT_PAYMENT_ID = "clientPaymentId";
-        String MEMO = "memo";
-        String NOTES = "notes";
-        String PAYEE_ADDRESS_LINE_1 = "payeeAddressLine1";
-        String PAYEE_ADDRESS_LINE_2 = "payeeAddressLine2";
-        String PAYEE_CITY = "payeeCity";
-        String PAYEE_COUNTRY = "payeeCountry";
-        String PAYEE_EMAIL = "payeeEmail";
-        String PAYEE_NAME = "payeeName";
-        String PAYEE_POSTAL_CODE = "payeePostalCode";
-        String PAYEE_STATE_PROVINCE = "payeeStateProvince";
-        String PAYER_NAME = "payerName";
-        String PAYMENT_EXPIRY_DATE = "paymentExpiryDate";
-        String RETURN_OR_RECALL_REASON = "returnOrRecallReason";
-        String SECURITY_ANSWER = "securityAnswer";
-        String SECURITY_QUESTION = "securityQuestion";
-        String WEBSITE = "website";
+        public static final String BANK_ACCOUNT_ID = "bankAccountId";
+        public static final String BANK_ACCOUNT_PURPOSE = "bankAccountPurpose";
+        public static final String BANK_ID = "bankId";
+        public static final String BANK_NAME = "bankName";
+        public static final String BRANCH_ADDRESS_LINE_1 = "branchAddressLine1";
+        public static final String BRANCH_ADDRESS_LINE_2 = "branchAddressLine2";
+        public static final String BRANCH_CITY = "branchCity";
+        public static final String BRANCH_COUNTRY = "branchCountry";
+        public static final String BRANCH_ID = "branchId";
+        public static final String BRANCH_NAME = "branchName";
+        public static final String BRANCH_POSTAL_CODE = "branchPostalCode";
+        public static final String BRANCH_STATE_PROVINCE = "branchStateProvince";
+        public static final String CARD_NUMBER = "cardNumber";
+        public static final String CARD_EXPIRY_DATE = "cardExpiryDate";
+        public static final String CARD_HOLDER_NAME = "cardHolderName";
+        public static final String CHARITY_NAME = "charityName";
+        public static final String CHECK_NUMBER = "checkNumber";
+        public static final String CLIENT_PAYMENT_ID = "clientPaymentId";
+        public static final String MEMO = "memo";
+        public static final String NOTES = "notes";
+        public static final String PAYEE_ADDRESS_LINE_1 = "payeeAddressLine1";
+        public static final String PAYEE_ADDRESS_LINE_2 = "payeeAddressLine2";
+        public static final String PAYEE_CITY = "payeeCity";
+        public static final String PAYEE_COUNTRY = "payeeCountry";
+        public static final String PAYEE_EMAIL = "payeeEmail";
+        public static final String PAYEE_NAME = "payeeName";
+        public static final String PAYEE_POSTAL_CODE = "payeePostalCode";
+        public static final String PAYEE_STATE_PROVINCE = "payeeStateProvince";
+        public static final String PAYER_NAME = "payerName";
+        public static final String PAYMENT_EXPIRY_DATE = "paymentExpiryDate";
+        public static final String RETURN_OR_RECALL_REASON = "returnOrRecallReason";
+        public static final String SECURITY_ANSWER = "securityAnswer";
+        public static final String SECURITY_QUESTION = "securityQuestion";
+        public static final String WEBSITE = "website";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -173,178 +173,177 @@ public final class ReceiptDetails implements HyperwalletJsonModel, Parcelable {
     }
 
     ReceiptDetails(@NonNull Map<String, Object> fields) {
-        super();
         setFields(fields);
     }
 
     @Nullable
     public String getBankAccountId() {
-        return (String) mFields.get(BANK_ACCOUNT_ID);
+        return getField(BANK_ACCOUNT_ID);
     }
 
     @Nullable
     public String getBankAccountPurpose() {
-        return (String) mFields.get(BANK_ACCOUNT_PURPOSE);
+        return getField(BANK_ACCOUNT_PURPOSE);
     }
 
     @Nullable
     public String getBankId() {
-        return (String) mFields.get(BANK_ID);
+        return getField(BANK_ID);
     }
 
     @Nullable
     public String getBankName() {
-        return (String) mFields.get(BANK_NAME);
+        return getField(BANK_NAME);
     }
 
     @Nullable
     public String getBranchAddressLine1() {
-        return (String) mFields.get(BRANCH_ADDRESS_LINE_1);
+        return getField(BRANCH_ADDRESS_LINE_1);
     }
 
     @Nullable
     public String getBranchAddressLine2() {
-        return (String) mFields.get(BRANCH_ADDRESS_LINE_2);
+        return getField(BRANCH_ADDRESS_LINE_2);
     }
 
     @Nullable
     public String getBranchCity() {
-        return (String) mFields.get(BRANCH_CITY);
+        return getField(BRANCH_CITY);
     }
 
     @Nullable
     public String getBranchCountry() {
-        return (String) mFields.get(BRANCH_COUNTRY);
+        return getField(BRANCH_COUNTRY);
     }
 
     @Nullable
     public String getBranchId() {
-        return (String) mFields.get(BRANCH_ID);
+        return getField(BRANCH_ID);
     }
 
     @Nullable
     public String getBranchName() {
-        return (String) mFields.get(BRANCH_NAME);
+        return getField(BRANCH_NAME);
     }
 
     @Nullable
     public String getBranchPostalCode() {
-        return (String) mFields.get(BRANCH_POSTAL_CODE);
+        return getField(BRANCH_POSTAL_CODE);
     }
 
     @Nullable
     public String getBranchStateProvince() {
-        return (String) mFields.get(BRANCH_STATE_PROVINCE);
+        return getField(BRANCH_STATE_PROVINCE);
     }
 
     @Nullable
     public String getCardNumber() {
-        return (String) mFields.get(CARD_NUMBER);
+        return getField(CARD_NUMBER);
     }
 
     @Nullable
     public String getCardExpiryDate() {
-        return (String) mFields.get(CARD_EXPIRY_DATE);
+        return getField(CARD_EXPIRY_DATE);
     }
 
     @Nullable
     public String getCardHolderName() {
-        return (String) mFields.get(CARD_HOLDER_NAME);
+        return getField(CARD_HOLDER_NAME);
     }
 
     @Nullable
     public String getCharityName() {
-        return (String) mFields.get(CHARITY_NAME);
+        return getField(CHARITY_NAME);
     }
 
     @Nullable
     public String getCheckNumber() {
-        return (String) mFields.get(CHECK_NUMBER);
+        return getField(CHECK_NUMBER);
     }
 
     @Nullable
     public String getClientPaymentId() {
-        return (String) mFields.get(CLIENT_PAYMENT_ID);
+        return getField(CLIENT_PAYMENT_ID);
     }
 
     @Nullable
     public String getMemo() {
-        return (String) mFields.get(MEMO);
+        return (String) getField(MEMO);
     }
 
     @Nullable
     public String getNotes() {
-        return (String) mFields.get(NOTES);
+        return (String) getField(NOTES);
     }
 
     @Nullable
     public String getPayeeAddressLine1() {
-        return (String) mFields.get(PAYEE_ADDRESS_LINE_1);
+        return getField(PAYEE_ADDRESS_LINE_1);
     }
 
     @Nullable
     public String getPayeeAddressLine2() {
-        return (String) mFields.get(PAYEE_ADDRESS_LINE_2);
+        return getField(PAYEE_ADDRESS_LINE_2);
     }
 
     @Nullable
     public String getPayeeCity() {
-        return (String) mFields.get(PAYEE_CITY);
+        return getField(PAYEE_CITY);
     }
 
     @Nullable
     public String getPayeeCountry() {
-        return (String) mFields.get(PAYEE_COUNTRY);
+        return getField(PAYEE_COUNTRY);
     }
 
     @Nullable
     public String getPayeeEmail() {
-        return (String) mFields.get(PAYEE_EMAIL);
+        return getField(PAYEE_EMAIL);
     }
 
     @Nullable
     public String getPayeeName() {
-        return (String) mFields.get(PAYEE_NAME);
+        return getField(PAYEE_NAME);
     }
 
     @Nullable
     public String getPayeePostalCode() {
-        return (String) mFields.get(PAYEE_POSTAL_CODE);
+        return getField(PAYEE_POSTAL_CODE);
     }
 
     @Nullable
     public String getPayeeStateProvince() {
-        return (String) mFields.get(PAYEE_STATE_PROVINCE);
+        return getField(PAYEE_STATE_PROVINCE);
     }
 
     @Nullable
     public String getPayerName() {
-        return (String) mFields.get(PAYER_NAME);
+        return getField(PAYER_NAME);
     }
 
     @Nullable
     public String getPaymentExpiryDate() {
-        return (String) mFields.get(PAYMENT_EXPIRY_DATE);
+        return getField(PAYMENT_EXPIRY_DATE);
     }
 
     @Nullable
     public String getReturnOrRecallReason() {
-        return (String) mFields.get(RETURN_OR_RECALL_REASON);
+        return getField(RETURN_OR_RECALL_REASON);
     }
 
     @Nullable
     public String getSecurityAnswer() {
-        return (String) mFields.get(SECURITY_ANSWER);
+        return getField(SECURITY_ANSWER);
     }
 
     @Nullable
     public String getSecurityQuestion() {
-        return (String) mFields.get(SECURITY_QUESTION);
+        return getField(SECURITY_QUESTION);
     }
 
     @Nullable
     public String getWebsite() {
-        return (String) mFields.get(WEBSITE);
+        return getField(WEBSITE);
     }
 
     /* Converts a {@code Map<String, Object>} to a {@link JSONObject}
@@ -422,186 +421,4 @@ public final class ReceiptDetails implements HyperwalletJsonModel, Parcelable {
         mFields = fields;
     }
 
-
-    public static class Builder {
-        private Map<String, Object> mFields;
-
-        public Builder() {
-            mFields = new HashMap<>();
-        }
-
-        public ReceiptDetails.Builder bankAccountId(@NonNull final String bankAccountId) {
-            mFields.put(BANK_ACCOUNT_ID, bankAccountId);
-            return this;
-        }
-
-        public ReceiptDetails.Builder bankAccountPurpose(@NonNull final String bankAccountPurpose) {
-            mFields.put(BANK_ACCOUNT_PURPOSE, bankAccountPurpose);
-            return this;
-        }
-
-        public ReceiptDetails.Builder bankId(@NonNull final String bankId) {
-            mFields.put(BANK_ID, bankId);
-            return this;
-        }
-
-        public ReceiptDetails.Builder bankName(@NonNull final String bankName) {
-            mFields.put(BANK_NAME, bankName);
-            return this;
-        }
-
-        public ReceiptDetails.Builder branchAddressLine1(@NonNull final String branchAddressLine1) {
-            mFields.put(BRANCH_ADDRESS_LINE_1, branchAddressLine1);
-            return this;
-        }
-
-        public ReceiptDetails.Builder branchAddressLine2(@NonNull final String branchAddressLine2) {
-            mFields.put(BRANCH_ADDRESS_LINE_2, branchAddressLine2);
-            return this;
-        }
-
-        public ReceiptDetails.Builder branchCity(@NonNull final String branchCity) {
-            mFields.put(BRANCH_CITY, branchCity);
-            return this;
-        }
-
-        public ReceiptDetails.Builder branchCountry(@NonNull final String branchCountry) {
-            mFields.put(BRANCH_COUNTRY, branchCountry);
-            return this;
-        }
-
-        public ReceiptDetails.Builder branchId(@NonNull final String branchId) {
-            mFields.put(BRANCH_ID, branchId);
-            return this;
-        }
-
-        public ReceiptDetails.Builder branchName(@NonNull final String branchName) {
-            mFields.put(BRANCH_NAME, branchName);
-            return this;
-        }
-
-        public ReceiptDetails.Builder branchPostalCode(@NonNull final String branchPostalCode) {
-            mFields.put(BRANCH_POSTAL_CODE, branchPostalCode);
-            return this;
-        }
-
-        public ReceiptDetails.Builder branchStateProvince(@NonNull final String branchStateProvince) {
-            mFields.put(BRANCH_STATE_PROVINCE, branchStateProvince);
-            return this;
-        }
-
-        public ReceiptDetails.Builder cardNumber(@NonNull final String cardNumber) {
-            mFields.put(CARD_NUMBER, cardNumber);
-            return this;
-        }
-
-        public ReceiptDetails.Builder cardExpiryDate(@NonNull final String cardExpiryDate) {
-            mFields.put(CARD_EXPIRY_DATE, cardExpiryDate);
-            return this;
-        }
-
-        public ReceiptDetails.Builder cardHolderName(@NonNull final String cardHolderName) {
-            mFields.put(CARD_HOLDER_NAME, cardHolderName);
-            return this;
-        }
-
-        public ReceiptDetails.Builder charityName(@NonNull final String charityName) {
-            mFields.put(CHARITY_NAME, charityName);
-            return this;
-        }
-
-        public ReceiptDetails.Builder checkNumber(@NonNull final String checkNumber) {
-            mFields.put(CHECK_NUMBER, checkNumber);
-            return this;
-        }
-
-        public ReceiptDetails.Builder clientPaymentId(@NonNull final String clientPaymentId) {
-            mFields.put(CLIENT_PAYMENT_ID, clientPaymentId);
-            return this;
-        }
-
-        public ReceiptDetails.Builder memo(@NonNull final String memo) {
-            mFields.put(MEMO, memo);
-            return this;
-        }
-
-        public ReceiptDetails.Builder notes(@NonNull final String notes) {
-            mFields.put(NOTES, notes);
-            return this;
-        }
-
-        public ReceiptDetails.Builder payeeAddressLine1(@NonNull final String payeeAddressLine1) {
-            mFields.put(PAYEE_ADDRESS_LINE_1, payeeAddressLine1);
-            return this;
-        }
-
-        public ReceiptDetails.Builder payeeAddressLine2(@NonNull final String payeeAddressLine2) {
-            mFields.put(PAYEE_ADDRESS_LINE_2, payeeAddressLine2);
-            return this;
-        }
-
-        public ReceiptDetails.Builder payeeCity(@NonNull final String payeeCity) {
-            mFields.put(PAYEE_CITY, payeeCity);
-            return this;
-        }
-
-        public ReceiptDetails.Builder payeeCountry(@NonNull final String payeeCountry) {
-            mFields.put(PAYEE_COUNTRY, payeeCountry);
-            return this;
-        }
-
-        public ReceiptDetails.Builder payeeEmail(@NonNull final String payeeEmail) {
-            mFields.put(PAYEE_EMAIL, payeeEmail);
-            return this;
-        }
-
-        public ReceiptDetails.Builder payeeName(@NonNull final String payeeName) {
-            mFields.put(PAYEE_NAME, payeeName);
-            return this;
-        }
-
-        public ReceiptDetails.Builder payeePostalCode(@NonNull final String payeePostalCode) {
-            mFields.put(PAYEE_POSTAL_CODE, payeePostalCode);
-            return this;
-        }
-
-        public ReceiptDetails.Builder payeeStateProvince(@NonNull final String payeeStateProvince) {
-            mFields.put(PAYEE_STATE_PROVINCE, payeeStateProvince);
-            return this;
-        }
-
-        public ReceiptDetails.Builder payerName(@NonNull final String payerName) {
-            mFields.put(PAYER_NAME, payerName);
-            return this;
-        }
-
-        public ReceiptDetails.Builder paymentExpiryDate(@NonNull final String paymentExpiryDate) {
-            mFields.put(PAYMENT_EXPIRY_DATE, paymentExpiryDate);
-            return this;
-        }
-
-        public ReceiptDetails.Builder returnOrRecallReason(@NonNull final String returnOrRecallReason) {
-            mFields.put(RETURN_OR_RECALL_REASON, returnOrRecallReason);
-            return this;
-        }
-
-        public ReceiptDetails.Builder securityAnswer(@NonNull final String securityAnswer) {
-            mFields.put(SECURITY_ANSWER, securityAnswer);
-            return this;
-        }
-
-        public ReceiptDetails.Builder securityQuestion(@NonNull final String securityQuestion) {
-            mFields.put(SECURITY_QUESTION, securityQuestion);
-            return this;
-        }
-
-        public ReceiptDetails.Builder website(@NonNull final String website) {
-            mFields.put(WEBSITE, website);
-            return this;
-        }
-
-        public ReceiptDetails build() {
-            return new ReceiptDetails(mFields);
-        }
-    }
 }
