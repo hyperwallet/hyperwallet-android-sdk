@@ -46,9 +46,9 @@ public class HyperwalletBankAccountPagination extends HyperwalletTransferMethodP
      */
     public static abstract class Builder<S extends HyperwalletBankAccountPagination, B extends Builder<S, B>> extends
             HyperwalletTransferMethodPagination.Builder<S, B> {
-
     }
 
+    @NonNull
     public static Builder<?, ?> builder() {
         return new Builder() {
             @Override

@@ -48,8 +48,8 @@ public class HyperwalletTransferMethodPagination extends QueryParam {
 
     protected HyperwalletTransferMethodPagination(Builder builder) {
         super(builder);
-        mStatus = builder.status;
-        mType = builder.type;
+        mStatus = builder.mStatus;
+        mType = builder.mType;
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -131,8 +131,8 @@ public class HyperwalletTransferMethodPagination extends QueryParam {
      */
     public static abstract class Builder<S extends HyperwalletTransferMethodPagination, B extends Builder<S, B>> extends
             QueryParam.Builder<S, B> {
-        private String status;
-        private String type;
+        private String mStatus;
+        private String mType;
 
         /**
          * Specify status of this method. Which is one of the
@@ -141,8 +141,9 @@ public class HyperwalletTransferMethodPagination extends QueryParam {
          * @param status The status of this method
          * @return Builder
          */
+        @SuppressWarnings("unchecked")
         public B status(@NonNull @TransferMethodStatusQuery String status) {
-            this.status = status;
+            mStatus = status;
             return (B) this;
         }
 
@@ -153,8 +154,9 @@ public class HyperwalletTransferMethodPagination extends QueryParam {
          * @param type The type of this method
          * @return Builder
          */
+        @SuppressWarnings("unchecked")
         public B type(@NonNull @TransferMethodTypeQuery String type) {
-            this.type = type;
+            mType = type;
             return (B) this;
         }
     }
