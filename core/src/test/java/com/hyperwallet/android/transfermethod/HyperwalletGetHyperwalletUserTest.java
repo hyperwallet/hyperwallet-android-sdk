@@ -15,7 +15,7 @@ import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.HyperwalletError;
 import com.hyperwallet.android.model.HyperwalletErrors;
-import com.hyperwallet.android.model.user.User;
+import com.hyperwallet.android.model.user.HyperwalletUser;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
@@ -37,7 +37,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
-public class HyperwalletGetUserTest {
+public class HyperwalletGetHyperwalletUserTest {
     private static final long AWAIT_TIMEOUT_MILLIS = 100l;
     @Rule
     public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
@@ -49,9 +49,9 @@ public class HyperwalletGetUserTest {
     public MockitoRule mMockito = MockitoJUnit.rule();
 
     @Mock
-    private HyperwalletListener<User> mListener;
+    private HyperwalletListener<HyperwalletUser> mListener;
     @Captor
-    private ArgumentCaptor<User> mUserArgumentCaptor;
+    private ArgumentCaptor<HyperwalletUser> mUserArgumentCaptor;
     @Captor
     private ArgumentCaptor<HyperwalletException> mExceptionCaptor;
 
@@ -73,7 +73,7 @@ public class HyperwalletGetUserTest {
         verify(mListener).onSuccess(mUserArgumentCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
 
-        User userResponse = mUserArgumentCaptor.getValue();
+        HyperwalletUser userResponse = mUserArgumentCaptor.getValue();
         assertThat(userResponse, is(notNullValue()));
         assertThat(userResponse.getToken(), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
         assertThat(userResponse.getStatus(), is("PRE_ACTIVATED"));
@@ -110,7 +110,7 @@ public class HyperwalletGetUserTest {
         verify(mListener).onSuccess(mUserArgumentCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
 
-        User user = mUserArgumentCaptor.getValue();
+        HyperwalletUser user = mUserArgumentCaptor.getValue();
         assertThat(user, is(nullValue()));
     }
 
@@ -127,7 +127,7 @@ public class HyperwalletGetUserTest {
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
-        verify(mListener, never()).onSuccess(any(User.class));
+        verify(mListener, never()).onSuccess(any(HyperwalletUser.class));
         verify(mListener).onFailure(mExceptionCaptor.capture());
 
         HyperwalletException hyperwalletException = mExceptionCaptor.getValue();

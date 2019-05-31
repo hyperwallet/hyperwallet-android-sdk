@@ -32,7 +32,7 @@ import java.util.UUID;
 /**
  * The {@code HyperwalletAuthenticationTokenProvider} interface provides the Hyperwallet Android Core SDK with an
  * abstraction to retrieve an authentication token. An authentication token is a JSON Web Token that will be used
- * to authenticate the User to the Hyperwallet platform.
+ * to authenticate the HyperwalletUser to the Hyperwallet platform.
  *
  * Implementations of {@code HyperwalletAuthenticationTokenProvider} are expected to be non-blocking and thread safe.
  */
