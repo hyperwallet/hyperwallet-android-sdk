@@ -58,7 +58,7 @@ import java.util.concurrent.Executors;
 
 /**
  * The {@code Hyperwallet} class is an Android specific implementation of the
- * <a href="https://portal.hyperwallet.com/docs">Hyperwallet platform tUser APIs.</a>
+ * <a href="https://portal.hyperwallet.com/docs">Hyperwallet platform User APIs.</a>
  *
  * <p>A single instance of the {@code Hyperwallet} class is maintained. Resetting the current instance by calling
  * {@link #getInstance(HyperwalletAuthenticationTokenProvider)} is critical when switching between authenticated Users.

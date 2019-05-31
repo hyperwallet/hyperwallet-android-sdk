@@ -37,7 +37,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
-public class HyperwalletGetHyperwalletUserTest {
+public class HyperwalletGetUserTest {
     private static final long AWAIT_TIMEOUT_MILLIS = 100l;
     @Rule
     public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();

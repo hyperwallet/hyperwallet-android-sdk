@@ -222,7 +222,7 @@ public class HyperwalletUserTest {
 
 
     @Test
-    public void testUser_isParcelable() throws Exception {
+    public void testHyperwalletUser_isParcelable() throws Exception {
 
         String json = mExternalResourceManager.getResourceContent("user_response_all_fields.json");
 
@@ -255,7 +255,7 @@ public class HyperwalletUserTest {
     }
 
     @Test
-    public void testUser_fieldsAccessors() {
+    public void testHyperwalletUser_fieldsAccessors() {
         final HyperwalletUser expectedUser = new HyperwalletUser.Builder()
                 .token("usr-f9154016-94e8-4686-a840-075688ac07b5")
                 .status(LOCKED)
