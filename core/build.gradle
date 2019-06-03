@@ -25,26 +25,6 @@ android {
         }
     }
 
-    flavorDimensions "server"
-
-    productFlavors {
-        dev {
-
-        }
-        prod {
-
-        }
-    }
-
-    android.variantFilter { variant ->
-        if (variant.buildType.name.equals('release')
-                && variant.getFlavors().get(0).name.equals('debug')) {
-            variant.setIgnore(true)
-        }
-    }
-
-
-
     lintOptions {
         abortOnError true
         warningsAsErrors true
