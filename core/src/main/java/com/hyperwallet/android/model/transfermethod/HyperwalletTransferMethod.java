@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringDef;
 
 import com.hyperwallet.android.model.HyperwalletJsonModel;
+import com.hyperwallet.android.model.ReceiptIssuer;
 import com.hyperwallet.android.model.graphql.field.HyperwalletField;
 import com.hyperwallet.android.util.JsonUtils;
 
@@ -40,7 +41,8 @@ import java.util.Map;
 /**
  * Represents the object to hold transfer method data fields
  */
-public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelable {
+public class HyperwalletTransferMethod implements HyperwalletJsonModel, ReceiptIssuer, Parcelable {
+    //todo in this case the ReceiptIssuer will be will be implemented by PrepaidCard data object only
 
     public static final Creator<HyperwalletTransferMethod> CREATOR =
             new Creator<HyperwalletTransferMethod>() {

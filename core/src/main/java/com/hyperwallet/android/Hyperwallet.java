@@ -29,6 +29,7 @@ import com.hyperwallet.android.exception.HyperwalletInitializationException;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.HyperwalletPagination;
 import com.hyperwallet.android.model.HyperwalletStatusTransition;
+import com.hyperwallet.android.model.ReceiptIssuer;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationField;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
@@ -48,7 +49,6 @@ import com.hyperwallet.android.model.transfermethod.PayPalAccountPagination;
 import com.hyperwallet.android.model.user.HyperwalletUser;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -628,6 +628,21 @@ public class Hyperwallet {
                 }, listener);
 
         performRestTransaction(builder, listener);
+    }
+
+
+    public void listReceipts(@NonNull final ReceiptIssuer receiptIssuer,
+            @Nullable final HyperwalletTransferMethodPagination transferMethodPagination,
+            @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletTransferMethod>> listener) {
+
+        if (receiptIssuer.getClass().isAssignableFrom(HyperwalletUser.class)) {
+
+        } else if (receiptIssuer.getClass().isAssignableFrom(HyperwalletTransferMethod.class)) {
+
+        } else {
+            throw new IllegalStateException("Something went wrong the ReceiptIssuer may be invalid");
+        }
+
     }
 
     /**

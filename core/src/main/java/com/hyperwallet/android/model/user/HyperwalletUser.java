@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringDef;
 
 import com.hyperwallet.android.model.HyperwalletJsonModel;
+import com.hyperwallet.android.model.ReceiptIssuer;
 import com.hyperwallet.android.model.graphql.field.HyperwalletField;
 import com.hyperwallet.android.util.JsonUtils;
 
@@ -40,7 +41,7 @@ import java.util.Map;
 /**
  * Represents the User fields.
  */
-public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
+public final class HyperwalletUser implements HyperwalletJsonModel, ReceiptIssuer, Parcelable {
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
