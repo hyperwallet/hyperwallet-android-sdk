@@ -38,13 +38,13 @@ import java.util.Map;
 public class QueryParam {
 
     private static final String TAG = QueryParam.class.getName();
-    protected static final String CREATE_BEFORE = "createdBefore";
-    protected static final String CREATE_AFTER = "createdAfter";
-    protected static final String SORT_BY = "sortBy";
-    private final static String PAGINATION_OFFSET = "offset";
-    private final static String PAGINATION_LIMIT = "limit";
-    private final static int DEFAULT_LIMIT = 10;
-    private final static int DEFAULT_OFFSET = 0;
+    public static final String CREATED_BEFORE = "createdBefore";
+    public static final String CREATED_AFTER = "createdAfter";
+    public static final String SORT_BY = "sortBy";
+    public static final String PAGINATION_OFFSET = "offset";
+    public static final String PAGINATION_LIMIT = "limit";
+    protected static final int DEFAULT_LIMIT = 10;
+    protected static final int DEFAULT_OFFSET = 0;
     private final Date mCreatedAfter;
     private final Date mCreatedBefore;
     private final String mSortBy;
@@ -59,8 +59,8 @@ public class QueryParam {
     public QueryParam(@NonNull Map<String, String> urlQueryMap) {
         mOffset = getIntegerValueBy(urlQueryMap, PAGINATION_OFFSET, DEFAULT_OFFSET);
         mLimit = getIntegerValueBy(urlQueryMap, PAGINATION_LIMIT, DEFAULT_LIMIT);
-        mCreatedBefore = getDateValueBy(urlQueryMap, CREATE_BEFORE);
-        mCreatedAfter = getDateValueBy(urlQueryMap, CREATE_AFTER);
+        mCreatedBefore = getDateValueBy(urlQueryMap, CREATED_BEFORE);
+        mCreatedAfter = getDateValueBy(urlQueryMap, CREATED_AFTER);
         mSortBy = urlQueryMap.get(SORT_BY);
 
     }
@@ -173,11 +173,11 @@ public class QueryParam {
         query.put(PAGINATION_LIMIT, String.valueOf(mLimit));
 
         if (mCreatedBefore != null) {
-            query.put(CREATE_BEFORE, DateUtil.toDateTimeFormat(mCreatedBefore));
+            query.put(CREATED_BEFORE, DateUtil.toDateTimeFormat(mCreatedBefore));
         }
 
         if (mCreatedAfter != null) {
-            query.put(CREATE_AFTER, DateUtil.toDateTimeFormat(mCreatedAfter));
+            query.put(CREATED_AFTER, DateUtil.toDateTimeFormat(mCreatedAfter));
         }
 
         if (mSortBy != null) {
@@ -191,8 +191,14 @@ public class QueryParam {
     @StringDef({
             Sortable.ASCENDANT_CREATE_ON,
             Sortable.ASCENDANT_STATUS,
+            Sortable.ASCENDANT_TYPE,
+            Sortable.ASCENDANT_AMOUNT,
+            Sortable.ASCENDANT_CURRENCY,
             Sortable.DESCENDANT_CREATE_ON,
-            Sortable.DESCENDANT_STATUS
+            Sortable.DESCENDANT_STATUS,
+            Sortable.DESCENDANT_TYPE,
+            Sortable.DESCENDANT_AMOUNT,
+            Sortable.DESCENDANT_CURRENCY
     })
     public @interface SortableQuery {
     }
@@ -200,8 +206,14 @@ public class QueryParam {
     public static final class Sortable {
         public static final String ASCENDANT_CREATE_ON = "+createdOn";
         public static final String ASCENDANT_STATUS = "+status";
+        public static final String ASCENDANT_TYPE = "+type";
+        public static final String ASCENDANT_AMOUNT = "+amount";
+        public static final String ASCENDANT_CURRENCY = "+currency";
         public static final String DESCENDANT_CREATE_ON = "-createdOn";
         public static final String DESCENDANT_STATUS = "-status";
+        public static final String DESCENDANT_TYPE = "-type";
+        public static final String DESCENDANT_AMOUNT = "-amount";
+        public static final String DESCENDANT_CURRENCY = "-currency";
     }
 
     @NonNull
@@ -220,7 +232,7 @@ public class QueryParam {
     public static abstract class Builder<S extends QueryParam, B extends Builder<S, B>> {
         private Date mCreatedAfter;
         private Date mCreatedBefore;
-        private String mSortBy;
+        protected String mSortBy;
         private int mOffset;
         private int mLimit;
 

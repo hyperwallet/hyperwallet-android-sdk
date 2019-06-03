@@ -27,145 +27,67 @@
 
 package com.hyperwallet.android.model.receipt;
 
+import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_AMOUNT;
+import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_CURRENCY;
+import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_TYPE;
+import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_AMOUNT;
+import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_CURRENCY;
+import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_TYPE;
 import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.AMOUNT;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.CREATED_AFTER;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.CREATED_BEFORE;
 import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.CREATED_ON;
 import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.CURRENCY;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.LIMIT;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.OFFSET;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.SORT_BY;
 import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.TYPE;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.ASCENDANT_AMOUNT;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.ASCENDANT_CREATE_ON;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.ASCENDANT_CURRENCY;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.ASCENDANT_TYPE;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.DESCENDANT_AMOUNT;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.DESCENDANT_CREATE_ON;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.DESCENDANT_CURRENCY;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.DESCENDANT_TYPE;
-import static com.hyperwallet.android.util.DateUtil.fromDateTimeString;
-import static com.hyperwallet.android.util.DateUtil.toDateTimeFormat;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringDef;
 
-import com.hyperwallet.android.model.HyperwalletPagination;
+import com.hyperwallet.android.model.QueryParam;
+import com.hyperwallet.android.util.DateUtil;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Represents the query parameters for getting list of receipts {@link Receipt}
  */
-public class ReceiptQueryParam extends HyperwalletPagination {
+public class ReceiptQueryParam extends QueryParam {
 
     /**
      * Common Receipt detail field keys
      */
     public final class ReceiptQueryParamFields {
-        public static final String LIMIT = "limit";
-        public static final String OFFSET = "offset";
-        public static final String CREATED_ON = "createdOn";
-        public static final String CREATED_BEFORE = "createdBefore";
-        public static final String CREATED_AFTER = "createdAfter";
-        public static final String TYPE = "type";
-        public static final String AMOUNT = "amount";
-        public static final String CURRENCY = "currency";
-        public static final String SORT_BY = "sortBy";
+        static final String TYPE = "type";
+        static final String AMOUNT = "amount";
+        static final String CURRENCY = "currency";
+        static final String CREATED_ON = "createdOn";
     }
 
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            OFFSET,
-            LIMIT,
-            CREATED_ON,
-            CREATED_BEFORE,
-            CREATED_AFTER,
-            TYPE,
-            AMOUNT,
-            CURRENCY,
-            SORT_BY
-    })
-    public @interface ReceiptQueryParamField {
-    }
-
-    public final class ReceiptSortables {
-        public static final String ASCENDANT_CREATE_ON = "+createdOn";
-        public static final String ASCENDANT_TYPE = "+type";
-        public static final String ASCENDANT_AMOUNT = "+amount";
-        public static final String ASCENDANT_CURRENCY = "+currency";
-        public static final String DESCENDANT_CREATE_ON = "-createdOn";
-        public static final String DESCENDANT_TYPE = "-type";
-        public static final String DESCENDANT_AMOUNT = "-amount";
-        public static final String DESCENDANT_CURRENCY = "-currency";
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            ASCENDANT_CREATE_ON,
-            ASCENDANT_TYPE,
-            ASCENDANT_AMOUNT,
-            ASCENDANT_CURRENCY,
-            DESCENDANT_CREATE_ON,
-            DESCENDANT_TYPE,
-            DESCENDANT_AMOUNT,
-            DESCENDANT_CURRENCY
-    })
-    public @interface ReceiptSortable {
-    }
-
-    // map should be protected
-    private Map<String, String> mFields;
     private final Date mCreatedOn;
-    private final Date mCreatedAfter;
-    private final Date mCreatedBefore;
     private final String mType;
     private final String mAmount;
     private final String mCurrency;
 
     public ReceiptQueryParam(@NonNull final Map<String, String> fields) {
         super(fields);
-        mFields = fields;
         mCreatedOn = getDateValueBy(fields, CREATED_ON);
-        mCreatedAfter = getDateValueBy(fields, CREATED_AFTER);
-        mCreatedBefore = getDateValueBy(fields, CREATED_BEFORE);
+        mType = containsKeyAndHasValue(fields, TYPE) ? fields.get(TYPE) : null;
+        mAmount = containsKeyAndHasValue(fields, AMOUNT) ? fields.get(AMOUNT) : null;
+        mCurrency = containsKeyAndHasValue(fields, CURRENCY) ? fields.get(CURRENCY) : null;
+    }
 
-        if (containsKeyAndHasValue(fields, TYPE)) {
-            mType = fields.get(TYPE);
-        } else {
-            mType = null;
-        }
-        if (containsKeyAndHasValue(fields, AMOUNT)) {
-            mAmount = fields.get(AMOUNT);
-        } else {
-            mAmount = null;
-        }
-
-        if (containsKeyAndHasValue(fields, CURRENCY)) {
-            mCurrency = fields.get(CURRENCY);
-        } else {
-            mCurrency = null;
-        }
+    public ReceiptQueryParam(@NonNull final Builder builder) {
+        super(builder);
+        this.mCreatedOn = builder.mCreatedOn;
+        this.mType = builder.mType;
+        this.mAmount = builder.mAmount;
+        this.mCurrency = builder.mCurrency;
     }
 
     @Nullable
     public Date getCreatedOn() {
         return mCreatedOn;
-    }
-
-    @Nullable
-    public Date getCreatedBefore() {
-        return mCreatedBefore;
-    }
-
-    @Nullable
-    public Date getCreatedAfter() {
-        return mCreatedAfter;
     }
 
     @Nullable
@@ -182,117 +104,101 @@ public class ReceiptQueryParam extends HyperwalletPagination {
         return mCurrency;
     }
 
-    /**
-     * Returns the valid Date type or null in case the content is invalid
-     *
-     * @param fields   the URL query map object
-     * @param queryKey the key to get the object in the query map
-     * @return the valid Date value or null
-     */
-    @Nullable
-    Date getDateValueBy(@NonNull Map<String, String> fields, @NonNull String queryKey) {
-        if (containsKeyAndHasValue(fields, queryKey)) {
-            return fromDateTimeString(fields.get(queryKey));
-        }
-        return null;
-    }
-
     @NonNull
     @Override
     public Map<String, String> buildQuery() {
-        return mFields;
+        Map<String, String> query = super.buildQuery();
+        if (mCreatedOn != null) {
+            query.put(CREATED_ON, DateUtil.toDateTimeFormat(mCreatedOn));
+        }
+        if (mAmount != null) {
+            query.put(AMOUNT, mAmount);
+        }
+        if (mCurrency != null) {
+            query.put(CURRENCY, mCurrency);
+        }
+        if (mType != null) {
+            query.put(TYPE, mType);
+        }
+        return query;
     }
 
-    public static class Builder {
-        Map<String, String> mFields = new HashMap<>();
+    public static abstract class Builder<S extends ReceiptQueryParam, B extends ReceiptQueryParam.Builder<S, B>> extends
+            QueryParam.Builder<S, B> {
 
-        public Builder() {
-            mFields.put(LIMIT, String.valueOf(DEFAULT_LIMIT));
-            mFields.put(OFFSET, String.valueOf(DEFAULT_OFFSET));
-        }
+        private Date mCreatedOn;
+        private String mType;
+        private String mAmount;
+        private String mCurrency;
 
         public Builder createdOn(@NonNull final Date createdOn) {
-            mFields.put(CREATED_ON, toDateTimeFormat(createdOn));
-            return this;
-        }
-
-        public Builder createdBefore(@NonNull final Date createdBefore) {
-            mFields.put(CREATED_BEFORE, toDateTimeFormat(createdBefore));
-            return this;
-        }
-
-        public Builder createdAfter(@NonNull final Date createdAfter) {
-            mFields.put(CREATED_AFTER, toDateTimeFormat(createdAfter));
+            mCreatedOn = createdOn;
             return this;
         }
 
         public Builder type(@NonNull @Receipt.ReceiptType final String type) {
-            mFields.put(TYPE, type);
+            mType = type;
             return this;
         }
 
         public Builder amount(@NonNull final String amount) {
-            mFields.put(AMOUNT, amount);
+            mAmount = amount;
             return this;
         }
 
         public Builder currency(@NonNull final String currency) {
-            mFields.put(CURRENCY, currency);
-            return this;
-        }
-
-        public Builder limit(final int limit) {
-            mFields.put(LIMIT, String.valueOf(limit));
-            return this;
-        }
-
-        public Builder offset(final int offset) {
-            mFields.put(OFFSET, String.valueOf(offset));
+            mCurrency = currency;
             return this;
         }
 
         public Builder sortByCreatedOnAsc() {
-            mFields.put(SORT_BY, ASCENDANT_CREATE_ON);
+            mSortBy = ASCENDANT_CREATE_ON;
             return this;
         }
 
         public Builder sortByCreatedOnDesc() {
-            mFields.put(SORT_BY, DESCENDANT_CREATE_ON);
+            mSortBy = DESCENDANT_CREATE_ON;
             return this;
         }
 
         public Builder sortByTypeAsc() {
-            mFields.put(SORT_BY, ASCENDANT_TYPE);
+            mSortBy = ASCENDANT_TYPE;
             return this;
         }
 
         public Builder sortByTypeDesc() {
-            mFields.put(SORT_BY, DESCENDANT_TYPE);
+            mSortBy = DESCENDANT_TYPE;
             return this;
         }
 
         public Builder sortByAmountAsc() {
-            mFields.put(SORT_BY, ASCENDANT_AMOUNT);
+            mSortBy = ASCENDANT_AMOUNT;
             return this;
         }
 
         public Builder sortByAmountDesc() {
-            mFields.put(SORT_BY, DESCENDANT_AMOUNT);
+            mSortBy = DESCENDANT_AMOUNT;
             return this;
         }
 
         public Builder sortByCurrencyAsc() {
-            mFields.put(SORT_BY, ASCENDANT_CURRENCY);
+            mSortBy = ASCENDANT_CURRENCY;
             return this;
         }
 
         public Builder sortByCurrencyDesc() {
-            mFields.put(SORT_BY, DESCENDANT_CURRENCY);
+            mSortBy = DESCENDANT_CURRENCY;
             return this;
         }
+    }
 
-        public ReceiptQueryParam build() {
-            return new ReceiptQueryParam(mFields);
-        }
+    @NonNull
+    public static Builder<?, ?> builder() {
+        return new Builder() {
+            @Override
+            public ReceiptQueryParam build() {
+                return new ReceiptQueryParam(this);
+            }
+        };
     }
 }
