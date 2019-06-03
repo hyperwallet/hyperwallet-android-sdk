@@ -33,14 +33,14 @@ public class PayPalAccountPagination extends HyperwalletTransferMethodPagination
 
     protected static final String TRANSFER_METHOD_CREATE_ON = "createdOn";
 
-    private Date mCreatedOn;
+    private final Date mCreatedOn;
 
     /**
      * Constructs the default implementation of the PayPal Account pagination.
      */
-    public PayPalAccountPagination() {
-        super();
-        setType(PAYPAL_ACCOUNT);
+    private PayPalAccountPagination(Builder builder) {
+        super(builder.type(PAYPAL_ACCOUNT));
+        mCreatedOn = builder.mCreatedOn;
     }
 
     /**
@@ -51,7 +51,6 @@ public class PayPalAccountPagination extends HyperwalletTransferMethodPagination
     public PayPalAccountPagination(Map<String, String> urlQueryMap) {
         super(urlQueryMap);
         mCreatedOn = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_ON);
-        setType(PAYPAL_ACCOUNT);
     }
 
     public Date getCreatedOn() {
@@ -66,5 +65,36 @@ public class PayPalAccountPagination extends HyperwalletTransferMethodPagination
             query.put(TRANSFER_METHOD_CREATE_ON, DateUtil.toDateTimeFormat(mCreatedOn));
         }
         return query;
+    }
+
+    /**
+     * Builder Class for the {@link HyperwalletBankAccountPagination}
+     */
+    public static abstract class Builder<S extends PayPalAccountPagination, B extends Builder<S, B>> extends
+            HyperwalletTransferMethodPagination.Builder<S, B> {
+        private Date mCreatedOn;
+
+        /**
+         * Define a Date created on.
+         *
+         * @param createdOn Date
+         * @return Builder
+         */
+
+        @SuppressWarnings("unchecked")
+        public B createdOn(Date createdOn) {
+            mCreatedOn = createdOn;
+            return (B) this;
+        }
+    }
+
+    @NonNull
+    public static Builder<?, ?> builder() {
+        return new Builder() {
+            @Override
+            public PayPalAccountPagination build() {
+                return new PayPalAccountPagination(this);
+            }
+        };
     }
 }

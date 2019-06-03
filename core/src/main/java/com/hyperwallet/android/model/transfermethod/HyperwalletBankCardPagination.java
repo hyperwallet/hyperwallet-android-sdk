@@ -33,14 +33,14 @@ public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagi
 
     protected static final String TRANSFER_METHOD_CREATE_ON = "createdOn";
 
-    private Date mCreatedOn;
+    private final Date mCreatedOn;
 
     /**
      * Constructors the bank card pagination
      */
-    public HyperwalletBankCardPagination() {
-        super();
-        setType(BANK_CARD);
+    private HyperwalletBankCardPagination(Builder builder) {
+        super(builder.type(BANK_CARD));
+        mCreatedOn = builder.mCreatedOn;
     }
 
     /**
@@ -51,7 +51,6 @@ public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagi
     public HyperwalletBankCardPagination(Map<String, String> urlQueryMap) {
         super(urlQueryMap);
         mCreatedOn = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_ON);
-        setType(BANK_CARD);
     }
 
     public Date getCreatedOn() {
@@ -66,5 +65,37 @@ public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagi
             query.put(TRANSFER_METHOD_CREATE_ON, DateUtil.toDateTimeFormat(mCreatedOn));
         }
         return query;
+    }
+
+    /**
+     * Builder Class for the {@link HyperwalletBankAccountPagination}
+     */
+    public static abstract class Builder<S extends HyperwalletBankCardPagination, B extends Builder<S, B>> extends
+            HyperwalletTransferMethodPagination.Builder<S, B> {
+
+        private Date mCreatedOn;
+
+        /**
+         * Define a Date created on.
+         *
+         * @param createdOn Date
+         * @return Builder
+         */
+
+        @SuppressWarnings("unchecked")
+        public B createdOn(Date createdOn) {
+            mCreatedOn = createdOn;
+            return (B) this;
+        }
+    }
+
+    @NonNull
+    public static Builder<?, ?> builder() {
+        return new Builder() {
+            @Override
+            public HyperwalletBankCardPagination build() {
+                return new HyperwalletBankCardPagination(this);
+            }
+        };
     }
 }

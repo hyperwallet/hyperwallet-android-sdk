@@ -29,20 +29,32 @@ import java.util.Map;
 public class HyperwalletBankAccountPagination extends HyperwalletTransferMethodPagination {
 
     /**
-     * Constructors the bank account pagination
-     */
-    public HyperwalletBankAccountPagination() {
-        super();
-        setType(BANK_ACCOUNT); //as default type
-    }
-
-    /**
      * Constructors to build the pagination based in the preview request
      *
      * @param urlQueryMap the url Map with properties to build the pagination
      */
     public HyperwalletBankAccountPagination(@NonNull Map<String, String> urlQueryMap) {
         super(urlQueryMap);
-        setType(BANK_ACCOUNT);
+    }
+
+    private HyperwalletBankAccountPagination(Builder builder) {
+        super(builder.type(BANK_ACCOUNT));
+    }
+
+    /**
+     * Builder Class for the {@link HyperwalletBankAccountPagination}
+     */
+    public static abstract class Builder<S extends HyperwalletBankAccountPagination, B extends Builder<S, B>> extends
+            HyperwalletTransferMethodPagination.Builder<S, B> {
+    }
+
+    @NonNull
+    public static Builder<?, ?> builder() {
+        return new Builder() {
+            @Override
+            public HyperwalletBankAccountPagination build() {
+                return new HyperwalletBankAccountPagination(this);
+            }
+        };
     }
 }

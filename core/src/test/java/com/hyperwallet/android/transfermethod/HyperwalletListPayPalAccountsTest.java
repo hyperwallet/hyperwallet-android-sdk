@@ -80,7 +80,7 @@ public class HyperwalletListPayPalAccountsTest {
         String responseBody = mExternalResourceManager.getResourceContent("paypal_accounts_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
 
-        PayPalAccountPagination payPalAccountPagination = new PayPalAccountPagination();
+        PayPalAccountPagination payPalAccountPagination = PayPalAccountPagination.builder().build();
 
         assertThat(payPalAccountPagination, is(notNullValue()));
         Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
@@ -116,7 +116,7 @@ public class HyperwalletListPayPalAccountsTest {
     public void testListPayPalAccounts_returnsNoAccounts() throws InterruptedException {
         mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody("").mock();
 
-        PayPalAccountPagination payPalAccountPagination = new PayPalAccountPagination();
+        PayPalAccountPagination payPalAccountPagination = PayPalAccountPagination.builder().build();
 
         assertThat(payPalAccountPagination, is(notNullValue()));
         Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
@@ -143,7 +143,7 @@ public class HyperwalletListPayPalAccountsTest {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
-        PayPalAccountPagination payPalAccountPagination = new PayPalAccountPagination();
+        PayPalAccountPagination payPalAccountPagination = PayPalAccountPagination.builder().build();
 
         Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);

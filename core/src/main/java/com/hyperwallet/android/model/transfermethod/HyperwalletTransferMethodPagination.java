@@ -25,36 +25,32 @@ import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMe
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.WIRE_ACCOUNT;
-import static com.hyperwallet.android.util.DateUtil.fromDateTimeString;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringDef;
 
-import com.hyperwallet.android.model.HyperwalletPagination;
-import com.hyperwallet.android.util.DateUtil;
+import com.hyperwallet.android.model.QueryParam;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.Date;
 import java.util.Map;
 
 /**
  * Represents the common pagination fields to the transfer methods
  */
-public class HyperwalletTransferMethodPagination extends HyperwalletPagination {
+public class HyperwalletTransferMethodPagination extends QueryParam {
 
-    protected static final String TRANSFER_METHOD_CREATE_BEFORE = "createdBefore";
-    protected static final String TRANSFER_METHOD_CREATE_AFTER = "createdAfter";
     protected static final String TRANSFER_METHOD_TYPE = "type";
     protected static final String TRANSFER_METHODT_STATUS = "status";
-    protected static final String TRANSFER_METHOD_SORT_BY = "sortBy";
-
-    private Date mCreatedAfter;
-    private Date mCreatedBefore;
-    private String mSortBy;
     private String mStatus;
     private String mType;
+
+    protected HyperwalletTransferMethodPagination(Builder builder) {
+        super(builder);
+        mStatus = builder.mStatus;
+        mType = builder.mType;
+    }
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
@@ -71,33 +67,9 @@ public class HyperwalletTransferMethodPagination extends HyperwalletPagination {
             ACTIVATED,
             DE_ACTIVATED,
             INVALID,
-            VERIFIED
+            VERIFIED,
     })
     public @interface TransferMethodStatusQuery {
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            TransferMethodSortable.ASCENDANT_CREATE_ON,
-            TransferMethodSortable.ASCENDANT_STATUS,
-            TransferMethodSortable.DESCENDANT_CREATE_ON,
-            TransferMethodSortable.DESCENDANT_STATUS
-    })
-    public @interface TransferMethodSortableQuery {
-    }
-
-    public final class TransferMethodSortable {
-        public static final String ASCENDANT_CREATE_ON = "+createdOn";
-        public static final String ASCENDANT_STATUS = "+status";
-        public static final String DESCENDANT_CREATE_ON = "-createdOn";
-        public static final String DESCENDANT_STATUS = "-status";
-    }
-
-    /**
-     * Constructors the Hyperwallet Transfer Method Pagination
-     */
-    public HyperwalletTransferMethodPagination() {
-        super();
     }
 
     /**
@@ -107,8 +79,6 @@ public class HyperwalletTransferMethodPagination extends HyperwalletPagination {
      */
     public HyperwalletTransferMethodPagination(@NonNull Map<String, String> urlQueryMap) {
         super(urlQueryMap);
-        mCreatedBefore = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_BEFORE);
-        mCreatedAfter = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_AFTER);
 
         if (containsKeyAndHasValue(urlQueryMap, TRANSFER_METHOD_TYPE)) {
             mType = urlQueryMap.get(TRANSFER_METHOD_TYPE);
@@ -117,95 +87,24 @@ public class HyperwalletTransferMethodPagination extends HyperwalletPagination {
         if (containsKeyAndHasValue(urlQueryMap, TRANSFER_METHODT_STATUS)) {
             mStatus = urlQueryMap.get(TRANSFER_METHODT_STATUS);
         }
-
-        if (containsKeyAndHasValue(urlQueryMap, TRANSFER_METHOD_SORT_BY)) {
-            mSortBy = urlQueryMap.get(TRANSFER_METHOD_SORT_BY);
-        }
-    }
-
-    /**
-     * Returns the valid Date type or null in case the content is invalid
-     *
-     * @param urlQueryMap the URL query map object
-     * @param queryKey    the key to get the object in the query map
-     * @return the valid Date value or null
-     */
-    @Nullable
-    Date getDateValueBy(@NonNull Map<String, String> urlQueryMap, @NonNull String queryKey) {
-        if (containsKeyAndHasValue(urlQueryMap, queryKey)) {
-            return fromDateTimeString(urlQueryMap.get(queryKey));
-        }
-        return null;
     }
 
     @Nullable
-    public String getType() {
+    public @TransferMethodTypeQuery
+    String getType() {
         return mType;
     }
 
-    public void setType(@NonNull @TransferMethodTypeQuery String type) {
-        mType = type;
-    }
-
     @Nullable
-    public String getSortBy() {
-        return mSortBy;
-    }
-
-    public void setSortBy(@NonNull @TransferMethodSortableQuery String sortBy) {
-        mSortBy = sortBy;
-    }
-
-    /**
-     * Returns the begin date criteria.
-     *
-     * @return the begin date criteria
-     */
-    @Nullable
-    public Date getCreatedBefore() {
-        return this.mCreatedBefore;
-    }
-
-    /**
-     * Defines the begin date criteria to list the data created before this date.
-     */
-    public void setCreatedBefore(@NonNull Date createdBefore) {
-        this.mCreatedBefore = createdBefore;
-    }
-
-    @Nullable
-    public Date getCreatedAfter() {
-        return this.mCreatedAfter;
-    }
-
-    /**
-     * Returns data created after this datetime.
-     */
-    public void setCreatedAfter(@NonNull Date createdAfter) {
-        this.mCreatedAfter = createdAfter;
-    }
-
-    @Nullable
-    public String getStatus() {
+    public @TransferMethodStatusQuery
+    String getStatus() {
         return mStatus;
-    }
-
-    public void setStatus(@NonNull @TransferMethodStatusQuery String status) {
-        mStatus = status;
     }
 
     @NonNull
     @Override
     public Map<String, String> buildQuery() {
         Map<String, String> query = super.buildQuery();
-
-        if (mCreatedBefore != null) {
-            query.put(TRANSFER_METHOD_CREATE_BEFORE, DateUtil.toDateTimeFormat(mCreatedBefore));
-        }
-
-        if (mCreatedAfter != null) {
-            query.put(TRANSFER_METHOD_CREATE_AFTER, DateUtil.toDateTimeFormat(mCreatedAfter));
-        }
 
         if (mType != null) {
             query.put(TRANSFER_METHOD_TYPE, mType);
@@ -215,10 +114,50 @@ public class HyperwalletTransferMethodPagination extends HyperwalletPagination {
             query.put(TRANSFER_METHODT_STATUS, mStatus);
         }
 
-        if (mSortBy != null) {
-            query.put(TRANSFER_METHOD_SORT_BY, mSortBy);
+        return query;
+    }
+
+    public static Builder<?, ?> builder() {
+        return new Builder() {
+            @Override
+            public HyperwalletTransferMethodPagination build() {
+                return new HyperwalletTransferMethodPagination(this);
+            }
+        };
+    }
+
+    /**
+     * Builder Class for the {@link HyperwalletTransferMethodPagination}
+     */
+    public static abstract class Builder<S extends HyperwalletTransferMethodPagination, B extends Builder<S, B>> extends
+            QueryParam.Builder<S, B> {
+        private String mStatus;
+        private String mType;
+
+        /**
+         * Specify status of this method. Which is one of the
+         * {@link com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition}.
+         *
+         * @param status The status of this method
+         * @return Builder
+         */
+        @SuppressWarnings("unchecked")
+        public B status(@NonNull @TransferMethodStatusQuery String status) {
+            mStatus = status;
+            return (B) this;
         }
 
-        return query;
+        /**
+         * Specify type of this method. Which is one of the
+         * {@link com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes}.
+         *
+         * @param type The type of this method
+         * @return Builder
+         */
+        @SuppressWarnings("unchecked")
+        public B type(@NonNull @TransferMethodTypeQuery String type) {
+            mType = type;
+            return (B) this;
+        }
     }
 }

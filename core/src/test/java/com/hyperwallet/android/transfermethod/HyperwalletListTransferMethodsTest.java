@@ -198,7 +198,7 @@ public class HyperwalletListTransferMethodsTest {
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
 
         final HyperwalletTransferMethodPagination hyperwalletTransferMethodPagination =
-                new HyperwalletTransferMethodPagination();
+                HyperwalletTransferMethodPagination.builder().build();
         assertThat(hyperwalletTransferMethodPagination.getType(), is(nullValue()));
 
         Hyperwallet.getDefault().listTransferMethods(hyperwalletTransferMethodPagination,

@@ -5,8 +5,9 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
+import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_CREATE_ON;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodPagination.TransferMethodSortable.ASCENDANT_CREATE_ON;
 
 import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodPagination;
 
@@ -70,7 +71,7 @@ public class HyperwalletTransferMethodPaginationTest {
     @Test
     public void testHyperwalletTransferMethodPagination_verifyDefaultValues() {
 
-        HyperwalletTransferMethodPagination pagination = new HyperwalletTransferMethodPagination();
+        HyperwalletTransferMethodPagination pagination = HyperwalletTransferMethodPagination.builder().build();
         assertThat(pagination.getLimit(), is(10));
         assertThat(pagination.getOffset(), is(0));
         assertThat(pagination.getType(), is(nullValue()));
@@ -84,7 +85,7 @@ public class HyperwalletTransferMethodPaginationTest {
 
     @Test
     public void testBuildQuery_verifyDefaultValues() {
-        HyperwalletPagination pagination = new HyperwalletPagination();
+        QueryParam pagination = QueryParam.builder().build();
 
         Map<String, String> query = pagination.buildQuery();
 
@@ -125,8 +126,8 @@ public class HyperwalletTransferMethodPaginationTest {
         assertThat(resultQuery.containsKey(CREATE_AFTER), is(true));
         assertThat(resultQuery.containsKey(TRANSFER_METHOD_TYPE), is(true));
 
-        assertThat(resultQuery.get(LIMIT), is(String.valueOf("200")));
-        assertThat(resultQuery.get(OFFSET), is(String.valueOf("100")));
+        assertThat(resultQuery.get(LIMIT), is("200"));
+        assertThat(resultQuery.get(OFFSET), is("100"));
         assertThat(resultQuery.get(STATUS), is(ACTIVATED));
         assertThat(resultQuery.get(SORT_BY), is(ASCENDANT_CREATE_ON));
         assertThat(resultQuery.get(CREATE_BEFORE), is("2017-01-01T10:12:22"));
@@ -135,5 +136,28 @@ public class HyperwalletTransferMethodPaginationTest {
 
     }
 
+    @Test
+    public void testBuilder_verifyValues() {
+        Calendar dateAfter = Calendar.getInstance();
+        dateAfter.set(2019, 6, 21, 12, 45);
+        Calendar dateBefore = Calendar.getInstance();
+        dateBefore.set(2019, 6, 20, 9, 10);
+        HyperwalletTransferMethodPagination pagination = HyperwalletTransferMethodPagination.builder()
+                .offset(100)
+                .limit(20)
+                .sortBy(DESCENDANT_CREATE_ON)
+                .status(ACTIVATED)
+                .type(BANK_ACCOUNT)
+                .createdAfter(dateAfter.getTime())
+                .createdBefore(dateBefore.getTime())
+                .build();
 
+        assertThat(pagination.getOffset(), is(100));
+        assertThat(pagination.getLimit(), is(20));
+        assertThat(pagination.getSortBy(), is(DESCENDANT_CREATE_ON));
+        assertThat(pagination.getStatus(), is(ACTIVATED));
+        assertThat(pagination.getType(), is(BANK_ACCOUNT));
+        assertThat(pagination.getCreatedAfter().getTime(), is(dateAfter.getTimeInMillis()));
+        assertThat(pagination.getCreatedBefore().getTime(), is(dateBefore.getTimeInMillis()));
+    }
 }
