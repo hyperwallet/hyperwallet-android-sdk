@@ -52,7 +52,10 @@ import java.util.Map;
  */
 public final class Receipt implements HyperwalletJsonModel, Parcelable {
 
-    public final class Entries {
+    public static final class Entries {
+        private Entries() {
+        }
+
         public static final String CREDIT = "CREDIT";
         public static final String DEBIT = "DEBIT";
     }
@@ -65,7 +68,11 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
     public @interface Entry {
     }
 
-    public final class ReceiptTypes {
+    public static final class ReceiptTypes {
+
+        private ReceiptTypes() {
+        }
+
         public static final String PAYMENT = "PAYMENT"; // todo: check
         public static final String CARD_ACTIVATION_FEE = "CARD_ACTIVATION_FEE";
         public static final String CARD_ACTIVATION_FEE_WAIVER = "CARD_ACTIVATION_FEE_WAIVER";
@@ -119,7 +126,10 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
     /**
      * Common Receipt field keys
      */
-    public final class ReceiptFields {
+    public static final class ReceiptFields {
+        private ReceiptFields() {
+        }
+
         public static final String JOURNAL_ID = "journalId";
         public static final String TYPE = "type";
         public static final String CREATED_ON = "createdOn";
