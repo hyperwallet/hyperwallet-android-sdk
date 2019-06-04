@@ -17,6 +17,7 @@ import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMe
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TYPE;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
+import static com.hyperwallet.android.util.HttpMethod.POST;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
@@ -83,6 +84,7 @@ public class HyperwalletCreatePayPalAccountTest {
         mAwait.await(50, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
         verify(mListener).onSuccess(mPayPalAccountCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
 
@@ -115,6 +117,7 @@ public class HyperwalletCreatePayPalAccountTest {
         mAwait.await(50, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
         verify(mListener, never()).onSuccess(any(PayPalAccount.class));
         verify(mListener).onFailure(mExceptionCaptor.capture());
 
