@@ -45,7 +45,7 @@ import com.hyperwallet.android.model.paging.HyperwalletPageLink;
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
 import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
-import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodPagination;
+import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
@@ -61,8 +61,6 @@ import org.mockito.junit.MockitoRule;
 import org.robolectric.RobolectricTestRunner;
 
 import java.net.HttpURLConnection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -94,12 +92,11 @@ public class HyperwalletListTransferMethodsTest {
         String responseBody = mExternalResourceManager.getResourceContent("transfer_method_list_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 
-        Map<String, String> query = new HashMap<>();
-        final HyperwalletTransferMethodPagination hyperwalletTransferMethodPagination =
-                new HyperwalletTransferMethodPagination(query);
-        assertThat(hyperwalletTransferMethodPagination.getType(), is(nullValue()));
+        final HyperwalletTransferMethodQueryParam hyperwalletTransferMethodQueryParam =
+                HyperwalletTransferMethodQueryParam.builder().build();
+        assertThat(hyperwalletTransferMethodQueryParam.getType(), is(nullValue()));
 
-        Hyperwallet.getDefault().listTransferMethods(hyperwalletTransferMethodPagination,
+        Hyperwallet.getDefault().listTransferMethods(hyperwalletTransferMethodQueryParam,
                 mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
@@ -166,14 +163,12 @@ public class HyperwalletListTransferMethodsTest {
     public void testListTransferMethods_returnsNoTransferMethods() throws InterruptedException {
         String responseBody = "";
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_NO_CONTENT).withBody(responseBody).mock();
-        Map<String, String> query = new HashMap<>();
-        query.put(STATUS, ACTIVATED);
 
-        final HyperwalletTransferMethodPagination hyperwalletTransferMethodPagination =
-                new HyperwalletTransferMethodPagination(query);
-        assertThat(hyperwalletTransferMethodPagination.getType(), is(nullValue()));
+        final HyperwalletTransferMethodQueryParam hyperwalletTransferMethodQueryParam =
+                HyperwalletTransferMethodQueryParam.builder().status(ACTIVATED).build();
+        assertThat(hyperwalletTransferMethodQueryParam.getType(), is(nullValue()));
 
-        Hyperwallet.getDefault().listTransferMethods(hyperwalletTransferMethodPagination,
+        Hyperwallet.getDefault().listTransferMethods(hyperwalletTransferMethodQueryParam,
                 mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
@@ -197,11 +192,11 @@ public class HyperwalletListTransferMethodsTest {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
 
-        final HyperwalletTransferMethodPagination hyperwalletTransferMethodPagination =
-                new HyperwalletTransferMethodPagination();
-        assertThat(hyperwalletTransferMethodPagination.getType(), is(nullValue()));
+        final HyperwalletTransferMethodQueryParam hyperwalletTransferMethodQueryParam =
+                HyperwalletTransferMethodQueryParam.builder().build();
+        assertThat(hyperwalletTransferMethodQueryParam.getType(), is(nullValue()));
 
-        Hyperwallet.getDefault().listTransferMethods(hyperwalletTransferMethodPagination,
+        Hyperwallet.getDefault().listTransferMethods(hyperwalletTransferMethodQueryParam,
                 mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 

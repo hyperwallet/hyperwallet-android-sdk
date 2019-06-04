@@ -20,6 +20,7 @@ package com.hyperwallet.android.model.transfermethod;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.hyperwallet.android.util.DateUtil;
 
@@ -27,33 +28,23 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * Represents the bank card pagination fields
+ * Represents the Bank card query params fields.
  */
-public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagination {
+public class HyperwalletBankCardQueryParam extends HyperwalletTransferMethodQueryParam {
 
     protected static final String TRANSFER_METHOD_CREATE_ON = "createdOn";
 
-    private Date mCreatedOn;
+    private final Date mCreatedOn;
 
     /**
-     * Constructors the bank card pagination
+     * Constructors the bank card query params.
      */
-    public HyperwalletBankCardPagination() {
-        super();
-        setType(BANK_CARD);
+    private HyperwalletBankCardQueryParam(@NonNull Builder builder) {
+        super(builder.type(BANK_CARD));
+        mCreatedOn = builder.mCreatedOn;
     }
 
-    /**
-     * Constructor to build the pagination based in the preview request
-     *
-     * @param urlQueryMap the map with properties to build the pagination
-     */
-    public HyperwalletBankCardPagination(Map<String, String> urlQueryMap) {
-        super(urlQueryMap);
-        mCreatedOn = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_ON);
-        setType(BANK_CARD);
-    }
-
+    @Nullable
     public Date getCreatedOn() {
         return mCreatedOn;
     }
@@ -66,5 +57,34 @@ public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagi
             query.put(TRANSFER_METHOD_CREATE_ON, DateUtil.toDateTimeFormat(mCreatedOn));
         }
         return query;
+    }
+
+    public static Builder<?> builder() {
+        return new Builder();
+    }
+
+    /**
+     * Builder Class for the {@link HyperwalletBankAccountQueryParam}
+     */
+    public static class Builder<B extends Builder<B>> extends HyperwalletTransferMethodQueryParam.Builder<B> {
+
+        private Date mCreatedOn;
+
+        /**
+         * Define a Date created on.
+         *
+         * @param createdOn Date
+         * @return Builder
+         */
+
+        public B createdOn(@NonNull Date createdOn) {
+            mCreatedOn = new Date(createdOn.getTime());
+            return self();
+        }
+
+        @Override
+        public HyperwalletBankCardQueryParam build() {
+            return new HyperwalletBankCardQueryParam(this);
+        }
     }
 }

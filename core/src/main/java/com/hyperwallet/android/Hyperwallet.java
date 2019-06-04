@@ -27,8 +27,8 @@ import androidx.annotation.Nullable;
 import com.hyperwallet.android.exception.AuthenticationTokenProviderException;
 import com.hyperwallet.android.exception.HyperwalletInitializationException;
 import com.hyperwallet.android.listener.HyperwalletListener;
-import com.hyperwallet.android.model.HyperwalletPagination;
 import com.hyperwallet.android.model.HyperwalletStatusTransition;
+import com.hyperwallet.android.model.QueryParam;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationField;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
@@ -40,13 +40,13 @@ import com.hyperwallet.android.model.paging.HyperwalletPageList;
 import com.hyperwallet.android.model.receipt.Receipt;
 import com.hyperwallet.android.model.receipt.ReceiptQueryParam;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
-import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountPagination;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountQueryParam;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankCard;
-import com.hyperwallet.android.model.transfermethod.HyperwalletBankCardPagination;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankCardQueryParam;
 import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
-import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodPagination;
+import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam;
 import com.hyperwallet.android.model.transfermethod.PayPalAccount;
-import com.hyperwallet.android.model.transfermethod.PayPalAccountPagination;
+import com.hyperwallet.android.model.transfermethod.PayPalAccountQueryParam;
 import com.hyperwallet.android.model.user.HyperwalletUser;
 
 import org.json.JSONException;
@@ -155,7 +155,7 @@ public class Hyperwallet {
      * or an empty {@code List} if non exist.
      *
      * <p>The ordering and filtering of {@code HyperwalletBankAccounts} will be based on the criteria specified within
-     * the {@link HyperwalletBankAccountPagination} object, if it is not null. Otherwise the default ordering and
+     * the {@link HyperwalletBankAccountQueryParam} object, if it is not null. Otherwise the default ordering and
      * filtering will be applied:</p>
      *
      * <ul>
@@ -177,7 +177,7 @@ public class Hyperwallet {
      * @param bankAccountPagination the ordering and filtering criteria
      * @param listener              the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listBankAccounts(@Nullable final HyperwalletBankAccountPagination bankAccountPagination,
+    public void listBankAccounts(@Nullable final HyperwalletBankAccountQueryParam bankAccountPagination,
             @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletBankAccount>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(bankAccountPagination);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
@@ -493,7 +493,7 @@ public class Hyperwallet {
      * or an empty {@code List} if non exist.
      *
      * <p>The ordering and filtering of {@code HyperwalletTransferMethod}s will be based on the criteria specified
-     * within the {@link HyperwalletTransferMethodPagination} object, if it is not null. Otherwise the default
+     * within the {@link HyperwalletTransferMethodQueryParam} object, if it is not null. Otherwise the default
      * ordering and filtering will be applied.</p>
      *
      * <ul>
@@ -515,7 +515,7 @@ public class Hyperwallet {
      * @param transferMethodPagination the ordering and filtering criteria
      * @param listener                 the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listTransferMethods(@Nullable final HyperwalletTransferMethodPagination transferMethodPagination,
+    public void listTransferMethods(@Nullable final HyperwalletTransferMethodQueryParam transferMethodPagination,
             @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletTransferMethod>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(transferMethodPagination);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/transfer-methods");
@@ -533,7 +533,7 @@ public class Hyperwallet {
      * or an empty {@code List} if non exist.
      *
      * <p>The ordering and filtering of {@code HyperwalletBankCard} will be based on the criteria specified within the
-     * {@link HyperwalletBankAccountPagination} object, if it is not null. Otherwise the default ordering and
+     * {@link HyperwalletBankAccountQueryParam} object, if it is not null. Otherwise the default ordering and
      * filtering will be applied.</p>
      *
      * <ul>
@@ -555,7 +555,7 @@ public class Hyperwallet {
      * @param bankCardPagination the ordering and filtering criteria
      * @param listener           the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listBankCards(@Nullable final HyperwalletBankCardPagination bankCardPagination,
+    public void listBankCards(@Nullable final HyperwalletBankCardQueryParam bankCardPagination,
             @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletBankCard>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(bankCardPagination);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards");
@@ -572,7 +572,7 @@ public class Hyperwallet {
      * or an empty {@code List} if non exist.
      *
      * <p>The ordering and filtering of {@code PayPalAccount} will be based on the criteria specified within the
-     * {@link PayPalAccountPagination} object, if it is not null. Otherwise the default ordering and
+     * {@link PayPalAccountQueryParam} object, if it is not null. Otherwise the default ordering and
      * filtering will be applied.</p>
      *
      * <ul>
@@ -596,7 +596,7 @@ public class Hyperwallet {
      *                                not be null
      */
     public void listPayPalAccounts(
-            @Nullable final PayPalAccountPagination payPalAccountPagination,
+            @Nullable final PayPalAccountQueryParam payPalAccountPagination,
             @NonNull final HyperwalletListener<HyperwalletPageList<PayPalAccount>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(payPalAccountPagination);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts");
@@ -849,7 +849,7 @@ public class Hyperwallet {
 
     @NonNull
     @SuppressWarnings("unchecked")
-    private Map<String, String> buildUrlQueryIfRequired(@Nullable HyperwalletPagination pagination) {
+    private Map<String, String> buildUrlQueryIfRequired(@Nullable QueryParam pagination) {
         Map<String, String> queryMap;
         if (pagination == null) {
             queryMap = new HashMap<>();

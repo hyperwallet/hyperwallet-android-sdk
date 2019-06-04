@@ -32,7 +32,7 @@ import com.hyperwallet.android.model.HyperwalletError;
 import com.hyperwallet.android.model.HyperwalletErrors;
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
 import com.hyperwallet.android.model.transfermethod.PayPalAccount;
-import com.hyperwallet.android.model.transfermethod.PayPalAccountPagination;
+import com.hyperwallet.android.model.transfermethod.PayPalAccountQueryParam;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
@@ -80,7 +80,7 @@ public class HyperwalletListPayPalAccountsTest {
         String responseBody = mExternalResourceManager.getResourceContent("paypal_accounts_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
 
-        PayPalAccountPagination payPalAccountPagination = new PayPalAccountPagination();
+        PayPalAccountQueryParam payPalAccountPagination = PayPalAccountQueryParam.builder().build();
 
         assertThat(payPalAccountPagination, is(notNullValue()));
         Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
@@ -116,7 +116,7 @@ public class HyperwalletListPayPalAccountsTest {
     public void testListPayPalAccounts_returnsNoAccounts() throws InterruptedException {
         mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody("").mock();
 
-        PayPalAccountPagination payPalAccountPagination = new PayPalAccountPagination();
+        PayPalAccountQueryParam payPalAccountPagination = PayPalAccountQueryParam.builder().build();
 
         assertThat(payPalAccountPagination, is(notNullValue()));
         Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
@@ -143,7 +143,7 @@ public class HyperwalletListPayPalAccountsTest {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
-        PayPalAccountPagination payPalAccountPagination = new PayPalAccountPagination();
+        PayPalAccountQueryParam payPalAccountPagination = PayPalAccountQueryParam.builder().build();
 
         Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);

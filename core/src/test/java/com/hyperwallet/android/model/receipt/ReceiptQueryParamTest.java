@@ -1,26 +1,27 @@
 package com.hyperwallet.android.model.receipt;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import static com.hyperwallet.android.model.QueryParam.CREATED_AFTER;
+import static com.hyperwallet.android.model.QueryParam.CREATED_BEFORE;
+import static com.hyperwallet.android.model.QueryParam.PAGINATION_LIMIT;
+import static com.hyperwallet.android.model.QueryParam.PAGINATION_OFFSET;
+import static com.hyperwallet.android.model.QueryParam.SORT_BY;
+import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_AMOUNT;
+import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_CURRENCY;
+import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_TYPE;
+import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_AMOUNT;
+import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_CURRENCY;
+import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_TYPE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.CARD_ACTIVATION_FEE;
 import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.AMOUNT;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.CREATED_AFTER;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.CREATED_BEFORE;
 import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.CREATED_ON;
 import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.CURRENCY;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.LIMIT;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.OFFSET;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.SORT_BY;
 import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.TYPE;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.ASCENDANT_AMOUNT;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.ASCENDANT_CREATE_ON;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.ASCENDANT_CURRENCY;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.ASCENDANT_TYPE;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.DESCENDANT_AMOUNT;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.DESCENDANT_CREATE_ON;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.DESCENDANT_CURRENCY;
-import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptSortables.DESCENDANT_TYPE;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +30,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import junitparams.JUnitParamsRunner;
@@ -41,25 +41,20 @@ public class ReceiptQueryParamTest {
     @Test
     public void testReceiptQueryParam_verifyDefaultValues() {
 
-        final ReceiptQueryParam.Builder builder = new ReceiptQueryParam.Builder();
+        final ReceiptQueryParam.Builder<?> builder = ReceiptQueryParam.builder();
         ReceiptQueryParam receiptQueryParam = builder.build();
         assertThat(receiptQueryParam.getLimit(), is(10));
         assertThat(receiptQueryParam.getOffset(), is(0));
 
-        Map<String, String> resultDefaultQueryMap = receiptQueryParam.buildQuery();
-        assertThat(resultDefaultQueryMap.get("limit"), is("10"));
-        assertThat(resultDefaultQueryMap.get("offset"), is("0"));
-    }
+        Map<String, String> resultMap = receiptQueryParam.buildQuery();
+        assertThat(resultMap.get(PAGINATION_LIMIT), is("10"));
+        assertThat(resultMap.get(PAGINATION_OFFSET), is("0"));
 
-    @Test
-    public void testReceiptQueryParam_verifyMapQueryValues() {
-        Map<String, String> urlQueryMap = new HashMap<>();
-        urlQueryMap.put("limit", "23");
-        urlQueryMap.put("offset", "11");
-
-        ReceiptQueryParam receiptQueryParam = new ReceiptQueryParam(urlQueryMap);
-        assertThat(receiptQueryParam.getLimit(), is(23));
-        assertThat(receiptQueryParam.getOffset(), is(11));
+        assertThat(resultMap.get(CURRENCY), is(nullValue()));
+        assertThat(resultMap.get(AMOUNT), is(nullValue()));
+        assertThat(resultMap.get(CREATED_ON), is(nullValue()));
+        assertThat(resultMap.get(TYPE), is(nullValue()));
+        assertThat(resultMap.get(SORT_BY), is(nullValue()));
     }
 
     @Test
@@ -74,21 +69,19 @@ public class ReceiptQueryParamTest {
         calendar.set(2018, 8, 10);
         Date createdAfter = calendar.getTime();
 
-        final ReceiptQueryParam.Builder builder = new ReceiptQueryParam.Builder()
-                .createdOn(createdOn)
-                .createdBefore(createdBefore)
-                .createdAfter(createdAfter)
-                .sortByAmountAsc()
+        final ReceiptQueryParam.Builder builder = ReceiptQueryParam.builder()
                 .amount("20.00")
+                .createdAfter(createdAfter)
+                .createdBefore(createdBefore)
+                .createdOn(createdOn)
                 .currency("USD")
-                .type(CARD_ACTIVATION_FEE)
                 .limit(40)
                 .offset(120)
-                .currency("USD");
-
+                .sortByAmountAsc()
+                .type(CARD_ACTIVATION_FEE);
         ReceiptQueryParam receiptQueryParam = builder.build();
 
-        assertThat(receiptQueryParam.getCreatedOn().getTime(), is(createdOn.getTime()));
+        assertThat(receiptQueryParam.getCreatedOn(), is(createdOn));
         assertThat(receiptQueryParam.getCreatedAfter(), is(createdAfter));
         assertThat(receiptQueryParam.getCreatedBefore(), is(createdBefore));
         assertThat(receiptQueryParam.getAmount(), is("20.00"));
@@ -99,8 +92,8 @@ public class ReceiptQueryParamTest {
 
         Map<String, String> resultDefaultQueryMap = receiptQueryParam.buildQuery();
 
-        assertThat(resultDefaultQueryMap.get(LIMIT), is("40"));
-        assertThat(resultDefaultQueryMap.get(OFFSET), is("120"));
+        assertThat(resultDefaultQueryMap.get(PAGINATION_LIMIT), is("40"));
+        assertThat(resultDefaultQueryMap.get(PAGINATION_OFFSET), is("120"));
         assertThat(resultDefaultQueryMap.get(AMOUNT), is("20.00"));
         assertThat(resultDefaultQueryMap.get(CURRENCY), is("USD"));
         assertThat(resultDefaultQueryMap.get(TYPE), is(CARD_ACTIVATION_FEE));
@@ -119,14 +112,14 @@ public class ReceiptQueryParamTest {
 
     private Collection<Object[]> testReceiptQueryParamBuilderSortBy() {
         return Arrays.asList(new Object[][]{
-                {new ReceiptQueryParam.Builder().sortByAmountAsc(), ASCENDANT_AMOUNT},
-                {new ReceiptQueryParam.Builder().sortByAmountDesc(), DESCENDANT_AMOUNT},
-                {new ReceiptQueryParam.Builder().sortByCreatedOnAsc(), ASCENDANT_CREATE_ON},
-                {new ReceiptQueryParam.Builder().sortByCreatedOnDesc(), DESCENDANT_CREATE_ON},
-                {new ReceiptQueryParam.Builder().sortByCurrencyAsc(), ASCENDANT_CURRENCY},
-                {new ReceiptQueryParam.Builder().sortByCurrencyDesc(), DESCENDANT_CURRENCY},
-                {new ReceiptQueryParam.Builder().sortByTypeAsc(), ASCENDANT_TYPE},
-                {new ReceiptQueryParam.Builder().sortByTypeDesc(), DESCENDANT_TYPE}
+                {ReceiptQueryParam.builder().sortByAmountAsc(), ASCENDANT_AMOUNT},
+                {ReceiptQueryParam.builder().sortByAmountDesc(), DESCENDANT_AMOUNT},
+                {ReceiptQueryParam.builder().sortByCreatedOnAsc(), ASCENDANT_CREATE_ON},
+                {ReceiptQueryParam.builder().sortByCreatedOnDesc(), DESCENDANT_CREATE_ON},
+                {ReceiptQueryParam.builder().sortByCurrencyAsc(), ASCENDANT_CURRENCY},
+                {ReceiptQueryParam.builder().sortByCurrencyDesc(), DESCENDANT_CURRENCY},
+                {ReceiptQueryParam.builder().sortByTypeAsc(), ASCENDANT_TYPE},
+                {ReceiptQueryParam.builder().sortByTypeDesc(), DESCENDANT_TYPE}
         });
     }
 }

@@ -19,30 +19,27 @@ package com.hyperwallet.android.model.transfermethod;
 
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 
-import androidx.annotation.NonNull;
-
-import java.util.Map;
-
 /**
- * Represents the bank account pagination fields
+ * Represents the bank account query params fields.
  */
-public class HyperwalletBankAccountPagination extends HyperwalletTransferMethodPagination {
+public class HyperwalletBankAccountQueryParam extends HyperwalletTransferMethodQueryParam {
 
-    /**
-     * Constructors the bank account pagination
-     */
-    public HyperwalletBankAccountPagination() {
-        super();
-        setType(BANK_ACCOUNT); //as default type
+    private HyperwalletBankAccountQueryParam(Builder builder) {
+        super(builder.type(BANK_ACCOUNT));
+    }
+
+    public static Builder<?> builder() {
+        return new Builder();
     }
 
     /**
-     * Constructors to build the pagination based in the preview request
-     *
-     * @param urlQueryMap the url Map with properties to build the pagination
+     * Builder Class for the {@link HyperwalletBankAccountQueryParam}
      */
-    public HyperwalletBankAccountPagination(@NonNull Map<String, String> urlQueryMap) {
-        super(urlQueryMap);
-        setType(BANK_ACCOUNT);
+    public static class Builder<B extends Builder<B>> extends HyperwalletTransferMethodQueryParam.Builder<B> {
+
+        @Override
+        public HyperwalletBankAccountQueryParam build() {
+            return new HyperwalletBankAccountQueryParam(this);
+        }
     }
 }

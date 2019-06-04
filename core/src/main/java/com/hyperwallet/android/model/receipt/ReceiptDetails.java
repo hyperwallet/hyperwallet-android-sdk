@@ -88,7 +88,10 @@ public final class ReceiptDetails implements HyperwalletJsonModel, Parcelable {
     /**
      * Common Receipt detail field keys
      */
-    public final class ReceiptDetailsFields {
+    public static final class ReceiptDetailsFields {
+
+        public ReceiptDetailsFields() {
+        }
 
         public static final String BANK_ACCOUNT_ID = "bankAccountId";
         public static final String BANK_ACCOUNT_PURPOSE = "bankAccountPurpose";

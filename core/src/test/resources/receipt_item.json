@@ -8,6 +8,8 @@
   "amount": "20.00",
   "fee": "0.00",
   "currency": "USD",
+  "foreignExchangeCurrency": "CAD",
+  "foreignExchangeRate": "15.20",
   "details": {
     "clientPaymentId": "8OxXefx5",
     "payeeName": "A Person"
