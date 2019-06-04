@@ -93,7 +93,7 @@ public class HyperwalletListTransferMethodsTest {
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 
         final HyperwalletTransferMethodQueryParam hyperwalletTransferMethodQueryParam =
-                HyperwalletTransferMethodQueryParam.builder().build();
+                new HyperwalletTransferMethodQueryParam.Builder().build();
         assertThat(hyperwalletTransferMethodQueryParam.getType(), is(nullValue()));
 
         Hyperwallet.getDefault().listTransferMethods(hyperwalletTransferMethodQueryParam,
@@ -165,7 +165,7 @@ public class HyperwalletListTransferMethodsTest {
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_NO_CONTENT).withBody(responseBody).mock();
 
         final HyperwalletTransferMethodQueryParam hyperwalletTransferMethodQueryParam =
-                HyperwalletTransferMethodQueryParam.builder().status(ACTIVATED).build();
+                new HyperwalletTransferMethodQueryParam.Builder().status(ACTIVATED).build();
         assertThat(hyperwalletTransferMethodQueryParam.getType(), is(nullValue()));
 
         Hyperwallet.getDefault().listTransferMethods(hyperwalletTransferMethodQueryParam,
@@ -193,7 +193,7 @@ public class HyperwalletListTransferMethodsTest {
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
 
         final HyperwalletTransferMethodQueryParam hyperwalletTransferMethodQueryParam =
-                HyperwalletTransferMethodQueryParam.builder().build();
+                new HyperwalletTransferMethodQueryParam.Builder().build();
         assertThat(hyperwalletTransferMethodQueryParam.getType(), is(nullValue()));
 
         Hyperwallet.getDefault().listTransferMethods(hyperwalletTransferMethodQueryParam,

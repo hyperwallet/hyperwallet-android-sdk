@@ -39,7 +39,7 @@ public class HyperwalletBankAccountPaginationTest {
         dateAfter.set(2017, 0, 1, 0, 0, 0);
         Calendar dateBefore = Calendar.getInstance();
         dateBefore.set(2017, 0, 1, 10, 12, 22);
-        HyperwalletBankAccountQueryParam pagination = HyperwalletBankAccountQueryParam.builder()
+        HyperwalletBankAccountQueryParam pagination = new HyperwalletBankAccountQueryParam.Builder()
                 .createdAfter(dateAfter.getTime())
                 .createdBefore(dateBefore.getTime())
                 .offset(offset)
@@ -79,7 +79,7 @@ public class HyperwalletBankAccountPaginationTest {
     @Test
     public void testHyperwalletBankAccountPagination_verifyDefaultValues() {
 
-        HyperwalletBankAccountQueryParam pagination = HyperwalletBankAccountQueryParam.builder().build();
+        HyperwalletBankAccountQueryParam pagination = new HyperwalletBankAccountQueryParam.Builder().build();
         assertThat(pagination.getLimit(), is(10));
         assertThat(pagination.getOffset(), is(0));
         assertThat(pagination.getType(), is(BANK_ACCOUNT));
@@ -100,7 +100,7 @@ public class HyperwalletBankAccountPaginationTest {
         dateAfter.set(2017, 0, 1, 0, 0, 0);
         Calendar dateBefore = Calendar.getInstance();
         dateBefore.set(2017, 0, 1, 10, 12, 22);
-        HyperwalletBankAccountQueryParam pagination = HyperwalletBankAccountQueryParam.builder()
+        HyperwalletBankAccountQueryParam pagination = new HyperwalletBankAccountQueryParam.Builder()
                 .createdAfter(dateAfter.getTime())
                 .createdBefore(dateBefore.getTime())
                 .offset(offset)
@@ -132,7 +132,7 @@ public class HyperwalletBankAccountPaginationTest {
     @Test
     public void testBuildQuery_verifyDefaultValues() {
 
-        HyperwalletBankAccountQueryParam pagination = HyperwalletBankAccountQueryParam.builder().build();
+        HyperwalletBankAccountQueryParam pagination = new HyperwalletBankAccountQueryParam.Builder().build();
 
         Map<String, String> resultQuery = pagination.buildQuery();
         assertThat(resultQuery.size(), is(3));
@@ -156,7 +156,7 @@ public class HyperwalletBankAccountPaginationTest {
         dateBefore.set(2019, 6, 20, 9, 10);
         Calendar dateOn = Calendar.getInstance();
         dateOn.set(2019, 6, 20, 10, 21);
-        HyperwalletBankAccountQueryParam pagination = HyperwalletBankAccountQueryParam.builder()
+        HyperwalletBankAccountQueryParam pagination = new HyperwalletBankAccountQueryParam.Builder()
                 .offset(100)
                 .limit(20)
                 .sortByCreatedOnDesc()

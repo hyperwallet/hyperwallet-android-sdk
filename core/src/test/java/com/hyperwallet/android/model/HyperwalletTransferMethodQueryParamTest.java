@@ -82,7 +82,7 @@ public class HyperwalletTransferMethodQueryParamTest {
 
     @Test
     public void testBuildQuery_verifyDefaultValues() {
-        QueryParam pagination = QueryParam.builder().build();
+        QueryParam pagination = new QueryParam.Builder().build();
 
         Map<String, String> query = pagination.buildQuery();
 

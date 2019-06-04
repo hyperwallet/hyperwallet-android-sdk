@@ -38,7 +38,7 @@ public class PayPalAccountPaginationTest {
         Calendar createdOn = Calendar.getInstance();
         createdOn.set(2017, 0, 1, 10, 10, 0);
 
-        PayPalAccountQueryParam pagination = PayPalAccountQueryParam.builder()
+        PayPalAccountQueryParam pagination = new PayPalAccountQueryParam.Builder()
                 .offset(100)
                 .limit(200)
                 .createdBefore(createdBefore.getTime())
@@ -85,7 +85,7 @@ public class PayPalAccountPaginationTest {
 
     @Test
     public void testHyperwalletPayPalAccountPagination_verifyDefaultValues() {
-        PayPalAccountQueryParam pagination = PayPalAccountQueryParam.builder().build();
+        PayPalAccountQueryParam pagination = new PayPalAccountQueryParam.Builder().build();
         assertThat(pagination.getLimit(), is(10));
         assertThat(pagination.getOffset(), is(0));
         assertThat(pagination.getType(), is(PAYPAL_ACCOUNT));
@@ -97,7 +97,7 @@ public class PayPalAccountPaginationTest {
 
     @Test
     public void testBuildQuery_verifyDefaultValues() {
-        QueryParam pagination = QueryParam.builder().build();
+        QueryParam pagination = new QueryParam.Builder().build();
 
         Map<String, String> query = pagination.buildQuery();
 
@@ -123,7 +123,7 @@ public class PayPalAccountPaginationTest {
         Calendar createdOn = Calendar.getInstance();
         createdOn.set(2017, 0, 1, 10, 10, 0);
 
-        PayPalAccountQueryParam pagination = PayPalAccountQueryParam.builder()
+        PayPalAccountQueryParam pagination = new PayPalAccountQueryParam.Builder()
                 .offset(100)
                 .limit(200)
                 .createdBefore(createdBefore.getTime())
@@ -161,7 +161,7 @@ public class PayPalAccountPaginationTest {
         dateBefore.set(2019, 6, 20, 9, 10);
         Calendar dateOn = Calendar.getInstance();
         dateOn.set(2019, 6, 20, 10, 21);
-        PayPalAccountQueryParam pagination = PayPalAccountQueryParam.builder()
+        PayPalAccountQueryParam pagination = new PayPalAccountQueryParam.Builder()
                 .createdAfter(dateAfter.getTime())
                 .createdBefore(dateBefore.getTime())
                 .createdOn(dateOn.getTime())

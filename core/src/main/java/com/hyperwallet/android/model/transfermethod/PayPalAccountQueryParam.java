@@ -59,14 +59,10 @@ public class PayPalAccountQueryParam extends HyperwalletTransferMethodQueryParam
         return query;
     }
 
-    public static Builder<?> builder() {
-        return new Builder();
-    }
-
     /**
      * Builder Class for the {@link HyperwalletBankAccountQueryParam}
      */
-    public static class Builder<B extends Builder<B>> extends HyperwalletTransferMethodQueryParam.Builder<B> {
+    public static class Builder extends HyperwalletTransferMethodQueryParam.Builder<Builder> {
         private Date mCreatedOn;
 
         /**
@@ -75,9 +71,9 @@ public class PayPalAccountQueryParam extends HyperwalletTransferMethodQueryParam
          * @param createdOn Date
          * @return Builder
          */
-        public B createdOn(@NonNull Date createdOn) {
+        public Builder createdOn(@NonNull Date createdOn) {
             mCreatedOn = new Date(createdOn.getTime());
-            return self();
+            return this;
         }
 
         @Override

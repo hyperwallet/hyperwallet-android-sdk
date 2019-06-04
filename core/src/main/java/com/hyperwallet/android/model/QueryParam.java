@@ -202,10 +202,6 @@ public class QueryParam {
         public static final String DESCENDANT_CURRENCY = "-currency";
     }
 
-    public static Builder<?> builder() {
-        return new Builder();
-    }
-
     /**
      * Builder Class for the {@link QueryParam}
      */

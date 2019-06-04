@@ -107,34 +107,30 @@ public class ReceiptQueryParam extends QueryParam {
         return query;
     }
 
-    public static Builder<?> builder() {
-        return new Builder();
-    }
-
-    public static class Builder<B extends Builder<B>> extends QueryParam.Builder<B> {
+    public static class Builder extends QueryParam.Builder<Builder> {
         private Date mCreatedOn;
         private String mType;
         private String mAmount;
         private String mCurrency;
 
-        public B createdOn(@NonNull final Date createdOn) {
+        public Builder createdOn(@NonNull final Date createdOn) {
             mCreatedOn = new Date(createdOn.getTime());
-            return self();
+            return this;
         }
 
-        public B type(@NonNull @Receipt.ReceiptType final String type) {
+        public Builder type(@NonNull @Receipt.ReceiptType final String type) {
             mType = type;
-            return self();
+            return this;
         }
 
-        public B amount(@NonNull final String amount) {
+        public Builder amount(@NonNull final String amount) {
             mAmount = amount;
-            return self();
+            return this;
         }
 
-        public B currency(@NonNull final String currency) {
+        public Builder currency(@NonNull final String currency) {
             mCurrency = currency;
-            return self();
+            return this;
         }
 
         @Override
