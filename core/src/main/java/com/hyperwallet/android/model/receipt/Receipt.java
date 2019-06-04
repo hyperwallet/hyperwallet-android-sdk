@@ -27,7 +27,38 @@
 
 package com.hyperwallet.android.model.receipt;
 
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptFields.AMOUNT;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptFields.CREATED_ON;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptFields.CURRENCY;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptFields.DESTINATION_TOKEN;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptFields.DETAILS;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptFields.ENTRY;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptFields.FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptFields.FOREIGN_EXCHANGE_CURRENCY;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptFields.FOREIGN_EXCHANGE_RATE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptFields.JOURNAL_ID;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptFields.SOURCE_TOKEN;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptFields.TYPE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.CARD_ACTIVATION_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.CARD_ACTIVATION_FEE_WAIVER;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.CARD_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.MANUAL_TRANSFER_TO_PREPAID_CARD;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PAYMENT;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_BALANCE_INQUIRY_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_CASH_ADVANCE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_DISPUTED_CHARGE_REFUND;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_DISPUTE_DEPOSIT;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_DOMESTIC_CASH_WITHDRAWAL_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_EXCHANGE_RATE_DIFFERENCE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_MANUAL_UNLOAD;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_OVERSEAS_CASH_WITHDRAWAL_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_PIN_CHANGE_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_REFUND;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_REPLACEMENT_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_SALE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_SALE_REVERSAL;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_UNLOAD;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_TO_PREPAID_CARD;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -99,26 +130,26 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
-            ReceiptTypes.PAYMENT,
-            ReceiptTypes.CARD_ACTIVATION_FEE,
-            ReceiptTypes.CARD_ACTIVATION_FEE_WAIVER,
-            ReceiptTypes.CARD_FEE,
-            ReceiptTypes.MANUAL_TRANSFER_TO_PREPAID_CARD,
-            ReceiptTypes.PREPAID_CARD_BALANCE_INQUIRY_FEE,
-            ReceiptTypes.PREPAID_CARD_CASH_ADVANCE,
-            ReceiptTypes.PREPAID_CARD_DISPUTED_CHARGE_REFUND,
-            ReceiptTypes.PREPAID_CARD_DISPUTE_DEPOSIT,
-            ReceiptTypes.PREPAID_CARD_DOMESTIC_CASH_WITHDRAWAL_FEE,
-            ReceiptTypes.PREPAID_CARD_EXCHANGE_RATE_DIFFERENCE,
-            ReceiptTypes.PREPAID_CARD_MANUAL_UNLOAD,
-            ReceiptTypes.PREPAID_CARD_OVERSEAS_CASH_WITHDRAWAL_FEE,
-            ReceiptTypes.PREPAID_CARD_PIN_CHANGE_FEE,
-            ReceiptTypes.PREPAID_CARD_REFUND,
-            ReceiptTypes.PREPAID_CARD_REPLACEMENT_FEE,
-            ReceiptTypes.PREPAID_CARD_SALE,
-            ReceiptTypes.PREPAID_CARD_SALE_REVERSAL,
-            ReceiptTypes.PREPAID_CARD_UNLOAD,
-            ReceiptTypes.TRANSFER_TO_PREPAID_CARD
+            PAYMENT,
+            CARD_ACTIVATION_FEE,
+            CARD_ACTIVATION_FEE_WAIVER,
+            CARD_FEE,
+            MANUAL_TRANSFER_TO_PREPAID_CARD,
+            PREPAID_CARD_BALANCE_INQUIRY_FEE,
+            PREPAID_CARD_CASH_ADVANCE,
+            PREPAID_CARD_DISPUTED_CHARGE_REFUND,
+            PREPAID_CARD_DISPUTE_DEPOSIT,
+            PREPAID_CARD_DOMESTIC_CASH_WITHDRAWAL_FEE,
+            PREPAID_CARD_EXCHANGE_RATE_DIFFERENCE,
+            PREPAID_CARD_MANUAL_UNLOAD,
+            PREPAID_CARD_OVERSEAS_CASH_WITHDRAWAL_FEE,
+            PREPAID_CARD_PIN_CHANGE_FEE,
+            PREPAID_CARD_REFUND,
+            PREPAID_CARD_REPLACEMENT_FEE,
+            PREPAID_CARD_SALE,
+            PREPAID_CARD_SALE_REVERSAL,
+            PREPAID_CARD_UNLOAD,
+            TRANSFER_TO_PREPAID_CARD
     })
     public @interface ReceiptType {
     }
@@ -146,17 +177,17 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
-            ReceiptFields.JOURNAL_ID,
-            ReceiptFields.TYPE,
-            ReceiptFields.CREATED_ON,
-            ReceiptFields.ENTRY,
-            ReceiptFields.SOURCE_TOKEN,
-            ReceiptFields.DESTINATION_TOKEN,
-            ReceiptFields.AMOUNT,
-            ReceiptFields.FEE,
-            ReceiptFields.FOREIGN_EXCHANGE_RATE,
-            ReceiptFields.FOREIGN_EXCHANGE_CURRENCY,
-            ReceiptFields.CURRENCY,
+            JOURNAL_ID,
+            TYPE,
+            CREATED_ON,
+            ENTRY,
+            SOURCE_TOKEN,
+            DESTINATION_TOKEN,
+            AMOUNT,
+            FEE,
+            FOREIGN_EXCHANGE_RATE,
+            FOREIGN_EXCHANGE_CURRENCY,
+            CURRENCY,
             DETAILS
     })
     public @interface ReceiptField {
@@ -178,59 +209,59 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
 
     @Nullable
     public String getJournalId() {
-        return getField(ReceiptFields.JOURNAL_ID);
+        return getField(JOURNAL_ID);
     }
 
     @Nullable
     @ReceiptType
     public String getType() {
-        return getField(ReceiptFields.TYPE);
+        return getField(TYPE);
     }
 
     @Nullable
     public String getCreatedOn() {
-        return getField(ReceiptFields.CREATED_ON);
+        return getField(CREATED_ON);
     }
 
     @Nullable
     @Entry
     public String getEntry() {
-        return getField(ReceiptFields.ENTRY);
+        return getField(ENTRY);
     }
 
     @Nullable
     public String getSourceToken() {
-        return (String) mFields.get(ReceiptFields.SOURCE_TOKEN);
+        return (String) mFields.get(SOURCE_TOKEN);
     }
 
     @Nullable
     public String getDestinationToken() {
-        return getField(ReceiptFields.DESTINATION_TOKEN);
+        return getField(DESTINATION_TOKEN);
     }
 
     @Nullable
     public String getAmount() {
-        return getField(ReceiptFields.AMOUNT);
+        return getField(AMOUNT);
     }
 
     @Nullable
     public String getFee() {
-        return getField(ReceiptFields.FEE);
+        return getField(FEE);
     }
 
     @Nullable
     public String getForeignExchangeRate() {
-        return getField(ReceiptFields.FOREIGN_EXCHANGE_RATE);
+        return getField(FOREIGN_EXCHANGE_RATE);
     }
 
     @Nullable
     public String getForeignExchangeCurrency() {
-        return getField(ReceiptFields.FOREIGN_EXCHANGE_CURRENCY);
+        return getField(FOREIGN_EXCHANGE_CURRENCY);
     }
 
     @Nullable
     public String getCurrency() {
-        return getField(ReceiptFields.CURRENCY);
+        return getField(CURRENCY);
     }
 
     @Nullable
