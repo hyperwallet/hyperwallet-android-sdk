@@ -21,6 +21,7 @@ import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMe
 
 import androidx.annotation.NonNull;
 
+import com.hyperwallet.android.model.QueryParam;
 import com.hyperwallet.android.util.DateUtil;
 
 import java.util.Date;
@@ -67,11 +68,14 @@ public class PayPalAccountPagination extends HyperwalletTransferMethodPagination
         return query;
     }
 
+    public static Builder<?> builder() {
+        return new Builder();
+    }
+
     /**
      * Builder Class for the {@link HyperwalletBankAccountPagination}
      */
-    public static abstract class Builder<S extends PayPalAccountPagination, B extends Builder<S, B>> extends
-            HyperwalletTransferMethodPagination.Builder<S, B> {
+    public static class Builder<B extends Builder<B>> extends HyperwalletTransferMethodPagination.Builder<B> {
         private Date mCreatedOn;
 
         /**
@@ -81,20 +85,16 @@ public class PayPalAccountPagination extends HyperwalletTransferMethodPagination
          * @return Builder
          */
 
-        @SuppressWarnings("unchecked")
         public B createdOn(Date createdOn) {
             mCreatedOn = createdOn;
-            return (B) this;
+            return self();
         }
+
+        @Override
+        public PayPalAccountPagination build() {
+            return new PayPalAccountPagination(this);
+        }
+
     }
 
-    @NonNull
-    public static Builder<?, ?> builder() {
-        return new Builder() {
-            @Override
-            public PayPalAccountPagination build() {
-                return new PayPalAccountPagination(this);
-            }
-        };
-    }
 }

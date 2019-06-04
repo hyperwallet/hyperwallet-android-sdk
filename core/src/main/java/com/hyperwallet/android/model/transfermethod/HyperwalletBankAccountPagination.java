@@ -21,6 +21,8 @@ import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMe
 
 import androidx.annotation.NonNull;
 
+import com.hyperwallet.android.model.QueryParam;
+
 import java.util.Map;
 
 /**
@@ -41,20 +43,20 @@ public class HyperwalletBankAccountPagination extends HyperwalletTransferMethodP
         super(builder.type(BANK_ACCOUNT));
     }
 
+    public static Builder<?> builder() {
+        return new Builder();
+    }
+
     /**
      * Builder Class for the {@link HyperwalletBankAccountPagination}
      */
-    public static abstract class Builder<S extends HyperwalletBankAccountPagination, B extends Builder<S, B>> extends
-            HyperwalletTransferMethodPagination.Builder<S, B> {
+    public static class Builder<B extends Builder<B>> extends HyperwalletTransferMethodPagination.Builder<B> {
+
+        @Override
+        public HyperwalletBankAccountPagination build() {
+            return new HyperwalletBankAccountPagination(this);
+        }
     }
 
-    @NonNull
-    public static Builder<?, ?> builder() {
-        return new Builder() {
-            @Override
-            public HyperwalletBankAccountPagination build() {
-                return new HyperwalletBankAccountPagination(this);
-            }
-        };
-    }
+
 }

@@ -117,20 +117,15 @@ public class HyperwalletTransferMethodPagination extends QueryParam {
         return query;
     }
 
-    public static Builder<?, ?> builder() {
-        return new Builder() {
-            @Override
-            public HyperwalletTransferMethodPagination build() {
-                return new HyperwalletTransferMethodPagination(this);
-            }
-        };
+    public static Builder<?> builder() {
+        return new Builder();
     }
+
 
     /**
      * Builder Class for the {@link HyperwalletTransferMethodPagination}
      */
-    public static abstract class Builder<S extends HyperwalletTransferMethodPagination, B extends Builder<S, B>> extends
-            QueryParam.Builder<S, B> {
+    public static class Builder<B extends Builder<B>> extends QueryParam.Builder<B> {
         private String mStatus;
         private String mType;
 
@@ -141,10 +136,9 @@ public class HyperwalletTransferMethodPagination extends QueryParam {
          * @param status The status of this method
          * @return Builder
          */
-        @SuppressWarnings("unchecked")
         public B status(@NonNull @TransferMethodStatusQuery String status) {
             mStatus = status;
-            return (B) this;
+            return self();
         }
 
         /**
@@ -154,10 +148,14 @@ public class HyperwalletTransferMethodPagination extends QueryParam {
          * @param type The type of this method
          * @return Builder
          */
-        @SuppressWarnings("unchecked")
         public B type(@NonNull @TransferMethodTypeQuery String type) {
             mType = type;
-            return (B) this;
+            return self();
+        }
+
+        @Override
+        public HyperwalletTransferMethodPagination build() {
+            return new HyperwalletTransferMethodPagination(this);
         }
     }
 }

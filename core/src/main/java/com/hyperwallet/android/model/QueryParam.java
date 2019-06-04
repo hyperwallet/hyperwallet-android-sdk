@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringDef;
 
+import com.hyperwallet.android.model.transfermethod.PayPalAccountPagination;
 import com.hyperwallet.android.util.DateUtil;
 
 import java.lang.annotation.Retention;
@@ -68,7 +69,7 @@ public class QueryParam {
     /**
      * Constructors the Hyperwallet Pagination
      */
-    protected QueryParam(Builder<?, ?> builder) {
+    protected QueryParam(Builder builder) {
         mOffset = builder.mOffset;
         mLimit = builder.mLimit == 0 ? DEFAULT_LIMIT : builder.mLimit;
         mCreatedAfter = builder.mCreatedAfter;
@@ -216,40 +217,32 @@ public class QueryParam {
         public static final String DESCENDANT_CURRENCY = "-currency";
     }
 
-    @NonNull
-    public static Builder<?, ?> builder() {
-        return new Builder() {
-            @Override
-            public QueryParam build() {
-                return new QueryParam(this);
-            }
-        };
+    public static Builder<?> builder() {
+        return new Builder();
     }
+
 
     /**
      * Builder Class for the {@link QueryParam}
      */
-    public static abstract class Builder<S extends QueryParam, B extends Builder<S, B>> {
+    public static class Builder<B extends Builder> {
         private Date mCreatedAfter;
         private Date mCreatedBefore;
         protected String mSortBy;
         private int mOffset;
         private int mLimit;
 
-        /**
-         * Builds an instance of T with the set of params.
-         *
-         * @return QueryParam
-         */
-        public abstract S build();
+
+        protected B self() {
+            return (B) this;
+        }
 
         /**
          * Defines the number of records to skip.
          */
-        @SuppressWarnings("unchecked")
         public B offset(int offset) {
             mOffset = offset;
-            return (B) this;
+            return self();
         }
 
         /**
@@ -259,10 +252,9 @@ public class QueryParam {
          * @param limit The limit of records to be returned.
          * @return Builder
          */
-        @SuppressWarnings("unchecked")
         public B limit(int limit) {
             mLimit = limit;
-            return (B) this;
+            return self();
         }
 
         /**
@@ -271,10 +263,9 @@ public class QueryParam {
          * @param createdAfter Date
          * @return Builder
          */
-        @SuppressWarnings("unchecked")
         public B createdAfter(Date createdAfter) {
             mCreatedAfter = createdAfter;
-            return (B) this;
+            return self();
         }
 
         /**
@@ -283,10 +274,9 @@ public class QueryParam {
          * @param createdBefore Date
          * @return Builder
          */
-        @SuppressWarnings("unchecked")
         public B createdBefore(Date createdBefore) {
             mCreatedBefore = createdBefore;
-            return (B) this;
+            return self();
         }
 
         /**
@@ -295,10 +285,13 @@ public class QueryParam {
          * @param sortBy Sort order string
          * @return Builder
          */
-        @SuppressWarnings("unchecked")
         public B sortBy(@NonNull @SortableQuery String sortBy) {
             mSortBy = sortBy;
-            return (B) this;
+            return self();
+        }
+
+        public QueryParam build() {
+            return new QueryParam(this);
         }
     }
 }

@@ -45,7 +45,7 @@ public class ReceiptQueryParamTest {
     @Test
     public void testReceiptQueryParam_verifyDefaultValues() {
 
-        final ReceiptQueryParam.Builder<?, ?> builder = ReceiptQueryParam.builder();
+        final ReceiptQueryParam.Builder builder = new ReceiptQueryParam.Builder();
         ReceiptQueryParam receiptQueryParam = builder.build();
         assertThat(receiptQueryParam.getLimit(), is(10));
         assertThat(receiptQueryParam.getOffset(), is(0));
@@ -136,22 +136,21 @@ public class ReceiptQueryParamTest {
 
     @Test
     @Parameters(method = "testReceiptQueryParamBuilderSortBy")
-    public void testReceiptQueryParamBuilder_verifySortOrder(final ReceiptQueryParam.Builder<?, ?> builder,
-            final String sortBy) {
+    public void testReceiptQueryParamBuilder_verifySortOrder(final ReceiptQueryParam.Builder builder, final String sortBy) {
         ReceiptQueryParam receiptQueryParam = builder.build();
         assertThat(receiptQueryParam.buildQuery().get(SORT_BY), is(sortBy));
     }
 
     private Collection<Object[]> testReceiptQueryParamBuilderSortBy() {
         return Arrays.asList(new Object[][]{
-                {ReceiptQueryParam.builder().sortByAmountAsc(), ASCENDANT_AMOUNT},
-                {ReceiptQueryParam.builder().sortByAmountDesc(), DESCENDANT_AMOUNT},
-                {ReceiptQueryParam.builder().sortByCreatedOnAsc(), ASCENDANT_CREATE_ON},
-                {ReceiptQueryParam.builder().sortByCreatedOnDesc(), DESCENDANT_CREATE_ON},
-                {ReceiptQueryParam.builder().sortByCurrencyAsc(), ASCENDANT_CURRENCY},
-                {ReceiptQueryParam.builder().sortByCurrencyDesc(), DESCENDANT_CURRENCY},
-                {ReceiptQueryParam.builder().sortByTypeAsc(), ASCENDANT_TYPE},
-                {ReceiptQueryParam.builder().sortByTypeDesc(), DESCENDANT_TYPE}
+                {new ReceiptQueryParam.Builder().sortByAmountAsc(), ASCENDANT_AMOUNT},
+                {new ReceiptQueryParam.Builder().sortByAmountDesc(), DESCENDANT_AMOUNT},
+                {new ReceiptQueryParam.Builder().sortByCreatedOnAsc(), ASCENDANT_CREATE_ON},
+                {new ReceiptQueryParam.Builder().sortByCreatedOnDesc(), DESCENDANT_CREATE_ON},
+                {new ReceiptQueryParam.Builder().sortByCurrencyAsc(), ASCENDANT_CURRENCY},
+                {new ReceiptQueryParam.Builder().sortByCurrencyDesc(), DESCENDANT_CURRENCY},
+                {new ReceiptQueryParam.Builder().sortByTypeAsc(), ASCENDANT_TYPE},
+                {new ReceiptQueryParam.Builder().sortByTypeDesc(), DESCENDANT_TYPE}
         });
     }
 }

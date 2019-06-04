@@ -44,6 +44,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.hyperwallet.android.model.QueryParam;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountPagination;
+import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodPagination;
 import com.hyperwallet.android.util.DateUtil;
 
 import java.util.Date;
@@ -123,8 +125,12 @@ public class ReceiptQueryParam extends QueryParam {
         return query;
     }
 
-    public static abstract class Builder<S extends ReceiptQueryParam, B extends ReceiptQueryParam.Builder<S, B>> extends
-            QueryParam.Builder<S, B> {
+
+    public static Builder<?> builder() {
+        return new Builder();
+    }
+
+    public static class Builder<B extends Builder<B>> extends QueryParam.Builder<B> {
 
         private Date mCreatedOn;
         private String mType;
@@ -190,15 +196,11 @@ public class ReceiptQueryParam extends QueryParam {
             mSortBy = DESCENDANT_CURRENCY;
             return this;
         }
+
+        @Override
+        public ReceiptQueryParam build() {
+            return new ReceiptQueryParam(this);
+        }
     }
 
-    @NonNull
-    public static Builder<?, ?> builder() {
-        return new Builder() {
-            @Override
-            public ReceiptQueryParam build() {
-                return new ReceiptQueryParam(this);
-            }
-        };
-    }
 }
