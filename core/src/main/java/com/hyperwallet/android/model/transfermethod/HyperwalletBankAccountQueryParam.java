@@ -19,42 +19,27 @@ package com.hyperwallet.android.model.transfermethod;
 
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 
-import androidx.annotation.NonNull;
-
-import java.util.Map;
-
 /**
- * Represents the bank account pagination fields
+ * Represents the bank account query params fields.
  */
-public class HyperwalletBankAccountPagination extends HyperwalletTransferMethodPagination {
+public class HyperwalletBankAccountQueryParam extends HyperwalletTransferMethodQueryParam {
 
-    /**
-     * Constructors to build the pagination based in the preview request
-     *
-     * @param urlQueryMap the url Map with properties to build the pagination
-     */
-    public HyperwalletBankAccountPagination(@NonNull Map<String, String> urlQueryMap) {
-        super(urlQueryMap);
-    }
-
-    private HyperwalletBankAccountPagination(Builder builder) {
+    private HyperwalletBankAccountQueryParam(Builder builder) {
         super(builder.type(BANK_ACCOUNT));
     }
 
-    /**
-     * Builder Class for the {@link HyperwalletBankAccountPagination}
-     */
-    public static abstract class Builder<S extends HyperwalletBankAccountPagination, B extends Builder<S, B>> extends
-            HyperwalletTransferMethodPagination.Builder<S, B> {
+    public static Builder<?> builder() {
+        return new Builder();
     }
 
-    @NonNull
-    public static Builder<?, ?> builder() {
-        return new Builder() {
-            @Override
-            public HyperwalletBankAccountPagination build() {
-                return new HyperwalletBankAccountPagination(this);
-            }
-        };
+    /**
+     * Builder Class for the {@link HyperwalletBankAccountQueryParam}
+     */
+    public static class Builder<B extends Builder<B>> extends HyperwalletTransferMethodQueryParam.Builder<B> {
+
+        @Override
+        public HyperwalletBankAccountQueryParam build() {
+            return new HyperwalletBankAccountQueryParam(this);
+        }
     }
 }

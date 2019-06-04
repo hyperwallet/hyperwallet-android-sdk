@@ -52,23 +52,9 @@ public class QueryParam {
     private final int mLimit;
 
     /**
-     * Constructors a Hyperwallet Pagination based on Map object
-     *
-     * @param urlQueryMap the URL query map with the specific parameters
+     * Constructors the QueryParam
      */
-    public QueryParam(@NonNull Map<String, String> urlQueryMap) {
-        mOffset = getIntegerValueBy(urlQueryMap, PAGINATION_OFFSET, DEFAULT_OFFSET);
-        mLimit = getIntegerValueBy(urlQueryMap, PAGINATION_LIMIT, DEFAULT_LIMIT);
-        mCreatedBefore = getDateValueBy(urlQueryMap, CREATED_BEFORE);
-        mCreatedAfter = getDateValueBy(urlQueryMap, CREATED_AFTER);
-        mSortBy = urlQueryMap.get(SORT_BY);
-
-    }
-
-    /**
-     * Constructors the Hyperwallet Pagination
-     */
-    protected QueryParam(Builder<?, ?> builder) {
+    protected QueryParam(@NonNull Builder builder) {
         mOffset = builder.mOffset;
         mLimit = builder.mLimit == 0 ? DEFAULT_LIMIT : builder.mLimit;
         mCreatedAfter = builder.mCreatedAfter;
@@ -216,40 +202,31 @@ public class QueryParam {
         public static final String DESCENDANT_CURRENCY = "-currency";
     }
 
-    @NonNull
-    public static Builder<?, ?> builder() {
-        return new Builder() {
-            @Override
-            public QueryParam build() {
-                return new QueryParam(this);
-            }
-        };
+    public static Builder<?> builder() {
+        return new Builder();
     }
 
     /**
      * Builder Class for the {@link QueryParam}
      */
-    public static abstract class Builder<S extends QueryParam, B extends Builder<S, B>> {
+    public static class Builder<B extends Builder> {
         private Date mCreatedAfter;
         private Date mCreatedBefore;
         protected String mSortBy;
         private int mOffset;
         private int mLimit;
 
-        /**
-         * Builds an instance of T with the set of params.
-         *
-         * @return QueryParam
-         */
-        public abstract S build();
+        @SuppressWarnings("unchecked")
+        protected B self() {
+            return (B) this;
+        }
 
         /**
          * Defines the number of records to skip.
          */
-        @SuppressWarnings("unchecked")
         public B offset(int offset) {
             mOffset = offset;
-            return (B) this;
+            return self();
         }
 
         /**
@@ -259,10 +236,9 @@ public class QueryParam {
          * @param limit The limit of records to be returned.
          * @return Builder
          */
-        @SuppressWarnings("unchecked")
         public B limit(int limit) {
             mLimit = limit;
-            return (B) this;
+            return self();
         }
 
         /**
@@ -271,10 +247,9 @@ public class QueryParam {
          * @param createdAfter Date
          * @return Builder
          */
-        @SuppressWarnings("unchecked")
-        public B createdAfter(Date createdAfter) {
-            mCreatedAfter = createdAfter;
-            return (B) this;
+        public B createdAfter(@NonNull Date createdAfter) {
+            mCreatedAfter = new Date(createdAfter.getTime());
+            return self();
         }
 
         /**
@@ -283,22 +258,118 @@ public class QueryParam {
          * @param createdBefore Date
          * @return Builder
          */
-        @SuppressWarnings("unchecked")
-        public B createdBefore(Date createdBefore) {
-            mCreatedBefore = createdBefore;
-            return (B) this;
+        public B createdBefore(@NonNull Date createdBefore) {
+            mCreatedBefore = new Date(createdBefore.getTime());
+            return self();
         }
 
         /**
-         * Specify the sort order one of the {@link Sortable}.
+         * Specify the sort order with the Created date ascendant param {@link Sortable#ASCENDANT_CREATE_ON}.
          *
-         * @param sortBy Sort order string
          * @return Builder
          */
-        @SuppressWarnings("unchecked")
-        public B sortBy(@NonNull @SortableQuery String sortBy) {
-            mSortBy = sortBy;
-            return (B) this;
+        public B sortByCreatedOnAsc() {
+            mSortBy = Sortable.ASCENDANT_CREATE_ON;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Created date descendant param {@link Sortable#DESCENDANT_CREATE_ON}.
+         *
+         * @return Builder
+         */
+        public B sortByCreatedOnDesc() {
+            mSortBy = Sortable.DESCENDANT_CREATE_ON;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Status ascendant param {@link Sortable#ASCENDANT_STATUS}.
+         *
+         * @return Builder
+         */
+        public B sortByStatusAsc() {
+            mSortBy = Sortable.ASCENDANT_STATUS;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Status descendant param {@link Sortable#DESCENDANT_STATUS}.
+         *
+         * @return Builder
+         */
+        public B sortByStatusDesc() {
+            mSortBy = Sortable.DESCENDANT_STATUS;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Type ascendant param {@link Sortable#ASCENDANT_TYPE}.
+         *
+         * @return Builder
+         */
+        public B sortByTypeAsc() {
+            mSortBy = Sortable.ASCENDANT_TYPE;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Type descendant param {@link Sortable#DESCENDANT_TYPE}.
+         *
+         * @return Builder
+         */
+        public B sortByTypeDesc() {
+            mSortBy = Sortable.DESCENDANT_TYPE;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Amount ascendant param {@link Sortable#ASCENDANT_AMOUNT}.
+         *
+         * @return Builder
+         */
+        public B sortByAmountAsc() {
+            mSortBy = Sortable.ASCENDANT_AMOUNT;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Amount descendant param {@link Sortable#DESCENDANT_AMOUNT}.
+         *
+         * @return Builder
+         */
+        public B sortByAmountDesc() {
+            mSortBy = Sortable.DESCENDANT_AMOUNT;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Currency ascendant param {@link Sortable#ASCENDANT_CURRENCY}.
+         *
+         * @return Builder
+         */
+        public B sortByCurrencyAsc() {
+            mSortBy = Sortable.ASCENDANT_CURRENCY;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Currency descendant param {@link Sortable#DESCENDANT_CURRENCY}.
+         *
+         * @return Builder
+         */
+        public B sortByCurrencyDesc() {
+            mSortBy = Sortable.DESCENDANT_CURRENCY;
+            return self();
+        }
+
+        /**
+         * Builds an instance of QueryParam with the set of params.
+         *
+         * @return QueryParam
+         */
+        public QueryParam build() {
+            return new QueryParam(this);
         }
     }
 }

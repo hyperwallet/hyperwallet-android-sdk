@@ -20,6 +20,7 @@ package com.hyperwallet.android.model.transfermethod;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.hyperwallet.android.util.DateUtil;
 
@@ -27,32 +28,23 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * Represents the PayPal Account pagination fields
+ * Represents the PayPal Account query param fields.
  */
-public class PayPalAccountPagination extends HyperwalletTransferMethodPagination {
+public class PayPalAccountQueryParam extends HyperwalletTransferMethodQueryParam {
 
     protected static final String TRANSFER_METHOD_CREATE_ON = "createdOn";
 
     private final Date mCreatedOn;
 
     /**
-     * Constructs the default implementation of the PayPal Account pagination.
+     * Constructs the default implementation of the PayPal Account query param.
      */
-    private PayPalAccountPagination(Builder builder) {
+    private PayPalAccountQueryParam(@NonNull Builder builder) {
         super(builder.type(PAYPAL_ACCOUNT));
         mCreatedOn = builder.mCreatedOn;
     }
 
-    /**
-     * Constructs the PayPal Account pagination based in the preview request with extra parameters.
-     *
-     * @param urlQueryMap the map with properties to build the pagination
-     */
-    public PayPalAccountPagination(Map<String, String> urlQueryMap) {
-        super(urlQueryMap);
-        mCreatedOn = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_ON);
-    }
-
+    @Nullable
     public Date getCreatedOn() {
         return mCreatedOn;
     }
@@ -67,11 +59,14 @@ public class PayPalAccountPagination extends HyperwalletTransferMethodPagination
         return query;
     }
 
+    public static Builder<?> builder() {
+        return new Builder();
+    }
+
     /**
-     * Builder Class for the {@link HyperwalletBankAccountPagination}
+     * Builder Class for the {@link HyperwalletBankAccountQueryParam}
      */
-    public static abstract class Builder<S extends PayPalAccountPagination, B extends Builder<S, B>> extends
-            HyperwalletTransferMethodPagination.Builder<S, B> {
+    public static class Builder<B extends Builder<B>> extends HyperwalletTransferMethodQueryParam.Builder<B> {
         private Date mCreatedOn;
 
         /**
@@ -80,21 +75,15 @@ public class PayPalAccountPagination extends HyperwalletTransferMethodPagination
          * @param createdOn Date
          * @return Builder
          */
-
-        @SuppressWarnings("unchecked")
-        public B createdOn(Date createdOn) {
-            mCreatedOn = createdOn;
-            return (B) this;
+        public B createdOn(@NonNull Date createdOn) {
+            mCreatedOn = new Date(createdOn.getTime());
+            return self();
         }
-    }
 
-    @NonNull
-    public static Builder<?, ?> builder() {
-        return new Builder() {
-            @Override
-            public PayPalAccountPagination build() {
-                return new PayPalAccountPagination(this);
-            }
-        };
+        @Override
+        public PayPalAccountQueryParam build() {
+            return new PayPalAccountQueryParam(this);
+        }
+
     }
 }
