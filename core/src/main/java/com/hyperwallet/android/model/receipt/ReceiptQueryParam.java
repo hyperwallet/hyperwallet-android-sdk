@@ -27,14 +27,6 @@
 
 package com.hyperwallet.android.model.receipt;
 
-import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_AMOUNT;
-import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_CREATE_ON;
-import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_CURRENCY;
-import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_TYPE;
-import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_AMOUNT;
-import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_CREATE_ON;
-import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_CURRENCY;
-import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_TYPE;
 import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.AMOUNT;
 import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.CREATED_ON;
 import static com.hyperwallet.android.model.receipt.ReceiptQueryParam.ReceiptQueryParamFields.CURRENCY;
@@ -57,7 +49,7 @@ public class ReceiptQueryParam extends QueryParam {
     /**
      * Common Receipt detail field keys
      */
-    public final class ReceiptQueryParamFields {
+    public static final class ReceiptQueryParamFields {
         static final String TYPE = "type";
         static final String AMOUNT = "amount";
         static final String CURRENCY = "currency";
@@ -68,14 +60,6 @@ public class ReceiptQueryParam extends QueryParam {
     private final String mType;
     private final String mAmount;
     private final String mCurrency;
-
-    public ReceiptQueryParam(@NonNull final Map<String, String> fields) {
-        super(fields);
-        mCreatedOn = getDateValueBy(fields, CREATED_ON);
-        mType = containsKeyAndHasValue(fields, TYPE) ? fields.get(TYPE) : null;
-        mAmount = containsKeyAndHasValue(fields, AMOUNT) ? fields.get(AMOUNT) : null;
-        mCurrency = containsKeyAndHasValue(fields, CURRENCY) ? fields.get(CURRENCY) : null;
-    }
 
     public ReceiptQueryParam(@NonNull final Builder builder) {
         super(builder);
@@ -123,82 +107,39 @@ public class ReceiptQueryParam extends QueryParam {
         return query;
     }
 
-    public static abstract class Builder<S extends ReceiptQueryParam, B extends ReceiptQueryParam.Builder<S, B>> extends
-            QueryParam.Builder<S, B> {
+    public static Builder<?> builder() {
+        return new Builder();
+    }
 
+    public static class Builder<B extends Builder<B>> extends QueryParam.Builder<B> {
         private Date mCreatedOn;
         private String mType;
         private String mAmount;
         private String mCurrency;
 
-        public Builder createdOn(@NonNull final Date createdOn) {
-            mCreatedOn = createdOn;
-            return this;
+        public B createdOn(@NonNull final Date createdOn) {
+            mCreatedOn = new Date(createdOn.getTime());
+            return self();
         }
 
-        public Builder type(@NonNull @Receipt.ReceiptType final String type) {
+        public B type(@NonNull @Receipt.ReceiptType final String type) {
             mType = type;
-            return this;
+            return self();
         }
 
-        public Builder amount(@NonNull final String amount) {
+        public B amount(@NonNull final String amount) {
             mAmount = amount;
-            return this;
+            return self();
         }
 
-        public Builder currency(@NonNull final String currency) {
+        public B currency(@NonNull final String currency) {
             mCurrency = currency;
-            return this;
+            return self();
         }
 
-        public Builder sortByCreatedOnAsc() {
-            mSortBy = ASCENDANT_CREATE_ON;
-            return this;
+        @Override
+        public ReceiptQueryParam build() {
+            return new ReceiptQueryParam(this);
         }
-
-        public Builder sortByCreatedOnDesc() {
-            mSortBy = DESCENDANT_CREATE_ON;
-            return this;
-        }
-
-        public Builder sortByTypeAsc() {
-            mSortBy = ASCENDANT_TYPE;
-            return this;
-        }
-
-        public Builder sortByTypeDesc() {
-            mSortBy = DESCENDANT_TYPE;
-            return this;
-        }
-
-        public Builder sortByAmountAsc() {
-            mSortBy = ASCENDANT_AMOUNT;
-            return this;
-        }
-
-        public Builder sortByAmountDesc() {
-            mSortBy = DESCENDANT_AMOUNT;
-            return this;
-        }
-
-        public Builder sortByCurrencyAsc() {
-            mSortBy = ASCENDANT_CURRENCY;
-            return this;
-        }
-
-        public Builder sortByCurrencyDesc() {
-            mSortBy = DESCENDANT_CURRENCY;
-            return this;
-        }
-    }
-
-    @NonNull
-    public static Builder<?, ?> builder() {
-        return new Builder() {
-            @Override
-            public ReceiptQueryParam build() {
-                return new ReceiptQueryParam(this);
-            }
-        };
     }
 }
