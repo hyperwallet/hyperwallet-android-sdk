@@ -232,7 +232,7 @@ public class HyperwalletListReceiptsTest {
         calendar.set(2018, 8, 10);
         Date createdAfter = calendar.getTime();
 
-        final ReceiptQueryParam.Builder builder = ReceiptQueryParam.builder()
+        final ReceiptQueryParam.Builder builder = new ReceiptQueryParam.Builder()
                 .createdOn(createdOn)
                 .createdBefore(createdBefore)
                 .createdAfter(createdAfter)
@@ -269,7 +269,7 @@ public class HyperwalletListReceiptsTest {
         String responseBody = mExternalResourceManager.getResourceContent("receipts_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
 
-        final ReceiptQueryParam.Builder builder = ReceiptQueryParam.builder().sortByCurrencyDesc();
+        final ReceiptQueryParam.Builder builder = new ReceiptQueryParam.Builder().sortByCurrencyDesc();
         ReceiptQueryParam receiptQueryParam = builder.build();
         Hyperwallet.getDefault().listReceipts(receiptQueryParam, mListener);
         mAwait.await(50, TimeUnit.MILLISECONDS);
