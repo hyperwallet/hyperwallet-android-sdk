@@ -47,7 +47,7 @@ import java.util.Map;
 public class ReceiptQueryParam extends QueryParam {
 
     /**
-     * Common Receipt detail field keys
+     * Common Receipt query parameters
      */
     public static final class ReceiptQueryParamFields {
         static final String TYPE = "type";
@@ -61,6 +61,9 @@ public class ReceiptQueryParam extends QueryParam {
     private final String mAmount;
     private final String mCurrency;
 
+    /**
+     * Constructors the receipt query params.
+     */
     public ReceiptQueryParam(@NonNull final Builder builder) {
         super(builder);
         this.mCreatedOn = builder.mCreatedOn;
@@ -107,27 +110,55 @@ public class ReceiptQueryParam extends QueryParam {
         return query;
     }
 
+    /**
+     * Builder Class for the {@link ReceiptQueryParam}
+     */
     public static class Builder extends QueryParam.Builder<Builder> {
         private Date mCreatedOn;
         private String mType;
         private String mAmount;
         private String mCurrency;
 
+        /**
+         * Define a Date created on.
+         *
+         * @param createdOn Date
+         * @return Builder
+         */
         public Builder createdOn(@NonNull final Date createdOn) {
             mCreatedOn = new Date(createdOn.getTime());
             return this;
         }
 
+        /**
+         * Specify TYPE of this method. Which is one of the
+         * {@link Receipt.ReceiptType}.
+         *
+         * @param type The type of receipts
+         * @return Builder
+         */
         public Builder type(@NonNull @Receipt.ReceiptType final String type) {
             mType = type;
             return this;
         }
 
+        /**
+         * Define an Amount.
+         *
+         * @param amount the amount
+         * @return Builder
+         */
         public Builder amount(@NonNull final String amount) {
             mAmount = amount;
             return this;
         }
 
+        /**
+         * Define an Currency filter
+         *
+         * @param currency The currency of receipts
+         * @return Builder
+         */
         public Builder currency(@NonNull final String currency) {
             mCurrency = currency;
             return this;
