@@ -39,7 +39,7 @@ public class HyperwalletBankAccountQueryParam extends QueryParam {
     private HyperwalletBankAccountQueryParam(@NonNull Builder builder) {
         super(builder);
         mStatus = builder.mStatus;
-        mType = BANK_ACCOUNT;
+        mType = builder.mType != null ? builder.mType : BANK_ACCOUNT;
     }
 
     @NonNull
@@ -51,7 +51,7 @@ public class HyperwalletBankAccountQueryParam extends QueryParam {
             query.put(TRANSFER_METHODT_STATUS, mStatus);
         }
 
-        query.put(TRANSFER_METHOD_TYPE, BANK_ACCOUNT);
+        query.put(TRANSFER_METHOD_TYPE, mType);
 
         return query;
     }
@@ -73,6 +73,7 @@ public class HyperwalletBankAccountQueryParam extends QueryParam {
      */
     public static class Builder extends QueryParam.Builder<Builder> {
         private String mStatus;
+        private String mType;
 
         /**
          * Specify status of this method. Which is one of the
@@ -83,6 +84,18 @@ public class HyperwalletBankAccountQueryParam extends QueryParam {
          */
         public Builder status(@NonNull @HyperwalletTransferMethodQueryParam.TransferMethodStatusQuery String status) {
             mStatus = status;
+            return this;
+        }
+
+        /**
+         * Specify type of this method. Which is one of the
+         * {@link com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes}.
+         *
+         * @param type The type of this method
+         * @return Builder
+         */
+        public Builder type(@NonNull @HyperwalletTransferMethodQueryParam.TransferMethodTypeQuery String type) {
+            mType = type;
             return this;
         }
 
