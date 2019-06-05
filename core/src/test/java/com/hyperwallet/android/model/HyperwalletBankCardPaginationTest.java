@@ -46,7 +46,6 @@ public class HyperwalletBankCardPaginationTest {
                 .limit(limit)
                 .sortByCreatedOnAsc()
                 .status(VERIFIED)
-                .type(BANK_CARD)
                 .build();
 
         assertThat(pagination.getLimit(), is(limit));
@@ -105,7 +104,6 @@ public class HyperwalletBankCardPaginationTest {
                 .limit(limit)
                 .sortByCreatedOnAsc()
                 .status(VERIFIED)
-                .type(BANK_CARD)
                 .build();
 
         Map<String, String> resultQuery = pagination.buildQuery();
