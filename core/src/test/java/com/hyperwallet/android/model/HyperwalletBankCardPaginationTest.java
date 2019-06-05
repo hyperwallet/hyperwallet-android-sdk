@@ -6,9 +6,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.VERIFIED;
-import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_CREATE_ON;
-import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_CREATE_ON;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.ASCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON;
 
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankCardQueryParam;
 
@@ -21,7 +21,7 @@ public class HyperwalletBankCardPaginationTest {
     private static final String ACCOUNT_TYPE = "type";
     private static final String CREATE_BEFORE = "createdBefore";
     private static final String CREATE_AFTER = "createdAfter";
-    private final static String CREATE_ON = "createdOn";
+    private static final String CREATE_ON = "createdOn";
     private static final String LIMIT = "limit";
     private static final String OFFSET = "offset";
     private static final String SORT_BY = "sortBy";
@@ -39,13 +39,13 @@ public class HyperwalletBankCardPaginationTest {
         Calendar dateOn = Calendar.getInstance();
         dateOn.set(2017, 1, 1, 10, 0, 40);
         HyperwalletBankCardQueryParam pagination = new HyperwalletBankCardQueryParam.Builder()
+                .status(VERIFIED)
                 .createdAfter(dateAfter.getTime())
                 .createdBefore(dateBefore.getTime())
                 .createdOn(dateOn.getTime())
                 .offset(offset)
                 .limit(limit)
                 .sortByCreatedOnAsc()
-                .status(VERIFIED)
                 .build();
 
         assertThat(pagination.getLimit(), is(limit));
@@ -98,12 +98,12 @@ public class HyperwalletBankCardPaginationTest {
         dateOn.set(2017, 0, 1, 10, 0, 40);
         HyperwalletBankCardQueryParam pagination = new HyperwalletBankCardQueryParam.Builder()
                 .createdAfter(dateAfter.getTime())
+                .status(VERIFIED)
                 .createdBefore(dateBefore.getTime())
                 .createdOn(dateOn.getTime())
                 .offset(offset)
                 .limit(limit)
                 .sortByCreatedOnAsc()
-                .status(VERIFIED)
                 .build();
 
         Map<String, String> resultQuery = pagination.buildQuery();
@@ -154,12 +154,12 @@ public class HyperwalletBankCardPaginationTest {
         dateOn.set(2019, 6, 20, 10, 21);
         HyperwalletBankCardQueryParam pagination = new HyperwalletBankCardQueryParam.Builder()
                 .createdAfter(dateAfter.getTime())
-                .createdBefore(dateBefore.getTime())
-                .createdOn(dateOn.getTime())
-                .offset(100)
-                .limit(20)
-                .sortByCreatedOnDesc()
                 .status(ACTIVATED)
+                .sortByCreatedOnDesc()
+                .createdBefore(dateBefore.getTime())
+                .offset(100)
+                .createdOn(dateOn.getTime())
+                .limit(20)
                 .build();
 
         assertThat(pagination.getOffset(), is(100));

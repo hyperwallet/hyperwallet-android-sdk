@@ -18,76 +18,28 @@
 package com.hyperwallet.android.model.transfermethod;
 
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TRANSFER_METHODT_STATUS;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TRANSFER_METHOD_TYPE;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.hyperwallet.android.model.QueryParam;
-
-import java.util.Map;
 
 /**
  * Represents the bank account query params fields.
  */
-public class HyperwalletBankAccountQueryParam extends QueryParam {
+public class HyperwalletBankAccountQueryParam extends HyperwalletTransferMethodQueryParam {
 
-    private final String mStatus;
-    private final String mType;
 
-    private HyperwalletBankAccountQueryParam(@NonNull Builder builder) {
+    private HyperwalletBankAccountQueryParam(@NonNull final Builder builder) {
         super(builder);
-        mStatus = builder.mStatus;
-        mType = BANK_ACCOUNT;
     }
 
-    @NonNull
-    @Override
-    public Map<String, String> buildQuery() {
-        Map<String, String> query = super.buildQuery();
-
-        if (mStatus != null) {
-            query.put(TRANSFER_METHODT_STATUS, mStatus);
-        }
-
-        query.put(TRANSFER_METHOD_TYPE, BANK_ACCOUNT);
-
-        return query;
-    }
-
-    @Nullable
-    public @HyperwalletTransferMethodQueryParam.TransferMethodStatusQuery
-    String getStatus() {
-        return mStatus;
-    }
-
-    @Nullable
-    public @HyperwalletTransferMethodQueryParam.TransferMethodTypeQuery
-    String getType() {
-        return mType;
-    }
 
     /**
      * Builder Class for the {@link HyperwalletBankAccountQueryParam}
      */
-    public static class Builder extends QueryParam.Builder<Builder> {
-        private String mStatus;
-
-        /**
-         * Specify status of this method. Which is one of the
-         * {@link com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition}.
-         *
-         * @param status The status of this method
-         * @return Builder
-         */
-        public Builder status(@NonNull @HyperwalletTransferMethodQueryParam.TransferMethodStatusQuery String status) {
-            mStatus = status;
-            return this;
-        }
+    public static class Builder extends HyperwalletTransferMethodQueryParam.Builder<Builder> {
 
         @Override
         public HyperwalletBankAccountQueryParam build() {
+            type(BANK_ACCOUNT);
             return new HyperwalletBankAccountQueryParam(this);
         }
     }
