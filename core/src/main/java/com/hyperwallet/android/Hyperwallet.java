@@ -849,12 +849,12 @@ public class Hyperwallet {
 
     @NonNull
     @SuppressWarnings("unchecked")
-    private Map<String, String> buildUrlQueryIfRequired(@Nullable QueryParam pagination) {
+    private Map<String, String> buildUrlQueryIfRequired(@Nullable QueryParam queryParam) {
         Map<String, String> queryMap;
-        if (pagination == null) {
+        if (queryParam == null) {
             queryMap = new HashMap<>();
         } else {
-            queryMap = pagination.buildQuery();
+            queryMap = queryParam.buildQuery();
         }
         queryMap.put(STATUS, HyperwalletStatusTransition.StatusDefinition.ACTIVATED);
         return queryMap;
