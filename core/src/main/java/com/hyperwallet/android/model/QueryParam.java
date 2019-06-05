@@ -202,10 +202,6 @@ public class QueryParam {
         public static final String DESCENDANT_CURRENCY = "-currency";
     }
 
-    public static Builder<?> builder() {
-        return new Builder();
-    }
-
     /**
      * Builder Class for the {@link QueryParam}
      */
@@ -216,17 +212,12 @@ public class QueryParam {
         private int mOffset;
         private int mLimit;
 
-        @SuppressWarnings("unchecked")
-        protected B self() {
-            return (B) this;
-        }
-
         /**
          * Defines the number of records to skip.
          */
-        public B offset(int offset) {
+        public Builder offset(int offset) {
             mOffset = offset;
-            return self();
+            return this;
         }
 
         /**
@@ -236,9 +227,9 @@ public class QueryParam {
          * @param limit The limit of records to be returned.
          * @return Builder
          */
-        public B limit(int limit) {
+        public Builder limit(int limit) {
             mLimit = limit;
-            return self();
+            return this;
         }
 
         /**
@@ -247,9 +238,9 @@ public class QueryParam {
          * @param createdAfter Date
          * @return Builder
          */
-        public B createdAfter(@NonNull Date createdAfter) {
+        public Builder createdAfter(@NonNull Date createdAfter) {
             mCreatedAfter = new Date(createdAfter.getTime());
-            return self();
+            return this;
         }
 
         /**
@@ -258,9 +249,9 @@ public class QueryParam {
          * @param createdBefore Date
          * @return Builder
          */
-        public B createdBefore(@NonNull Date createdBefore) {
+        public Builder createdBefore(@NonNull Date createdBefore) {
             mCreatedBefore = new Date(createdBefore.getTime());
-            return self();
+            return this;
         }
 
         /**
@@ -268,9 +259,9 @@ public class QueryParam {
          *
          * @return Builder
          */
-        public B sortByCreatedOnAsc() {
+        public Builder sortByCreatedOnAsc() {
             mSortBy = Sortable.ASCENDANT_CREATE_ON;
-            return self();
+            return this;
         }
 
         /**
@@ -278,9 +269,9 @@ public class QueryParam {
          *
          * @return Builder
          */
-        public B sortByCreatedOnDesc() {
+        public Builder sortByCreatedOnDesc() {
             mSortBy = Sortable.DESCENDANT_CREATE_ON;
-            return self();
+            return this;
         }
 
         /**
@@ -288,9 +279,9 @@ public class QueryParam {
          *
          * @return Builder
          */
-        public B sortByStatusAsc() {
+        public Builder sortByStatusAsc() {
             mSortBy = Sortable.ASCENDANT_STATUS;
-            return self();
+            return this;
         }
 
         /**
@@ -298,9 +289,9 @@ public class QueryParam {
          *
          * @return Builder
          */
-        public B sortByStatusDesc() {
+        public Builder sortByStatusDesc() {
             mSortBy = Sortable.DESCENDANT_STATUS;
-            return self();
+            return this;
         }
 
         /**
@@ -308,9 +299,9 @@ public class QueryParam {
          *
          * @return Builder
          */
-        public B sortByTypeAsc() {
+        public Builder sortByTypeAsc() {
             mSortBy = Sortable.ASCENDANT_TYPE;
-            return self();
+            return this;
         }
 
         /**
@@ -318,9 +309,9 @@ public class QueryParam {
          *
          * @return Builder
          */
-        public B sortByTypeDesc() {
+        public Builder sortByTypeDesc() {
             mSortBy = Sortable.DESCENDANT_TYPE;
-            return self();
+            return this;
         }
 
         /**
@@ -328,9 +319,9 @@ public class QueryParam {
          *
          * @return Builder
          */
-        public B sortByAmountAsc() {
+        public Builder sortByAmountAsc() {
             mSortBy = Sortable.ASCENDANT_AMOUNT;
-            return self();
+            return this;
         }
 
         /**
@@ -338,9 +329,9 @@ public class QueryParam {
          *
          * @return Builder
          */
-        public B sortByAmountDesc() {
+        public Builder sortByAmountDesc() {
             mSortBy = Sortable.DESCENDANT_AMOUNT;
-            return self();
+            return this;
         }
 
         /**
@@ -348,9 +339,9 @@ public class QueryParam {
          *
          * @return Builder
          */
-        public B sortByCurrencyAsc() {
+        public Builder sortByCurrencyAsc() {
             mSortBy = Sortable.ASCENDANT_CURRENCY;
-            return self();
+            return this;
         }
 
         /**
@@ -358,9 +349,9 @@ public class QueryParam {
          *
          * @return Builder
          */
-        public B sortByCurrencyDesc() {
+        public Builder sortByCurrencyDesc() {
             mSortBy = Sortable.DESCENDANT_CURRENCY;
-            return self();
+            return this;
         }
 
         /**
