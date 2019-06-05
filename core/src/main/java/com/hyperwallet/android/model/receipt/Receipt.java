@@ -133,6 +133,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Represents the receipt fields
@@ -510,5 +511,21 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
 
     protected void setFields(@NonNull Map<String, Object> fields) {
         mFields = fields;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Receipt)) return false;
+        Receipt that = (Receipt) o;
+        return Objects.equals(getJournalId(), that.getJournalId())
+                && Objects.equals(getType(), that.getType())
+                && Objects.equals(getEntry(), that.getEntry());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getJournalId(), getType(), getEntry());
     }
 }
