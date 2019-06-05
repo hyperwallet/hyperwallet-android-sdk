@@ -39,7 +39,7 @@ public class HyperwalletBankAccountPaginationTest {
         dateAfter.set(2017, 0, 1, 0, 0, 0);
         Calendar dateBefore = Calendar.getInstance();
         dateBefore.set(2017, 0, 1, 10, 12, 22);
-        HyperwalletBankAccountQueryParam pagination = HyperwalletBankAccountQueryParam.builder()
+        HyperwalletBankAccountQueryParam pagination = new HyperwalletBankAccountQueryParam.Builder()
                 .createdAfter(dateAfter.getTime())
                 .createdBefore(dateBefore.getTime())
                 .offset(offset)

@@ -110,8 +110,8 @@ public class HyperwalletGetUserTest {
         verify(mListener).onSuccess(mUserArgumentCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
 
-        HyperwalletUser user = mUserArgumentCaptor.getValue();
-        assertThat(user, is(nullValue()));
+        HyperwalletUser hyperwalletUser = mUserArgumentCaptor.getValue();
+        assertThat(hyperwalletUser, is(nullValue()));
     }
 
     @Test
