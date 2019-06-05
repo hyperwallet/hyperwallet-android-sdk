@@ -31,7 +31,7 @@ public class HyperwalletBankAccountQueryParamTest {
     private static final String STATUS = "status";
 
     @Test
-    public void testHyperwalletBankAccountPagination_withUrlQueryMap() {
+    public void testHyperwalletBankAccountQueryParam_withUrlQueryMap() {
         final int offset = 100;
         final int limit = 200;
 
@@ -76,7 +76,7 @@ public class HyperwalletBankAccountQueryParamTest {
 
 
     @Test
-    public void testHyperwalletBankAccountPagination_verifyDefaultValues() {
+    public void testHyperwalletBankAccountQueryParam_verifyDefaultValues() {
 
         HyperwalletBankAccountQueryParam pagination = new HyperwalletBankAccountQueryParam.Builder().build();
         assertThat(pagination.getLimit(), is(10));

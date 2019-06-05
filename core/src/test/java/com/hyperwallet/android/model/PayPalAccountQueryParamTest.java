@@ -30,7 +30,7 @@ public class PayPalAccountQueryParamTest {
 
 
     @Test
-    public void testHyperwalletPayPalAccountPagination_withUrlQueryMap() {
+    public void testHyperwalletPayPalAccountQueryParam_withUrlQueryMap() {
         Calendar createdBefore = Calendar.getInstance();
         createdBefore.set(2017, 0, 1, 10, 12, 22);
         Calendar createdAfter = Calendar.getInstance();
@@ -83,7 +83,7 @@ public class PayPalAccountQueryParamTest {
     }
 
     @Test
-    public void testHyperwalletPayPalAccountPagination_verifyDefaultValues() {
+    public void testHyperwalletPayPalAccountQueryParam_verifyDefaultValues() {
         PayPalAccountQueryParam pagination = new PayPalAccountQueryParam.Builder().build();
         assertThat(pagination.getLimit(), is(10));
         assertThat(pagination.getOffset(), is(0));
