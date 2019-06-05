@@ -38,13 +38,12 @@ public class PayPalAccountPaginationTest {
         Calendar createdOn = Calendar.getInstance();
         createdOn.set(2017, 0, 1, 10, 10, 0);
 
-        PayPalAccountQueryParam pagination = PayPalAccountQueryParam.builder()
+        PayPalAccountQueryParam pagination = new PayPalAccountQueryParam.Builder()
                 .offset(100)
                 .limit(200)
                 .createdBefore(createdBefore.getTime())
                 .createdAfter(createdAfter.getTime())
                 .createdOn(createdOn.getTime())
-                .type(PAYPAL_ACCOUNT)
                 .status(ACTIVATED)
                 .sortByStatusAsc()
                 .build();
@@ -85,7 +84,7 @@ public class PayPalAccountPaginationTest {
 
     @Test
     public void testHyperwalletPayPalAccountPagination_verifyDefaultValues() {
-        PayPalAccountQueryParam pagination = PayPalAccountQueryParam.builder().build();
+        PayPalAccountQueryParam pagination = new PayPalAccountQueryParam.Builder().build();
         assertThat(pagination.getLimit(), is(10));
         assertThat(pagination.getOffset(), is(0));
         assertThat(pagination.getType(), is(PAYPAL_ACCOUNT));
@@ -97,21 +96,20 @@ public class PayPalAccountPaginationTest {
 
     @Test
     public void testBuildQuery_verifyDefaultValues() {
-        QueryParam pagination = QueryParam.builder().build();
+        QueryParam pagination = new PayPalAccountQueryParam.Builder().build();
 
         Map<String, String> query = pagination.buildQuery();
 
         Assert.assertNotNull(query);
-        assertThat(query.size(), is(2));
+        assertThat(query.size(), is(3));
         assertThat(query.get(OFFSET), is("0"));
         assertThat(query.get(LIMIT), is("10"));
-        assertThat(query.get(TRANSFER_METHOD_TYPE), is(nullValue()));
+        assertThat(query.get(TRANSFER_METHOD_TYPE), is(PAYPAL_ACCOUNT));
         assertThat(query.get(STATUS), is(nullValue()));
         assertThat(query.get(SORT_BY), is(nullValue()));
         assertThat(query.get(CREATE_BEFORE), is(nullValue()));
         assertThat(query.get(CREATE_AFTER), is(nullValue()));
         assertThat(query.get(CREATE_ON), is(nullValue()));
-        assertThat(query.get(TRANSFER_METHOD_TYPE), is(nullValue()));
     }
 
     @Test
@@ -123,13 +121,12 @@ public class PayPalAccountPaginationTest {
         Calendar createdOn = Calendar.getInstance();
         createdOn.set(2017, 0, 1, 10, 10, 0);
 
-        PayPalAccountQueryParam pagination = PayPalAccountQueryParam.builder()
+        PayPalAccountQueryParam pagination = new PayPalAccountQueryParam.Builder()
                 .offset(100)
                 .limit(200)
                 .createdBefore(createdBefore.getTime())
                 .createdAfter(createdAfter.getTime())
                 .createdOn(createdOn.getTime())
-                .type(PAYPAL_ACCOUNT)
                 .status(ACTIVATED)
                 .sortByCreatedOnAsc()
                 .build();
@@ -161,7 +158,7 @@ public class PayPalAccountPaginationTest {
         dateBefore.set(2019, 6, 20, 9, 10);
         Calendar dateOn = Calendar.getInstance();
         dateOn.set(2019, 6, 20, 10, 21);
-        PayPalAccountQueryParam pagination = PayPalAccountQueryParam.builder()
+        PayPalAccountQueryParam pagination = new PayPalAccountQueryParam.Builder()
                 .createdAfter(dateAfter.getTime())
                 .createdBefore(dateBefore.getTime())
                 .createdOn(dateOn.getTime())
