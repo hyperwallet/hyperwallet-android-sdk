@@ -70,7 +70,7 @@ public class QueryParam {
      * @return the valid Date value or null
      */
     @Nullable
-    protected Date getDateValueBy(@NonNull Map<String, String> urlQueryMap, @NonNull String queryKey) {
+    protected final Date getDateValue(@NonNull Map<String, String> urlQueryMap, @NonNull String queryKey) {
         if (containsKeyAndHasValue(urlQueryMap, queryKey)) {
             return fromDateTimeString(urlQueryMap.get(queryKey));
         }
@@ -86,7 +86,7 @@ public class QueryParam {
      * @return the valid integer value
      */
     @SuppressWarnings("unchecked")
-    private int getIntegerValueBy(@NonNull Map<String, String> urlQueryMap, @NonNull String queryKey,
+    private int getIntegerValue(@NonNull Map<String, String> urlQueryMap, @NonNull String queryKey,
             int defaultValue) {
         if (containsKeyAndHasValue(urlQueryMap, queryKey)) {
             try {
