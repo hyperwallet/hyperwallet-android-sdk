@@ -6,29 +6,32 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.VERIFIED;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.ASCENDANT_CREATE_ON;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON;
 
-import com.hyperwallet.android.model.transfermethod.HyperwalletBankCardQueryParam;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountQueryParam;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 import java.util.Calendar;
 import java.util.Map;
 
-public class HyperwalletBankCardPaginationTest {
+@RunWith(RobolectricTestRunner.class)
+public class HyperwalletBankAccountQueryParamTest {
+
     private static final String ACCOUNT_TYPE = "type";
     private static final String CREATE_BEFORE = "createdBefore";
     private static final String CREATE_AFTER = "createdAfter";
-    private static final String CREATE_ON = "createdOn";
     private static final String LIMIT = "limit";
     private static final String OFFSET = "offset";
     private static final String SORT_BY = "sortBy";
     private static final String STATUS = "status";
 
     @Test
-    public void testHyperwalletBankCardPagination_withUrlQueryMap() {
+    public void testHyperwalletBankAccountPagination_withUrlQueryMap() {
         final int offset = 100;
         final int limit = 200;
 
@@ -36,21 +39,18 @@ public class HyperwalletBankCardPaginationTest {
         dateAfter.set(2017, 0, 1, 0, 0, 0);
         Calendar dateBefore = Calendar.getInstance();
         dateBefore.set(2017, 0, 1, 10, 12, 22);
-        Calendar dateOn = Calendar.getInstance();
-        dateOn.set(2017, 1, 1, 10, 0, 40);
-        HyperwalletBankCardQueryParam pagination = new HyperwalletBankCardQueryParam.Builder()
-                .status(VERIFIED)
+        HyperwalletBankAccountQueryParam pagination = new HyperwalletBankAccountQueryParam.Builder()
                 .createdAfter(dateAfter.getTime())
                 .createdBefore(dateBefore.getTime())
-                .createdOn(dateOn.getTime())
                 .offset(offset)
                 .limit(limit)
                 .sortByCreatedOnAsc()
+                .status(VERIFIED)
                 .build();
 
         assertThat(pagination.getLimit(), is(limit));
         assertThat(pagination.getOffset(), is(offset));
-        assertThat(pagination.getType(), is(BANK_CARD));
+        assertThat(pagination.getType(), is(BANK_ACCOUNT));
         assertThat(pagination.getStatus(), is(VERIFIED));
         assertThat(pagination.getSortBy(), is(ASCENDANT_CREATE_ON));
 
@@ -71,19 +71,24 @@ public class HyperwalletBankCardPaginationTest {
         assertThat(createdAfter.get(Calendar.HOUR), is(0));
         assertThat(createdAfter.get(Calendar.MINUTE), is(0));
         assertThat(createdAfter.get(Calendar.SECOND), is(0));
+
     }
 
+
     @Test
-    public void testHyperwalletBankCardPagination_verifyDefaultValues() {
-        HyperwalletBankCardQueryParam pagination = new HyperwalletBankCardQueryParam.Builder().build();
+    public void testHyperwalletBankAccountPagination_verifyDefaultValues() {
+
+        HyperwalletBankAccountQueryParam pagination = new HyperwalletBankAccountQueryParam.Builder().build();
         assertThat(pagination.getLimit(), is(10));
         assertThat(pagination.getOffset(), is(0));
-        assertThat(pagination.getType(), is(BANK_CARD));
+        assertThat(pagination.getType(), is(BANK_ACCOUNT));
         assertThat(pagination.getStatus(), is(nullValue()));
         assertThat(pagination.getSortBy(), is(nullValue()));
         assertThat(pagination.getCreatedBefore(), is(nullValue()));
         assertThat(pagination.getCreatedAfter(), is(nullValue()));
+
     }
+
 
     @Test
     public void testBuildQuery_returnsQueryParameters() {
@@ -94,13 +99,10 @@ public class HyperwalletBankCardPaginationTest {
         dateAfter.set(2017, 0, 1, 0, 0, 0);
         Calendar dateBefore = Calendar.getInstance();
         dateBefore.set(2017, 0, 1, 10, 12, 22);
-        Calendar dateOn = Calendar.getInstance();
-        dateOn.set(2017, 0, 1, 10, 0, 40);
-        HyperwalletBankCardQueryParam pagination = new HyperwalletBankCardQueryParam.Builder()
+        HyperwalletBankAccountQueryParam pagination = new HyperwalletBankAccountQueryParam.Builder()
                 .createdAfter(dateAfter.getTime())
                 .status(VERIFIED)
                 .createdBefore(dateBefore.getTime())
-                .createdOn(dateOn.getTime())
                 .offset(offset)
                 .limit(limit)
                 .sortByCreatedOnAsc()
@@ -122,13 +124,13 @@ public class HyperwalletBankCardPaginationTest {
         assertThat(resultQuery.get(SORT_BY), is(ASCENDANT_CREATE_ON));
         assertThat(resultQuery.get(CREATE_BEFORE), is("2017-01-01T10:12:22"));
         assertThat(resultQuery.get(CREATE_AFTER), is("2017-01-01T00:00:00"));
-        assertThat(resultQuery.get(CREATE_ON), is("2017-01-01T10:00:40"));
-        assertThat(resultQuery.get(ACCOUNT_TYPE), is(BANK_CARD));
+        assertThat(resultQuery.get(ACCOUNT_TYPE), is(BANK_ACCOUNT));
     }
 
     @Test
     public void testBuildQuery_verifyDefaultValues() {
-        HyperwalletBankCardQueryParam pagination = new HyperwalletBankCardQueryParam.Builder().build();
+
+        HyperwalletBankAccountQueryParam pagination = new HyperwalletBankAccountQueryParam.Builder().build();
 
         Map<String, String> resultQuery = pagination.buildQuery();
         assertThat(resultQuery.size(), is(3));
@@ -137,7 +139,7 @@ public class HyperwalletBankCardPaginationTest {
         assertThat(resultQuery.containsKey(ACCOUNT_TYPE), is(true));
         assertThat(resultQuery.get(LIMIT), is("10"));
         assertThat(resultQuery.get(OFFSET), is("0"));
-        assertThat(resultQuery.get(ACCOUNT_TYPE), is(BANK_CARD));
+        assertThat(resultQuery.get(ACCOUNT_TYPE), is(BANK_ACCOUNT));
         assertThat(resultQuery.get(STATUS), is(nullValue()));
         assertThat(resultQuery.get(SORT_BY), is(nullValue()));
         assertThat(resultQuery.get(CREATE_BEFORE), is(nullValue()));
@@ -152,23 +154,21 @@ public class HyperwalletBankCardPaginationTest {
         dateBefore.set(2019, 6, 20, 9, 10);
         Calendar dateOn = Calendar.getInstance();
         dateOn.set(2019, 6, 20, 10, 21);
-        HyperwalletBankCardQueryParam pagination = new HyperwalletBankCardQueryParam.Builder()
-                .createdAfter(dateAfter.getTime())
-                .status(ACTIVATED)
-                .sortByCreatedOnDesc()
-                .createdBefore(dateBefore.getTime())
+        HyperwalletBankAccountQueryParam pagination = new HyperwalletBankAccountQueryParam.Builder()
                 .offset(100)
-                .createdOn(dateOn.getTime())
                 .limit(20)
+                .sortByCreatedOnDesc()
+                .status(ACTIVATED)
+                .createdAfter(dateAfter.getTime())
+                .createdBefore(dateBefore.getTime())
                 .build();
 
         assertThat(pagination.getOffset(), is(100));
         assertThat(pagination.getLimit(), is(20));
         assertThat(pagination.getSortBy(), is(DESCENDANT_CREATE_ON));
         assertThat(pagination.getStatus(), is(ACTIVATED));
-        assertThat(pagination.getType(), is(BANK_CARD));
+        assertThat(pagination.getType(), is(BANK_ACCOUNT));
         assertThat(pagination.getCreatedAfter().getTime(), is(dateAfter.getTimeInMillis()));
         assertThat(pagination.getCreatedBefore().getTime(), is(dateBefore.getTimeInMillis()));
-        assertThat(pagination.getCreatedOn().getTime(), is(dateOn.getTimeInMillis()));
     }
 }

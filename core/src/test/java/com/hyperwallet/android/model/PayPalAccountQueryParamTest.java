@@ -18,7 +18,7 @@ import org.junit.Test;
 import java.util.Calendar;
 import java.util.Map;
 
-public class PayPalAccountPaginationTest {
+public class PayPalAccountQueryParamTest {
     private final static String OFFSET = "offset";
     private final static String LIMIT = "limit";
     private final static String CREATE_BEFORE = "createdBefore";
