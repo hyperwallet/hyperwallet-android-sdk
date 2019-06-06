@@ -11,6 +11,7 @@ import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMe
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON;
 
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankCardQueryParam;
+import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
 
 import org.junit.Test;
 
@@ -39,6 +40,7 @@ public class HyperwalletBankCardQueryParamTest {
         Calendar dateOn = Calendar.getInstance();
         dateOn.set(2017, 1, 1, 10, 0, 40);
         HyperwalletBankCardQueryParam queryParam = new HyperwalletBankCardQueryParam.Builder()
+                .type(HyperwalletTransferMethod.TransferMethodTypes.WIRE_ACCOUNT)
                 .status(VERIFIED)
                 .createdAfter(dateAfter.getTime())
                 .createdBefore(dateBefore.getTime())
