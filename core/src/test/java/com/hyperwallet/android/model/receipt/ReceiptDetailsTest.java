@@ -137,7 +137,7 @@ public class ReceiptDetailsTest {
     }
 
     @Test
-    public void testReceipt_isParcelable() throws Exception {
+    public void testReceiptDetail_isParcelable() throws Exception {
         String json = mExternalResourceManager.getResourceContent("receipt_details_item.json");
         ReceiptDetails sourceReceiptDetails = fromJsonString(json, new TypeReference<ReceiptDetails>() {
         });

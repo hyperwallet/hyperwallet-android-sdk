@@ -38,7 +38,7 @@ public class PayPalAccountQueryParamTest {
         Calendar createdOn = Calendar.getInstance();
         createdOn.set(2017, 0, 1, 10, 10, 0);
 
-        PayPalAccountQueryParam pagination = new PayPalAccountQueryParam.Builder()
+        PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder()
                 .offset(100)
                 .limit(200)
                 .createdBefore(createdBefore.getTime())
@@ -48,14 +48,14 @@ public class PayPalAccountQueryParamTest {
                 .sortByStatusAsc()
                 .build();
 
-        assertThat(pagination.getLimit(), is(200));
-        assertThat(pagination.getOffset(), is(100));
-        assertThat(pagination.getType(), is(PAYPAL_ACCOUNT));
-        assertThat(pagination.getStatus(), is(ACTIVATED));
-        assertThat(pagination.getSortBy(), is(ASCENDANT_STATUS));
+        assertThat(queryParam.getLimit(), is(200));
+        assertThat(queryParam.getOffset(), is(100));
+        assertThat(queryParam.getType(), is(PAYPAL_ACCOUNT));
+        assertThat(queryParam.getStatus(), is(ACTIVATED));
+        assertThat(queryParam.getSortBy(), is(ASCENDANT_STATUS));
 
         createdBefore = Calendar.getInstance();
-        createdBefore.setTime(pagination.getCreatedBefore());
+        createdBefore.setTime(queryParam.getCreatedBefore());
         assertThat(createdBefore.get(Calendar.YEAR), is(2017));
         assertThat(createdBefore.get(Calendar.MONTH), is(Calendar.JANUARY));
         assertThat(createdBefore.get(Calendar.DAY_OF_MONTH), is(1));
@@ -64,7 +64,7 @@ public class PayPalAccountQueryParamTest {
         assertThat(createdBefore.get(Calendar.SECOND), is(22));
 
         createdAfter = Calendar.getInstance();
-        createdAfter.setTime(pagination.getCreatedAfter());
+        createdAfter.setTime(queryParam.getCreatedAfter());
         assertThat(createdAfter.get(Calendar.YEAR), is(2017));
         assertThat(createdAfter.get(Calendar.MONTH), is(Calendar.JANUARY));
         assertThat(createdAfter.get(Calendar.DAY_OF_MONTH), is(1));
@@ -73,7 +73,7 @@ public class PayPalAccountQueryParamTest {
         assertThat(createdAfter.get(Calendar.SECOND), is(0));
 
         createdOn = Calendar.getInstance();
-        createdOn.setTime(pagination.getCreatedOn());
+        createdOn.setTime(queryParam.getCreatedOn());
         assertThat(createdOn.get(Calendar.YEAR), is(2017));
         assertThat(createdOn.get(Calendar.MONTH), is(Calendar.JANUARY));
         assertThat(createdOn.get(Calendar.DAY_OF_MONTH), is(1));
@@ -84,21 +84,21 @@ public class PayPalAccountQueryParamTest {
 
     @Test
     public void testHyperwalletPayPalAccountQueryParam_verifyDefaultValues() {
-        PayPalAccountQueryParam pagination = new PayPalAccountQueryParam.Builder().build();
-        assertThat(pagination.getLimit(), is(10));
-        assertThat(pagination.getOffset(), is(0));
-        assertThat(pagination.getType(), is(PAYPAL_ACCOUNT));
-        assertThat(pagination.getStatus(), is(nullValue()));
-        assertThat(pagination.getSortBy(), is(nullValue()));
-        assertThat(pagination.getCreatedBefore(), is(nullValue()));
-        assertThat(pagination.getCreatedAfter(), is(nullValue()));
+        PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder().build();
+        assertThat(queryParam.getLimit(), is(10));
+        assertThat(queryParam.getOffset(), is(0));
+        assertThat(queryParam.getType(), is(PAYPAL_ACCOUNT));
+        assertThat(queryParam.getStatus(), is(nullValue()));
+        assertThat(queryParam.getSortBy(), is(nullValue()));
+        assertThat(queryParam.getCreatedBefore(), is(nullValue()));
+        assertThat(queryParam.getCreatedAfter(), is(nullValue()));
     }
 
     @Test
     public void testBuildQuery_verifyDefaultValues() {
-        QueryParam pagination = new PayPalAccountQueryParam.Builder().build();
+        QueryParam queryParam = new PayPalAccountQueryParam.Builder().build();
 
-        Map<String, String> query = pagination.buildQuery();
+        Map<String, String> query = queryParam.buildQuery();
 
         Assert.assertNotNull(query);
         assertThat(query.size(), is(3));
@@ -121,7 +121,7 @@ public class PayPalAccountQueryParamTest {
         Calendar createdOn = Calendar.getInstance();
         createdOn.set(2017, 0, 1, 10, 10, 0);
 
-        PayPalAccountQueryParam pagination = new PayPalAccountQueryParam.Builder()
+        PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder()
                 .offset(100)
                 .limit(200)
                 .createdBefore(createdBefore.getTime())
@@ -130,7 +130,7 @@ public class PayPalAccountQueryParamTest {
                 .status(ACTIVATED)
                 .sortByCreatedOnAsc()
                 .build();
-        Map<String, String> resultQuery = pagination.buildQuery();
+        Map<String, String> resultQuery = queryParam.buildQuery();
 
         assertThat(resultQuery.containsKey(STATUS), is(true));
         assertThat(resultQuery.containsKey(SORT_BY), is(true));
@@ -158,7 +158,7 @@ public class PayPalAccountQueryParamTest {
         dateBefore.set(2019, 6, 20, 9, 10);
         Calendar dateOn = Calendar.getInstance();
         dateOn.set(2019, 6, 20, 10, 21);
-        PayPalAccountQueryParam pagination = new PayPalAccountQueryParam.Builder()
+        PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder()
                 .createdAfter(dateAfter.getTime())
                 .createdBefore(dateBefore.getTime())
                 .createdOn(dateOn.getTime())
@@ -168,13 +168,13 @@ public class PayPalAccountQueryParamTest {
                 .status(ACTIVATED)
                 .build();
 
-        assertThat(pagination.getOffset(), is(100));
-        assertThat(pagination.getLimit(), is(20));
-        assertThat(pagination.getSortBy(), is(DESCENDANT_CREATE_ON));
-        assertThat(pagination.getStatus(), is(ACTIVATED));
-        assertThat(pagination.getType(), is(PAYPAL_ACCOUNT));
-        assertThat(pagination.getCreatedAfter().getTime(), is(dateAfter.getTimeInMillis()));
-        assertThat(pagination.getCreatedBefore().getTime(), is(dateBefore.getTimeInMillis()));
-        assertThat(pagination.getCreatedOn().getTime(), is(dateOn.getTimeInMillis()));
+        assertThat(queryParam.getOffset(), is(100));
+        assertThat(queryParam.getLimit(), is(20));
+        assertThat(queryParam.getSortBy(), is(DESCENDANT_CREATE_ON));
+        assertThat(queryParam.getStatus(), is(ACTIVATED));
+        assertThat(queryParam.getType(), is(PAYPAL_ACCOUNT));
+        assertThat(queryParam.getCreatedAfter().getTime(), is(dateAfter.getTimeInMillis()));
+        assertThat(queryParam.getCreatedBefore().getTime(), is(dateBefore.getTimeInMillis()));
+        assertThat(queryParam.getCreatedOn().getTime(), is(dateOn.getTimeInMillis()));
     }
 }

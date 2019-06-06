@@ -70,10 +70,10 @@ public class HyperwalletListBankCardsTest {
         String responseBody = mExternalResourceManager.getResourceContent("bank_cards_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
 
-        HyperwalletBankCardQueryParam bankCardPagination = new HyperwalletBankCardQueryParam.Builder().build();
+        HyperwalletBankCardQueryParam queryParam = new HyperwalletBankCardQueryParam.Builder().build();
 
-        assertThat(bankCardPagination, is(notNullValue()));
-        Hyperwallet.getDefault().listBankCards(bankCardPagination, mListener);
+        assertThat(queryParam, is(notNullValue()));
+        Hyperwallet.getDefault().listBankCards(queryParam, mListener);
 
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
@@ -99,10 +99,10 @@ public class HyperwalletListBankCardsTest {
         String responseBody = mExternalResourceManager.getResourceContent("bank_no_cards_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody(responseBody).mock();
 
-        HyperwalletBankCardQueryParam bankCardPagination = new HyperwalletBankCardQueryParam.Builder().build();
+        HyperwalletBankCardQueryParam queryParam = new HyperwalletBankCardQueryParam.Builder().build();
 
-        assertThat(bankCardPagination, is(notNullValue()));
-        Hyperwallet.getDefault().listBankCards(bankCardPagination, mListener);
+        assertThat(queryParam, is(notNullValue()));
+        Hyperwallet.getDefault().listBankCards(queryParam, mListener);
 
         mAwait.await(500, TimeUnit.MILLISECONDS);
 

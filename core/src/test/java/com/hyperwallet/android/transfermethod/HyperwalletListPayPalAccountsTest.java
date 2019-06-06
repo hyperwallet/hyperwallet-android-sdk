@@ -81,10 +81,10 @@ public class HyperwalletListPayPalAccountsTest {
         String responseBody = mExternalResourceManager.getResourceContent("paypal_accounts_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
 
-        PayPalAccountQueryParam payPalAccountPagination = new PayPalAccountQueryParam.Builder().build();
+        PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder().build();
 
-        assertThat(payPalAccountPagination, is(notNullValue()));
-        Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
+        assertThat(queryParam, is(notNullValue()));
+        Hyperwallet.getDefault().listPayPalAccounts(queryParam, mListener);
 
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
@@ -118,10 +118,10 @@ public class HyperwalletListPayPalAccountsTest {
     public void testListPayPalAccounts_returnsNoAccounts() throws InterruptedException {
         mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody("").mock();
 
-        PayPalAccountQueryParam payPalAccountPagination = new PayPalAccountQueryParam.Builder().build();
+        PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder().build();
 
-        assertThat(payPalAccountPagination, is(notNullValue()));
-        Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
+        assertThat(queryParam, is(notNullValue()));
+        Hyperwallet.getDefault().listPayPalAccounts(queryParam, mListener);
 
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
@@ -146,9 +146,9 @@ public class HyperwalletListPayPalAccountsTest {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
-        PayPalAccountQueryParam payPalAccountPagination = new PayPalAccountQueryParam.Builder().build();
+        PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder().build();
 
-        Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
+        Hyperwallet.getDefault().listPayPalAccounts(queryParam, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         verify(mListener, never()).onSuccess(ArgumentMatchers.<HyperwalletPageList<PayPalAccount>>any());
