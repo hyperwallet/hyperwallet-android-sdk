@@ -174,12 +174,12 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param bankAccountPagination the ordering and filtering criteria
+     * @param queryParam the ordering and filtering criteria
      * @param listener              the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listBankAccounts(@Nullable final HyperwalletBankAccountQueryParam bankAccountPagination,
+    public void listBankAccounts(@Nullable final HyperwalletBankAccountQueryParam queryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletBankAccount>> listener) {
-        Map<String, String> urlQuery = buildUrlQueryIfRequired(bankAccountPagination);
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -512,12 +512,12 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param transferMethodPagination the ordering and filtering criteria
+     * @param queryParam the ordering and filtering criteria
      * @param listener                 the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listTransferMethods(@Nullable final QueryParam transferMethodPagination,
+    public void listTransferMethods(@Nullable final HyperwalletTransferMethodQueryParam queryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletTransferMethod>> listener) {
-        Map<String, String> urlQuery = buildUrlQueryIfRequired(transferMethodPagination);
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/transfer-methods");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -552,12 +552,12 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param bankCardPagination the ordering and filtering criteria
+     * @param queryParam the ordering and filtering criteria
      * @param listener           the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listBankCards(@Nullable final HyperwalletBankCardQueryParam bankCardPagination,
+    public void listBankCards(@Nullable final HyperwalletBankCardQueryParam queryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletBankCard>> listener) {
-        Map<String, String> urlQuery = buildUrlQueryIfRequired(bankCardPagination);
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<HyperwalletPageList<HyperwalletBankCard>>() {
@@ -591,14 +591,14 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param payPalAccountPagination the ordering and filtering criteria
+     * @param queryParam the ordering and filtering criteria
      * @param listener                the callback handler of responses from the Hyperwallet platform; must
      *                                not be null
      */
     public void listPayPalAccounts(
-            @Nullable final PayPalAccountQueryParam payPalAccountPagination,
+            @Nullable final PayPalAccountQueryParam queryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<PayPalAccount>> listener) {
-        Map<String, String> urlQuery = buildUrlQueryIfRequired(payPalAccountPagination);
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<HyperwalletPageList<PayPalAccount>>() {

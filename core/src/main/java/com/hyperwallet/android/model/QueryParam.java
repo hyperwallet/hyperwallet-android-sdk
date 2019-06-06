@@ -171,11 +171,6 @@ public class QueryParam {
     }
 
 
-    public static Builder<?> builder() {
-        return new Builder();
-    }
-
-
     /**
      * Builder Class for the {@link QueryParam}
      */
