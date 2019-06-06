@@ -515,7 +515,7 @@ public class Hyperwallet {
      * @param queryParam the ordering and filtering criteria
      * @param listener                 the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listTransferMethods(@Nullable final QueryParam queryParam,
+    public void listTransferMethods(@Nullable final HyperwalletTransferMethodQueryParam queryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletTransferMethod>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/transfer-methods");
