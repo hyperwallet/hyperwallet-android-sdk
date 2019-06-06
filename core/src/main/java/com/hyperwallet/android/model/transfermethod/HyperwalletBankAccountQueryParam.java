@@ -36,7 +36,7 @@ public class HyperwalletBankAccountQueryParam extends QueryParam {
     private final String mStatus;
     private final String mType;
 
-    private HyperwalletBankAccountQueryParam(@NonNull final Builder builder) {
+    private HyperwalletBankAccountQueryParam(@NonNull Builder builder) {
         super(builder);
         mStatus = builder.mStatus;
         mType = builder.mType != null ? builder.mType : BANK_ACCOUNT;
@@ -82,8 +82,7 @@ public class HyperwalletBankAccountQueryParam extends QueryParam {
          * @param status The status of this method
          * @return Builder
          */
-        public Builder status(
-                @NonNull @HyperwalletTransferMethodQueryParam.TransferMethodStatusQuery final String status) {
+        public Builder status(@NonNull @HyperwalletTransferMethodQueryParam.TransferMethodStatusQuery String status) {
             mStatus = status;
             return this;
         }
@@ -95,7 +94,7 @@ public class HyperwalletBankAccountQueryParam extends QueryParam {
          * @param type The type of this method
          * @return Builder
          */
-        public Builder type(@NonNull @HyperwalletTransferMethodQueryParam.TransferMethodTypeQuery final String type) {
+        public Builder type(@NonNull @HyperwalletTransferMethodQueryParam.TransferMethodTypeQuery String type) {
             mType = type;
             return this;
         }

@@ -36,14 +36,15 @@ public class PayPalAccountQueryParam extends QueryParam {
 
     protected static final String TRANSFER_METHOD_CREATE_ON = "createdOn";
     protected static final String TRANSFER_METHODT_STATUS = "status";
-    private final String mStatus;
-    private final String mType;
+    private String mStatus;
+    private String mType;
+
     private final Date mCreatedOn;
 
     /**
      * Constructs the default implementation of the PayPal Account query param.
      */
-    private PayPalAccountQueryParam(@NonNull final Builder builder) {
+    private PayPalAccountQueryParam(@NonNull Builder builder) {
         super(builder);
         mCreatedOn = builder.mCreatedOn;
         mStatus = builder.mStatus;
@@ -96,7 +97,7 @@ public class PayPalAccountQueryParam extends QueryParam {
          * @param createdOn Date
          * @return Builder
          */
-        public Builder createdOn(@NonNull final Date createdOn) {
+        public Builder createdOn(@NonNull Date createdOn) {
             mCreatedOn = new Date(createdOn.getTime());
             return this;
         }
@@ -108,8 +109,7 @@ public class PayPalAccountQueryParam extends QueryParam {
          * @param status The status of this method
          * @return Builder
          */
-        public Builder status(
-                @NonNull @HyperwalletTransferMethodQueryParam.TransferMethodStatusQuery final String status) {
+        public Builder status(@NonNull @HyperwalletTransferMethodQueryParam.TransferMethodStatusQuery String status) {
             mStatus = status;
             return this;
         }
