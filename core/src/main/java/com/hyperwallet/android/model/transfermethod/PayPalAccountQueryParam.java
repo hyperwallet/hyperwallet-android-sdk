@@ -21,50 +21,25 @@ import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMe
 
 import androidx.annotation.NonNull;
 
-import com.hyperwallet.android.util.DateUtil;
-
-import java.util.Date;
-import java.util.Map;
-
 /**
- * Represents the PayPal Account pagination fields
+ * Represents the PayPal Account query param fields.
  */
-public class PayPalAccountPagination extends HyperwalletTransferMethodPagination {
+public class PayPalAccountQueryParam extends HyperwalletTransferMethodQueryParam {
 
-    protected static final String TRANSFER_METHOD_CREATE_ON = "createdOn";
+    private PayPalAccountQueryParam(@NonNull final Builder builder) {
+        super(builder);
+    }
 
-    private Date mCreatedOn;
 
     /**
-     * Constructs the default implementation of the PayPal Account pagination.
+     * Builder Class for the {@link HyperwalletBankAccountQueryParam}
      */
-    public PayPalAccountPagination() {
-        super();
-        setType(PAYPAL_ACCOUNT);
-    }
+    public static class Builder extends HyperwalletTransferMethodQueryParam.Builder<Builder> {
 
-    /**
-     * Constructs the PayPal Account pagination based in the preview request with extra parameters.
-     *
-     * @param urlQueryMap the map with properties to build the pagination
-     */
-    public PayPalAccountPagination(Map<String, String> urlQueryMap) {
-        super(urlQueryMap);
-        mCreatedOn = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_ON);
-        setType(PAYPAL_ACCOUNT);
-    }
-
-    public Date getCreatedOn() {
-        return mCreatedOn;
-    }
-
-    @NonNull
-    @Override
-    public Map<String, String> buildQuery() {
-        Map<String, String> query = super.buildQuery();
-        if (mCreatedOn != null) {
-            query.put(TRANSFER_METHOD_CREATE_ON, DateUtil.toDateTimeFormat(mCreatedOn));
+        @Override
+        public PayPalAccountQueryParam build() {
+            type(PAYPAL_ACCOUNT);
+            return new PayPalAccountQueryParam(this);
         }
-        return query;
     }
 }

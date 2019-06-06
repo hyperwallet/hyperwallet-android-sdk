@@ -9,6 +9,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
+import static com.hyperwallet.android.util.HttpMethod.POST;
+
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
@@ -33,6 +35,8 @@ import java.net.HttpURLConnection;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
 public class HyperwalletDeactivatePayPalAccountTest {
@@ -77,9 +81,11 @@ public class HyperwalletDeactivatePayPalAccountTest {
                 is(HyperwalletStatusTransition.StatusDefinition.DE_ACTIVATED));
         assertThat(statusTransitionResponse.getToken(), is("sts-70ddc78a-0c14-4a72-8390-75d49ff376f2"));
         assertNotNull(statusTransitionResponse.getCreatedOn());
-        assertThat(mServer.getRequest().getPath(), endsWith(
+        final RecordedRequest request = mServer.getRequest();
+        assertThat(request.getPath(), endsWith(
                 "users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts/trm-da21954a-3910-4d70-b83d"
                         + "-0c2d96104394/status-transitions"));
+        assertThat(request.getMethod(), is(POST.name()));
     }
 
     @Test
@@ -105,9 +111,10 @@ public class HyperwalletDeactivatePayPalAccountTest {
         assertThat(statusTransitionError.getCode(), is("INVALID_FIELD_VALUE"));
         assertThat(statusTransitionError.getFieldName(), is("transition"));
         assertThat(statusTransitionError.getMessage(), is("transition is invalid"));
-        assertThat(mServer.getRequest().getPath(),
-                endsWith(
-                        "users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts/trm-fake-token/status"
-                                + "-transitions"));
+        final RecordedRequest request = mServer.getRequest();
+        assertThat(request.getPath(), endsWith(
+                "users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts/trm-fake-token/status"
+                        + "-transitions"));
+        assertThat(request.getMethod(), is(POST.name()));
     }
 }
