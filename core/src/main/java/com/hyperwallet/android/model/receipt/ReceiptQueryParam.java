@@ -72,6 +72,23 @@ public class ReceiptQueryParam extends QueryParam {
         this.mCurrency = builder.mCurrency;
     }
 
+    public @interface ReceiptSortableQuery {
+    }
+
+    public final class ReceiptSortable {
+        private ReceiptSortable() {
+        }
+
+        public static final String ASCENDANT_CREATE_ON = "+createdOn";
+        public static final String ASCENDANT_AMOUNT = "+amount";
+        public static final String ASCENDANT_TYPE = "+type";
+        public static final String ASCENDANT_CURRENCY = "+currency";
+        public static final String DESCENDANT_CREATE_ON = "-createdOn";
+        public static final String DESCENDANT_AMOUNT = "-amount";
+        public static final String DESCENDANT_TYPE = "-type";
+        public static final String DESCENDANT_CURRENCY = "-currency";
+    }
+
     @Nullable
     public Date getCreatedOn() {
         return mCreatedOn;
@@ -167,6 +184,89 @@ public class ReceiptQueryParam extends QueryParam {
         @Override
         public ReceiptQueryParam build() {
             return new ReceiptQueryParam(this);
+        }
+
+        /**
+         * Specify the sort order with the Amount ascendant param {@link ReceiptSortable#ASCENDANT_AMOUNT}.
+         *
+         * @return Builder
+         */
+        public Builder sortByAmountAsc() {
+            mSortBy = ReceiptSortable.ASCENDANT_AMOUNT;
+            return this;
+        }
+
+        /**
+         * Specify the sort order with the Amount descendant param {@link ReceiptSortable#DESCENDANT_AMOUNT}.
+         *
+         * @return Builder
+         */
+        public Builder sortByAmountDesc() {
+            mSortBy = ReceiptSortable.DESCENDANT_AMOUNT;
+            return this;
+        }
+
+
+        /**
+         * Specify the sort order with the transaction type ascendant param {@link ReceiptSortable#ASCENDANT_TYPE}.
+         *
+         * @return Builder
+         */
+        public Builder sortByTypeAsc() {
+            mSortBy = ReceiptSortable.ASCENDANT_TYPE;
+            return this;
+        }
+
+        /**
+         * Specify the sort order with the transaction type descendant param {@link ReceiptSortable#DESCENDANT_TYPE}.
+         *
+         * @return Builder
+         */
+        public Builder sortByTypeDesc() {
+            mSortBy = ReceiptSortable.DESCENDANT_TYPE;
+            return this;
+        }
+
+
+        /**
+         * Specify the sort order with the transaction type ascendant param {@link ReceiptSortable#ASCENDANT_CURRENCY}.
+         *
+         * @return Builder
+         */
+        public Builder sortByCurrencyAsc() {
+            mSortBy = ReceiptSortable.ASCENDANT_CURRENCY;
+            return this;
+        }
+
+        /**
+         * Specify the sort order with the currency descendant param {@link ReceiptSortable#DESCENDANT_CURRENCY}.
+         *
+         * @return Builder
+         */
+        public Builder sortByCurrencyDesc() {
+            mSortBy = ReceiptSortable.DESCENDANT_CURRENCY;
+            return this;
+        }
+
+
+        /**
+         * Specify the sort order with the created on ascendant param {@link ReceiptSortable#ASCENDANT_CREATE_ON}.
+         *
+         * @return Builder
+         */
+        public Builder sortByCreatedOnAsc() {
+            mSortBy = ReceiptSortable.ASCENDANT_CREATE_ON;
+            return this;
+        }
+
+        /**
+         * Specify the sort order with the created on descendant param {@link ReceiptSortable#DESCENDANT_CREATE_ON}.
+         *
+         * @return Builder
+         */
+        public Builder sortByCreatedOnDesc() {
+            mSortBy = ReceiptSortable.DESCENDANT_CREATE_ON;
+            return this;
         }
     }
 }

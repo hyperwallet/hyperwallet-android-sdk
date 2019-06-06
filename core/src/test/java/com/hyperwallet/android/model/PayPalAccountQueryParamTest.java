@@ -5,10 +5,10 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
-import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_CREATE_ON;
-import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_STATUS;
-import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_CREATE_ON;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.ASCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.ASCENDANT_STATUS;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON;
 
 import com.hyperwallet.android.model.transfermethod.PayPalAccountQueryParam;
 
@@ -18,7 +18,7 @@ import org.junit.Test;
 import java.util.Calendar;
 import java.util.Map;
 
-public class PayPalAccountPaginationTest {
+public class PayPalAccountQueryParamTest {
     private final static String OFFSET = "offset";
     private final static String LIMIT = "limit";
     private final static String CREATE_BEFORE = "createdBefore";
@@ -30,7 +30,7 @@ public class PayPalAccountPaginationTest {
 
 
     @Test
-    public void testHyperwalletPayPalAccountPagination_withUrlQueryMap() {
+    public void testHyperwalletPayPalAccountQueryParam_withUrlQueryMap() {
         Calendar createdBefore = Calendar.getInstance();
         createdBefore.set(2017, 0, 1, 10, 12, 22);
         Calendar createdAfter = Calendar.getInstance();
@@ -83,7 +83,7 @@ public class PayPalAccountPaginationTest {
     }
 
     @Test
-    public void testHyperwalletPayPalAccountPagination_verifyDefaultValues() {
+    public void testHyperwalletPayPalAccountQueryParam_verifyDefaultValues() {
         PayPalAccountQueryParam pagination = new PayPalAccountQueryParam.Builder().build();
         assertThat(pagination.getLimit(), is(10));
         assertThat(pagination.getOffset(), is(0));

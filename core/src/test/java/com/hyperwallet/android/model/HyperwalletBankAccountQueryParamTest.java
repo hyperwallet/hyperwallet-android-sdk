@@ -6,9 +6,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.VERIFIED;
-import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_CREATE_ON;
-import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_CREATE_ON;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.ASCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON;
 
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountQueryParam;
 
@@ -20,7 +20,7 @@ import java.util.Calendar;
 import java.util.Map;
 
 @RunWith(RobolectricTestRunner.class)
-public class HyperwalletBankAccountPaginationTest {
+public class HyperwalletBankAccountQueryParamTest {
 
     private static final String ACCOUNT_TYPE = "type";
     private static final String CREATE_BEFORE = "createdBefore";
@@ -31,7 +31,7 @@ public class HyperwalletBankAccountPaginationTest {
     private static final String STATUS = "status";
 
     @Test
-    public void testHyperwalletBankAccountPagination_withUrlQueryMap() {
+    public void testHyperwalletBankAccountQueryParam_withUrlQueryMap() {
         final int offset = 100;
         final int limit = 200;
 
@@ -76,7 +76,7 @@ public class HyperwalletBankAccountPaginationTest {
 
 
     @Test
-    public void testHyperwalletBankAccountPagination_verifyDefaultValues() {
+    public void testHyperwalletBankAccountQueryParam_verifyDefaultValues() {
 
         HyperwalletBankAccountQueryParam pagination = new HyperwalletBankAccountQueryParam.Builder().build();
         assertThat(pagination.getLimit(), is(10));
@@ -101,11 +101,11 @@ public class HyperwalletBankAccountPaginationTest {
         dateBefore.set(2017, 0, 1, 10, 12, 22);
         HyperwalletBankAccountQueryParam pagination = new HyperwalletBankAccountQueryParam.Builder()
                 .createdAfter(dateAfter.getTime())
+                .status(VERIFIED)
                 .createdBefore(dateBefore.getTime())
                 .offset(offset)
                 .limit(limit)
                 .sortByCreatedOnAsc()
-                .status(VERIFIED)
                 .build();
 
         Map<String, String> resultQuery = pagination.buildQuery();

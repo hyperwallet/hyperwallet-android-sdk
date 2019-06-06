@@ -39,11 +39,48 @@ import static com.hyperwallet.android.model.receipt.Receipt.ReceiptFields.FOREIG
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptFields.JOURNAL_ID;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptFields.SOURCE_TOKEN;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptFields.TYPE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.ACCOUNT_CLOSURE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.ACCOUNT_CLOSURE_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.ACCOUNT_UNLOAD;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.ADJUSTMENT;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.ANNUAL_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.ANNUAL_FEE_REFUND;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.BANK_ACCOUNT_TRANSFER_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.BANK_ACCOUNT_TRANSFER_RETURN;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.BANK_ACCOUNT_TRANSFER_RETURN_FEE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.CARD_ACTIVATION_FEE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.CARD_ACTIVATION_FEE_WAIVER;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.CARD_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.CUSTOMER_SERVICE_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.CUSTOMER_SERVICE_FEE_REFUND;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.DEPOSIT;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.DONATION;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.DONATION_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.DONATION_RETURN;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.DORMANT_USER_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.DORMANT_USER_FEE_REFUND;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.EXPEDITED_SHIPPING_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.FOREIGN_EXCHANGE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.GENERIC_FEE_REFUND;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.MANUAL_ADJUSTMENT;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.MANUAL_TRANSFER_TO_PREPAID_CARD;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.MERCHANT_PAYMENT;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.MERCHANT_PAYMENT_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.MERCHANT_PAYMENT_REFUND;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.MERCHANT_PAYMENT_RETURN;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.MONEYGRAM_TRANSFER_RETURN;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.MONTHLY_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.MONTHLY_FEE_REFUND;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PAPER_CHECK_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PAPER_CHECK_REFUND;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PAYMENT;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PAYMENT_CANCELLATION;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PAYMENT_EXPIRATION;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PAYMENT_EXPIRY_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PAYMENT_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PAYMENT_RETURN;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PAYMENT_REVERSAL;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PAYMENT_REVERSAL_FEE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_BALANCE_INQUIRY_FEE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_CASH_ADVANCE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_DISPUTED_CHARGE_REFUND;
@@ -58,7 +95,26 @@ import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_SALE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_SALE_REVERSAL;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_UNLOAD;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PROCESSING_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.STANDARD_SHIPPING_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_TO_BANK_ACCOUNT;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_TO_MONEYGRAM;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_TO_PAPER_CHECK;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_TO_PREPAID_CARD;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_TO_PROGRAM_ACCOUNT;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_TO_USER;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_TO_WESTERN_UNION;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_TO_WIRE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_TO_WUBS_WIRE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.VIRTUAL_INCENTIVE_CANCELLATION;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.VIRTUAL_INCENTIVE_ISSUANCE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.VIRTUAL_INCENTIVE_PURCHASE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.VIRTUAL_INCENTIVE_REFUND;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.WESTERN_UNION_TRANSFER_RETURN;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.WIRE_TRANSFER_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.WIRE_TRANSFER_RETURN;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.WUBS_WIRE_TRANSFER_RETURN;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -77,6 +133,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Represents the receipt fields
@@ -104,7 +161,28 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
         private ReceiptTypes() {
         }
 
-        public static final String PAYMENT = "PAYMENT"; // todo: check
+        public static final String ANNUAL_FEE = "ANNUAL_FEE";
+        public static final String ANNUAL_FEE_REFUND = "ANNUAL_FEE_REFUND";
+        public static final String CUSTOMER_SERVICE_FEE = "CUSTOMER_SERVICE_FEE";
+        public static final String CUSTOMER_SERVICE_FEE_REFUND = "CUSTOMER_SERVICE_FEE_REFUND";
+        public static final String EXPEDITED_SHIPPING_FEE = "EXPEDITED_SHIPPING_FEE";
+        public static final String GENERIC_FEE_REFUND = "GENERIC_FEE_REFUND";
+        public static final String MONTHLY_FEE = "MONTHLY_FEE";
+        public static final String MONTHLY_FEE_REFUND = "MONTHLY_FEE_REFUND";
+        public static final String PAYMENT_EXPIRY_FEE = "PAYMENT_EXPIRY_FEE";
+        public static final String PAYMENT_FEE = "PAYMENT_FEE";
+        public static final String PROCESSING_FEE = "PROCESSING_FEE";
+        public static final String STANDARD_SHIPPING_FEE = "STANDARD_SHIPPING_FEE";
+        public static final String TRANSFER_FEE = "TRANSFER_FEE";
+        public static final String ADJUSTMENT = "ADJUSTMENT";
+        public static final String FOREIGN_EXCHANGE = "FOREIGN_EXCHANGE";
+        public static final String DEPOSIT = "DEPOSIT";
+        public static final String MANUAL_ADJUSTMENT = "MANUAL_ADJUSTMENT";
+        public static final String PAYMENT_EXPIRATION = "PAYMENT_EXPIRATION";
+        public static final String BANK_ACCOUNT_TRANSFER_FEE = "BANK_ACCOUNT_TRANSFER_FEE";
+        public static final String BANK_ACCOUNT_TRANSFER_RETURN = "BANK_ACCOUNT_TRANSFER_RETURN";
+        public static final String BANK_ACCOUNT_TRANSFER_RETURN_FEE = "BANK_ACCOUNT_TRANSFER_RETURN_FEE";
+        public static final String TRANSFER_TO_BANK_ACCOUNT = "TRANSFER_TO_BANK_ACCOUNT";
         public static final String CARD_ACTIVATION_FEE = "CARD_ACTIVATION_FEE";
         public static final String CARD_ACTIVATION_FEE_WAIVER = "CARD_ACTIVATION_FEE_WAIVER";
         public static final String CARD_FEE = "CARD_FEE";
@@ -126,11 +204,67 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
         public static final String PREPAID_CARD_SALE_REVERSAL = "PREPAID_CARD_SALE_REVERSAL";
         public static final String PREPAID_CARD_UNLOAD = "PREPAID_CARD_UNLOAD";
         public static final String TRANSFER_TO_PREPAID_CARD = "TRANSFER_TO_PREPAID_CARD";
+        public static final String DONATION = "DONATION";
+        public static final String DONATION_FEE = "DONATION_FEE";
+        public static final String DONATION_RETURN = "DONATION_RETURN";
+        public static final String MERCHANT_PAYMENT = "MERCHANT_PAYMENT";
+        public static final String MERCHANT_PAYMENT_FEE = "MERCHANT_PAYMENT_FEE";
+        public static final String MERCHANT_PAYMENT_REFUND = "MERCHANT_PAYMENT_REFUND";
+        public static final String MERCHANT_PAYMENT_RETURN = "MERCHANT_PAYMENT_RETURN";
+        public static final String MONEYGRAM_TRANSFER_RETURN = "MONEYGRAM_TRANSFER_RETURN";
+        public static final String TRANSFER_TO_MONEYGRAM = "TRANSFER_TO_MONEYGRAM";
+        public static final String PAPER_CHECK_FEE = "PAPER_CHECK_FEE";
+        public static final String PAPER_CHECK_REFUND = "PAPER_CHECK_REFUND";
+        public static final String TRANSFER_TO_PAPER_CHECK = "TRANSFER_TO_PAPER_CHECK";
+        public static final String ACCOUNT_CLOSURE = "ACCOUNT_CLOSURE";
+        public static final String ACCOUNT_CLOSURE_FEE = "ACCOUNT_CLOSURE_FEE";
+        public static final String ACCOUNT_UNLOAD = "ACCOUNT_UNLOAD";
+        public static final String DORMANT_USER_FEE = "DORMANT_USER_FEE";
+        public static final String DORMANT_USER_FEE_REFUND = "DORMANT_USER_FEE_REFUND";
+        public static final String PAYMENT = "PAYMENT";
+        public static final String PAYMENT_CANCELLATION = "PAYMENT_CANCELLATION";
+        public static final String PAYMENT_REVERSAL = "PAYMENT_REVERSAL";
+        public static final String PAYMENT_REVERSAL_FEE = "PAYMENT_REVERSAL_FEE";
+        public static final String PAYMENT_RETURN = "PAYMENT_RETURN";
+        public static final String TRANSFER_TO_PROGRAM_ACCOUNT = "TRANSFER_TO_PROGRAM_ACCOUNT";
+        public static final String TRANSFER_TO_USER = "TRANSFER_TO_USER";
+        public static final String VIRTUAL_INCENTIVE_CANCELLATION = "VIRTUAL_INCENTIVE_CANCELLATION";
+        public static final String VIRTUAL_INCENTIVE_ISSUANCE = "VIRTUAL_INCENTIVE_ISSUANCE";
+        public static final String VIRTUAL_INCENTIVE_PURCHASE = "VIRTUAL_INCENTIVE_PURCHASE";
+        public static final String VIRTUAL_INCENTIVE_REFUND = "VIRTUAL_INCENTIVE_REFUND";
+        public static final String TRANSFER_TO_WESTERN_UNION = "TRANSFER_TO_WESTERN_UNION";
+        public static final String TRANSFER_TO_WUBS_WIRE = "TRANSFER_TO_WUBS_WIRE";
+        public static final String WESTERN_UNION_TRANSFER_RETURN = "WESTERN_UNION_TRANSFER_RETURN";
+        public static final String WUBS_WIRE_TRANSFER_RETURN = "WUBS_WIRE_TRANSFER_RETURN";
+        public static final String TRANSFER_TO_WIRE = "TRANSFER_TO_WIRE";
+        public static final String WIRE_TRANSFER_FEE = "WIRE_TRANSFER_FEE";
+        public static final String WIRE_TRANSFER_RETURN = "WIRE_TRANSFER_RETURN";
     }
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
-            PAYMENT,
+            ANNUAL_FEE,
+            ANNUAL_FEE_REFUND,
+            CUSTOMER_SERVICE_FEE,
+            CUSTOMER_SERVICE_FEE_REFUND,
+            EXPEDITED_SHIPPING_FEE,
+            GENERIC_FEE_REFUND,
+            MONTHLY_FEE,
+            MONTHLY_FEE_REFUND,
+            PAYMENT_EXPIRY_FEE,
+            PAYMENT_FEE,
+            PROCESSING_FEE,
+            STANDARD_SHIPPING_FEE,
+            TRANSFER_FEE,
+            ADJUSTMENT,
+            FOREIGN_EXCHANGE,
+            DEPOSIT,
+            MANUAL_ADJUSTMENT,
+            PAYMENT_EXPIRATION,
+            BANK_ACCOUNT_TRANSFER_FEE,
+            BANK_ACCOUNT_TRANSFER_RETURN,
+            BANK_ACCOUNT_TRANSFER_RETURN_FEE,
+            TRANSFER_TO_BANK_ACCOUNT,
             CARD_ACTIVATION_FEE,
             CARD_ACTIVATION_FEE_WAIVER,
             CARD_FEE,
@@ -149,7 +283,42 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
             PREPAID_CARD_SALE,
             PREPAID_CARD_SALE_REVERSAL,
             PREPAID_CARD_UNLOAD,
-            TRANSFER_TO_PREPAID_CARD
+            TRANSFER_TO_PREPAID_CARD,
+            DONATION,
+            DONATION_FEE,
+            DONATION_RETURN,
+            MERCHANT_PAYMENT,
+            MERCHANT_PAYMENT_FEE,
+            MERCHANT_PAYMENT_REFUND,
+            MERCHANT_PAYMENT_RETURN,
+            MONEYGRAM_TRANSFER_RETURN,
+            TRANSFER_TO_MONEYGRAM,
+            PAPER_CHECK_FEE,
+            PAPER_CHECK_REFUND,
+            TRANSFER_TO_PAPER_CHECK,
+            ACCOUNT_CLOSURE,
+            ACCOUNT_CLOSURE_FEE,
+            ACCOUNT_UNLOAD,
+            DORMANT_USER_FEE,
+            DORMANT_USER_FEE_REFUND,
+            PAYMENT,
+            PAYMENT_CANCELLATION,
+            PAYMENT_REVERSAL,
+            PAYMENT_REVERSAL_FEE,
+            PAYMENT_RETURN,
+            TRANSFER_TO_PROGRAM_ACCOUNT,
+            TRANSFER_TO_USER,
+            VIRTUAL_INCENTIVE_CANCELLATION,
+            VIRTUAL_INCENTIVE_ISSUANCE,
+            VIRTUAL_INCENTIVE_PURCHASE,
+            VIRTUAL_INCENTIVE_REFUND,
+            TRANSFER_TO_WESTERN_UNION,
+            TRANSFER_TO_WUBS_WIRE,
+            WESTERN_UNION_TRANSFER_RETURN,
+            WUBS_WIRE_TRANSFER_RETURN,
+            TRANSFER_TO_WIRE,
+            WIRE_TRANSFER_FEE,
+            WIRE_TRANSFER_RETURN,
     })
     public @interface ReceiptType {
     }
@@ -342,5 +511,21 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
 
     protected void setFields(@NonNull Map<String, Object> fields) {
         mFields = fields;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Receipt)) return false;
+        Receipt that = (Receipt) o;
+        return Objects.equals(getJournalId(), that.getJournalId())
+                && Objects.equals(getType(), that.getType())
+                && Objects.equals(getEntry(), that.getEntry());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getJournalId(), getType(), getEntry());
     }
 }
