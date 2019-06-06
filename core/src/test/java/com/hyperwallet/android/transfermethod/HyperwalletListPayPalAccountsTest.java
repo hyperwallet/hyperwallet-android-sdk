@@ -81,7 +81,9 @@ public class HyperwalletListPayPalAccountsTest {
         String responseBody = mExternalResourceManager.getResourceContent("paypal_accounts_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
 
-        PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder().build();
+        PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
 
         assertThat(queryParam, is(notNullValue()));
         Hyperwallet.getDefault().listPayPalAccounts(queryParam, mListener);
@@ -118,7 +120,9 @@ public class HyperwalletListPayPalAccountsTest {
     public void testListPayPalAccounts_returnsNoAccounts() throws InterruptedException {
         mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody("").mock();
 
-        PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder().build();
+        PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
 
         assertThat(queryParam, is(notNullValue()));
         Hyperwallet.getDefault().listPayPalAccounts(queryParam, mListener);
@@ -146,7 +150,9 @@ public class HyperwalletListPayPalAccountsTest {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
-        PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder().build();
+        PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
 
         Hyperwallet.getDefault().listPayPalAccounts(queryParam, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);

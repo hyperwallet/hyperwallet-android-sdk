@@ -20,6 +20,10 @@ package com.hyperwallet.android.model.transfermethod;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * Represents the Bank card query params fields.
@@ -31,10 +35,23 @@ public class HyperwalletBankCardQueryParam extends HyperwalletTransferMethodQuer
         super(builder);
     }
 
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            BANK_CARD,
+    })
+    public @interface BankCardTypeQuery {
+    }
+
     /**
      * Builder Class for the {@link HyperwalletBankAccountQueryParam}
      */
-    public static class Builder extends HyperwalletTransferMethodQueryParam.Builder<Builder> {
+    public static class Builder extends HyperwalletTransferMethodBuilder<Builder> {
+
+        @Override
+        public Builder type(@NonNull @BankCardTypeQuery String type) {
+            mType = type;
+            return self();
+        }
 
         @Override
         public HyperwalletBankCardQueryParam build() {

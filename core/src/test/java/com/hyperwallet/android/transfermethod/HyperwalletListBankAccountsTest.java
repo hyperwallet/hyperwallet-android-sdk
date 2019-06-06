@@ -91,7 +91,9 @@ public class HyperwalletListBankAccountsTest {
                 "bank_account_list_single_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 
-        final HyperwalletBankAccountQueryParam queryParam = new HyperwalletBankAccountQueryParam.Builder().build();
+        final HyperwalletBankAccountQueryParam queryParam = new HyperwalletBankAccountQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
         assertThat(queryParam.getType(), is(BANK_ACCOUNT));
 
         Hyperwallet.getDefault().listBankAccounts(queryParam, mListener);
@@ -157,7 +159,9 @@ public class HyperwalletListBankAccountsTest {
         String responseBody = "";
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_NO_CONTENT).withBody(responseBody).mock();
 
-        final HyperwalletBankAccountQueryParam queryParam = new HyperwalletBankAccountQueryParam.Builder().build();
+        final HyperwalletBankAccountQueryParam queryParam = new HyperwalletBankAccountQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
         assertThat(queryParam.getType(), is(BANK_ACCOUNT));
 
         Hyperwallet.getDefault().listBankAccounts(queryParam, mListener);
@@ -187,7 +191,9 @@ public class HyperwalletListBankAccountsTest {
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_INTERNAL_ERROR).withBody(
                 responseBody).mock();
 
-        final HyperwalletBankAccountQueryParam queryParam = new HyperwalletBankAccountQueryParam.Builder().build();
+        final HyperwalletBankAccountQueryParam queryParam = new HyperwalletBankAccountQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
         assertThat(queryParam.getType(), is(BANK_ACCOUNT));
 
         Hyperwallet.getDefault().listBankAccounts(queryParam, mListener);

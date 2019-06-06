@@ -120,7 +120,7 @@ public class ReceiptQueryParam extends QueryParam {
          * @return Builder
          */
         public Builder sortByAmountAsc() {
-            mSortBy = ReceiptSortable.ASCENDANT_AMOUNT;
+            sortBy(ReceiptSortable.ASCENDANT_AMOUNT);
             return this;
         }
 
@@ -130,7 +130,7 @@ public class ReceiptQueryParam extends QueryParam {
          * @return Builder
          */
         public Builder sortByAmountDesc() {
-            mSortBy = ReceiptSortable.DESCENDANT_AMOUNT;
+            sortBy(ReceiptSortable.DESCENDANT_AMOUNT);
             return this;
         }
 
@@ -141,7 +141,7 @@ public class ReceiptQueryParam extends QueryParam {
          * @return Builder
          */
         public Builder sortByTypeAsc() {
-            mSortBy = ReceiptSortable.ASCENDANT_TYPE;
+            sortBy(ReceiptSortable.ASCENDANT_TYPE);
             return this;
         }
 
@@ -151,7 +151,7 @@ public class ReceiptQueryParam extends QueryParam {
          * @return Builder
          */
         public Builder sortByTypeDesc() {
-            mSortBy = ReceiptSortable.DESCENDANT_TYPE;
+            sortBy(ReceiptSortable.DESCENDANT_TYPE);
             return this;
         }
 
@@ -162,7 +162,7 @@ public class ReceiptQueryParam extends QueryParam {
          * @return Builder
          */
         public Builder sortByCurrencyAsc() {
-            mSortBy = ReceiptSortable.ASCENDANT_CURRENCY;
+            sortBy(ReceiptSortable.ASCENDANT_CURRENCY);
             return this;
         }
 
@@ -172,7 +172,7 @@ public class ReceiptQueryParam extends QueryParam {
          * @return Builder
          */
         public Builder sortByCurrencyDesc() {
-            mSortBy = ReceiptSortable.DESCENDANT_CURRENCY;
+            sortBy(ReceiptSortable.DESCENDANT_CURRENCY);
             return this;
         }
 
@@ -183,7 +183,7 @@ public class ReceiptQueryParam extends QueryParam {
          * @return Builder
          */
         public Builder sortByCreatedOnAsc() {
-            mSortBy = ReceiptSortable.ASCENDANT_CREATE_ON;
+            sortBy(ReceiptSortable.ASCENDANT_CREATE_ON);
             return this;
         }
 
@@ -193,7 +193,7 @@ public class ReceiptQueryParam extends QueryParam {
          * @return Builder
          */
         public Builder sortByCreatedOnDesc() {
-            mSortBy = ReceiptSortable.DESCENDANT_CREATE_ON;
+            sortBy(ReceiptSortable.DESCENDANT_CREATE_ON);
             return this;
         }
     }

@@ -20,6 +20,10 @@ package com.hyperwallet.android.model.transfermethod;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * Represents the PayPal Account query param fields.
@@ -30,11 +34,23 @@ public class PayPalAccountQueryParam extends HyperwalletTransferMethodQueryParam
         super(builder);
     }
 
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            PAYPAL_ACCOUNT,
+    })
+    public @interface PayPalTypeQuery {
+    }
 
     /**
      * Builder Class for the {@link HyperwalletBankAccountQueryParam}
      */
-    public static class Builder extends HyperwalletTransferMethodQueryParam.Builder<Builder> {
+    public static class Builder extends HyperwalletTransferMethodBuilder<Builder> {
+
+        @Override
+        public Builder type(@NonNull @PayPalTypeQuery String type) {
+            mType = type;
+            return self();
+        }
 
         @Override
         public PayPalAccountQueryParam build() {

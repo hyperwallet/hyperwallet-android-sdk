@@ -18,28 +18,47 @@
 package com.hyperwallet.android.model.transfermethod;
 
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.WIRE_ACCOUNT;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * Represents the bank account query params fields.
  */
 public class HyperwalletBankAccountQueryParam extends HyperwalletTransferMethodQueryParam {
 
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            BANK_ACCOUNT,
+            WIRE_ACCOUNT,
+    })
+    public @interface BankAccountTypeQuery {
+    }
 
     private HyperwalletBankAccountQueryParam(@NonNull final Builder builder) {
         super(builder);
     }
 
-
     /**
      * Builder Class for the {@link HyperwalletBankAccountQueryParam}
      */
-    public static class Builder extends HyperwalletTransferMethodQueryParam.Builder<Builder> {
+    public static class Builder extends HyperwalletTransferMethodBuilder<Builder> {
+
+        @Override
+        public Builder type(@NonNull @BankAccountTypeQuery String type) {
+            mType = type;
+            return self();
+        }
 
         @Override
         public HyperwalletBankAccountQueryParam build() {
-            type(BANK_ACCOUNT);
+            if (mType == null) {
+                type(BANK_ACCOUNT);
+            }
             return new HyperwalletBankAccountQueryParam(this);
         }
     }

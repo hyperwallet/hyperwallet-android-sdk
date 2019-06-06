@@ -43,9 +43,9 @@ import java.util.Map;
  */
 public class HyperwalletTransferMethodQueryParam extends QueryParam {
 
-    public static final String TRANSFER_METHOD_TYPE = "type";
-    public static final String TRANSFER_METHOD_STATUS = "status";
-    public static final String TRANSFER_METHOD_CREATED_ON = "createdOn";
+    private static final String TRANSFER_METHOD_TYPE = "type";
+    private static final String TRANSFER_METHOD_STATUS = "status";
+    private static final String TRANSFER_METHOD_CREATED_ON = "createdOn";
 
     private Date mCreatedOn;
     private String mStatus;
@@ -54,7 +54,7 @@ public class HyperwalletTransferMethodQueryParam extends QueryParam {
     /**
      * Constructors the QueryParam
      */
-    public HyperwalletTransferMethodQueryParam(@NonNull final Builder builder) {
+    public HyperwalletTransferMethodQueryParam(@NonNull final HyperwalletTransferMethodBuilder builder) {
         super(builder);
         mStatus = builder.mStatus;
         mType = builder.mType;
@@ -135,12 +135,24 @@ public class HyperwalletTransferMethodQueryParam extends QueryParam {
         return mCreatedOn;
     }
 
-    public static class Builder<B extends QueryParam.Builder> extends QueryParam.Builder<B> {
 
-        private Date mCreatedOn;
-        private String mStatus;
-        private String mType;
+    /**
+     * Builder Class for the {@link HyperwalletBankAccountQueryParam}
+     */
+    public static class Builder extends HyperwalletTransferMethodBuilder<Builder> {
 
+        @Override
+        public HyperwalletTransferMethodQueryParam build() {
+            return new HyperwalletTransferMethodQueryParam(this);
+        }
+    }
+
+
+    static class HyperwalletTransferMethodBuilder<B extends QueryParam.Builder> extends QueryParam.Builder<B> {
+
+        Date mCreatedOn;
+        String mStatus;
+        String mType;
 
         /**
          * Define a Date created on.
@@ -148,7 +160,6 @@ public class HyperwalletTransferMethodQueryParam extends QueryParam {
          * @param createdOn Date
          * @return Builder
          */
-
         public B createdOn(@NonNull final Date createdOn) {
             mCreatedOn = new Date(createdOn.getTime());
             return self();
@@ -167,74 +178,67 @@ public class HyperwalletTransferMethodQueryParam extends QueryParam {
             return self();
         }
 
-        protected B type(@NonNull @HyperwalletTransferMethodQueryParam.TransferMethodTypeQuery final String type) {
+        public B type(@NonNull @HyperwalletTransferMethodQueryParam.TransferMethodTypeQuery final String type) {
             mType = type;
             return self();
         }
 
 
         public B sortByCreatedOnAsc() {
-            mSortBy = TransferMethodSortable.ASCENDANT_CREATE_ON;
+            sortBy(HyperwalletTransferMethodQueryParam.TransferMethodSortable.ASCENDANT_CREATE_ON);
             return self();
         }
 
         /**
          * Specify the sort order with the Created date descendant param
-         * {@link TransferMethodSortable#DESCENDANT_CREATE_ON}.
+         * {@link HyperwalletTransferMethodQueryParam.TransferMethodSortable#DESCENDANT_CREATE_ON}.
          *
          * @return Builder
          */
         public B sortByCreatedOnDesc() {
-            mSortBy = TransferMethodSortable.DESCENDANT_CREATE_ON;
+            sortBy(HyperwalletTransferMethodQueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON);
             return self();
         }
 
         /**
-         * Specify the sort order with the Status ascendant param {@link TransferMethodSortable#ASCENDANT_STATUS}.
+         * Specify the sort order with the Status ascendant param {@link HyperwalletTransferMethodQueryParam.TransferMethodSortable#ASCENDANT_STATUS}.
          *
          * @return Builder
          */
         public B sortByStatusAsc() {
-            mSortBy = TransferMethodSortable.ASCENDANT_STATUS;
+            sortBy(HyperwalletTransferMethodQueryParam.TransferMethodSortable.ASCENDANT_STATUS);
             return self();
         }
 
         /**
-         * Specify the sort order with the Status descendant param {@link TransferMethodSortable#DESCENDANT_STATUS}.
+         * Specify the sort order with the Status descendant param {@link HyperwalletTransferMethodQueryParam.TransferMethodSortable#DESCENDANT_STATUS}.
          *
          * @return Builder
          */
         public B sortByStatusDesc() {
-            mSortBy = TransferMethodSortable.DESCENDANT_STATUS;
+            sortBy(HyperwalletTransferMethodQueryParam.TransferMethodSortable.DESCENDANT_STATUS);
             return self();
         }
 
         /**
-         * Specify the sort order with the Type ascendant param {@link TransferMethodSortable#ASCENDANT_TYPE}.
+         * Specify the sort order with the Type ascendant param {@link HyperwalletTransferMethodQueryParam.TransferMethodSortable#ASCENDANT_TYPE}.
          *
          * @return Builder
          */
         public B sortByTypeAsc() {
-            mSortBy = TransferMethodSortable.ASCENDANT_TYPE;
+            sortBy(HyperwalletTransferMethodQueryParam.TransferMethodSortable.ASCENDANT_TYPE);
             return self();
         }
 
         /**
-         * Specify the sort order with the Type descendant param {@link TransferMethodSortable#DESCENDANT_TYPE}.
+         * Specify the sort order with the Type descendant param {@link HyperwalletTransferMethodQueryParam.TransferMethodSortable#DESCENDANT_TYPE}.
          *
          * @return Builder
          */
         public B sortByTypeDesc() {
-            mSortBy = TransferMethodSortable.DESCENDANT_TYPE;
+            sortBy(HyperwalletTransferMethodQueryParam.TransferMethodSortable.DESCENDANT_TYPE);
             return self();
         }
-
-
-        @Override
-        public HyperwalletTransferMethodQueryParam build() {
-            return new HyperwalletTransferMethodQueryParam(this);
-        }
-
 
     }
 }

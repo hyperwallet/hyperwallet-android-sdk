@@ -16,7 +16,6 @@
  */
 package com.hyperwallet.android;
 
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.STATUS;
 import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 import static com.hyperwallet.android.util.HttpMethod.PUT;
@@ -856,7 +855,6 @@ public class Hyperwallet {
         } else {
             queryMap = queryParam.buildQuery();
         }
-        queryMap.put(STATUS, HyperwalletStatusTransition.StatusDefinition.ACTIVATED);
         return queryMap;
     }
 }

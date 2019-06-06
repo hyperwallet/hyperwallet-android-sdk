@@ -14,6 +14,7 @@ import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
 
+import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
 import static com.hyperwallet.android.util.HttpMethod.GET;
 
 import com.hyperwallet.android.Hyperwallet;
@@ -70,7 +71,9 @@ public class HyperwalletListBankCardsTest {
         String responseBody = mExternalResourceManager.getResourceContent("bank_cards_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
 
-        HyperwalletBankCardQueryParam queryParam = new HyperwalletBankCardQueryParam.Builder().build();
+        HyperwalletBankCardQueryParam queryParam = new HyperwalletBankCardQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
 
         assertThat(queryParam, is(notNullValue()));
         Hyperwallet.getDefault().listBankCards(queryParam, mListener);
@@ -99,7 +102,9 @@ public class HyperwalletListBankCardsTest {
         String responseBody = mExternalResourceManager.getResourceContent("bank_no_cards_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody(responseBody).mock();
 
-        HyperwalletBankCardQueryParam queryParam = new HyperwalletBankCardQueryParam.Builder().build();
+        HyperwalletBankCardQueryParam queryParam = new HyperwalletBankCardQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
 
         assertThat(queryParam, is(notNullValue()));
         Hyperwallet.getDefault().listBankCards(queryParam, mListener);
@@ -127,7 +132,9 @@ public class HyperwalletListBankCardsTest {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
-        HyperwalletBankCardQueryParam actualBankCard = new HyperwalletBankCardQueryParam.Builder().build();
+        HyperwalletBankCardQueryParam actualBankCard = new HyperwalletBankCardQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
 
         Hyperwallet.getDefault().listBankCards(actualBankCard, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
