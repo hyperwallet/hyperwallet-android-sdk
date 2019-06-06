@@ -43,9 +43,9 @@ import java.util.Map;
  */
 public class HyperwalletTransferMethodQueryParam extends QueryParam {
 
-    public static final String TRANSFER_METHOD_TYPE = "type";
-    public static final String TRANSFER_METHOD_STATUS = "status";
-    public static final String TRANSFER_METHOD_CREATED_ON = "createdOn";
+    private static final String TRANSFER_METHOD_TYPE = "type";
+    private static final String TRANSFER_METHOD_STATUS = "status";
+    private static final String TRANSFER_METHOD_CREATED_ON = "createdOn";
 
     private Date mCreatedOn;
     private String mStatus;
@@ -148,7 +148,7 @@ public class HyperwalletTransferMethodQueryParam extends QueryParam {
     }
 
 
-    public static class HyperwalletTransferMethodBuilder<B extends QueryParam.Builder> extends QueryParam.Builder<B> {
+    static class HyperwalletTransferMethodBuilder<B extends QueryParam.Builder> extends QueryParam.Builder<B> {
 
         Date mCreatedOn;
         String mStatus;
