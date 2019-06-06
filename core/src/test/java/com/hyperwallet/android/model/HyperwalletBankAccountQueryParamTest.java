@@ -6,9 +6,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.VERIFIED;
+import static com.hyperwallet.android.model.QueryParam.Sortable.ASCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.QueryParam.Sortable.DESCENDANT_CREATE_ON;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.ASCENDANT_CREATE_ON;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.WIRE_ACCOUNT;
 
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountQueryParam;
 
@@ -71,9 +72,7 @@ public class HyperwalletBankAccountQueryParamTest {
         assertThat(createdAfter.get(Calendar.HOUR), is(0));
         assertThat(createdAfter.get(Calendar.MINUTE), is(0));
         assertThat(createdAfter.get(Calendar.SECOND), is(0));
-
     }
-
 
     @Test
     public void testHyperwalletBankAccountQueryParam_verifyDefaultValues() {
@@ -168,6 +167,33 @@ public class HyperwalletBankAccountQueryParamTest {
         assertThat(pagination.getSortBy(), is(DESCENDANT_CREATE_ON));
         assertThat(pagination.getStatus(), is(ACTIVATED));
         assertThat(pagination.getType(), is(BANK_ACCOUNT));
+        assertThat(pagination.getCreatedAfter().getTime(), is(dateAfter.getTimeInMillis()));
+        assertThat(pagination.getCreatedBefore().getTime(), is(dateBefore.getTimeInMillis()));
+    }
+
+    @Test
+    public void testBuilder_verifyWireAccountValues() {
+        Calendar dateAfter = Calendar.getInstance();
+        dateAfter.set(2019, 6, 21, 12, 45);
+        Calendar dateBefore = Calendar.getInstance();
+        dateBefore.set(2019, 6, 20, 9, 10);
+        Calendar dateOn = Calendar.getInstance();
+        dateOn.set(2019, 6, 20, 10, 21);
+        HyperwalletBankAccountQueryParam pagination = new HyperwalletBankAccountQueryParam.Builder()
+                .offset(100)
+                .limit(20)
+                .sortByCreatedOnDesc()
+                .status(ACTIVATED)
+                .type(WIRE_ACCOUNT)
+                .createdAfter(dateAfter.getTime())
+                .createdBefore(dateBefore.getTime())
+                .build();
+
+        assertThat(pagination.getOffset(), is(100));
+        assertThat(pagination.getLimit(), is(20));
+        assertThat(pagination.getSortBy(), is(DESCENDANT_CREATE_ON));
+        assertThat(pagination.getStatus(), is(ACTIVATED));
+        assertThat(pagination.getType(), is(WIRE_ACCOUNT));
         assertThat(pagination.getCreatedAfter().getTime(), is(dateAfter.getTimeInMillis()));
         assertThat(pagination.getCreatedBefore().getTime(), is(dateBefore.getTimeInMillis()));
     }

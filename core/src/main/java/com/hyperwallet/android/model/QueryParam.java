@@ -22,9 +22,12 @@ import static com.hyperwallet.android.util.DateUtil.fromDateTimeString;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringDef;
 
 import com.hyperwallet.android.util.DateUtil;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,8 +43,8 @@ public class QueryParam {
     public static final String SORT_BY = "sortBy";
     public static final String PAGINATION_OFFSET = "offset";
     public static final String PAGINATION_LIMIT = "limit";
-    private static final int DEFAULT_LIMIT = 10;
-    private static final int DEFAULT_OFFSET = 0;
+    protected static final int DEFAULT_LIMIT = 10;
+    protected final static int DEFAULT_OFFSET = 0;
     private final Date mCreatedAfter;
     private final Date mCreatedBefore;
     private final String mSortBy;
@@ -170,6 +173,34 @@ public class QueryParam {
         return query;
     }
 
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            Sortable.ASCENDANT_CREATE_ON,
+            Sortable.ASCENDANT_STATUS,
+            Sortable.ASCENDANT_TYPE,
+            Sortable.ASCENDANT_AMOUNT,
+            Sortable.ASCENDANT_CURRENCY,
+            Sortable.DESCENDANT_CREATE_ON,
+            Sortable.DESCENDANT_STATUS,
+            Sortable.DESCENDANT_TYPE,
+            Sortable.DESCENDANT_AMOUNT,
+            Sortable.DESCENDANT_CURRENCY
+    })
+    public @interface SortableQuery {
+    }
+
+    public static final class Sortable {
+        public static final String ASCENDANT_CREATE_ON = "+createdOn";
+        public static final String ASCENDANT_STATUS = "+status";
+        public static final String ASCENDANT_TYPE = "+type";
+        public static final String ASCENDANT_AMOUNT = "+amount";
+        public static final String ASCENDANT_CURRENCY = "+currency";
+        public static final String DESCENDANT_CREATE_ON = "-createdOn";
+        public static final String DESCENDANT_STATUS = "-status";
+        public static final String DESCENDANT_TYPE = "-type";
+        public static final String DESCENDANT_AMOUNT = "-amount";
+        public static final String DESCENDANT_CURRENCY = "-currency";
+    }
 
     /**
      * Builder Class for the {@link QueryParam}
@@ -225,6 +256,106 @@ public class QueryParam {
          */
         public B createdBefore(@NonNull final Date createdBefore) {
             mCreatedBefore = new Date(createdBefore.getTime());
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Created date ascendant param {@link Sortable#ASCENDANT_CREATE_ON}.
+         *
+         * @return Builder
+         */
+        public B sortByCreatedOnAsc() {
+            mSortBy = Sortable.ASCENDANT_CREATE_ON;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Created date descendant param {@link Sortable#DESCENDANT_CREATE_ON}.
+         *
+         * @return Builder
+         */
+        public B sortByCreatedOnDesc() {
+            mSortBy = Sortable.DESCENDANT_CREATE_ON;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Status ascendant param {@link Sortable#ASCENDANT_STATUS}.
+         *
+         * @return Builder
+         */
+        public B sortByStatusAsc() {
+            mSortBy = Sortable.ASCENDANT_STATUS;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Status descendant param {@link Sortable#DESCENDANT_STATUS}.
+         *
+         * @return Builder
+         */
+        public B sortByStatusDesc() {
+            mSortBy = Sortable.DESCENDANT_STATUS;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Type ascendant param {@link Sortable#ASCENDANT_TYPE}.
+         *
+         * @return Builder
+         */
+        public B sortByTypeAsc() {
+            mSortBy = Sortable.ASCENDANT_TYPE;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Type descendant param {@link Sortable#DESCENDANT_TYPE}.
+         *
+         * @return Builder
+         */
+        public B sortByTypeDesc() {
+            mSortBy = Sortable.DESCENDANT_TYPE;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Amount ascendant param {@link Sortable#ASCENDANT_AMOUNT}.
+         *
+         * @return Builder
+         */
+        public B sortByAmountAsc() {
+            mSortBy = Sortable.ASCENDANT_AMOUNT;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Amount descendant param {@link Sortable#DESCENDANT_AMOUNT}.
+         *
+         * @return Builder
+         */
+        public B sortByAmountDesc() {
+            mSortBy = Sortable.DESCENDANT_AMOUNT;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Currency ascendant param {@link Sortable#ASCENDANT_CURRENCY}.
+         *
+         * @return Builder
+         */
+        public B sortByCurrencyAsc() {
+            mSortBy = Sortable.ASCENDANT_CURRENCY;
+            return self();
+        }
+
+        /**
+         * Specify the sort order with the Currency descendant param {@link Sortable#DESCENDANT_CURRENCY}.
+         *
+         * @return Builder
+         */
+        public B sortByCurrencyDesc() {
+            mSortBy = Sortable.DESCENDANT_CURRENCY;
             return self();
         }
 
