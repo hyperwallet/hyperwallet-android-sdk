@@ -23,6 +23,7 @@ import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMe
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TYPE;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
+import static com.hyperwallet.android.util.HttpMethod.GET;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
@@ -32,7 +33,7 @@ import com.hyperwallet.android.model.HyperwalletError;
 import com.hyperwallet.android.model.HyperwalletErrors;
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
 import com.hyperwallet.android.model.transfermethod.PayPalAccount;
-import com.hyperwallet.android.model.transfermethod.PayPalAccountPagination;
+import com.hyperwallet.android.model.transfermethod.PayPalAccountQueryParam;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
@@ -80,14 +81,17 @@ public class HyperwalletListPayPalAccountsTest {
         String responseBody = mExternalResourceManager.getResourceContent("paypal_accounts_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
 
-        PayPalAccountPagination payPalAccountPagination = new PayPalAccountPagination();
+        PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
 
-        assertThat(payPalAccountPagination, is(notNullValue()));
-        Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
+        assertThat(queryParam, is(notNullValue()));
+        Hyperwallet.getDefault().listPayPalAccounts(queryParam, mListener);
 
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
         verify(mListener).onSuccess(mListPayPalCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
 
@@ -116,14 +120,17 @@ public class HyperwalletListPayPalAccountsTest {
     public void testListPayPalAccounts_returnsNoAccounts() throws InterruptedException {
         mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody("").mock();
 
-        PayPalAccountPagination payPalAccountPagination = new PayPalAccountPagination();
+        PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
 
-        assertThat(payPalAccountPagination, is(notNullValue()));
-        Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
+        assertThat(queryParam, is(notNullValue()));
+        Hyperwallet.getDefault().listPayPalAccounts(queryParam, mListener);
 
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(),
                 containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts?"));
         assertThat(recordedRequest.getPath(), containsString("type=PAYPAL_ACCOUNT"));
@@ -143,9 +150,11 @@ public class HyperwalletListPayPalAccountsTest {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
-        PayPalAccountPagination payPalAccountPagination = new PayPalAccountPagination();
+        PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
 
-        Hyperwallet.getDefault().listPayPalAccounts(payPalAccountPagination, mListener);
+        Hyperwallet.getDefault().listPayPalAccounts(queryParam, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         verify(mListener, never()).onSuccess(ArgumentMatchers.<HyperwalletPageList<PayPalAccount>>any());
@@ -168,6 +177,7 @@ public class HyperwalletListPayPalAccountsTest {
                         + "contact customer support for assistance (Ref ID: 99b4ad5c-4aac-4cc2-aa9b-4b4f4844ac9b)."));
         assertThat(hyperwalletError.getFieldName(), is(nullValue()));
         RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(),
                 containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts?"));
         assertThat(recordedRequest.getPath(), containsString("type=PAYPAL_ACCOUNT"));

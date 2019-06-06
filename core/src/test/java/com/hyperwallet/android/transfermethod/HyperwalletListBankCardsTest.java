@@ -14,6 +14,7 @@ import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
 
+import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
 import static com.hyperwallet.android.util.HttpMethod.GET;
 
 import com.hyperwallet.android.Hyperwallet;
@@ -24,7 +25,7 @@ import com.hyperwallet.android.model.HyperwalletError;
 import com.hyperwallet.android.model.HyperwalletErrors;
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankCard;
-import com.hyperwallet.android.model.transfermethod.HyperwalletBankCardPagination;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankCardQueryParam;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
@@ -70,10 +71,12 @@ public class HyperwalletListBankCardsTest {
         String responseBody = mExternalResourceManager.getResourceContent("bank_cards_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
 
-        HyperwalletBankCardPagination bankCardPagination = new HyperwalletBankCardPagination();
+        HyperwalletBankCardQueryParam queryParam = new HyperwalletBankCardQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
 
-        assertThat(bankCardPagination, is(notNullValue()));
-        Hyperwallet.getDefault().listBankCards(bankCardPagination, mListener);
+        assertThat(queryParam, is(notNullValue()));
+        Hyperwallet.getDefault().listBankCards(queryParam, mListener);
 
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
@@ -99,10 +102,12 @@ public class HyperwalletListBankCardsTest {
         String responseBody = mExternalResourceManager.getResourceContent("bank_no_cards_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody(responseBody).mock();
 
-        HyperwalletBankCardPagination bankCardPagination = new HyperwalletBankCardPagination();
+        HyperwalletBankCardQueryParam queryParam = new HyperwalletBankCardQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
 
-        assertThat(bankCardPagination, is(notNullValue()));
-        Hyperwallet.getDefault().listBankCards(bankCardPagination, mListener);
+        assertThat(queryParam, is(notNullValue()));
+        Hyperwallet.getDefault().listBankCards(queryParam, mListener);
 
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
@@ -127,7 +132,9 @@ public class HyperwalletListBankCardsTest {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
-        HyperwalletBankCardPagination actualBankCard = new HyperwalletBankCardPagination();
+        HyperwalletBankCardQueryParam actualBankCard = new HyperwalletBankCardQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
 
         Hyperwallet.getDefault().listBankCards(actualBankCard, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);

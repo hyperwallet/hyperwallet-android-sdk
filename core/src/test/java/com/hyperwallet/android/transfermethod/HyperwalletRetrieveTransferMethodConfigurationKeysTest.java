@@ -15,6 +15,7 @@ import static org.mockito.Mockito.verify;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
+import static com.hyperwallet.android.util.HttpMethod.POST;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
@@ -86,6 +87,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
         mAwait.await(100, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
         assertThat(recordedRequest.getPath(), is("/graphql/"));
 
         verify(mListener).onSuccess(mKeyResultCaptor.capture());
@@ -190,6 +192,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
         mAwait.await(100, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
         assertThat(recordedRequest.getPath(), is("/graphql/"));
 
         verify(mListener, never()).onSuccess(any(HyperwalletTransferMethodConfigurationKeyResult.class));
@@ -217,6 +220,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
         mAwait.await(100, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
         assertThat(recordedRequest.getPath(), is("/graphql/"));
 
         verify(mListener).onSuccess(mKeyResultCaptor.capture());

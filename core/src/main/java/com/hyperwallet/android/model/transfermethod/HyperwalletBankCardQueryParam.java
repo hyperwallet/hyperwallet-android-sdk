@@ -20,51 +20,43 @@ package com.hyperwallet.android.model.transfermethod;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringDef;
 
-import com.hyperwallet.android.util.DateUtil;
-
-import java.util.Date;
-import java.util.Map;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
- * Represents the bank card pagination fields
+ * Represents the Bank card query params fields.
  */
-public class HyperwalletBankCardPagination extends HyperwalletTransferMethodPagination {
+public class HyperwalletBankCardQueryParam extends HyperwalletTransferMethodQueryParam {
 
-    protected static final String TRANSFER_METHOD_CREATE_ON = "createdOn";
 
-    private Date mCreatedOn;
+    private HyperwalletBankCardQueryParam(@NonNull final Builder builder) {
+        super(builder);
+    }
 
-    /**
-     * Constructors the bank card pagination
-     */
-    public HyperwalletBankCardPagination() {
-        super();
-        setType(BANK_CARD);
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            BANK_CARD,
+    })
+    public @interface BankCardTypeQuery {
     }
 
     /**
-     * Constructor to build the pagination based in the preview request
-     *
-     * @param urlQueryMap the map with properties to build the pagination
+     * Builder Class for the {@link HyperwalletBankAccountQueryParam}
      */
-    public HyperwalletBankCardPagination(Map<String, String> urlQueryMap) {
-        super(urlQueryMap);
-        mCreatedOn = getDateValueBy(urlQueryMap, TRANSFER_METHOD_CREATE_ON);
-        setType(BANK_CARD);
-    }
+    public static class Builder extends HyperwalletTransferMethodBuilder<Builder> {
 
-    public Date getCreatedOn() {
-        return mCreatedOn;
-    }
-
-    @NonNull
-    @Override
-    public Map<String, String> buildQuery() {
-        Map<String, String> query = super.buildQuery();
-        if (mCreatedOn != null) {
-            query.put(TRANSFER_METHOD_CREATE_ON, DateUtil.toDateTimeFormat(mCreatedOn));
+        @Override
+        public Builder type(@NonNull @BankCardTypeQuery String type) {
+            mType = type;
+            return self();
         }
-        return query;
+
+        @Override
+        public HyperwalletBankCardQueryParam build() {
+            type(BANK_CARD);
+            return new HyperwalletBankCardQueryParam(this);
+        }
     }
 }

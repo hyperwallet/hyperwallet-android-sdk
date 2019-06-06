@@ -16,7 +16,6 @@
  */
 package com.hyperwallet.android;
 
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.STATUS;
 import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 import static com.hyperwallet.android.util.HttpMethod.PUT;
@@ -27,8 +26,8 @@ import androidx.annotation.Nullable;
 import com.hyperwallet.android.exception.AuthenticationTokenProviderException;
 import com.hyperwallet.android.exception.HyperwalletInitializationException;
 import com.hyperwallet.android.listener.HyperwalletListener;
-import com.hyperwallet.android.model.HyperwalletPagination;
 import com.hyperwallet.android.model.HyperwalletStatusTransition;
+import com.hyperwallet.android.model.QueryParam;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationField;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
@@ -37,14 +36,16 @@ import com.hyperwallet.android.model.graphql.keyed.HyperwalletTransferMethodConf
 import com.hyperwallet.android.model.graphql.query.HyperwalletTransferMethodConfigurationFieldQuery;
 import com.hyperwallet.android.model.graphql.query.HyperwalletTransferMethodConfigurationKeysQuery;
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
+import com.hyperwallet.android.model.receipt.Receipt;
+import com.hyperwallet.android.model.receipt.ReceiptQueryParam;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
-import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountPagination;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountQueryParam;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankCard;
-import com.hyperwallet.android.model.transfermethod.HyperwalletBankCardPagination;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankCardQueryParam;
 import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
-import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodPagination;
+import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam;
 import com.hyperwallet.android.model.transfermethod.PayPalAccount;
-import com.hyperwallet.android.model.transfermethod.PayPalAccountPagination;
+import com.hyperwallet.android.model.transfermethod.PayPalAccountQueryParam;
 import com.hyperwallet.android.model.user.HyperwalletUser;
 
 import org.json.JSONException;
@@ -153,7 +154,7 @@ public class Hyperwallet {
      * or an empty {@code List} if non exist.
      *
      * <p>The ordering and filtering of {@code HyperwalletBankAccounts} will be based on the criteria specified within
-     * the {@link HyperwalletBankAccountPagination} object, if it is not null. Otherwise the default ordering and
+     * the {@link HyperwalletBankAccountQueryParam} object, if it is not null. Otherwise the default ordering and
      * filtering will be applied:</p>
      *
      * <ul>
@@ -172,12 +173,12 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param bankAccountPagination the ordering and filtering criteria
+     * @param queryParam the ordering and filtering criteria
      * @param listener              the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listBankAccounts(@Nullable final HyperwalletBankAccountPagination bankAccountPagination,
+    public void listBankAccounts(@Nullable final HyperwalletBankAccountQueryParam queryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletBankAccount>> listener) {
-        Map<String, String> urlQuery = buildUrlQueryIfRequired(bankAccountPagination);
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -491,7 +492,7 @@ public class Hyperwallet {
      * or an empty {@code List} if non exist.
      *
      * <p>The ordering and filtering of {@code HyperwalletTransferMethod}s will be based on the criteria specified
-     * within the {@link HyperwalletTransferMethodPagination} object, if it is not null. Otherwise the default
+     * within the {@link HyperwalletTransferMethodQueryParam} object, if it is not null. Otherwise the default
      * ordering and filtering will be applied.</p>
      *
      * <ul>
@@ -510,12 +511,12 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param transferMethodPagination the ordering and filtering criteria
+     * @param queryParam the ordering and filtering criteria
      * @param listener                 the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listTransferMethods(@Nullable final HyperwalletTransferMethodPagination transferMethodPagination,
+    public void listTransferMethods(@Nullable final HyperwalletTransferMethodQueryParam queryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletTransferMethod>> listener) {
-        Map<String, String> urlQuery = buildUrlQueryIfRequired(transferMethodPagination);
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/transfer-methods");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -531,7 +532,7 @@ public class Hyperwallet {
      * or an empty {@code List} if non exist.
      *
      * <p>The ordering and filtering of {@code HyperwalletBankCard} will be based on the criteria specified within the
-     * {@link HyperwalletBankAccountPagination} object, if it is not null. Otherwise the default ordering and
+     * {@link HyperwalletBankAccountQueryParam} object, if it is not null. Otherwise the default ordering and
      * filtering will be applied.</p>
      *
      * <ul>
@@ -550,12 +551,12 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param bankCardPagination the ordering and filtering criteria
+     * @param queryParam the ordering and filtering criteria
      * @param listener           the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listBankCards(@Nullable final HyperwalletBankCardPagination bankCardPagination,
+    public void listBankCards(@Nullable final HyperwalletBankCardQueryParam queryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletBankCard>> listener) {
-        Map<String, String> urlQuery = buildUrlQueryIfRequired(bankCardPagination);
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<HyperwalletPageList<HyperwalletBankCard>>() {
@@ -570,7 +571,7 @@ public class Hyperwallet {
      * or an empty {@code List} if non exist.
      *
      * <p>The ordering and filtering of {@code PayPalAccount} will be based on the criteria specified within the
-     * {@link PayPalAccountPagination} object, if it is not null. Otherwise the default ordering and
+     * {@link PayPalAccountQueryParam} object, if it is not null. Otherwise the default ordering and
      * filtering will be applied.</p>
      *
      * <ul>
@@ -589,14 +590,14 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param payPalAccountPagination the ordering and filtering criteria
+     * @param queryParam the ordering and filtering criteria
      * @param listener                the callback handler of responses from the Hyperwallet platform; must
      *                                not be null
      */
     public void listPayPalAccounts(
-            @Nullable final PayPalAccountPagination payPalAccountPagination,
+            @Nullable final PayPalAccountQueryParam queryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<PayPalAccount>> listener) {
-        Map<String, String> urlQuery = buildUrlQueryIfRequired(payPalAccountPagination);
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<HyperwalletPageList<PayPalAccount>>() {
@@ -678,6 +679,47 @@ public class Hyperwallet {
                         new TypeReference<HyperwalletTransferMethodConfigurationFieldResult>() {
                         }, listener);
         performGqlTransaction(builder, listener);
+    }
+
+
+    /**
+     * Returns the list of {@link Receipt}s for the User associated with the authentication token
+     * returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
+     * or an empty {@code List} if non exist.
+     *
+     * <p>The ordering and filtering of {@code HyperwalletReceipts} will be based on the criteria specified within
+     * the {@link ReceiptQueryParam} object, if it is not null. Otherwise the default ordering and
+     * filtering will be applied:</p>
+     *
+     * <ul>
+     * <li>Offset: 0</li>
+     * <li>Limit: 10</li>
+     * <li>Created Before: N/A</li>
+     * <li>Created After: N/A</li>
+     * <li>currency: N/A</li>
+     * <li>Sort By: Created On, Type, Amount, Currency</li>
+     * </ul>
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param receiptQueryParam the ordering and filtering criteria
+     * @param listener          the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void listReceipts(@NonNull final ReceiptQueryParam receiptQueryParam,
+            @NonNull final HyperwalletListener<HyperwalletPageList<Receipt>> listener) {
+        Map<String, String> urlQuery = receiptQueryParam.buildQuery();
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/receipts");
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<HyperwalletPageList<Receipt>>() {
+                }, listener).query(urlQuery);
+
+        performRestTransaction(builder, listener);
     }
 
     private void performGqlTransaction(@NonNull final GqlTransaction.Builder builder,
@@ -806,14 +848,13 @@ public class Hyperwallet {
 
     @NonNull
     @SuppressWarnings("unchecked")
-    private Map<String, String> buildUrlQueryIfRequired(@Nullable HyperwalletPagination pagination) {
+    private Map<String, String> buildUrlQueryIfRequired(@Nullable QueryParam queryParam) {
         Map<String, String> queryMap;
-        if (pagination == null) {
+        if (queryParam == null) {
             queryMap = new HashMap<>();
         } else {
-            queryMap = pagination.buildQuery();
+            queryMap = queryParam.buildQuery();
         }
-        queryMap.put(STATUS, HyperwalletStatusTransition.StatusDefinition.ACTIVATED);
         return queryMap;
     }
 }

@@ -1,0 +1,17 @@
+{
+  "journalId": "3051579",
+  "type": "PAYMENT",
+  "createdOn": "2017-11-01T17:08:58",
+  "entry": "CREDIT",
+  "sourceToken": "act-123",
+  "destinationToken": "usr-123",
+  "amount": "20.00",
+  "fee": "0.00",
+  "currency": "USD",
+  "foreignExchangeCurrency": "CAD",
+  "foreignExchangeRate": "15.20",
+  "details": {
+    "clientPaymentId": "8OxXefx5",
+    "payeeName": "A Person"
+  }
+}

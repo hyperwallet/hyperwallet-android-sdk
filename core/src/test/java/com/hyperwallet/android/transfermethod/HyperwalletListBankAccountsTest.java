@@ -44,7 +44,7 @@ import com.hyperwallet.android.model.HyperwalletErrors;
 import com.hyperwallet.android.model.paging.HyperwalletPageLink;
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
-import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountPagination;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountQueryParam;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
@@ -60,8 +60,6 @@ import org.mockito.junit.MockitoRule;
 import org.robolectric.RobolectricTestRunner;
 
 import java.net.HttpURLConnection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -93,14 +91,12 @@ public class HyperwalletListBankAccountsTest {
                 "bank_account_list_single_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 
-        Map<String, String> query = new HashMap<>();
-        query.put(TYPE, BANK_ACCOUNT);
+        final HyperwalletBankAccountQueryParam queryParam = new HyperwalletBankAccountQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
+        assertThat(queryParam.getType(), is(BANK_ACCOUNT));
 
-        final HyperwalletBankAccountPagination hyperwalletBankAccountPagination =
-                new HyperwalletBankAccountPagination(query);
-        assertThat(hyperwalletBankAccountPagination.getType(), is(BANK_ACCOUNT));
-
-        Hyperwallet.getDefault().listBankAccounts(hyperwalletBankAccountPagination, mListener);
+        Hyperwallet.getDefault().listBankAccounts(queryParam, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
@@ -162,14 +158,13 @@ public class HyperwalletListBankAccountsTest {
     public void testListBankAccounts_returnsNoAccounts() throws InterruptedException {
         String responseBody = "";
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_NO_CONTENT).withBody(responseBody).mock();
-        Map<String, String> query = new HashMap<>();
-        query.put(TYPE, BANK_ACCOUNT);
 
-        final HyperwalletBankAccountPagination hyperwalletBankAccountPagination =
-                new HyperwalletBankAccountPagination(query);
-        assertThat(hyperwalletBankAccountPagination.getType(), is(BANK_ACCOUNT));
+        final HyperwalletBankAccountQueryParam queryParam = new HyperwalletBankAccountQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
+        assertThat(queryParam.getType(), is(BANK_ACCOUNT));
 
-        Hyperwallet.getDefault().listBankAccounts(hyperwalletBankAccountPagination, mListener);
+        Hyperwallet.getDefault().listBankAccounts(queryParam, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
@@ -196,15 +191,12 @@ public class HyperwalletListBankAccountsTest {
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_INTERNAL_ERROR).withBody(
                 responseBody).mock();
 
+        final HyperwalletBankAccountQueryParam queryParam = new HyperwalletBankAccountQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
+        assertThat(queryParam.getType(), is(BANK_ACCOUNT));
 
-        Map<String, String> query = new HashMap<>();
-        query.put(TYPE, BANK_ACCOUNT);
-
-        final HyperwalletBankAccountPagination hyperwalletBankAccountPagination =
-                new HyperwalletBankAccountPagination(query);
-        assertThat(hyperwalletBankAccountPagination.getType(), is(BANK_ACCOUNT));
-
-        Hyperwallet.getDefault().listBankAccounts(hyperwalletBankAccountPagination, mListener);
+        Hyperwallet.getDefault().listBankAccounts(queryParam, mListener);
         mAwait.await(1000, TimeUnit.MILLISECONDS);
 
         verify(mListener, never()).onSuccess(any(HyperwalletPageList.class));

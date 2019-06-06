@@ -312,14 +312,14 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     }
 
     @Nullable
-    public @UserStatus
-    String getStatus() {
+    @UserStatus
+    public String getStatus() {
         return getField(UserFields.STATUS);
     }
 
     @Nullable
-    public @VerificationStatus
-    String getVerificationStatus() {
+    @VerificationStatus
+    public String getVerificationStatus() {
         return getField(UserFields.VERIFICATION_STATUS);
     }
 
@@ -344,8 +344,8 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     }
 
     @Nullable
-    public @BusinessContactRole
-    String getBusinessContactRole() {
+    @BusinessContactRole
+    public String getBusinessContactRole() {
         return getField(UserFields.BUSINESS_CONTACT_ROLE);
     }
 
@@ -405,8 +405,8 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     }
 
     @Nullable
-    public @BusinessType
-    String getBusinessType() {
+    @BusinessType
+    public String getBusinessType() {
         return getField(UserFields.BUSINESS_TYPE);
     }
 
@@ -456,8 +456,8 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     }
 
     @Nullable
-    public @Gender
-    String getGender() {
+    @Gender
+    public String getGender() {
         return getField(UserFields.GENDER);
     }
 
@@ -467,8 +467,8 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     }
 
     @Nullable
-    public @GovernmentIdType
-    String getGovernmentIdType() {
+    @GovernmentIdType
+    public String getGovernmentIdType() {
         return getField(UserFields.GOVERNMENT_ID_TYPE);
     }
 
@@ -508,8 +508,8 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     }
 
     @Nullable
-    public @ProfileType
-    String getProfileType() {
+    @ProfileType
+    public String getProfileType() {
         return getField(UserFields.PROFILE_TYPE);
     }
 
@@ -596,7 +596,7 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
         }
 
         public HyperwalletUser.Builder businessContactRole(
-                @NonNull final @BusinessContactRole String businessContactRole) {
+                @NonNull @BusinessContactRole final String businessContactRole) {
             mFields.put(UserFields.BUSINESS_CONTACT_ROLE, businessContactRole);
             return this;
         }

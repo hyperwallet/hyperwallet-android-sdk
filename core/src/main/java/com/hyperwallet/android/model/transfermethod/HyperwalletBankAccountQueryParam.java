@@ -18,31 +18,48 @@
 package com.hyperwallet.android.model.transfermethod;
 
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.WIRE_ACCOUNT;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringDef;
 
-import java.util.Map;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
- * Represents the bank account pagination fields
+ * Represents the bank account query params fields.
  */
-public class HyperwalletBankAccountPagination extends HyperwalletTransferMethodPagination {
+public class HyperwalletBankAccountQueryParam extends HyperwalletTransferMethodQueryParam {
 
-    /**
-     * Constructors the bank account pagination
-     */
-    public HyperwalletBankAccountPagination() {
-        super();
-        setType(BANK_ACCOUNT); //as default type
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            BANK_ACCOUNT,
+            WIRE_ACCOUNT,
+    })
+    public @interface BankAccountTypeQuery {
+    }
+
+    private HyperwalletBankAccountQueryParam(@NonNull final Builder builder) {
+        super(builder);
     }
 
     /**
-     * Constructors to build the pagination based in the preview request
-     *
-     * @param urlQueryMap the url Map with properties to build the pagination
+     * Builder Class for the {@link HyperwalletBankAccountQueryParam}
      */
-    public HyperwalletBankAccountPagination(@NonNull Map<String, String> urlQueryMap) {
-        super(urlQueryMap);
-        setType(BANK_ACCOUNT);
+    public static class Builder extends HyperwalletTransferMethodBuilder<Builder> {
+
+        @Override
+        public Builder type(@NonNull @BankAccountTypeQuery String type) {
+            mType = type;
+            return self();
+        }
+
+        @Override
+        public HyperwalletBankAccountQueryParam build() {
+            if (mType == null) {
+                type(BANK_ACCOUNT);
+            }
+            return new HyperwalletBankAccountQueryParam(this);
+        }
     }
 }
