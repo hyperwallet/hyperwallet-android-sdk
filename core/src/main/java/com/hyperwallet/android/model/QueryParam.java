@@ -44,7 +44,7 @@ public class QueryParam {
     public static final String PAGINATION_OFFSET = "offset";
     public static final String PAGINATION_LIMIT = "limit";
     protected static final int DEFAULT_LIMIT = 10;
-    protected final static int DEFAULT_OFFSET = 0;
+    protected static final int DEFAULT_OFFSET = 0;
     private final Date mCreatedAfter;
     private final Date mCreatedBefore;
     private final String mSortBy;
@@ -54,7 +54,7 @@ public class QueryParam {
     /**
      * Constructors the QueryParam
      */
-    protected QueryParam(@NonNull Builder builder) {
+    protected QueryParam(@NonNull final Builder builder) {
         mOffset = builder.mOffset;
         mLimit = builder.mLimit == 0 ? DEFAULT_LIMIT : builder.mLimit;
         mCreatedAfter = builder.mCreatedAfter;
@@ -70,7 +70,7 @@ public class QueryParam {
      * @return the valid Date value or null
      */
     @Nullable
-    protected final Date getDateValue(@NonNull Map<String, String> urlQueryMap, @NonNull String queryKey) {
+    protected final Date getDateValue(@NonNull final Map<String, String> urlQueryMap, @NonNull final String queryKey) {
         if (containsKeyAndHasValue(urlQueryMap, queryKey)) {
             return fromDateTimeString(urlQueryMap.get(queryKey));
         }
@@ -86,7 +86,7 @@ public class QueryParam {
      * @return the valid integer value
      */
     @SuppressWarnings("unchecked")
-    private int getIntegerValue(@NonNull Map<String, String> urlQueryMap, @NonNull String queryKey,
+    private int getIntegerValue(@NonNull final Map<String, String> urlQueryMap, @NonNull final String queryKey,
             int defaultValue) {
         if (containsKeyAndHasValue(urlQueryMap, queryKey)) {
             try {
@@ -105,7 +105,8 @@ public class QueryParam {
      * @param key         the query key to access the object in the map
      * @return the key has valid data to use
      */
-    protected boolean containsKeyAndHasValue(@NonNull Map<String, String> urlQueryMap, @NonNull String key) {
+    protected boolean containsKeyAndHasValue(@NonNull final Map<String, String> urlQueryMap,
+            @NonNull final String key) {
         return urlQueryMap.containsKey(key) && urlQueryMap.get(key) != null;
     }
 

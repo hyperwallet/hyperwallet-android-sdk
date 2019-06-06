@@ -43,7 +43,7 @@ public class HyperwalletBankCardQueryParam extends QueryParam {
     /**
      * Constructors the bank card query params.
      */
-    private HyperwalletBankCardQueryParam(@NonNull Builder builder) {
+    private HyperwalletBankCardQueryParam(@NonNull final Builder builder) {
         super(builder);
         mCreatedOn = builder.mCreatedOn;
         mStatus = builder.mStatus;
@@ -98,7 +98,7 @@ public class HyperwalletBankCardQueryParam extends QueryParam {
          * @return Builder
          */
 
-        public Builder createdOn(@NonNull Date createdOn) {
+        public Builder createdOn(@NonNull final Date createdOn) {
             mCreatedOn = new Date(createdOn.getTime());
             return this;
         }
@@ -110,7 +110,8 @@ public class HyperwalletBankCardQueryParam extends QueryParam {
          * @param status The status of this method
          * @return Builder
          */
-        public Builder status(@NonNull @HyperwalletTransferMethodQueryParam.TransferMethodStatusQuery String status) {
+        public Builder status(
+                @NonNull @HyperwalletTransferMethodQueryParam.TransferMethodStatusQuery final String status) {
             mStatus = status;
             return this;
         }
