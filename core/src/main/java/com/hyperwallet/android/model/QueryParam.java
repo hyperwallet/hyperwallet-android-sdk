@@ -177,7 +177,7 @@ public class QueryParam {
     public static class Builder<B extends Builder> {
         private Date mCreatedAfter;
         private Date mCreatedBefore;
-        protected String mSortBy;
+        private String mSortBy;
         private int mOffset;
         private int mLimit;
 
@@ -229,6 +229,17 @@ public class QueryParam {
         }
 
         /**
+         * Define a sort by parameter
+         *
+         * @param sortBy String
+         * @return Builder
+         */
+        protected B sortBy(@NonNull final String sortBy) {
+            mSortBy = sortBy;
+            return self();
+        }
+
+        /**
          * Builds an instance of QueryParam with the set of params.
          *
          * @return QueryParam
@@ -236,5 +247,6 @@ public class QueryParam {
         public QueryParam build() {
             return new QueryParam(this);
         }
+
     }
 }

@@ -35,7 +35,7 @@ public class HyperwalletBankAccountQueryParam extends HyperwalletTransferMethodQ
     /**
      * Builder Class for the {@link HyperwalletBankAccountQueryParam}
      */
-    public static class Builder extends HyperwalletTransferMethodQueryParam.Builder<Builder> {
+    public static class Builder extends HyperwalletTransferMethodBuilder<Builder> {
 
         @Override
         public HyperwalletBankAccountQueryParam build() {
