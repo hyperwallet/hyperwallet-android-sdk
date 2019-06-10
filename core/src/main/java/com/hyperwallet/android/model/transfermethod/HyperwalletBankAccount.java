@@ -260,6 +260,56 @@ public class HyperwalletBankAccount extends HyperwalletTransferMethod {
             return this;
         }
 
+        public Builder intermediaryBankAccountId(String intermediaryBankAccountId) {
+            mFields.put(TransferMethodFields.INTERMEDIARY_BANK_ACCOUNT_ID, intermediaryBankAccountId);
+            return this;
+        }
+
+        public Builder intermediaryBankAddressLine1(String intermediaryBankAddressLine1) {
+            mFields.put(TransferMethodFields.INTERMEDIARY_BANK_ADDRESS_LINE_1, intermediaryBankAddressLine1);
+            return this;
+        }
+
+        public Builder intermediaryBankAddressLine2(String intermediaryBankAddressLine2) {
+            mFields.put(TransferMethodFields.INTERMEDIARY_BANK_ADDRESS_LINE_2, intermediaryBankAddressLine2);
+            return this;
+        }
+
+        public Builder intermediaryBankCity(String intermediaryBankCity) {
+            mFields.put(TransferMethodFields.INTERMEDIARY_BANK_CITY, intermediaryBankCity);
+            return this;
+        }
+
+        public Builder intermediaryBankCountry(String intermediaryBankCountry) {
+            mFields.put(TransferMethodFields.INTERMEDIARY_BANK_COUNTRY, intermediaryBankCountry);
+            return this;
+        }
+
+        public Builder intermediaryBankId(String intermediaryBankId) {
+            mFields.put(TransferMethodFields.INTERMEDIARY_BANK_ID, intermediaryBankId);
+            return this;
+        }
+
+        public Builder intermediaryBankName(String intermediaryBankName) {
+            mFields.put(TransferMethodFields.INTERMEDIARY_BANK_NAME, intermediaryBankName);
+            return this;
+        }
+
+        public Builder intermediaryBankPostalCode(String intermediaryBankPostalCode) {
+            mFields.put(TransferMethodFields.INTERMEDIARY_BANK_POSTAL_CODE, intermediaryBankPostalCode);
+            return this;
+        }
+
+        public Builder intermediaryBankStateProvince(String intermediaryBankStateProvince) {
+            mFields.put(TransferMethodFields.INTERMEDIARY_BANK_STATE_PROVINCE, intermediaryBankStateProvince);
+            return this;
+        }
+
+        public Builder wireInstructions(String wireInstructions) {
+            mFields.put(TransferMethodFields.WIRE_INSTRUCTIONS, wireInstructions);
+            return this;
+        }
+
         public HyperwalletBankAccount build() {
             return new HyperwalletBankAccount(mFields);
         }

@@ -19,6 +19,15 @@ import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMe
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.FIRST_NAME;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.GENDER;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.GOVERNMENT_ID;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.INTERMEDIARY_BANK_ACCOUNT_ID;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.INTERMEDIARY_BANK_ADDRESS_LINE_1;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.INTERMEDIARY_BANK_ADDRESS_LINE_2;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.INTERMEDIARY_BANK_CITY;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.INTERMEDIARY_BANK_COUNTRY;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.INTERMEDIARY_BANK_ID;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.INTERMEDIARY_BANK_NAME;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.INTERMEDIARY_BANK_POSTAL_CODE;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.INTERMEDIARY_BANK_STATE_PROVINCE;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.LAST_NAME;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.MOBILE_NUMBER;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.PHONE_NUMBER;
@@ -27,7 +36,9 @@ import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMe
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TYPE;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.WIRE_INSTRUCTIONS;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.WIRE_ACCOUNT;
 import static com.hyperwallet.android.util.JsonUtils.fromJsonString;
 
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
@@ -124,6 +135,87 @@ public class HyperwalletBankAccountTest {
         assertThat(jsonObject.getString(LAST_NAME), is("Griffin"));
         assertThat(jsonObject.getString(MOBILE_NUMBER), is("604 666 6666"));
         assertThat(jsonObject.getString(PHONE_NUMBER), is("+1 604 6666666"));
+    }
+
+    @Test
+    public void testFromJsonString_wireAccountResponse() throws Exception {
+        HyperwalletBankAccount actualBankAccount = fromJsonString(
+                mExternalResourceManager.getResourceContent("bank_account_wire_response.json"),
+                new TypeReference<HyperwalletBankAccount>() {
+                });
+
+        assertThat(actualBankAccount, is(notNullValue()));
+        assertThat(actualBankAccount.getField(BANK_ACCOUNT_ID), is("765432108"));
+        assertThat(actualBankAccount.getField(BANK_ACCOUNT_PURPOSE), is("CHECKING"));
+        assertThat(actualBankAccount.getField(BANK_ACCOUNT_RELATIONSHIP), is("SELF"));
+        assertThat(actualBankAccount.getField(BRANCH_ID), is("012004567"));
+        assertThat(actualBankAccount.getField(TOKEN), is("trm-12345"));
+        assertThat(actualBankAccount.getField(TYPE), is(WIRE_ACCOUNT));
+        assertThat(actualBankAccount.getField(DATE_OF_BIRTH), is("1991-01-01"));
+        assertThat(actualBankAccount.getField(FIRST_NAME), is("Tommy"));
+        assertThat(actualBankAccount.getField(LAST_NAME), is("Gray"));
+        assertThat(actualBankAccount.getField(CREATED_ON), is(equalTo("2018-10-31T16:47:15")));
+        assertThat(actualBankAccount.getField(STATUS), is(equalTo("ACTIVATED")));
+
+        assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_ACCOUNT_ID), is(equalTo("246810")));
+        assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_ADDRESS_LINE_1), is(equalTo("5 Market Street")));
+        assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_ADDRESS_LINE_2), is(equalTo("75 Market Street")));
+        assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_CITY), is(equalTo("New York")));
+        assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_COUNTRY), is(equalTo("USA")));
+        assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_ID), is(equalTo("12345678901")));
+        assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_NAME), is(equalTo("Intermediary Big Bank")));
+        assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_POSTAL_CODE), is(equalTo("134679")));
+        assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_STATE_PROVINCE), is(equalTo("PA")));
+        assertThat(actualBankAccount.getField(WIRE_INSTRUCTIONS), is(equalTo("This is instruction")));
+    }
+
+    @Test
+    public void testToJsonObject_wireAccount() throws Exception {
+
+        final HyperwalletBankAccount expectedBankAccount = new HyperwalletBankAccount.Builder()
+                .bankAccountId("8017110254")
+                .bankAccountPurpose("SAVINGS")
+                .token("trm-123")
+                .transferMethodCountry("US")
+                .transferMethodCurrency("USD")
+                .dateOfBirth("1980-01-01")
+                .firstName("Marsden")
+                .lastName("Griffin")
+                .transferMethodType(WIRE_ACCOUNT)
+                .intermediaryBankAccountId("012345678")
+                .intermediaryBankAddressLine1("21 5th Avenue")
+                .intermediaryBankAddressLine2("1 Penny Avenue")
+                .intermediaryBankCity("New York")
+                .intermediaryBankCountry("USA")
+                .intermediaryBankId("01234567891")
+                .intermediaryBankName("Secondary Bank of the USA")
+                .intermediaryBankPostalCode("974518")
+                .intermediaryBankStateProvince("PA")
+                .wireInstructions("Some instructions")
+                .build();
+
+        JSONObject jsonObject = expectedBankAccount.toJsonObject();
+
+        assertThat(jsonObject.getString(BANK_ACCOUNT_ID), is("8017110254"));
+        assertThat(jsonObject.getString(BANK_ACCOUNT_PURPOSE), is("SAVINGS"));
+        assertThat(jsonObject.getString(TYPE), is(WIRE_ACCOUNT));
+        assertThat(jsonObject.getString(TOKEN), is("trm-123"));
+        assertThat(jsonObject.getString(TRANSFER_METHOD_COUNTRY), is("US"));
+        assertThat(jsonObject.getString(TRANSFER_METHOD_CURRENCY), is("USD"));
+        assertThat(jsonObject.getString(DATE_OF_BIRTH), is("1980-01-01"));
+        assertThat(jsonObject.getString(FIRST_NAME), is("Marsden"));
+        assertThat(jsonObject.getString(LAST_NAME), is("Griffin"));
+
+        assertThat(jsonObject.getString(INTERMEDIARY_BANK_ACCOUNT_ID), is(equalTo("012345678")));
+        assertThat(jsonObject.getString(INTERMEDIARY_BANK_ADDRESS_LINE_1), is(equalTo("21 5th Avenue")));
+        assertThat(jsonObject.getString(INTERMEDIARY_BANK_ADDRESS_LINE_2), is(equalTo("1 Penny Avenue")));
+        assertThat(jsonObject.getString(INTERMEDIARY_BANK_CITY), is(equalTo("New York")));
+        assertThat(jsonObject.getString(INTERMEDIARY_BANK_COUNTRY), is(equalTo("USA")));
+        assertThat(jsonObject.getString(INTERMEDIARY_BANK_ID), is(equalTo("01234567891")));
+        assertThat(jsonObject.getString(INTERMEDIARY_BANK_NAME), is(equalTo("Secondary Bank of the USA")));
+        assertThat(jsonObject.getString(INTERMEDIARY_BANK_POSTAL_CODE), is(equalTo("974518")));
+        assertThat(jsonObject.getString(INTERMEDIARY_BANK_STATE_PROVINCE), is(equalTo("PA")));
+        assertThat(jsonObject.getString(WIRE_INSTRUCTIONS), is(equalTo("Some instructions")));
     }
 }
 

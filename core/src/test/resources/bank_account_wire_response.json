@@ -1,0 +1,39 @@
+{
+  "token": "trm-12345",
+  "type": "WIRE_ACCOUNT",
+  "status": "ACTIVATED",
+  "createdOn": "2018-10-31T16:47:15",
+  "transferMethodCountry": "US",
+  "transferMethodCurrency": "USD",
+  "branchId": "012004567",
+  "bankAccountId": "765432108",
+  "bankAccountRelationship": "SELF",
+  "bankAccountPurpose": "CHECKING",
+  "profileType": "INDIVIDUAL",
+  "firstName": "Tommy",
+  "lastName": "Gray",
+  "dateOfBirth": "1991-01-01",
+  "addressLine1": "575 Market Street",
+  "city": "San Francisco",
+  "stateProvince": "CA",
+  "country": "US",
+  "postalCode": "94105",
+  "intermediaryBankAccountId":"246810",
+  "intermediaryBankAddressLine1":"5 Market Street",
+  "intermediaryBankAddressLine2":"75 Market Street",
+  "intermediaryBankCity":"New York",
+  "intermediaryBankCountry":"USA",
+  "intermediaryBankId":"12345678901",
+  "intermediaryBankName":"Intermediary Big Bank",
+  "intermediaryBankPostalCode":"134679",
+  "intermediaryBankStateProvince":"PA",
+  "wireInstructions":"This is instruction",
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-b4ba189e-0a2a-4ae3-acb8-683a19247197/bank-accounts/trm-12345"
+    }
+  ]
+}
