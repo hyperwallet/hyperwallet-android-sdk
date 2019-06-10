@@ -722,6 +722,20 @@ public class Hyperwallet {
         performRestTransaction(builder, listener);
     }
 
+
+    public void listPrepaidCardReceipts(@NonNull final String prepaidCardToken,
+            @NonNull final QueryParam receiptQueryParam,
+            @NonNull final HyperwalletListener<HyperwalletPageList<Receipt>> listener) {
+        Map<String, String> urlQuery = receiptQueryParam.buildQuery();
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/receipts");
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<HyperwalletPageList<Receipt>>() {
+                }, listener).query(urlQuery);
+
+        performRestTransaction(builder, listener);
+    }
+
     private void performGqlTransaction(@NonNull final GqlTransaction.Builder builder,
             @NonNull final HyperwalletListener listener) {
         if (mConfiguration == null || mConfiguration.isStale()) {
