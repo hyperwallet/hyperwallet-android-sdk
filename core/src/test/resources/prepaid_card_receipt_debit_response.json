@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "journalId": "ABCDE_CC002212222",
+      "type": "DONATION",
+      "createdOn": "2019-06-01T17:12:19",
+      "entry": "DEBIT",
+      "destinationToken": "trm-2345",
+      "amount": "1.10",
+      "currency": "USD",
+      "details": {
+        "cardNumber": "*************111"
+      }
+    }
+  ],
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards/trm-2345/receipts"
+    }
+  ]
+}
