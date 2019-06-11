@@ -18,7 +18,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards/trm-2345/receipts"
+      "href": "https://localhost:8181/rest/v3/users/usr-123/prepaid-cards/trm-2345/receipts"
     }
   ]
 }
