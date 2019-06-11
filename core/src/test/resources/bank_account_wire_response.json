@@ -33,7 +33,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-b4ba189e-0a2a-4ae3-acb8-683a19247197/bank-accounts/trm-12345"
+      "href": "https://localhost:8181/rest/v3/users/usr-123/bank-accounts/trm-12345"
     }
   ]
 }

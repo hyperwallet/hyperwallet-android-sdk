@@ -166,7 +166,7 @@ public class HyperwalletBankAccountTest {
         assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_NAME), is(equalTo("Intermediary Big Bank")));
         assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_POSTAL_CODE), is(equalTo("134679")));
         assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_STATE_PROVINCE), is(equalTo("PA")));
-        assertThat(actualBankAccount.getField(WIRE_INSTRUCTIONS), is(equalTo("This is instruction")));
+        assertThat(actualBankAccount.getField(WIRE_INSTRUCTIONS), is(equalTo("This is an instruction")));
     }
 
     @Test
