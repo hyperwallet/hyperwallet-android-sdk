@@ -161,7 +161,7 @@ public class HyperwalletBankAccountTest {
         assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_ADDRESS_LINE_1), is(equalTo("5 Market Street")));
         assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_ADDRESS_LINE_2), is(equalTo("75 Market Street")));
         assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_CITY), is(equalTo("New York")));
-        assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_COUNTRY), is(equalTo("USA")));
+        assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_COUNTRY), is(equalTo("US")));
         assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_ID), is(equalTo("12345678901")));
         assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_NAME), is(equalTo("Intermediary Big Bank")));
         assertThat(actualBankAccount.getField(INTERMEDIARY_BANK_POSTAL_CODE), is(equalTo("134679")));
@@ -186,7 +186,7 @@ public class HyperwalletBankAccountTest {
                 .intermediaryBankAddressLine1("21 5th Avenue")
                 .intermediaryBankAddressLine2("1 Penny Avenue")
                 .intermediaryBankCity("New York")
-                .intermediaryBankCountry("USA")
+                .intermediaryBankCountry("US")
                 .intermediaryBankId("01234567891")
                 .intermediaryBankName("Secondary Bank of the USA")
                 .intermediaryBankPostalCode("974518")
@@ -210,7 +210,7 @@ public class HyperwalletBankAccountTest {
         assertThat(jsonObject.getString(INTERMEDIARY_BANK_ADDRESS_LINE_1), is(equalTo("21 5th Avenue")));
         assertThat(jsonObject.getString(INTERMEDIARY_BANK_ADDRESS_LINE_2), is(equalTo("1 Penny Avenue")));
         assertThat(jsonObject.getString(INTERMEDIARY_BANK_CITY), is(equalTo("New York")));
-        assertThat(jsonObject.getString(INTERMEDIARY_BANK_COUNTRY), is(equalTo("USA")));
+        assertThat(jsonObject.getString(INTERMEDIARY_BANK_COUNTRY), is(equalTo("US")));
         assertThat(jsonObject.getString(INTERMEDIARY_BANK_ID), is(equalTo("01234567891")));
         assertThat(jsonObject.getString(INTERMEDIARY_BANK_NAME), is(equalTo("Secondary Bank of the USA")));
         assertThat(jsonObject.getString(INTERMEDIARY_BANK_POSTAL_CODE), is(equalTo("974518")));
