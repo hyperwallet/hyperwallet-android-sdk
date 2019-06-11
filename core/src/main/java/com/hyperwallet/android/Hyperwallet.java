@@ -710,7 +710,7 @@ public class Hyperwallet {
      * @param receiptQueryParam the ordering and filtering criteria
      * @param listener          the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listReceipts(@NonNull final ReceiptQueryParam receiptQueryParam,
+    public void listUserReceipts(@NonNull final ReceiptQueryParam receiptQueryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<Receipt>> listener) {
         Map<String, String> urlQuery = receiptQueryParam.buildQuery();
         PathFormatter pathFormatter = new PathFormatter("users/{0}/receipts");

@@ -48,7 +48,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
-public class HyperwalletListReceiptsTest {
+public class HyperwalletListUserReceiptsTest {
     @Rule
     public final HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
     @Rule
@@ -68,7 +68,7 @@ public class HyperwalletListReceiptsTest {
 
 
     @Test
-    public void testListReceipts_returnsReceipts() throws InterruptedException {
+    public void testListUserReceipts_returnsReceipts() throws InterruptedException {
 
         String responseBody = mExternalResourceManager.getResourceContent("receipts_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
@@ -78,7 +78,7 @@ public class HyperwalletListReceiptsTest {
         ReceiptQueryParam receiptQueryParam = builder.build();
 
         assertThat(receiptQueryParam, is(notNullValue()));
-        Hyperwallet.getDefault().listReceipts(receiptQueryParam, mListener);
+        Hyperwallet.getDefault().listUserReceipts(receiptQueryParam, mListener);
 
         mAwait.await(150, TimeUnit.MILLISECONDS);
 
@@ -116,7 +116,7 @@ public class HyperwalletListReceiptsTest {
     }
 
     @Test
-    public void testListReceipts_returnsDebitReceipt() throws InterruptedException {
+    public void testListUserReceipts_returnsDebitReceipt() throws InterruptedException {
 
         String responseBody = mExternalResourceManager.getResourceContent("receipt_debit_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
@@ -125,7 +125,7 @@ public class HyperwalletListReceiptsTest {
         ReceiptQueryParam receiptQueryParam = builder.build();
 
         assertThat(receiptQueryParam, is(notNullValue()));
-        Hyperwallet.getDefault().listReceipts(receiptQueryParam, mListener);
+        Hyperwallet.getDefault().listUserReceipts(receiptQueryParam, mListener);
 
         mAwait.await(150, TimeUnit.MILLISECONDS);
 
@@ -151,14 +151,14 @@ public class HyperwalletListReceiptsTest {
     }
 
     @Test
-    public void testListReceipts_returnsNoReceipts() throws InterruptedException {
+    public void testListUserReceipts_returnsNoReceipts() throws InterruptedException {
         mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody("").mock();
 
         final ReceiptQueryParam.Builder builder = new ReceiptQueryParam.Builder();
         ReceiptQueryParam receiptQueryParam = builder.build();
 
         assertThat(receiptQueryParam, is(notNullValue()));
-        Hyperwallet.getDefault().listReceipts(receiptQueryParam, mListener);
+        Hyperwallet.getDefault().listUserReceipts(receiptQueryParam, mListener);
 
         mAwait.await(100, TimeUnit.MILLISECONDS);
 
@@ -177,14 +177,14 @@ public class HyperwalletListReceiptsTest {
     }
 
     @Test
-    public void testListReceipts_returnsError() throws InterruptedException {
+    public void testListUserReceipts_returnsError() throws InterruptedException {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
         final ReceiptQueryParam.Builder builder = new ReceiptQueryParam.Builder();
         ReceiptQueryParam receiptQueryParam = builder.build();
 
-        Hyperwallet.getDefault().listReceipts(receiptQueryParam, mListener);
+        Hyperwallet.getDefault().listUserReceipts(receiptQueryParam, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         verify(mListener, never()).onSuccess(ArgumentMatchers.<HyperwalletPageList<Receipt>>any());
