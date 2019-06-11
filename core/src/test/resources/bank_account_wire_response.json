@@ -27,7 +27,7 @@
   "intermediaryBankName":"Intermediary Big Bank",
   "intermediaryBankPostalCode":"134679",
   "intermediaryBankStateProvince":"PA",
-  "wireInstructions":"This is instruction",
+  "wireInstructions":"This is an instruction",
   "links": [
     {
       "params": {
