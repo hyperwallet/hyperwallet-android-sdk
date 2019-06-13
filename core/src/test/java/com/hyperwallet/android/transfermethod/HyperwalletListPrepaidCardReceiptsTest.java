@@ -2,6 +2,7 @@ package com.hyperwallet.android.transfermethod;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
@@ -42,6 +43,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.robolectric.RobolectricTestRunner;
 
+import java.util.Calendar;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -204,4 +206,67 @@ public class HyperwalletListPrepaidCardReceiptsTest {
                         "/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards/trm-2345/receipts?"));
     }
 
+    @Test
+    public void testListPrepaidCardReceipts_whenEmptyParams_returnsReceipts() throws InterruptedException {
+
+        mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody("").mock();
+
+        final String prepaidCardToken = "trm-2345";
+        final ReceiptQueryParam.Builder builder = new ReceiptQueryParam.Builder();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(2019,4,7,0,0,0);
+        builder.createdAfter(calendar.getTime());
+        calendar.set(2019,5,12,0,0,0);
+        builder.createdBefore(calendar.getTime());
+        ReceiptQueryParam receiptQueryParam = builder.build();
+
+        Hyperwallet.getDefault().listPrepaidCardReceipts(prepaidCardToken, receiptQueryParam, mListener);
+
+        mAwait.await(150, TimeUnit.MILLISECONDS);
+
+        RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
+        verify(mListener).onSuccess(mCaptor.capture());
+        verify(mListener, never()).onFailure(any(HyperwalletException.class));
+
+        HyperwalletPageList<Receipt> receiptResponse = mCaptor.getValue();
+
+        assertThat(receiptResponse, is(nullValue()));
+
+        assertThat(recordedRequest.getPath(),
+                containsString(
+                        "/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards/trm-2345/receipts"));
+        assertThat(recordedRequest.getPath(), containsString("?"));
+        assertThat(recordedRequest.getPath(), containsString("createdBefore=2019-06-12T00:00:00"));
+        assertThat(recordedRequest.getPath(), containsString("createdAfter=2019-05-07T00:00:00"));
+    }
+
+    @Test
+    public void testListPrepaidCardReceipts_withCreateAfterCreateBeforeParams_returnsEmptyReceipts() throws InterruptedException {
+
+        String responseBody = mExternalResourceManager.getResourceContent("prepaid_card_receipts_response.json");
+        mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
+
+
+        final String prepaidCardToken = "trm-2345";
+        Hyperwallet.getDefault().listPrepaidCardReceipts(prepaidCardToken, null, mListener);
+
+        mAwait.await(150, TimeUnit.MILLISECONDS);
+
+        RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
+        verify(mListener).onSuccess(mCaptor.capture());
+        verify(mListener, never()).onFailure(any(HyperwalletException.class));
+
+        HyperwalletPageList<Receipt> receiptResponse = mCaptor.getValue();
+
+        assertThat(receiptResponse.getDataList(), hasSize(2));
+
+        assertThat(recordedRequest.getPath(),
+                containsString(
+                        "/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards/trm-2345/receipts"));
+        assertThat(recordedRequest.getPath(), not(containsString("offset")));
+        assertThat(recordedRequest.getPath(), not(containsString("?")));
+    }
 }
