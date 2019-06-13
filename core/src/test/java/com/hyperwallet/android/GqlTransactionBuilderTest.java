@@ -8,8 +8,7 @@ import static com.hyperwallet.android.util.HttpMethod.POST;
 
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.TypeReference;
-import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKeyResult;
-import com.hyperwallet.android.model.graphql.TransferMethodConfigurationResult;
+import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
 import com.hyperwallet.android.model.graphql.query.HyperwalletTransferMethodConfigurationKeysQuery;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
@@ -30,15 +29,16 @@ public class GqlTransactionBuilderTest {
             new HyperwalletExternalResourceManager();
 
     @Mock
-    private HyperwalletListener<HyperwalletTransferMethodConfigurationKeyResult> mListener;
+    private HyperwalletListener<HyperwalletTransferMethodConfigurationKey> mListener;
 
     @Test
     public void testBuild_withRequiredParametersOnly() {
         HyperwalletTransferMethodConfigurationKeysQuery keysQuery =
                 new HyperwalletTransferMethodConfigurationKeysQuery();
 
-        GqlTransaction.Builder<TransferMethodConfigurationResult> builder = new GqlTransaction.Builder<>(keysQuery,
-                new TypeReference<TransferMethodConfigurationResult>() {
+        GqlTransaction.Builder<HyperwalletTransferMethodConfigurationKey> builder = new GqlTransaction.Builder<>(
+                keysQuery,
+                new TypeReference<HyperwalletTransferMethodConfigurationKey>() {
                 }, mListener);
 
         final GqlTransaction gqlTransaction = builder.build("test", "usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636");
