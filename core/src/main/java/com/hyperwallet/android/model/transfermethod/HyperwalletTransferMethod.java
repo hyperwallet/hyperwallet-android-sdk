@@ -292,5 +292,16 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
         public static final String STATE_PROVINCE = "stateProvince";
         public static final String COUNTRY = "country";
         public static final String POSTAL_CODE = "postalCode";
+        //wire account fields
+        public static final String INTERMEDIARY_BANK_ACCOUNT_ID = "intermediaryBankAccountId";
+        public static final String INTERMEDIARY_BANK_ADDRESS_LINE_1 = "intermediaryBankAddressLine1";
+        public static final String INTERMEDIARY_BANK_ADDRESS_LINE_2 = "intermediaryBankAddressLine2";
+        public static final String INTERMEDIARY_BANK_CITY = "intermediaryBankCity";
+        public static final String INTERMEDIARY_BANK_COUNTRY = "intermediaryBankCountry";
+        public static final String INTERMEDIARY_BANK_ID = "intermediaryBankId";
+        public static final String INTERMEDIARY_BANK_NAME = "intermediaryBankName";
+        public static final String INTERMEDIARY_BANK_POSTAL_CODE = "intermediaryBankPostalCode";
+        public static final String INTERMEDIARY_BANK_STATE_PROVINCE = "intermediaryBankStateProvince";
+        public static final String WIRE_INSTRUCTIONS = "wireInstructions";
     }
 }
