@@ -712,7 +712,7 @@ public class Hyperwallet {
      */
     public void listUserReceipts(@NonNull final ReceiptQueryParam receiptQueryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<Receipt>> listener) {
-        Map<String, String> urlQuery = buildUrlQueryIfRequired(receiptQueryParam);
+        Map<String, String> urlQuery = receiptQueryParam.buildQuery();
         PathFormatter pathFormatter = new PathFormatter("users/{0}/receipts");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
