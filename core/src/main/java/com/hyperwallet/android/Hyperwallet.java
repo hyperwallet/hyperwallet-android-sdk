@@ -16,6 +16,9 @@
  */
 package com.hyperwallet.android;
 
+import static com.hyperwallet.android.model.QueryParam.CREATED_AFTER;
+import static com.hyperwallet.android.model.QueryParam.PAGINATION_LIMIT;
+import static com.hyperwallet.android.model.QueryParam.PAGINATION_OFFSET;
 import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 import static com.hyperwallet.android.util.HttpMethod.PUT;
@@ -47,10 +50,12 @@ import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQue
 import com.hyperwallet.android.model.transfermethod.PayPalAccount;
 import com.hyperwallet.android.model.transfermethod.PayPalAccountQueryParam;
 import com.hyperwallet.android.model.user.HyperwalletUser;
+import com.hyperwallet.android.util.DateUtil;
 
 import org.json.JSONException;
 
 import java.text.MessageFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -735,6 +740,7 @@ public class Hyperwallet {
      * <ul>
      * <li>Created Before: N/A</li>
      * <li>Created After: N/A</li>
+     *
      * </ul>
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
@@ -750,7 +756,7 @@ public class Hyperwallet {
     public void listPrepaidCardReceipts(@NonNull final String prepaidCardToken,
             @NonNull final ReceiptQueryParam receiptQueryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<Receipt>> listener) {
-        Map<String, String> urlQuery = buildUrlQueryIfRequired(receiptQueryParam);
+        Map<String, String> urlQuery = buildQueryMapWithoutOffsetLimit(receiptQueryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/prepaid-cards/{1}/receipts", prepaidCardToken);
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -894,6 +900,19 @@ public class Hyperwallet {
             queryMap = queryParam.buildQuery();
         }
         return queryMap;
+    }
+
+    @NonNull
+    private Map<String, String> buildQueryMapWithoutOffsetLimit(@NonNull QueryParam queryParam) {
+        final Map<String, String> urlQuery = queryParam.buildQuery();
+        if (queryParam.getCreatedAfter() == null) {
+            final Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 1);
+            urlQuery.put(CREATED_AFTER, DateUtil.toDateTimeFormat(calendar.getTime()));
+        }
+        urlQuery.remove(PAGINATION_LIMIT);
+        urlQuery.remove(PAGINATION_OFFSET);
+        return urlQuery;
     }
 }
 

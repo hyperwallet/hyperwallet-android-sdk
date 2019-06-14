@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
@@ -94,6 +95,9 @@ public class HyperwalletListPrepaidCardReceiptsTest {
         assertThat(recordedRequest.getPath(),
                 containsString(
                         "/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards/trm-2345/receipts?"));
+        assertThat(recordedRequest.getPath(), containsString("createdAfter"));
+        assertThat(recordedRequest.getPath(), not(containsString("limit")));
+        assertThat(recordedRequest.getPath(), not(containsString("offset")));
 
         Receipt receipt = receiptResponse.getDataList().get(0);
         assertThat(receipt.getJournalId(), is("ABCDE_CC002212334"));
