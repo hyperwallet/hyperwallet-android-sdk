@@ -748,7 +748,7 @@ public class Hyperwallet {
      * @param listener          the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listPrepaidCardReceipts(@NonNull final String prepaidCardToken,
-            @Nullable final ReceiptQueryParam receiptQueryParam,
+            @NonNull final ReceiptQueryParam receiptQueryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<Receipt>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(receiptQueryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/prepaid-cards/{1}/receipts", prepaidCardToken);
