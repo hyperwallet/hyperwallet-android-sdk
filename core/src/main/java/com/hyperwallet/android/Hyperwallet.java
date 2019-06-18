@@ -753,7 +753,7 @@ public class Hyperwallet {
      * @param receiptQueryParam the filtering criteria
      * @param listener          the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listPrepaidCardReceipts(@NonNull final String prepaidCardToken,
+    public void listPrepaidCardReceipts(@Nullable final String prepaidCardToken,
             @NonNull final ReceiptQueryParam receiptQueryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<Receipt>> listener) {
         Map<String, String> urlQuery = buildQueryMapWithoutOffsetLimit(receiptQueryParam);
@@ -903,15 +903,21 @@ public class Hyperwallet {
     }
 
     @NonNull
-    private Map<String, String> buildQueryMapWithoutOffsetLimit(@NonNull QueryParam queryParam) {
-        final Map<String, String> urlQuery = queryParam.buildQuery();
-        if (queryParam.getCreatedAfter() == null) {
+    private Map<String, String> buildQueryMapWithoutOffsetLimit(@Nullable QueryParam queryParam) {
+        Map<String, String> urlQuery;
+        if (queryParam == null) {
+            urlQuery = new HashMap<>();
+        } else {
+            urlQuery = queryParam.buildQuery();
+            urlQuery.remove(PAGINATION_LIMIT);
+            urlQuery.remove(PAGINATION_OFFSET);
+        }
+
+        if (queryParam == null || queryParam.getCreatedAfter() == null) {
             final Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 1);
             urlQuery.put(CREATED_AFTER, DateUtil.toDateTimeFormat(calendar.getTime()));
         }
-        urlQuery.remove(PAGINATION_LIMIT);
-        urlQuery.remove(PAGINATION_OFFSET);
         return urlQuery;
     }
 }
