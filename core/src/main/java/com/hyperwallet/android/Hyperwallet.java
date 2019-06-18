@@ -753,8 +753,8 @@ public class Hyperwallet {
      * @param receiptQueryParam the filtering criteria
      * @param listener          the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listPrepaidCardReceipts(@Nullable final String prepaidCardToken,
-            @NonNull final ReceiptQueryParam receiptQueryParam,
+    public void listPrepaidCardReceipts(@NonNull final String prepaidCardToken,
+            @Nullable final ReceiptQueryParam receiptQueryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<Receipt>> listener) {
         Map<String, String> urlQuery = buildQueryMapWithoutOffsetLimit(receiptQueryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/prepaid-cards/{1}/receipts", prepaidCardToken);
