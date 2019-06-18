@@ -2,6 +2,7 @@ package com.hyperwallet.android.transfermethod;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
@@ -211,5 +212,27 @@ public class HyperwalletListUserReceiptsTest {
                 containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/receipts?"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
+    }
+
+    @Test
+    public void testListUserReceipts_withEmptyParam_returnPathWithoutOffsetLimit() throws InterruptedException {
+
+        mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody("").mock();
+
+        Hyperwallet.getDefault().listUserReceipts(null, mListener);
+        mAwait.await(50, TimeUnit.MILLISECONDS);
+
+        RecordedRequest recordedRequest = mServer.getRequest();
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
+        verify(mListener).onSuccess(mCaptor.capture());
+        verify(mListener, never()).onFailure(any(HyperwalletException.class));
+
+        HyperwalletPageList<Receipt> receiptResponse = mCaptor.getValue();
+
+        assertThat(recordedRequest.getPath(),
+                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/receipts"));
+        assertThat(recordedRequest.getPath(), not(containsString("limit=10")));
+        assertThat(recordedRequest.getPath(), not(containsString("offset=0")));
+        assertThat(receiptResponse, is(nullValue()));
     }
 }
