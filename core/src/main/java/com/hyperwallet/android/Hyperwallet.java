@@ -16,9 +16,6 @@
  */
 package com.hyperwallet.android;
 
-import static com.hyperwallet.android.model.QueryParam.CREATED_AFTER;
-import static com.hyperwallet.android.model.QueryParam.PAGINATION_LIMIT;
-import static com.hyperwallet.android.model.QueryParam.PAGINATION_OFFSET;
 import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 import static com.hyperwallet.android.util.HttpMethod.PUT;
@@ -50,12 +47,10 @@ import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQue
 import com.hyperwallet.android.model.transfermethod.PayPalAccount;
 import com.hyperwallet.android.model.transfermethod.PayPalAccountQueryParam;
 import com.hyperwallet.android.model.user.HyperwalletUser;
-import com.hyperwallet.android.util.DateUtil;
 
 import org.json.JSONException;
 
 import java.text.MessageFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -734,14 +729,7 @@ public class Hyperwallet {
      * or an empty {@code List} if non exist.
      *
      * <p>The ordering and filtering of {@code HyperwalletReceipts} will be based on the criteria specified within
-     * the {@link ReceiptQueryParam} object, if it is not null. Otherwise the default ordering and
-     * filtering will be applied:</p>
-     *
-     * <ul>
-     * <li>Created Before: N/A</li>
-     * <li>Created After: N/A</li>
-     *
-     * </ul>
+     * the {@link ReceiptQueryParam} object, if it is not null.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * * processing the request.</p>
@@ -756,7 +744,7 @@ public class Hyperwallet {
     public void listPrepaidCardReceipts(@NonNull final String prepaidCardToken,
             @Nullable final ReceiptQueryParam receiptQueryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<Receipt>> listener) {
-        Map<String, String> urlQuery = buildQueryMapWithoutOffsetLimit(receiptQueryParam);
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(receiptQueryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/prepaid-cards/{1}/receipts", prepaidCardToken);
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -900,25 +888,6 @@ public class Hyperwallet {
             queryMap = queryParam.buildQuery();
         }
         return queryMap;
-    }
-
-    @NonNull
-    private Map<String, String> buildQueryMapWithoutOffsetLimit(@Nullable QueryParam queryParam) {
-        Map<String, String> urlQuery;
-        if (queryParam == null) {
-            urlQuery = new HashMap<>();
-        } else {
-            urlQuery = queryParam.buildQuery();
-            urlQuery.remove(PAGINATION_LIMIT);
-            urlQuery.remove(PAGINATION_OFFSET);
-        }
-
-        if (queryParam == null || queryParam.getCreatedAfter() == null) {
-            final Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 1);
-            urlQuery.put(CREATED_AFTER, DateUtil.toDateTimeFormat(calendar.getTime()));
-        }
-        return urlQuery;
     }
 }
 
