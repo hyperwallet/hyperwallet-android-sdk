@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.hyperwallet.android.model.graphql.Connection;
 import com.hyperwallet.android.model.graphql.HyperwalletFee;
+import com.hyperwallet.android.model.graphql.ProcessingTime;
 import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes;
 
 import org.json.JSONException;
@@ -28,7 +29,8 @@ public class HyperwalletTransferMethodType implements KeyedNode {
     private final String mCode;
     private final Connection<HyperwalletFee> mFeeConnection;
     private final String mName;
-    private final String mProcessingTime;
+    private final Connection<ProcessingTime> mProcessingTimeConnection;
+    private ProcessingTime mProcessingTime;
 
     /**
      * Constructor to build HyperwalletTransferMethodType based on json
@@ -39,13 +41,19 @@ public class HyperwalletTransferMethodType implements KeyedNode {
             NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         mCode = transferMethodType.optString(TRANSFER_METHOD_CODE);
         mName = transferMethodType.optString(TRANSFER_METHOD_NAME);
-        mProcessingTime = transferMethodType.optString(TRANSFER_METHOD_PROCESSING_TIME);
         mHyperwalletFees = new LinkedHashSet<>(1);
         JSONObject fees = transferMethodType.optJSONObject(TRANSFER_METHOD_FEES);
         if (fees != null && fees.length() != 0) {
             mFeeConnection = new Connection<>(fees, HyperwalletFee.class);
         } else {
             mFeeConnection = null;
+        }
+
+        JSONObject processingTime = transferMethodType.optJSONObject(TRANSFER_METHOD_PROCESSING_TIME);
+        if (processingTime != null && processingTime.length() != 0) {
+            mProcessingTimeConnection = new Connection<>(processingTime, ProcessingTime.class);
+        } else {
+            mProcessingTimeConnection = null;
         }
     }
 
@@ -84,7 +92,12 @@ public class HyperwalletTransferMethodType implements KeyedNode {
      *
      * @return Processing time
      */
-    public String getProcessingTime() {
+    public ProcessingTime getProcessingTime() {
+        if (mProcessingTimeConnection != null && mProcessingTime == null &&
+                mProcessingTimeConnection.getNodes() != null) {
+            mProcessingTime = mProcessingTimeConnection.getNodes().get(0);
+            return mProcessingTime;
+        }
         return mProcessingTime;
     }
 

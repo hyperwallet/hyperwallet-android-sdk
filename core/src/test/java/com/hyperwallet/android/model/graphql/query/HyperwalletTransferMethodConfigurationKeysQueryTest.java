@@ -3,22 +3,58 @@ package com.hyperwallet.android.model.graphql.query;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-import static com.hyperwallet.android.model.graphql.query.HyperwalletTransferMethodConfigurationKeysQuery.GRAPH_QL_REQUEST_CONFIGURATION;
-
 import org.junit.Test;
 
 public class HyperwalletTransferMethodConfigurationKeysQueryTest {
 
     @Test
     public void testToQuery_returnsQuery() {
+
+        final String sampleKeyQuery = String.format("query {\n"
+                + "\tcountries(idToken: \"%s\") {\n"
+                + "\t\tnodes {\n"
+                + "\t\t\tcode\n"
+                + "\t\t\tname\n"
+                + "\t\t\tcurrencies {\n"
+                + "\t\t\t\tnodes {\n"
+                + "\t\t\t\t\tcode\n"
+                + "\t\t\t\t\tname\n"
+                + "\t\t\t\t\ttransferMethodTypes {\n"
+                + "\t\t\t\t\t\tnodes {\n"
+                + "\t\t\t\t\t\t\tcode\n"
+                + "\t\t\t\t\t\t\tname\n"
+                + "\t\t\t\t\t\t\tfees {\n"
+                + "\t\t\t\t\t\t\t\tnodes {\n"
+                + "\t\t\t\t\t\t\t\t\tcountry\n"
+                + "\t\t\t\t\t\t\t\t\tcurrency\n"
+                + "\t\t\t\t\t\t\t\t\ttransferMethodType\n"
+                + "\t\t\t\t\t\t\t\t\tvalue\n"
+                + "\t\t\t\t\t\t\t\t\tfeeRateType\n"
+                + "\t\t\t\t\t\t\t\t\tmaximum\n"
+                + "\t\t\t\t\t\t\t\t\tminimum\n"
+                + "\t\t\t\t\t\t\t\t}\n"
+                + "\t\t\t\t\t\t\t}\n"
+                + "\t\t\t\t\t\t\tprocessingTime {\n"
+                + "\t\t\t\t\t\t\t\tnodes {\n"
+                + "\t\t\t\t\t\t\t\t\tcountry\n"
+                + "\t\t\t\t\t\t\t\t\tcurrency\n"
+                + "\t\t\t\t\t\t\t\t\ttransferMethodType\n"
+                + "\t\t\t\t\t\t\t\t\tvalue\n"
+                + "\t\t\t\t\t\t\t\t}\n"
+                + "\t\t\t\t\t\t\t}\n"
+                + "\t\t\t\t\t\t}\n"
+                + "\t\t\t\t\t}\n"
+                + "\t\t\t\t}\n"
+                + "\t\t\t}\n"
+                + "\t\t}\n"
+                + "\t}\n"
+                + "}", "usr-123");
+
         HyperwalletTransferMethodConfigurationKeysQuery keysQuery =
                 new HyperwalletTransferMethodConfigurationKeysQuery();
 
-        String token = String.valueOf("token".hashCode());
-        String query = keysQuery.toQuery(token);
+        String query = keysQuery.toQuery("usr-123");
 
-        String requestConfigurationFormatted = String.format(GRAPH_QL_REQUEST_CONFIGURATION, token);
-
-        assertThat(query, is(requestConfigurationFormatted));
+        assertThat(query, is(sampleKeyQuery));
     }
 }

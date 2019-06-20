@@ -38,7 +38,9 @@ public class HyperwalletTransferMethodTypeTest {
         HyperwalletTransferMethodType transferMethodType = new HyperwalletTransferMethodType(jsonObject);
         assertThat(transferMethodType.getCode(), is(BANK_ACCOUNT));
         assertThat(transferMethodType.getName(), is("Bank Account"));
-        assertThat(transferMethodType.getProcessingTime(), is("1-3"));
+        assertThat(transferMethodType.getProcessingTime().getValue(), is("1-3"));
+        assertThat(transferMethodType.getProcessingTime().getCountry(), is("US"));
+        assertThat(transferMethodType.getProcessingTime().getCurrency(), is("USD"));
         assertThat(transferMethodType.getFees(), hasSize(1));
         final Set<HyperwalletFee> fees = transferMethodType.getFees();
         List<HyperwalletFee> feeList = new ArrayList<>(fees);
@@ -53,7 +55,7 @@ public class HyperwalletTransferMethodTypeTest {
         HyperwalletTransferMethodType transferMethodType = new HyperwalletTransferMethodType(jsonObject);
         assertThat(transferMethodType.getCode(), is(BANK_ACCOUNT));
         assertThat(transferMethodType.getName(), is("Bank Account"));
-        assertThat(transferMethodType.getProcessingTime(), is("1-3"));
+        assertThat(transferMethodType.getProcessingTime().getValue(), is("1-3"));
         assertThat(transferMethodType.getFees(), is(empty()));
     }
 

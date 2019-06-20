@@ -114,7 +114,15 @@
                     {
                       "code": "BANK_ACCOUNT",
                       "name": "Bank Account",
-                      "processingTime": "1-3",
+                      "processingTime": {
+                        "nodes": [
+                          {
+                            "value": "1-3",
+                            "country": "US",
+                            "currency": "USD"
+                          }
+                        ]
+                      },
                       "fees": {
                         "nodes": [
                           {
@@ -135,7 +143,16 @@
                     {
                       "code": "BANK_ACCOUNT",
                       "name": "Bank Account",
-                      "processingTime": "1-3",
+                      "processingTime": {
+                        "nodes": [
+                          {
+                            "value": "1-3",
+                            "country": "CA",
+                            "currency": "CAD",
+                            "transferMethodType": "BANK_ACCOUNT"
+                          }
+                        ]
+                      },
                       "fees": {
                         "nodes": [
                           {

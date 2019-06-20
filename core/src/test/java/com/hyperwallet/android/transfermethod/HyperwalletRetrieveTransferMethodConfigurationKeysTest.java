@@ -178,7 +178,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
         assertThat(transferMethodTypesUS_USD, Matchers.<HyperwalletTransferMethodType>hasSize(1));
         assertThat(transferMethodTypesUS_USD.get(0).getCode(), is(BANK_ACCOUNT));
         assertThat(transferMethodTypesUS_USD.get(0).getName(), is("Bank Account"));
-        assertThat(transferMethodTypesUS_USD.get(0).getProcessingTime(), is("1-3"));
+        assertThat(transferMethodTypesUS_USD.get(0).getProcessingTime().getValue(), is("1-3"));
     }
 
     @Test
