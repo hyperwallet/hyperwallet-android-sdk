@@ -33,6 +33,16 @@
                             "feeRateType": "FLAT"
                           }
                         ]
+                      },
+                      "processingTime": {
+                        "nodes": [
+                          {
+                            "value": "1-3",
+                            "country": "CA",
+                            "currency": "CAD",
+                            "transferMethodType": "BANK_ACCOUNT"
+                          }
+                        ]
                       }
                     }
                   ]
@@ -114,15 +124,6 @@
                     {
                       "code": "BANK_ACCOUNT",
                       "name": "Bank Account",
-                      "processingTime": {
-                        "nodes": [
-                          {
-                            "value": "1-3",
-                            "country": "US",
-                            "currency": "USD"
-                          }
-                        ]
-                      },
                       "fees": {
                         "nodes": [
                           {
@@ -146,9 +147,9 @@
                       "processingTime": {
                         "nodes": [
                           {
-                            "value": "1-3",
-                            "country": "CA",
-                            "currency": "CAD",
+                            "value": "2-4",
+                            "country": "US",
+                            "currency": "USD",
                             "transferMethodType": "BANK_ACCOUNT"
                           }
                         ]

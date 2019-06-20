@@ -94,7 +94,7 @@ public class HyperwalletTransferMethodType implements KeyedNode {
      */
     public ProcessingTime getProcessingTime() {
         if (mProcessingTimeConnection != null && mProcessingTime == null &&
-                mProcessingTimeConnection.getNodes() != null) {
+                mProcessingTimeConnection.getNodes() != null && !mProcessingTimeConnection.getNodes().isEmpty()) {
             mProcessingTime = mProcessingTimeConnection.getNodes().get(0);
             return mProcessingTime;
         }
