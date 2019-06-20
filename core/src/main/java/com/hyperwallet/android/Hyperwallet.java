@@ -710,9 +710,9 @@ public class Hyperwallet {
      * @param receiptQueryParam the ordering and filtering criteria
      * @param listener          the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listUserReceipts(@NonNull final ReceiptQueryParam receiptQueryParam,
+    public void listUserReceipts(@Nullable final ReceiptQueryParam receiptQueryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<Receipt>> listener) {
-        Map<String, String> urlQuery = receiptQueryParam.buildQuery();
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(receiptQueryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/receipts");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -729,7 +729,13 @@ public class Hyperwallet {
      * or an empty {@code List} if non exist.
      *
      * <p>The ordering and filtering of {@code HyperwalletReceipts} will be based on the criteria specified within
-     * the {@link ReceiptQueryParam} object, if it is not null.
+     * the {@link ReceiptQueryParam} object, if it is not null.  Filters that is accepted in Prepaid card
+     * receipts are the following: Other filter settings will be discarded</p>
+     *
+     * <ul>
+     *     <li>Created Before: date before, based on <code>createdOn</code> </li>
+     *     <li>Created After: date after, based on <code>createdOn</code></li>
+     * </ul>
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * * processing the request.</p>
