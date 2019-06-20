@@ -64,4 +64,25 @@ public final class ProcessingTime {
     public String getValue() {
         return mValue;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ProcessingTime that = (ProcessingTime) o;
+
+        if (mCountry != null ? !mCountry.equals(that.mCountry) : that.mCountry != null) return false;
+        if (mCurrency != null ? !mCurrency.equals(that.mCurrency) : that.mCurrency != null) return false;
+        return mTransferMethodType != null ? mTransferMethodType.equals(that.mTransferMethodType)
+                : that.mTransferMethodType == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = mCountry != null ? mCountry.hashCode() : 0;
+        result = 31 * result + (mCurrency != null ? mCurrency.hashCode() : 0);
+        result = 31 * result + (mTransferMethodType != null ? mTransferMethodType.hashCode() : 0);
+        return result;
+    }
 }
