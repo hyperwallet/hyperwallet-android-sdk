@@ -1,6 +1,7 @@
 package com.hyperwallet.android.model.graphql.keyed;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.hyperwallet.android.model.graphql.Connection;
 import com.hyperwallet.android.model.graphql.HyperwalletFee;
@@ -92,6 +93,7 @@ public class HyperwalletTransferMethodType implements KeyedNode {
      *
      * @return Processing time
      */
+    @Nullable
     public ProcessingTime getProcessingTime() {
         if (mProcessingTimeConnection != null && mProcessingTime == null &&
                 mProcessingTimeConnection.getNodes() != null && !mProcessingTimeConnection.getNodes().isEmpty()) {

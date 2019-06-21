@@ -146,7 +146,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
         assertThat(feesCAD.get(0).getValue(), is("5.00"));
 
         ProcessingTime processingTimeCAD = transferMethodTypesCAD.get(0).getProcessingTime();
-        assertThat(processingTimeCAD.getValue(), is("1-3"));
+        assertThat(processingTimeCAD.getValue(), is("1-3 Business days"));
         assertThat(processingTimeCAD.getCountry(), is("CA"));
         assertThat(processingTimeCAD.getCurrency(), is("CAD"));
         assertThat(processingTimeCAD.getTransferMethodType(), is(BANK_ACCOUNT));
@@ -187,7 +187,7 @@ public class HyperwalletRetrieveTransferMethodConfigurationKeysTest {
         assertThat(transferMethodTypesUS_USD.get(0).getName(), is("Bank Account"));
 
         ProcessingTime processingTimeUSD = transferMethodTypesUS_USD.get(0).getProcessingTime();
-        assertThat(processingTimeUSD.getValue(), is("2-4"));
+        assertThat(processingTimeUSD.getValue(), is("2-4 Business days"));
         assertThat(processingTimeUSD.getCountry(), is("US"));
         assertThat(processingTimeUSD.getCurrency(), is("USD"));
         assertThat(processingTimeUSD.getTransferMethodType(), is(BANK_ACCOUNT));
