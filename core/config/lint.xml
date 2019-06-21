@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
-
+    <issue id="OldTargetApi">
+        <ignore regexp="(build).gradle"/>
+    </issue>
+    <issue id="GradleDependency">
+        <ignore regexp="(build).gradle"/>
+    </issue>
 </lint>
