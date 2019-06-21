@@ -48,7 +48,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
-public class HyperwalletListUserReceiptsTest {
+public class HyperwalletListPrepaidCardReceiptsTest {
     @Rule
     public final HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
     @Rule
@@ -66,11 +66,10 @@ public class HyperwalletListUserReceiptsTest {
 
     private final CountDownLatch mAwait = new CountDownLatch(1);
 
-
     @Test
-    public void testListUserReceipts_returnsReceipts() throws InterruptedException {
+    public void testListPrepaidCardReceipts_returnsReceipts() throws InterruptedException {
 
-        String responseBody = mExternalResourceManager.getResourceContent("receipts_response.json");
+        String responseBody = mExternalResourceManager.getResourceContent("prepaid_card_receipts_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
 
 
@@ -78,7 +77,8 @@ public class HyperwalletListUserReceiptsTest {
         ReceiptQueryParam receiptQueryParam = builder.build();
 
         assertThat(receiptQueryParam, is(notNullValue()));
-        Hyperwallet.getDefault().listUserReceipts(receiptQueryParam, mListener);
+        final String prepaidCardToken = "trm-2345";
+        Hyperwallet.getDefault().listPrepaidCardReceipts(prepaidCardToken, receiptQueryParam, mListener);
 
         mAwait.await(150, TimeUnit.MILLISECONDS);
 
@@ -89,34 +89,30 @@ public class HyperwalletListUserReceiptsTest {
 
         HyperwalletPageList<Receipt> receiptResponse = mCaptor.getValue();
 
-        assertThat(receiptResponse.getCount(), is(2));
         assertThat(receiptResponse.getDataList(), hasSize(2));
-        assertThat(receiptResponse.getOffset(), is(0));
-        assertThat(receiptResponse.getLimit(), is(10));
 
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/receipts?"));
-        assertThat(recordedRequest.getPath(), containsString("limit=10"));
-        assertThat(recordedRequest.getPath(), containsString("offset=0"));
+                containsString(
+                        "/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards/trm-2345/receipts?"));
+        assertThat(recordedRequest.getPath(), containsString("limit"));
+        assertThat(recordedRequest.getPath(), containsString("offset"));
 
         Receipt receipt = receiptResponse.getDataList().get(0);
-        assertThat(receipt.getJournalId(), is("3051579"));
-        assertThat(receipt.getType(), is("PAYMENT"));
-        assertThat(receipt.getCreatedOn(), is("2017-11-01T17:08:58"));
+        assertThat(receipt.getJournalId(), is("ABCDE_CC002212334"));
+        assertThat(receipt.getType(), is("DEPOSIT"));
+        assertThat(receipt.getCreatedOn(), is("2019-06-01T17:12:19"));
         assertThat(receipt.getEntry(), is(Receipt.Entries.CREDIT));
-        assertThat(receipt.getSourceToken(), is("act-12345"));
-        assertThat(receipt.getDestinationToken(), is("usr-fbfd5848-60d0-43c5-8462-099c959b49c7"));
-        assertThat(receipt.getAmount(), is("20.00"));
-        assertThat(receipt.getFee(), is("0.00"));
+        assertThat(receipt.getDestinationToken(), is("trm-2345"));
+        assertThat(receipt.getAmount(), is("18.05"));
+        assertThat(receipt.getFee(), is(nullValue()));
         assertThat(receipt.getDetails(), is(notNullValue()));
         final ReceiptDetails receiptDetail = receipt.getDetails();
-        assertThat(receiptDetail.getClientPaymentId(), is("8OxXefx5"));
-        assertThat(receiptDetail.getPayeeName(), is("A Person"));
+        assertThat(receiptDetail.getCardNumber(), is("************7917"));
 
     }
 
     @Test
-    public void testListUserReceipts_returnsDebitReceipt() throws InterruptedException {
+    public void testListPrepaidCardReceipts_returnsDebitReceipt() throws InterruptedException {
 
         String responseBody = mExternalResourceManager.getResourceContent("receipt_debit_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
@@ -125,7 +121,8 @@ public class HyperwalletListUserReceiptsTest {
         ReceiptQueryParam receiptQueryParam = builder.build();
 
         assertThat(receiptQueryParam, is(notNullValue()));
-        Hyperwallet.getDefault().listUserReceipts(receiptQueryParam, mListener);
+        final String prepaidCardToken = "trm-2345";
+        Hyperwallet.getDefault().listPrepaidCardReceipts(prepaidCardToken, receiptQueryParam, mListener);
 
         mAwait.await(150, TimeUnit.MILLISECONDS);
 
@@ -136,38 +133,34 @@ public class HyperwalletListUserReceiptsTest {
 
         HyperwalletPageList<Receipt> receiptResponse = mCaptor.getValue();
 
-        assertThat(receiptResponse.getCount(), is(1));
         assertThat(receiptResponse.getDataList(), hasSize(1));
-        assertThat(receiptResponse.getOffset(), is(0));
-        assertThat(receiptResponse.getLimit(), is(10));
 
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/receipts?"));
-        assertThat(recordedRequest.getPath(), containsString("limit=10"));
-        assertThat(recordedRequest.getPath(), containsString("offset=0"));
+                containsString(
+                        "/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards/trm-2345/receipts?"));
 
         Receipt receipt = receiptResponse.getDataList().get(0);
         assertThat(receipt.getEntry(), is(Receipt.Entries.DEBIT));
     }
 
     @Test
-    public void testListUserReceipts_returnsNoReceipts() throws InterruptedException {
+    public void testListPrepaidCardReceipts_returnsNoReceipts() throws InterruptedException {
         mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody("").mock();
 
         final ReceiptQueryParam.Builder builder = new ReceiptQueryParam.Builder();
         ReceiptQueryParam receiptQueryParam = builder.build();
 
         assertThat(receiptQueryParam, is(notNullValue()));
-        Hyperwallet.getDefault().listUserReceipts(receiptQueryParam, mListener);
+        final String prepaidCardToken = "trm-2345";
+        Hyperwallet.getDefault().listPrepaidCardReceipts(prepaidCardToken, receiptQueryParam, mListener);
 
         mAwait.await(100, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/receipts?"));
-        assertThat(recordedRequest.getPath(), containsString("limit=10"));
-        assertThat(recordedRequest.getPath(), containsString("offset=0"));
+                containsString(
+                        "/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards/trm-2345/receipts?"));
 
         verify(mListener).onSuccess(mCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
@@ -177,14 +170,15 @@ public class HyperwalletListUserReceiptsTest {
     }
 
     @Test
-    public void testListUserReceipts_returnsError() throws InterruptedException {
+    public void testListPrepaidCardReceipts_returnsError() throws InterruptedException {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
         final ReceiptQueryParam.Builder builder = new ReceiptQueryParam.Builder();
         ReceiptQueryParam receiptQueryParam = builder.build();
 
-        Hyperwallet.getDefault().listUserReceipts(receiptQueryParam, mListener);
+        final String prepaidCardToken = "trm-2345";
+        Hyperwallet.getDefault().listPrepaidCardReceipts(prepaidCardToken, receiptQueryParam, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         verify(mListener, never()).onSuccess(ArgumentMatchers.<HyperwalletPageList<Receipt>>any());
@@ -208,9 +202,7 @@ public class HyperwalletListUserReceiptsTest {
         assertThat(hyperwalletError.getFieldName(), is(nullValue()));
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/receipts?"));
-        assertThat(recordedRequest.getPath(), containsString("limit=10"));
-        assertThat(recordedRequest.getPath(), containsString("offset=0"));
+                containsString(
+                        "/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards/trm-2345/receipts?"));
     }
-
 }
