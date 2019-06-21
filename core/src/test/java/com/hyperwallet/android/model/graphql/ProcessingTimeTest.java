@@ -46,5 +46,22 @@ public class ProcessingTimeTest {
                 + "}"));
         assertThat(actualProcessingTime, is(expectedProcessingTime));
         assertThat(actualProcessingTime.hashCode(), is(expectedProcessingTime.hashCode()));
+
+        ProcessingTime currencyProcessingTime = new ProcessingTime(new JSONObject("{\n"
+                + "  \"transferMethodType\": \"BANK_CARD\",\n"
+                + "  \"country\": \"CA\",\n"
+                + "  \"currency\": \"USD\",\n"
+                + "  \"value\": \"1-3 Business days\"\n"
+                + "}"));
+        assertThat(actualProcessingTime.equals(currencyProcessingTime), is(false));
+
+        ProcessingTime countryProcessingTime = new ProcessingTime(new JSONObject("{\n"
+                + "  \"transferMethodType\": \"BANK_CARD\",\n"
+                + "  \"country\": \"US\",\n"
+                + "  \"currency\": \"CAD\",\n"
+                + "  \"value\": \"1-3 Business days\"\n"
+                + "}"));
+        assertThat(actualProcessingTime.equals(countryProcessingTime), is(false));
+
     }
 }
