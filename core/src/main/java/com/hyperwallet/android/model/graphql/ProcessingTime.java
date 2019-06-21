@@ -23,6 +23,8 @@ import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
 
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 /**
  * Holds basic Processing time information.
  */
@@ -63,5 +65,23 @@ public final class ProcessingTime {
     @Nullable
     public String getValue() {
         return mValue;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ProcessingTime that = (ProcessingTime) o;
+
+        return Objects.equals(mCountry, that.mCountry)
+                && Objects.equals(mCurrency, that.mCurrency)
+                && Objects.equals(mValue, that.mValue)
+                && Objects.equals(mTransferMethodType, that.mTransferMethodType);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mCountry, mCurrency, mTransferMethodType, mValue);
     }
 }

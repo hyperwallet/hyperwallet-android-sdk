@@ -8,6 +8,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
+import static com.hyperwallet.android.model.user.HyperwalletUser.ProfileTypes.INDIVIDUAL;
+
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
@@ -97,6 +100,10 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
         HyperwalletTransferMethodConfigurationField resultFields = mResultArgumentCaptor.getValue();
 
         // assert fields
+        assertThat(resultFields.getFields().getCountry(), is("CA"));
+        assertThat(resultFields.getFields().getCurrency(), is("CAD"));
+        assertThat(resultFields.getFields().getProfile(), is(INDIVIDUAL));
+        assertThat(resultFields.getFields().getTransferMethodType(), is(BANK_ACCOUNT));
         assertThat(resultFields.getFields(), is(notNullValue()));
         assertThat(resultFields.getFields().getFieldGroups(), is(notNullValue()));
         assertThat(resultFields.getFields().getFieldGroups(),
