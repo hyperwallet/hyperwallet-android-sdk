@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 
 import com.hyperwallet.android.model.graphql.Connection;
 import com.hyperwallet.android.model.graphql.HyperwalletFee;
+import com.hyperwallet.android.model.graphql.ProcessingTime;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,9 +35,11 @@ public class TransferMethodConfigurationField {
 
     private static final String TRANSFER_FEE = "fees";
     private static final String TRANSFER_METHOD_CONFIGURATION = "transferMethodUIConfigurations";
+    private static final String PROCESSING_TIME = "processingTime";
 
     private final Connection<HyperwalletFee> mFeeConnection;
     private final Connection<HyperwalletTransferMethodConfiguration> mTransferMethodConfigurationConnection;
+    private final Connection<ProcessingTime> mProcessingTimeConnection;
 
     /**
      * Constructor to build transfer method configuration based on json
@@ -54,6 +57,13 @@ public class TransferMethodConfigurationField {
         mTransferMethodConfigurationConnection = new Connection<>
                 (configuration.getJSONObject(TRANSFER_METHOD_CONFIGURATION),
                         HyperwalletTransferMethodConfiguration.class);
+
+        JSONObject processingTime = configuration.optJSONObject(PROCESSING_TIME);
+        if (processingTime != null && processingTime.length() != 0) {
+            mProcessingTimeConnection = new Connection<>(processingTime, ProcessingTime.class);
+        } else {
+            mProcessingTimeConnection = null;
+        }
     }
 
     @Nullable
@@ -63,5 +73,10 @@ public class TransferMethodConfigurationField {
 
     public Connection<HyperwalletTransferMethodConfiguration> getTransferMethodConfigurationConnection() {
         return mTransferMethodConfigurationConnection;
+    }
+
+    @Nullable
+    public Connection<ProcessingTime> getProcessingTimeConnection() {
+        return mProcessingTimeConnection;
     }
 }

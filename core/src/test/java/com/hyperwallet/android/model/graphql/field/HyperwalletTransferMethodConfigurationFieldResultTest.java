@@ -33,6 +33,7 @@ public class HyperwalletTransferMethodConfigurationFieldResultTest {
                 new HyperwalletTransferMethodConfigurationFieldResult(jsonObject);
         assertThat(fieldResult.getFees(), hasSize(1));
         assertThat(fieldResult.getFields(), is(notNullValue()));
+        assertThat(fieldResult.getProcessingTime(), is(notNullValue()));
     }
 
     @Test

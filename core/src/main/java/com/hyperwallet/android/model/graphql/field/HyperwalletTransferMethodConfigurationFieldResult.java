@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import com.hyperwallet.android.model.graphql.GqlResponse;
 import com.hyperwallet.android.model.graphql.HyperwalletFee;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationField;
+import com.hyperwallet.android.model.graphql.ProcessingTime;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,5 +52,15 @@ public class HyperwalletTransferMethodConfigurationFieldResult
     @Nullable
     public List<HyperwalletFee> getFees() {
         return getData().getFeeConnection() != null ? getData().getFeeConnection().getNodes() : null;
+    }
+
+    @Override
+    @Nullable
+    public ProcessingTime getProcessingTime() {
+        return getData().getProcessingTimeConnection() != null
+                && getData().getProcessingTimeConnection().getNodes() != null
+                && !getData().getProcessingTimeConnection().getNodes().isEmpty()
+                ? getData().getProcessingTimeConnection().getNodes().get(0)
+                : null;
     }
 }

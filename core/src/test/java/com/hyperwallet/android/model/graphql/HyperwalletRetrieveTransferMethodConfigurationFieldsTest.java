@@ -8,6 +8,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.PREPAID_CARD;
+
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
@@ -79,10 +81,13 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
 
         // assert fees
         assertThat(resultFields.getFees(), is(nullValue()));
+
+        // assert processing time
+        assertThat(resultFields.getProcessingTime(), is(nullValue()));
     }
 
     @Test
-    public void testRetrieveTransferMethodConfigurationFields_returnsFieldsAndFees() throws Exception {
+    public void testRetrieveTransferMethodConfigurationFields_returnsFieldsAndFeesAndProcessingTime() throws Exception {
         // prepare test
         String responseBody = mExternalResourceManager.getResourceContent("tmc_get_fields_v2_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
@@ -168,6 +173,14 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
         assertThat(resultFields.getFees(), Matchers.<HyperwalletFee>hasSize(1));
         assertThat(resultFields.getFees().get(0).getValue(), is("5.00"));
         assertThat(resultFields.getFees().get(0).getFeeRateType(), is(HyperwalletFee.FeeRate.FLAT));
+
+        // assert Processing time
+        assertThat(resultFields.getProcessingTime(), is(notNullValue()));
+        ProcessingTime processingTime = resultFields.getProcessingTime();
+        assertThat(processingTime.getCountry(), is("CA"));
+        assertThat(processingTime.getCurrency(), is("CAD"));
+        assertThat(processingTime.getValue(), is("1-3 Business days"));
+        assertThat(processingTime.getTransferMethodType(), is(PREPAID_CARD));
     }
 
     @Test
@@ -195,5 +208,24 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
         HyperwalletError hyperwalletError = hyperwalletErrors.getErrors().get(0);
         assertThat(hyperwalletError.getCode(), is("DataFetchingException"));
         assertThat(hyperwalletError.getMessage(), is("Could not find any currency."));
+    }
+
+    @Test
+    public void testRetrieveTransferMethodConfigurationFields_returnsProcessingTime() throws InterruptedException {
+        // prepare test
+        String responseBody = mExternalResourceManager.getResourceContent("tmc_get_fields_v2_response.json");
+        mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
+
+        // run test
+        Hyperwallet.getDefault().retrieveTransferMethodConfigurationFields(mMockedQuery, mListener);
+        mAwait.await(100, TimeUnit.MILLISECONDS);
+
+        // retrieve response
+        verify(mListener).onSuccess(mResultArgumentCaptor.capture());
+        verify(mListener, never()).onFailure(any(HyperwalletException.class));
+        HyperwalletTransferMethodConfigurationField resultFields = mResultArgumentCaptor.getValue();
+
+        // assert processing time
+        assertThat(resultFields.getProcessingTime(), is(notNullValue()));
     }
 }
