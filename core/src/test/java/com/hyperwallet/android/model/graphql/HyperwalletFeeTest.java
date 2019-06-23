@@ -38,11 +38,50 @@ public class HyperwalletFeeTest {
 
         HyperwalletFee duplicateFee = fee;
         assertThat(fee.equals(duplicateFee), is(true));
+    }
 
-        String anotherData = mResourceManager.getResourceContent("fee_another_item.json");
-        JSONObject anotherJsonObject = new JSONObject(anotherData);
-        HyperwalletFee anotherFee = new HyperwalletFee(anotherJsonObject);
-        assertThat(fee.equals(anotherFee), is(false));
+    @Test
+    public void testHyperwalletFee_NonEqualsObjects() throws JSONException {
+        String data = mResourceManager.getResourceContent("fee_another_item.json");
+        JSONObject jsonObject = new JSONObject(data);
+        jsonObject.put("country", "CA");
+        jsonObject.put("currency", "CAD");
+        HyperwalletFee firstFee = new HyperwalletFee(new JSONObject("{\n"
+                + "  \"country\": \"CA\",\n"
+                + "  \"currency\": \"CAD\",\n"
+                + "  \"value\": \"15.00\",\n"
+                + "  \"feeRateType\": \"PERCENT\",\n"
+                + "  \"idToken\": \"12345\"\n"
+                + "}"));
+
+        HyperwalletFee secondFee = new HyperwalletFee(new JSONObject("{\n"
+                + "  \"country\": \"US\",\n"
+                + "  \"value\": \"15.00\",\n"
+                + "  \"feeRateType\": \"PERCENT\",\n"
+                + "  \"idToken\": \"12345\"\n"
+                + "}"));
+
+        assertThat(firstFee.equals(secondFee), is(false));
+
+        secondFee = new HyperwalletFee(new JSONObject("{\n"
+                + "  \"country\": \"CA\",\n"
+                + "  \"currency\": \"USD\",\n"
+                + "  \"value\": \"15.00\",\n"
+                + "  \"feeRateType\": \"PERCENT\",\n"
+                + "  \"idToken\": \"12345\"\n"
+                + "}"));
+
+        assertThat(firstFee.equals(secondFee), is(false));
+
+        secondFee = new HyperwalletFee(new JSONObject("{\n"
+                + "  \"country\": \"CA\",\n"
+                + "  \"currency\": \"CAD\",\n"
+                + "  \"value\": \"15.00\",\n"
+                + "  \"feeRateType\": \"FLAT\",\n"
+                + "  \"idToken\": \"12345\"\n"
+                + "}"));
+
+        assertThat(firstFee.equals(secondFee), is(false));
     }
 
 }
