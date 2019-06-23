@@ -85,7 +85,6 @@ public class QueryParam {
      * @return the valid integer value
      */
     @VisibleForTesting
-    @SuppressWarnings("unchecked")
     int getIntegerValue(@NonNull Map<String, String> urlQueryMap, @NonNull String queryKey,
             int defaultValue) {
         if (containsKeyAndHasValue(urlQueryMap, queryKey)) {
