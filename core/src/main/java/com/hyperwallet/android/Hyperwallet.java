@@ -722,6 +722,44 @@ public class Hyperwallet {
         performRestTransaction(builder, listener);
     }
 
+    /**
+     * Returns the list of prepaid card {@link Receipt}s for the User associated with the authentication token
+     * returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
+     * or an empty {@code List} if non exist.
+     *
+     * <p>The ordering and filtering of {@code HyperwalletReceipts} will be based on the criteria specified within
+     * the {@link ReceiptQueryParam} object, if it is not null.  Filters that is accepted in Prepaid card
+     * receipts are the following: Other filter settings will be discarded</p>
+     *
+     * <ul>
+     *     <li>Created Before: date before, based on <code>createdOn</code> </li>
+     *     <li>Created After: date after, based on <code>createdOn</code></li>
+     * </ul>
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param prepaidCardToken  the token for prepaid card
+     * @param receiptQueryParam the filtering criteria
+     * @param listener          the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void listPrepaidCardReceipts(@NonNull final String prepaidCardToken,
+            @Nullable final ReceiptQueryParam receiptQueryParam,
+            @NonNull final HyperwalletListener<HyperwalletPageList<Receipt>> listener) {
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(receiptQueryParam);
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/prepaid-cards/{1}/receipts", prepaidCardToken);
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<HyperwalletPageList<Receipt>>() {
+                }, listener).query(urlQuery);
+
+        performRestTransaction(builder, listener);
+    }
+
     private void performGqlTransaction(@NonNull final GqlTransaction.Builder builder,
             @NonNull final HyperwalletListener listener) {
         if (mConfiguration == null || mConfiguration.isStale()) {
