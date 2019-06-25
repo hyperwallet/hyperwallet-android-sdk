@@ -18,7 +18,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://localhost:8181/rest/v3/users/usr-b86ab524-2787-46e2-b536-5a70e37349f7/receipts?offset=0&limit=10"
+      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-b86ab524-2787-46e2-b536-5a70e37349f7/receipts?offset=0&limit=10"
     }
   ]
 }
