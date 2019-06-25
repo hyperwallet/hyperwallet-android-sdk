@@ -209,23 +209,4 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
         assertThat(hyperwalletError.getCode(), is("DataFetchingException"));
         assertThat(hyperwalletError.getMessage(), is("Could not find any currency."));
     }
-
-    @Test
-    public void testRetrieveTransferMethodConfigurationFields_returnsProcessingTime() throws InterruptedException {
-        // prepare test
-        String responseBody = mExternalResourceManager.getResourceContent("tmc_get_fields_v2_response.json");
-        mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
-
-        // run test
-        Hyperwallet.getDefault().retrieveTransferMethodConfigurationFields(mMockedQuery, mListener);
-        mAwait.await(100, TimeUnit.MILLISECONDS);
-
-        // retrieve response
-        verify(mListener).onSuccess(mResultArgumentCaptor.capture());
-        verify(mListener, never()).onFailure(any(HyperwalletException.class));
-        HyperwalletTransferMethodConfigurationField resultFields = mResultArgumentCaptor.getValue();
-
-        // assert processing time
-        assertThat(resultFields.getProcessingTime(), is(notNullValue()));
-    }
 }
