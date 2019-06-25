@@ -1,10 +1,14 @@
 package com.hyperwallet.android.model;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.Test;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class QueryParamTest {
@@ -35,5 +39,32 @@ public class QueryParamTest {
         Map<String, String> resultGetQueryMap = queryParam.buildQuery();
         assertThat(resultGetQueryMap.get("limit"), is("9"));
         assertThat(resultGetQueryMap.get("offset"), is("13"));
+    }
+
+    @Test
+    public void testBuildQuery_getDateFromMap() {
+
+        QueryParam queryParam = new QueryParam.Builder().build();
+        Map<String, String> queryMap = new HashMap<>();
+        queryMap.put("someDate", "2019-06-15T10:20:30");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2019, 5, 15, 10, 20, 30);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date date = queryParam.getDateValue(queryMap, "someDate");
+        assertThat(date, is(notNullValue()));
+        assertThat(date.getTime(), is(calendar.getTimeInMillis()));
+    }
+
+    @Test
+    public void testBuildQuery_getIntFromMap() {
+
+        Map<String, String> queryMap = new HashMap<>();
+        queryMap.put("someInt", "21");
+        QueryParam queryParam = new QueryParam.Builder().build();
+        int someInt = queryParam.getIntegerValue(queryMap, "someInt", 0);
+        int defaultInt = queryParam.getIntegerValue(queryMap, "incorrectKeyInt", 0);
+        assertThat(someInt, is(21));
+        assertThat(defaultInt, is(0));
     }
 }
