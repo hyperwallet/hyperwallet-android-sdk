@@ -33,6 +33,16 @@
                             "feeRateType": "FLAT"
                           }
                         ]
+                      },
+                      "processingTimes": {
+                        "nodes": [
+                          {
+                            "value": "1-3 Business days",
+                            "country": "CA",
+                            "currency": "CAD",
+                            "transferMethodType": "BANK_ACCOUNT"
+                          }
+                        ]
                       }
                     }
                   ]
@@ -114,7 +124,6 @@
                     {
                       "code": "BANK_ACCOUNT",
                       "name": "Bank Account",
-                      "processingTime": "1-3",
                       "fees": {
                         "nodes": [
                           {
@@ -135,7 +144,16 @@
                     {
                       "code": "BANK_ACCOUNT",
                       "name": "Bank Account",
-                      "processingTime": "1-3",
+                      "processingTimes": {
+                        "nodes": [
+                          {
+                            "value": "2-4 Business days",
+                            "country": "US",
+                            "currency": "USD",
+                            "transferMethodType": "BANK_ACCOUNT"
+                          }
+                        ]
+                      },
                       "fees": {
                         "nodes": [
                           {

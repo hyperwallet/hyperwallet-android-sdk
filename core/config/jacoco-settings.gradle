@@ -29,7 +29,7 @@ def fileFilter = ['**/R.class',
                   '**/com/hyperwallet/android/Hyperwallet.class',
                   '**/com/hyperwallet/android/Hyperwallet$*.class']
 def debugClassPaths = [
-        '**/intermediates/javac/devDebug/*/classes/**'
+        '**/intermediates/javac/debug/*/classes/**'
 ]
 
 final def coverageSourceDirs = ["$project.projectDir/src/main/java/*"]
