@@ -20,7 +20,16 @@
       }
     ]
   },
-  "processingTime": "3 days",
+  "processingTimes": {
+    "nodes": [
+      {
+        "value": "3 days",
+        "country": "CA",
+        "currency": "CAD",
+        "transferMethodType": "BANK_ACCOUNT"
+      }
+    ]
+  },
   "fields": [
     {
       "category": "ACCOUNT",

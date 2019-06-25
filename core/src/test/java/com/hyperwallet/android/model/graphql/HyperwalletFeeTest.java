@@ -49,39 +49,14 @@ public class HyperwalletFeeTest {
         HyperwalletFee firstFee = new HyperwalletFee(new JSONObject("{\n"
                 + "  \"country\": \"CA\",\n"
                 + "  \"currency\": \"CAD\",\n"
-                + "  \"value\": \"15.00\",\n"
                 + "  \"feeRateType\": \"PERCENT\",\n"
-                + "  \"idToken\": \"12345\"\n"
                 + "}"));
-
         HyperwalletFee secondFee = new HyperwalletFee(new JSONObject("{\n"
                 + "  \"country\": \"US\",\n"
                 + "  \"value\": \"15.00\",\n"
                 + "  \"feeRateType\": \"PERCENT\",\n"
-                + "  \"idToken\": \"12345\"\n"
-                + "}"));
-
-        assertThat(firstFee.equals(secondFee), is(false));
-
-        secondFee = new HyperwalletFee(new JSONObject("{\n"
-                + "  \"country\": \"CA\",\n"
-                + "  \"currency\": \"USD\",\n"
-                + "  \"value\": \"15.00\",\n"
-                + "  \"feeRateType\": \"PERCENT\",\n"
-                + "  \"idToken\": \"12345\"\n"
-                + "}"));
-
-        assertThat(firstFee.equals(secondFee), is(false));
-
-        secondFee = new HyperwalletFee(new JSONObject("{\n"
-                + "  \"country\": \"CA\",\n"
-                + "  \"currency\": \"CAD\",\n"
-                + "  \"value\": \"15.00\",\n"
-                + "  \"feeRateType\": \"FLAT\",\n"
-                + "  \"idToken\": \"12345\"\n"
                 + "}"));
 
         assertThat(firstFee.equals(secondFee), is(false));
     }
-
 }

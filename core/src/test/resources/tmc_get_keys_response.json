@@ -34,7 +34,7 @@
                           }
                         ]
                       },
-                      "processingTime": {
+                      "processingTimes": {
                         "nodes": [
                           {
                             "value": "1-3 Business days",
@@ -144,7 +144,7 @@
                     {
                       "code": "BANK_ACCOUNT",
                       "name": "Bank Account",
-                      "processingTime": {
+                      "processingTimes": {
                         "nodes": [
                           {
                             "value": "2-4 Business days",

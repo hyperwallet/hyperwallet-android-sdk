@@ -100,11 +100,13 @@ public class HyperwalletRetrieveTransferMethodConfigurationFieldsTest {
         HyperwalletTransferMethodConfigurationField resultFields = mResultArgumentCaptor.getValue();
 
         // assert fields
+        assertThat(resultFields.getFields(), is(notNullValue()));
         assertThat(resultFields.getFields().getCountry(), is("CA"));
         assertThat(resultFields.getFields().getCurrency(), is("CAD"));
         assertThat(resultFields.getFields().getProfile(), is(INDIVIDUAL));
         assertThat(resultFields.getFields().getTransferMethodType(), is(BANK_ACCOUNT));
-        assertThat(resultFields.getFields(), is(notNullValue()));
+        assertThat(resultFields.getFields().getTransferMethodType(), is(BANK_ACCOUNT));
+
         assertThat(resultFields.getFields().getFieldGroups(), is(notNullValue()));
         assertThat(resultFields.getFields().getFieldGroups(),
                 Matchers.<HyperwalletFieldGroup>hasSize(6));

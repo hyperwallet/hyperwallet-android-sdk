@@ -34,7 +34,7 @@ public class HyperwalletTransferMethodConfigurationKeysQueryTest {
                 + "\t\t\t\t\t\t\t\t\tminimum\n"
                 + "\t\t\t\t\t\t\t\t}\n"
                 + "\t\t\t\t\t\t\t}\n"
-                + "\t\t\t\t\t\t\tprocessingTime {\n"
+                + "\t\t\t\t\t\t\tprocessingTimes {\n"
                 + "\t\t\t\t\t\t\t\tnodes {\n"
                 + "\t\t\t\t\t\t\t\t\tcountry\n"
                 + "\t\t\t\t\t\t\t\t\tcurrency\n"

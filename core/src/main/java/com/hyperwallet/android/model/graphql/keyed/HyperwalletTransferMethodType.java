@@ -24,7 +24,7 @@ public class HyperwalletTransferMethodType implements KeyedNode {
     private static final String TRANSFER_METHOD_CODE = NODE_CODE;
     private static final String TRANSFER_METHOD_NAME = NODE_NAME;
     private static final String TRANSFER_METHOD_FEES = "fees";
-    private static final String TRANSFER_METHOD_PROCESSING_TIME = "processingTime";
+    private static final String TRANSFER_METHOD_PROCESSING_TIME = "processingTimes";
 
     private final Set<HyperwalletFee> mHyperwalletFees;
     private final String mCode;
