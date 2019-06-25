@@ -17,6 +17,7 @@
 
 package com.hyperwallet.android.model.graphql;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
@@ -39,7 +40,7 @@ public final class ProcessingTime {
     private final String mTransferMethodType;
     private final String mValue;
 
-    public ProcessingTime(JSONObject jsonObject) {
+    public ProcessingTime(@NonNull final JSONObject jsonObject) {
         mCountry = jsonObject.optString(COUNTRY);
         mCurrency = jsonObject.optString(CURRENCY);
         mTransferMethodType = jsonObject.optString(TRANSFER_METHOD_TYPE);
