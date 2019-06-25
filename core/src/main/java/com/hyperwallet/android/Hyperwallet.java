@@ -885,7 +885,6 @@ public class Hyperwallet {
     }
 
     @NonNull
-    @SuppressWarnings("unchecked")
     private Map<String, String> buildUrlQueryIfRequired(@Nullable QueryParam queryParam) {
         Map<String, String> queryMap;
         if (queryParam == null) {

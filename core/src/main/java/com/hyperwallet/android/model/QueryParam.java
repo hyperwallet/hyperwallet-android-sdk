@@ -22,6 +22,7 @@ import static com.hyperwallet.android.util.DateUtil.fromDateTimeString;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 import com.hyperwallet.android.util.DateUtil;
 
@@ -66,6 +67,7 @@ public class QueryParam {
      * @param queryKey    the key to get the object in the query map
      * @return the valid Date value or null
      */
+    @VisibleForTesting
     @Nullable
     protected final Date getDateValue(@NonNull Map<String, String> urlQueryMap, @NonNull String queryKey) {
         if (containsKeyAndHasValue(urlQueryMap, queryKey)) {
@@ -82,8 +84,8 @@ public class QueryParam {
      * @param defaultValue the default value will be returned if required
      * @return the valid integer value
      */
-    @SuppressWarnings("unchecked")
-    private int getIntegerValue(@NonNull Map<String, String> urlQueryMap, @NonNull String queryKey,
+    @VisibleForTesting
+    int getIntegerValue(@NonNull Map<String, String> urlQueryMap, @NonNull String queryKey,
             int defaultValue) {
         if (containsKeyAndHasValue(urlQueryMap, queryKey)) {
             try {
