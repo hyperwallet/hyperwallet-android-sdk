@@ -48,7 +48,7 @@
         }
       ]
     },
-    "processingTime": {
+    "processingTimes": {
       "nodes": [
         {
           "transferMethodType": "PREPAID_CARD",

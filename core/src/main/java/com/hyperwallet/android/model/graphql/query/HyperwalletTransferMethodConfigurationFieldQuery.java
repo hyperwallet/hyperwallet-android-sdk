@@ -89,7 +89,7 @@ public class HyperwalletTransferMethodConfigurationFieldQuery implements Hyperwa
                     + "\t\t\t\tcurrency\n"
                     + "\t\t}\n"
                     + "\t},\n"
-                    + "\tprocessingTime (idToken: $idToken, country: $country, currency: $currency, \n"
+                    + "\tprocessingTimes (idToken: $idToken, country: $country, currency: $currency, \n"
                     + "\t\t\ttransferMethodType: $transferMethodType"
                     + "\t\t\tnodes {\n"
                     + "\t\t\t\tcountry\n"

@@ -20,7 +20,16 @@
       }
     ]
   },
-  "processingTime": "3 days",
+  "processingTimes": {
+    "nodes": [
+      {
+        "transferMethodType": "PREPAID_CARD",
+        "country": "CA",
+        "currency": "CAD",
+        "value": "1-3 Business days"
+      }
+    ]
+  },
   "fields": [
     {
       "category": "ACCOUNT",

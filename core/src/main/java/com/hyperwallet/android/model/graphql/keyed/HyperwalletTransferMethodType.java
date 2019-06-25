@@ -22,7 +22,7 @@ public class HyperwalletTransferMethodType implements KeyedNode {
     private static final String TRANSFER_METHOD_CODE = NODE_CODE;
     private static final String TRANSFER_METHOD_NAME = NODE_NAME;
     private static final String TRANSFER_METHOD_FEES = "fees";
-    private static final String TRANSFER_METHOD_PROCESSING_TIME = "processingTime";
+    private static final String TRANSFER_METHOD_PROCESSING_TIMES = "processingTimes";
 
     private final Set<HyperwalletFee> mHyperwalletFees;
     private final String mCode;
@@ -39,7 +39,7 @@ public class HyperwalletTransferMethodType implements KeyedNode {
             NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         mCode = transferMethodType.optString(TRANSFER_METHOD_CODE);
         mName = transferMethodType.optString(TRANSFER_METHOD_NAME);
-        mProcessingTime = transferMethodType.optString(TRANSFER_METHOD_PROCESSING_TIME);
+        mProcessingTime = transferMethodType.optString(TRANSFER_METHOD_PROCESSING_TIMES);
         mHyperwalletFees = new LinkedHashSet<>(1);
         JSONObject fees = transferMethodType.optJSONObject(TRANSFER_METHOD_FEES);
         if (fees != null && fees.length() != 0) {

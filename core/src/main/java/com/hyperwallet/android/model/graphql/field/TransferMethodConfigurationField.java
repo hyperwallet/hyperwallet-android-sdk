@@ -35,7 +35,7 @@ public class TransferMethodConfigurationField {
 
     private static final String TRANSFER_FEE = "fees";
     private static final String TRANSFER_METHOD_CONFIGURATION = "transferMethodUIConfigurations";
-    private static final String PROCESSING_TIME = "processingTime";
+    private static final String PROCESSING_TIMES = "processingTimes";
 
     private final Connection<HyperwalletFee> mFeeConnection;
     private final Connection<HyperwalletTransferMethodConfiguration> mTransferMethodConfigurationConnection;
@@ -58,7 +58,7 @@ public class TransferMethodConfigurationField {
                 (configuration.getJSONObject(TRANSFER_METHOD_CONFIGURATION),
                         HyperwalletTransferMethodConfiguration.class);
 
-        JSONObject processingTime = configuration.optJSONObject(PROCESSING_TIME);
+        JSONObject processingTime = configuration.optJSONObject(PROCESSING_TIMES);
         if (processingTime != null && processingTime.length() != 0) {
             mProcessingTimeConnection = new Connection<>(processingTime, ProcessingTime.class);
         } else {
