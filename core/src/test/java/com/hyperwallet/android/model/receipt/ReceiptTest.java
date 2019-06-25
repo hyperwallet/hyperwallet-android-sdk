@@ -25,6 +25,7 @@ import android.os.Parcel;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
+import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -115,5 +116,24 @@ public class ReceiptTest {
         assertThat(receiptDetails, is(notNullValue()));
         assertThat(receiptDetails.getClientPaymentId(), is(equalTo("8OxXefx5")));
         assertThat(receiptDetails.getPayeeName(), is(equalTo("A Person")));
+    }
+
+    @Test
+    public void testFromJsonString_equals() throws Exception {
+        Receipt sampleReceipt = new Receipt(new JSONObject("{\n"
+                + "  \"entry\": \"CREDIT\",\n"
+                + "  \"journalId\": \"3051579\",\n"
+                + "  \"type\": \"PAYMENT\",\n"
+                + "  \"createdOn\": \"2019-07-01T17:08:58\"\n"
+                + "}"));
+
+        Receipt debitReceipt = new Receipt(new JSONObject("{\n"
+                + "  \"entry\": \"DEBIT\",\n"
+                + "  \"journalId\": \"3051579\",\n"
+                + "  \"type\": \"PAYMENT\",\n"
+                + "  \"createdOn\": \"2019-07-01T17:08:58\"\n"
+                + "}"));
+
+        assertThat(sampleReceipt.equals(debitReceipt), is(false));
     }
 }
