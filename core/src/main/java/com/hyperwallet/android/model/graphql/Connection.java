@@ -34,9 +34,8 @@ import java.util.List;
  */
 public class Connection<T> {
 
-    public static final String COUNT = "count";
-    public static final String NODES = "nodes";
-    private static final String TAG = Connection.class.getName();
+    private static final String COUNT = "count";
+    private static final String NODES = "nodes";
     private static final String PAGE_INFO = "pageInfo";
 
     private static final long DEFAULT_COUNT = 0L;
@@ -85,5 +84,9 @@ public class Connection<T> {
     @Nullable
     public PageInfo getPageInfo() {
         return mPageInfo;
+    }
+
+    public static boolean isEmpty(@Nullable final Connection connection) {
+        return connection != null && connection.getNodes() != null && !connection.getNodes().isEmpty();
     }
 }

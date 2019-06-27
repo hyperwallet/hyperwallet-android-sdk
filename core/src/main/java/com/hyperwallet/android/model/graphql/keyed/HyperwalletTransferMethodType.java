@@ -50,7 +50,8 @@ public class HyperwalletTransferMethodType implements KeyedNode {
     }
 
     /**
-     * @return Transfer method type code @see {@link TransferMethodTypes}
+     * @return Transfer method type code
+     * @see TransferMethodTypes
      */
     @NonNull
     @Override
@@ -72,7 +73,7 @@ public class HyperwalletTransferMethodType implements KeyedNode {
      */
     @NonNull
     public Set<HyperwalletFee> getFees() {
-        if (mFeeConnection != null && mHyperwalletFees.isEmpty()) {
+        if (!Connection.isEmpty(mFeeConnection)) {
             mHyperwalletFees.addAll(mFeeConnection.getNodes());
             return mHyperwalletFees;
         }
