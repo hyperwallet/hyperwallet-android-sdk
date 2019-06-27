@@ -48,6 +48,22 @@ public class HyperwalletTransferMethodConfigurationFieldResultTest {
     }
 
     @Test
+    public void testTransferMethodConfigurationFieldResult_convertJsonWithEmptyProcessingTime()
+            throws JSONException, ReflectiveOperationException {
+        String data = mResourceManager.getResourceContent("tmc_field_response.json");
+        JSONObject jsonObject = new JSONObject(data);
+        JSONObject processingTimeObject = jsonObject.getJSONObject("data").getJSONObject("processingTimes");
+        processingTimeObject.getJSONArray("nodes").remove(0);
+        HyperwalletTransferMethodConfigurationFieldResult fieldResult =
+                new HyperwalletTransferMethodConfigurationFieldResult(jsonObject);
+        assertThat(fieldResult.getProcessingTime(), is(nullValue()));
+
+        processingTimeObject.remove("nodes");
+        fieldResult = new HyperwalletTransferMethodConfigurationFieldResult(jsonObject);
+        assertThat(fieldResult.getProcessingTime(), is(nullValue()));
+    }
+
+    @Test
     public void testTransferMethodConfigurationFieldResult_convertIncorrectJsonObject()
             throws JSONException, ReflectiveOperationException {
         mThrown.expect(JSONException.class);

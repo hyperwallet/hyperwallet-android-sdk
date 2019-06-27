@@ -58,9 +58,7 @@ public class HyperwalletTransferMethodConfigurationFieldResult
     @Nullable
     public ProcessingTime getProcessingTime() {
         return getData().getProcessingTimeConnection() != null
-                && getData().getProcessingTimeConnection().getNodes() != null
-                && !getData().getProcessingTimeConnection().getNodes().isEmpty()
-                ? getData().getProcessingTimeConnection().getNodes().get(0)
+                ? getData().getProcessingTimeConnection().getNodeAt(0)
                 : null;
     }
 }
