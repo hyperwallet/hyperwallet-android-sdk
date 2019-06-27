@@ -86,4 +86,9 @@ public class Connection<T> {
     public PageInfo getPageInfo() {
         return mPageInfo;
     }
+
+    public static List getConnectionNodes(@Nullable final Connection connection) {
+        return connection != null && connection.getNodes() != null && !connection.getNodes().isEmpty() ?
+                connection.getNodes() : null;
+    }
 }
