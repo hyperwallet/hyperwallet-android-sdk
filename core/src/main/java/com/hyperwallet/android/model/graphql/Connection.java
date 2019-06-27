@@ -87,6 +87,12 @@ public class Connection<T> {
         return mPageInfo;
     }
 
+    /**
+     * Returns nodes if they exist, null otherwise
+     * @param connection Connection object
+     * @return nodes
+     */
+    @Nullable
     public static List getConnectionNodes(@Nullable final Connection connection) {
         return connection != null && connection.getNodes() != null && !connection.getNodes().isEmpty() ?
                 connection.getNodes() : null;
