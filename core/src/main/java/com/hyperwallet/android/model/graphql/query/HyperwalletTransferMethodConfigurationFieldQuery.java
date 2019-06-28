@@ -102,8 +102,8 @@ public class HyperwalletTransferMethodConfigurationFieldQuery implements Hyperwa
      *
      * @param country            the 2 letter ISO 3166-1 country code
      * @param currency           the 3 letter ISO 4217-1 currency code
-     * @param transferMethodType @see
-     *                           {@link HyperwalletTransferMethod.TransferMethodTypes}
+     * @param transferMethodType available transfer types defined in
+     * {@link HyperwalletTransferMethod.TransferMethodTypes}
      * @param profile            {@code INDIVIDUAL} or {@code BUSINESS}
      */
     public HyperwalletTransferMethodConfigurationFieldQuery(final @NonNull String country,

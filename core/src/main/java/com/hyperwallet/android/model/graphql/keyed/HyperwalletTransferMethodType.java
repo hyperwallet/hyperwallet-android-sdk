@@ -50,7 +50,8 @@ public class HyperwalletTransferMethodType implements KeyedNode {
     }
 
     /**
-     * @return Transfer method type code @see {@link TransferMethodTypes}
+     * @return Transfer method type code
+     * @see TransferMethodTypes
      */
     @NonNull
     @Override

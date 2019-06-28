@@ -29,7 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the object to hold list of Hyperwallet Error @see {@link com.hyperwallet.android.HttpTransaction}
+ * Represents the object to hold list of Hyperwallet Error
+ * @see com.hyperwallet.android.HttpTransaction
  */
 public class HyperwalletErrors {
 
