@@ -88,13 +88,11 @@ public class Connection<T> {
     }
 
     /**
-     * Returns nodes if they exist, null otherwise
+     * Returns true if connection has nodes, false otherwise
      * @param connection Connection object
      * @return nodes
      */
-    @Nullable
-    public static List getConnectionNodes(@Nullable final Connection connection) {
-        return connection != null && connection.getNodes() != null && !connection.getNodes().isEmpty() ?
-                connection.getNodes() : null;
+    public static boolean hasNodes(@Nullable final Connection connection) {
+        return connection != null && connection.getNodes() != null && !connection.getNodes().isEmpty();
     }
 }

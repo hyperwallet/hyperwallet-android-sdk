@@ -1,6 +1,6 @@
 package com.hyperwallet.android.model.graphql.keyed;
 
-import static com.hyperwallet.android.model.graphql.Connection.getConnectionNodes;
+import static com.hyperwallet.android.model.graphql.Connection.hasNodes;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -83,7 +83,7 @@ public class HyperwalletTransferMethodType implements KeyedNode {
      */
     @NonNull
     public Set<HyperwalletFee> getFees() {
-        if (getConnectionNodes(mFeeConnection) != null && mHyperwalletFees.isEmpty()) {
+        if (hasNodes(mFeeConnection) && mHyperwalletFees.isEmpty()) {
             mHyperwalletFees.addAll(mFeeConnection.getNodes());
             return mHyperwalletFees;
         }
@@ -97,7 +97,7 @@ public class HyperwalletTransferMethodType implements KeyedNode {
      */
     @Nullable
     public ProcessingTime getProcessingTime() {
-        if (getConnectionNodes(mProcessingTimeConnection) != null && mProcessingTime == null) {
+        if (hasNodes(mProcessingTimeConnection) && mProcessingTime == null) {
             mProcessingTime = mProcessingTimeConnection.getNodes().get(0);
             return mProcessingTime;
         }
