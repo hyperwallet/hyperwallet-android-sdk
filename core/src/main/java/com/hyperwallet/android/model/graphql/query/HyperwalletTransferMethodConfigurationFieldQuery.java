@@ -88,6 +88,15 @@ public class HyperwalletTransferMethodConfigurationFieldQuery implements Hyperwa
                     + "\t\t\t\tcountry\n"
                     + "\t\t\t\tcurrency\n"
                     + "\t\t}\n"
+                    + "\t},\n"
+                    + "\tprocessingTimes (idToken: $idToken, country: $country, currency: $currency, \n"
+                    + "\t\t\ttransferMethodType: $transferMethodType"
+                    + "\t\t\tnodes {\n"
+                    + "\t\t\t\tcountry\n"
+                    + "\t\t\t\tcurrency\n"
+                    + "\t\t\t\ttransferMethodType\n"
+                    + "\t\t\t\tvalue\n"
+                    + "\t\t}\n"
                     + "\t}\n"
                     + "}";
 
@@ -102,8 +111,7 @@ public class HyperwalletTransferMethodConfigurationFieldQuery implements Hyperwa
      *
      * @param country            the 2 letter ISO 3166-1 country code
      * @param currency           the 3 letter ISO 4217-1 currency code
-     * @param transferMethodType @see
-     *                           {@link HyperwalletTransferMethod.TransferMethodTypes}
+     * @param transferMethodType @see {@link HyperwalletTransferMethod.TransferMethodTypes}
      * @param profile            {@code INDIVIDUAL} or {@code BUSINESS}
      */
     public HyperwalletTransferMethodConfigurationFieldQuery(final @NonNull String country,

@@ -70,6 +70,15 @@ public class HyperwalletTransferMethodConfigurationFieldQueryTest {
                         + "\t\t\t\tcountry\n"
                         + "\t\t\t\tcurrency\n"
                         + "\t\t}\n"
+                        + "\t},\n"
+                        + "\tprocessingTimes (idToken: $idToken, country: $country, currency: $currency, \n"
+                        + "\t\t\ttransferMethodType: $transferMethodType"
+                        + "\t\t\tnodes {\n"
+                        + "\t\t\t\tcountry\n"
+                        + "\t\t\t\tcurrency\n"
+                        + "\t\t\t\ttransferMethodType\n"
+                        + "\t\t\t\tvalue\n"
+                        + "\t\t}\n"
                         + "\t}\n"
                         + "}",
                 "usr-2ff94da8-f0f6-4d7e-a99a-d13c7de8deaf", "CA", "CAD", "BANK_ACCOUNT", "INDIVIDUAL");

@@ -86,4 +86,19 @@ public class Connection<T> {
     public PageInfo getPageInfo() {
         return mPageInfo;
     }
+
+    /**
+     * Get node at the specified index.
+     *
+     * @param index Index of an element inside List of Nodes.
+     * @return Node with the specific type defined at this class.
+     * It will return a null in case if there are no Nodes.
+     */
+    @Nullable
+    public T getNodeAt(int index) {
+        if (mNodes == null || index >= mNodes.size()) {
+            return null;
+        }
+        return mNodes.get(index);
+    }
 }

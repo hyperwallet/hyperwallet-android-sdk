@@ -43,7 +43,7 @@ public class HyperwalletTransferMethodConfigurationKeysQuery implements Hyperwal
                     + "\t\t\t\t\t\tnodes {\n"
                     + "\t\t\t\t\t\t\tcode\n"
                     + "\t\t\t\t\t\t\tname\n"
-                    + "\t\t\t\t\t\t\tprocessingTime\n"
+                    + "\t\t\t\t\t\t\tprocessingTimes\n"
                     + "\t\t\t\t\t\t\tfees {\n"
                     + "\t\t\t\t\t\t\t\tnodes {\n"
                     + "\t\t\t\t\t\t\t\t\tcountry\n"
