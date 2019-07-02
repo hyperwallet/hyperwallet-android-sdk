@@ -33,6 +33,7 @@ public class ProcessingTimeTest {
         assertThat(processingTime.getValue(), is("1-3 Business days"));
     }
 
+
     @Test
     public void testProcessingTime_equalsHashCode() throws JSONException {
         String jsonResponse = mExternalResourceManager.getResourceContent(
@@ -48,4 +49,5 @@ public class ProcessingTimeTest {
         assertEquals(actualProcessingTime, expectedProcessingTime);
         assertThat(actualProcessingTime.hashCode(), is(expectedProcessingTime.hashCode()));
     }
+
 }

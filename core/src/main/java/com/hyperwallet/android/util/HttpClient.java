@@ -37,6 +37,7 @@ import java.util.Map;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public final class HttpClient {
     private static final String TAG = HttpClient.class.getName();
+    private static final int DEFAULT_TIMEOUT = 10_000;
 
     private final Map<String, String> mQueryMap;
     private final Map<String, String> mHeaderMap;
@@ -138,8 +139,8 @@ public final class HttpClient {
             mBaseUrl = baseUrl;
             mQueryMap = new HashMap<>();
             mHeaderMap = new HashMap<>();
-            mConnectTimeout = 5_000;
-            mReadTimeout = 5_000;
+            mConnectTimeout = DEFAULT_TIMEOUT;
+            mReadTimeout = DEFAULT_TIMEOUT;
         }
 
         public Builder putHeaders(final Map<String, String> headers) {
@@ -178,7 +179,7 @@ public final class HttpClient {
          * time for waiting to read IO operations.
          * @param milliseconds
          *
-         * <p>The default timeout value is 5 seconds<p/>
+         * <p>The default timeout value is 10 seconds<p/>
          */
         public Builder readTimeout(int milliseconds) {
             if (milliseconds < 0) {
