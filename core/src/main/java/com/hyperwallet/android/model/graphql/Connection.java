@@ -34,8 +34,9 @@ import java.util.List;
  */
 public class Connection<T> {
 
-    public static final String NODES = "nodes";
     public static final String COUNT = "count";
+    public static final String NODES = "nodes";
+    private static final String TAG = Connection.class.getName();
     private static final String PAGE_INFO = "pageInfo";
 
     private static final long DEFAULT_COUNT = 0L;
@@ -84,6 +85,21 @@ public class Connection<T> {
     @Nullable
     public PageInfo getPageInfo() {
         return mPageInfo;
+    }
+
+    /**
+     * Get node at the specified index.
+     *
+     * @param index Index of an element inside List of Nodes.
+     * @return Node with the specific type defined at this class.
+     * It will return a null in case if there are no Nodes.
+     */
+    @Nullable
+    public T getNodeAt(int index) {
+        if (mNodes == null || index >= mNodes.size()) {
+            return null;
+        }
+        return mNodes.get(index);
     }
 
     /**

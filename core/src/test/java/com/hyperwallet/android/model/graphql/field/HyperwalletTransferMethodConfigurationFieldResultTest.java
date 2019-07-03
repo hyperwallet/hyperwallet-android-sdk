@@ -33,6 +33,7 @@ public class HyperwalletTransferMethodConfigurationFieldResultTest {
                 new HyperwalletTransferMethodConfigurationFieldResult(jsonObject);
         assertThat(fieldResult.getFees(), hasSize(1));
         assertThat(fieldResult.getFields(), is(notNullValue()));
+        assertThat(fieldResult.getProcessingTime(), is(notNullValue()));
     }
 
     @Test
@@ -44,6 +45,22 @@ public class HyperwalletTransferMethodConfigurationFieldResultTest {
         HyperwalletTransferMethodConfigurationFieldResult fieldResult =
                 new HyperwalletTransferMethodConfigurationFieldResult(jsonObject);
         assertThat(fieldResult.getFields(), is(nullValue()));
+    }
+
+    @Test
+    public void testTransferMethodConfigurationFieldResult_convertJsonWithEmptyProcessingTime()
+            throws JSONException, ReflectiveOperationException {
+        String data = mResourceManager.getResourceContent("tmc_field_response.json");
+        JSONObject jsonObject = new JSONObject(data);
+        JSONObject processingTimeObject = jsonObject.getJSONObject("data").getJSONObject("processingTimes");
+        processingTimeObject.getJSONArray("nodes").remove(0);
+        HyperwalletTransferMethodConfigurationFieldResult fieldResult =
+                new HyperwalletTransferMethodConfigurationFieldResult(jsonObject);
+        assertThat(fieldResult.getProcessingTime(), is(nullValue()));
+
+        processingTimeObject.remove("nodes");
+        fieldResult = new HyperwalletTransferMethodConfigurationFieldResult(jsonObject);
+        assertThat(fieldResult.getProcessingTime(), is(nullValue()));
     }
 
     @Test
