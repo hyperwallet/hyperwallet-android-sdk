@@ -4,15 +4,11 @@
   "processingTimes": {
     "nodes": [
       {
-        "value": "1-3 Business days",
-        "country": "CA",
-        "currency": "CAD",
-        "transferMethodType": "BANK_ACCOUNT"
+        "country": "US",
+        "currency": "USD",
+        "transferMethodType": "BANK_ACCOUNT",
+        "value": "1-3 Business days"
       }
-    ]
-  },
-  "fees": {
-    "nodes": [
     ]
   }
 }
