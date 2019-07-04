@@ -17,6 +17,7 @@
 
 package com.hyperwallet.android.model.graphql.query;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
 /**
@@ -79,12 +80,12 @@ public class HyperwalletTransferMethodConfigurationKeysQuery implements Hyperwal
     /**
      * {@inheritDoc}
      *
-     * @param idToken {@inheritDoc}
+     * @param userToken {@inheritDoc}
      * @return {@inheritDoc}
      */
     @Override
-    public String toQuery(String idToken) {
-        return String.format(GRAPH_QL_REQUEST_CONFIGURATION, idToken);
+    public String toQuery(@NonNull final String userToken) {
+        return String.format(GRAPH_QL_REQUEST_CONFIGURATION, userToken);
     }
 }
 
