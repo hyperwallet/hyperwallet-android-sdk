@@ -119,7 +119,7 @@ public class ReceiptTest {
     }
 
     @Test
-    public void testFromJsonString_IsEqual() throws Exception {
+    public void testFromJsonString_isEqual() throws Exception {
         Receipt sampleReceipt = new Receipt(new JSONObject("{\n"
                 + "  \"entry\": \"CREDIT\",\n"
                 + "  \"journalId\": \"3051579\",\n"
