@@ -72,7 +72,7 @@ public class HyperwalletTransferMethodConfigurationFieldQueryTest {
                         + "\t\t}\n"
                         + "\t},\n"
                         + "\tprocessingTimes (idToken: $idToken, country: $country, currency: $currency, \n"
-                        + "\t\t\ttransferMethodType: $transferMethodType"
+                        + "\t\t\ttransferMethodType: $transferMethodType) {\n"
                         + "\t\t\tnodes {\n"
                         + "\t\t\t\tcountry\n"
                         + "\t\t\t\tcurrency\n"
