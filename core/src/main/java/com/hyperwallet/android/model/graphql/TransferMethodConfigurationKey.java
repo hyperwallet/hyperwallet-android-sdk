@@ -54,7 +54,7 @@ public class TransferMethodConfigurationKey {
 
     @NonNull
     public Set<Country> getCountries() {
-        if (hasNodes(mCountryMappedConnection)) {
+        if (mCountries.isEmpty() && hasNodes(mCountryMappedConnection)) {
             mCountries.addAll(mCountryMappedConnection.getNodes());
             return mCountries;
         }

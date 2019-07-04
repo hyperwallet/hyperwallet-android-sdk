@@ -119,7 +119,7 @@ public class ReceiptTest {
     }
 
     @Test
-    public void testFromJsonString_equals() throws Exception {
+    public void testFromJsonString_IsEqual() throws Exception {
         Receipt sampleReceipt = new Receipt(new JSONObject("{\n"
                 + "  \"entry\": \"CREDIT\",\n"
                 + "  \"journalId\": \"3051579\",\n"
@@ -128,12 +128,12 @@ public class ReceiptTest {
                 + "}"));
 
         Receipt debitReceipt = new Receipt(new JSONObject("{\n"
-                + "  \"entry\": \"DEBIT\",\n"
+                + "  \"entry\": \"CREDIT\",\n"
                 + "  \"journalId\": \"3051579\",\n"
                 + "  \"type\": \"PAYMENT\",\n"
-                + "  \"createdOn\": \"2019-07-01T17:08:58\"\n"
+                + "  \"createdOn\": \"2019-07-01T18:08:58\"\n"
                 + "}"));
 
-        assertThat(sampleReceipt.equals(debitReceipt), is(false));
+        assertThat(sampleReceipt.equals(debitReceipt), is(true));
     }
 }

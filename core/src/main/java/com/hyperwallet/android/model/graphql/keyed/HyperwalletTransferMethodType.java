@@ -84,7 +84,7 @@ public class HyperwalletTransferMethodType implements KeyedNode {
      */
     @NonNull
     public Set<HyperwalletFee> getFees() {
-        if (hasNodes(mFeeConnection) && mHyperwalletFees.isEmpty()) {
+        if (mHyperwalletFees.isEmpty() && hasNodes(mFeeConnection)) {
             mHyperwalletFees.addAll(mFeeConnection.getNodes());
             return mHyperwalletFees;
         }
@@ -98,7 +98,7 @@ public class HyperwalletTransferMethodType implements KeyedNode {
      */
     @Nullable
     public ProcessingTime getProcessingTime() {
-        if (hasNodes(mProcessingTimeConnection) && mProcessingTime == null) {
+        if (mProcessingTime == null && hasNodes(mProcessingTimeConnection)) {
             mProcessingTime = mProcessingTimeConnection.getNodes().get(0);
             return mProcessingTime;
         }
