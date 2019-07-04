@@ -157,6 +157,7 @@ public class HyperwalletBankAccountQueryParamTest {
         HyperwalletBankAccountQueryParam queryParam = new HyperwalletBankAccountQueryParam.Builder()
                 .offset(100)
                 .limit(20)
+                .type(BANK_ACCOUNT)
                 .sortByCreatedOnDesc()
                 .status(ACTIVATED)
                 .createdAfter(dateAfter.getTime())
@@ -170,11 +171,5 @@ public class HyperwalletBankAccountQueryParamTest {
         assertThat(queryParam.getType(), is(BANK_ACCOUNT));
         assertThat(queryParam.getCreatedAfter().getTime(), is(dateAfter.getTimeInMillis()));
         assertThat(queryParam.getCreatedBefore().getTime(), is(dateBefore.getTimeInMillis()));
-
-        queryParam = new HyperwalletBankAccountQueryParam.Builder()
-                .type(BANK_ACCOUNT)
-                .build();
-        assertThat(queryParam.getType(), is(BANK_ACCOUNT));
-
     }
 }
