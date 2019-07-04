@@ -84,4 +84,5 @@ public final class ProcessingTime {
     public int hashCode() {
         return Objects.hash(mCountry, mCurrency, mTransferMethodType);
     }
+
 }

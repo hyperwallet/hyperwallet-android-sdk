@@ -38,7 +38,9 @@ public class HyperwalletTransferMethodTypeTest {
         HyperwalletTransferMethodType transferMethodType = new HyperwalletTransferMethodType(jsonObject);
         assertThat(transferMethodType.getCode(), is(BANK_ACCOUNT));
         assertThat(transferMethodType.getName(), is("Bank Account"));
-        assertThat(transferMethodType.getProcessingTime(), is("1-3"));
+        assertThat(transferMethodType.getProcessingTime().getValue(), is("1-3 Business days"));
+        assertThat(transferMethodType.getProcessingTime().getCountry(), is("US"));
+        assertThat(transferMethodType.getProcessingTime().getCurrency(), is("USD"));
         assertThat(transferMethodType.getFees(), hasSize(1));
         final Set<HyperwalletFee> fees = transferMethodType.getFees();
         List<HyperwalletFee> feeList = new ArrayList<>(fees);
@@ -53,7 +55,7 @@ public class HyperwalletTransferMethodTypeTest {
         HyperwalletTransferMethodType transferMethodType = new HyperwalletTransferMethodType(jsonObject);
         assertThat(transferMethodType.getCode(), is(BANK_ACCOUNT));
         assertThat(transferMethodType.getName(), is("Bank Account"));
-        assertThat(transferMethodType.getProcessingTime(), is("1-3"));
+        assertThat(transferMethodType.getProcessingTime().getValue(), is("1-3 Business days"));
         assertThat(transferMethodType.getFees(), is(empty()));
     }
 
@@ -79,7 +81,15 @@ public class HyperwalletTransferMethodTypeTest {
         assertThat(transferMethodType.equals(anotherNameTransferMethodType), is(false));
 
         jsonObject.put("name", "Bank Account");
-        jsonObject.put("processingTimes", "2-5");
+        final JSONObject processingTimeJsonObject = new JSONObject("{\n"
+                + "  \"transferMethodType\": \"BANK_ACCOUNT\",\n"
+                + "  \"country\": \"CA\",\n"
+                + "  \"currency\": \"USD\",\n"
+                + "  \"value\": \"2-5 Business days\"\n"
+                + "}");
+
+        jsonObject.put("processingTimes", processingTimeJsonObject);
+
         HyperwalletTransferMethodType anotherTimeTransferMethodType = new HyperwalletTransferMethodType(jsonObject);
         assertThat(transferMethodType.equals(anotherTimeTransferMethodType), is(false));
     }

@@ -11,15 +11,12 @@ import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMe
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON;
 
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountQueryParam;
-import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
-import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Map;
 
 @RunWith(RobolectricTestRunner.class)
@@ -160,6 +157,7 @@ public class HyperwalletBankAccountQueryParamTest {
         HyperwalletBankAccountQueryParam queryParam = new HyperwalletBankAccountQueryParam.Builder()
                 .offset(100)
                 .limit(20)
+                .type(BANK_ACCOUNT)
                 .sortByCreatedOnDesc()
                 .status(ACTIVATED)
                 .createdAfter(dateAfter.getTime())

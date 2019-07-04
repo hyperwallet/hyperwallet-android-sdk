@@ -101,4 +101,13 @@ public class Connection<T> {
         }
         return mNodes.get(index);
     }
+
+    /**
+     * Returns true if connection has nodes, false otherwise
+     * @param connection Connection object
+     * @return nodes
+     */
+    public static boolean hasNodes(@Nullable final Connection connection) {
+        return connection != null && connection.getNodes() != null && !connection.getNodes().isEmpty();
+    }
 }

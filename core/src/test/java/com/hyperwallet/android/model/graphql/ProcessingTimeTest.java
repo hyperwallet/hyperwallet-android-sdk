@@ -1,8 +1,7 @@
 package com.hyperwallet.android.model.graphql;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
 
@@ -46,8 +45,17 @@ public class ProcessingTimeTest {
                 + "  \"currency\": \"CAD\",\n"
                 + "  \"value\": \"1-2\"\n"
                 + "}"));
-        assertEquals(actualProcessingTime, expectedProcessingTime);
+        assertThat(actualProcessingTime.equals(expectedProcessingTime), is(true));
         assertThat(actualProcessingTime.hashCode(), is(expectedProcessingTime.hashCode()));
+
+        ProcessingTime anotherProcessingTime = new ProcessingTime(new JSONObject("{\n"
+                + "  \"transferMethodType\": \"BANK_CARD\",\n"
+                + "  \"country\": \"US\",\n"
+                + "  \"currency\": \"CAD\",\n"
+                + "  \"value\": \"1-2\"\n"
+                + "}"));
+        assertThat(anotherProcessingTime.equals(expectedProcessingTime), is(false));
     }
+
 
 }
