@@ -1,9 +1,13 @@
 package com.hyperwallet.android.model.graphql.keyed;
 
+import static com.hyperwallet.android.model.graphql.Connection.hasNodes;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.hyperwallet.android.model.graphql.Connection;
 import com.hyperwallet.android.model.graphql.HyperwalletFee;
+import com.hyperwallet.android.model.graphql.ProcessingTime;
 import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes;
 
 import org.json.JSONException;
@@ -22,13 +26,14 @@ public class HyperwalletTransferMethodType implements KeyedNode {
     private static final String TRANSFER_METHOD_CODE = NODE_CODE;
     private static final String TRANSFER_METHOD_NAME = NODE_NAME;
     private static final String TRANSFER_METHOD_FEES = "fees";
-    private static final String TRANSFER_METHOD_PROCESSING_TIME = "processingTime";
+    private static final String TRANSFER_METHOD_PROCESSING_TIMES = "processingTimes";
 
     private final Set<HyperwalletFee> mHyperwalletFees;
     private final String mCode;
     private final Connection<HyperwalletFee> mFeeConnection;
     private final String mName;
-    private final String mProcessingTime;
+    private final Connection<ProcessingTime> mProcessingTimeConnection;
+    private ProcessingTime mProcessingTime;
 
     /**
      * Constructor to build HyperwalletTransferMethodType based on json
@@ -39,13 +44,19 @@ public class HyperwalletTransferMethodType implements KeyedNode {
             NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         mCode = transferMethodType.optString(TRANSFER_METHOD_CODE);
         mName = transferMethodType.optString(TRANSFER_METHOD_NAME);
-        mProcessingTime = transferMethodType.optString(TRANSFER_METHOD_PROCESSING_TIME);
         mHyperwalletFees = new LinkedHashSet<>(1);
         JSONObject fees = transferMethodType.optJSONObject(TRANSFER_METHOD_FEES);
         if (fees != null && fees.length() != 0) {
             mFeeConnection = new Connection<>(fees, HyperwalletFee.class);
         } else {
             mFeeConnection = null;
+        }
+
+        JSONObject processingTime = transferMethodType.optJSONObject(TRANSFER_METHOD_PROCESSING_TIMES);
+        if (processingTime != null && processingTime.length() != 0) {
+            mProcessingTimeConnection = new Connection<>(processingTime, ProcessingTime.class);
+        } else {
+            mProcessingTimeConnection = null;
         }
     }
 
@@ -73,7 +84,7 @@ public class HyperwalletTransferMethodType implements KeyedNode {
      */
     @NonNull
     public Set<HyperwalletFee> getFees() {
-        if (mFeeConnection != null && mHyperwalletFees.isEmpty()) {
+        if (mHyperwalletFees.isEmpty() && hasNodes(mFeeConnection)) {
             mHyperwalletFees.addAll(mFeeConnection.getNodes());
             return mHyperwalletFees;
         }
@@ -85,7 +96,12 @@ public class HyperwalletTransferMethodType implements KeyedNode {
      *
      * @return Processing time
      */
-    public String getProcessingTime() {
+    @Nullable
+    public ProcessingTime getProcessingTime() {
+        if (mProcessingTime == null && hasNodes(mProcessingTimeConnection)) {
+            mProcessingTime = mProcessingTimeConnection.getNodes().get(0);
+            return mProcessingTime;
+        }
         return mProcessingTime;
     }
 

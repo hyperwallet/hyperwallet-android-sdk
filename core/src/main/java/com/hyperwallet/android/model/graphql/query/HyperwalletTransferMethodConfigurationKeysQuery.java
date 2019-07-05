@@ -17,6 +17,7 @@
 
 package com.hyperwallet.android.model.graphql.query;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
 /**
@@ -43,7 +44,6 @@ public class HyperwalletTransferMethodConfigurationKeysQuery implements Hyperwal
                     + "\t\t\t\t\t\tnodes {\n"
                     + "\t\t\t\t\t\t\tcode\n"
                     + "\t\t\t\t\t\t\tname\n"
-                    + "\t\t\t\t\t\t\tprocessingTime\n"
                     + "\t\t\t\t\t\t\tfees {\n"
                     + "\t\t\t\t\t\t\t\tnodes {\n"
                     + "\t\t\t\t\t\t\t\t\tcountry\n"
@@ -53,8 +53,16 @@ public class HyperwalletTransferMethodConfigurationKeysQuery implements Hyperwal
                     + "\t\t\t\t\t\t\t\t\tfeeRateType\n"
                     + "\t\t\t\t\t\t\t\t\tmaximum\n"
                     + "\t\t\t\t\t\t\t\t\tminimum\n"
-                    + "\t\t\t\t\t\t\t\t\t}\n"
                     + "\t\t\t\t\t\t\t\t}\n"
+                    + "\t\t\t\t\t\t\t}\n"
+                    + "\t\t\t\t\t\t\tprocessingTimes {\n"
+                    + "\t\t\t\t\t\t\t\tnodes {\n"
+                    + "\t\t\t\t\t\t\t\t\tcountry\n"
+                    + "\t\t\t\t\t\t\t\t\tcurrency\n"
+                    + "\t\t\t\t\t\t\t\t\ttransferMethodType\n"
+                    + "\t\t\t\t\t\t\t\t\tvalue\n"
+                    + "\t\t\t\t\t\t\t\t}\n"
+                    + "\t\t\t\t\t\t\t}\n"
                     + "\t\t\t\t\t\t}\n"
                     + "\t\t\t\t\t}\n"
                     + "\t\t\t\t}\n"
@@ -72,12 +80,12 @@ public class HyperwalletTransferMethodConfigurationKeysQuery implements Hyperwal
     /**
      * {@inheritDoc}
      *
-     * @param idToken {@inheritDoc}
+     * @param userToken {@inheritDoc}
      * @return {@inheritDoc}
      */
     @Override
-    public String toQuery(String idToken) {
-        return String.format(GRAPH_QL_REQUEST_CONFIGURATION, idToken);
+    public String toQuery(@NonNull final String userToken) {
+        return String.format(GRAPH_QL_REQUEST_CONFIGURATION, userToken);
     }
 }
 

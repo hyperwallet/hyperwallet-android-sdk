@@ -16,6 +16,8 @@
  */
 package com.hyperwallet.android.model.graphql;
 
+import static com.hyperwallet.android.model.graphql.Connection.hasNodes;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -52,7 +54,7 @@ public class TransferMethodConfigurationKey {
 
     @NonNull
     public Set<Country> getCountries() {
-        if (mCountryMappedConnection != null && mCountries.isEmpty() && mCountryMappedConnection.getNodes() != null) {
+        if (mCountries.isEmpty() && hasNodes(mCountryMappedConnection)) {
             mCountries.addAll(mCountryMappedConnection.getNodes());
             return mCountries;
         }

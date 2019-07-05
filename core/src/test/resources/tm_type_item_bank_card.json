@@ -1,12 +1,12 @@
 {
-  "code": "BANK_ACCOUNT",
-  "name": "Bank Account",
+  "code": "BANK_CARD",
+  "name": "Debit Card",
   "fees": {
     "nodes": [
       {
         "country": "US",
         "currency": "USD",
-        "transferMethodType": "BANK_ACCOUNT",
+        "transferMethodType": "BANK_CARD",
         "feeRateType": "FLAT",
         "value": "2.00"
       }
@@ -17,8 +17,8 @@
       {
         "country": "US",
         "currency": "USD",
-        "transferMethodType": "BANK_ACCOUNT",
-        "value": "1-3 Business days"
+        "transferMethodType": "BANK_CARD",
+        "value": "1-2 Business days"
       }
     ]
   }

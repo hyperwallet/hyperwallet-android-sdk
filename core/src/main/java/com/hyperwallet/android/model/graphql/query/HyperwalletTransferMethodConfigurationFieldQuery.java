@@ -88,6 +88,15 @@ public class HyperwalletTransferMethodConfigurationFieldQuery implements Hyperwa
                     + "\t\t\t\tcountry\n"
                     + "\t\t\t\tcurrency\n"
                     + "\t\t}\n"
+                    + "\t},\n"
+                    + "\tprocessingTimes (idToken: $idToken, country: $country, currency: $currency, \n"
+                    + "\t\t\ttransferMethodType: $transferMethodType) {\n"
+                    + "\t\t\tnodes {\n"
+                    + "\t\t\t\tcountry\n"
+                    + "\t\t\t\tcurrency\n"
+                    + "\t\t\t\ttransferMethodType\n"
+                    + "\t\t\t\tvalue\n"
+                    + "\t\t}\n"
                     + "\t}\n"
                     + "}";
 
@@ -106,10 +115,10 @@ public class HyperwalletTransferMethodConfigurationFieldQuery implements Hyperwa
      * {@link HyperwalletTransferMethod.TransferMethodTypes}
      * @param profile            {@code INDIVIDUAL} or {@code BUSINESS}
      */
-    public HyperwalletTransferMethodConfigurationFieldQuery(final @NonNull String country,
-            final @NonNull String currency,
-            final @NonNull @HyperwalletTransferMethod.TransferMethodType String transferMethodType,
-            final @NonNull String profile) {
+    public HyperwalletTransferMethodConfigurationFieldQuery(@NonNull final String country,
+            @NonNull final String currency,
+            @NonNull @HyperwalletTransferMethod.TransferMethodType final String transferMethodType,
+            @NonNull final String profile) {
         mCountry = country;
         mCurrency = currency;
         mTransferMethodType = transferMethodType;
@@ -119,12 +128,12 @@ public class HyperwalletTransferMethodConfigurationFieldQuery implements Hyperwa
     /**
      * {@inheritDoc}
      *
-     * @param idToken {@inheritDoc}
+     * @param userToken {@inheritDoc}
      * @return {@inheritDoc}
      */
     @Override
-    public String toQuery(String idToken) {
-        return String.format(GRAPH_QL_REQUEST, idToken, mCountry, mCurrency, mTransferMethodType, mProfile);
+    public String toQuery(@NonNull final String userToken) {
+        return String.format(GRAPH_QL_REQUEST, userToken, mCountry, mCurrency, mTransferMethodType, mProfile);
     }
 }
 

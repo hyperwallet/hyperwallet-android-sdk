@@ -85,4 +85,28 @@ public class Connection<T> {
     public PageInfo getPageInfo() {
         return mPageInfo;
     }
+
+    /**
+     * Get node at the specified index.
+     *
+     * @param index Index of an element inside List of Nodes.
+     * @return Node with the specific type defined at this class.
+     * It will return a null in case if there are no Nodes.
+     */
+    @Nullable
+    public T getNodeAt(int index) {
+        if (mNodes == null || index >= mNodes.size()) {
+            return null;
+        }
+        return mNodes.get(index);
+    }
+
+    /**
+     * Returns true if connection has nodes, false otherwise
+     * @param connection Connection object
+     * @return nodes
+     */
+    public static boolean hasNodes(@Nullable final Connection connection) {
+        return connection != null && connection.getNodes() != null && !connection.getNodes().isEmpty();
+    }
 }
