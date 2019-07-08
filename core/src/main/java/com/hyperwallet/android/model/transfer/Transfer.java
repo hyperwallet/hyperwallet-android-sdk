@@ -14,7 +14,15 @@ import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.SOU
 import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.SOURCE_TOKEN;
 import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.STATUS;
 import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.TOKEN;
+import static com.hyperwallet.android.model.transfer.Transfer.TransferStatuses.CANCELLED;
+import static com.hyperwallet.android.model.transfer.Transfer.TransferStatuses.COMPLETED;
+import static com.hyperwallet.android.model.transfer.Transfer.TransferStatuses.EXPIRED;
+import static com.hyperwallet.android.model.transfer.Transfer.TransferStatuses.FAILED;
+import static com.hyperwallet.android.model.transfer.Transfer.TransferStatuses.IN_PROGRESS;
 import static com.hyperwallet.android.model.transfer.Transfer.TransferStatuses.QUOTED;
+import static com.hyperwallet.android.model.transfer.Transfer.TransferStatuses.RETURNED;
+import static com.hyperwallet.android.model.transfer.Transfer.TransferStatuses.SCHEDULED;
+import static com.hyperwallet.android.model.transfer.Transfer.TransferStatuses.VERIFICATION_REQUIRED;
 import static com.hyperwallet.android.util.DateUtil.fromDateTimeString;
 import static com.hyperwallet.android.util.DateUtil.toDateTimeFormat;
 
@@ -91,11 +99,27 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
         }
 
         public static final String QUOTED = "QUOTED";
+        public static final String SCHEDULED = "SCHEDULED";
+        public static final String IN_PROGRESS = "IN_PROGRESS";
+        public static final String VERIFICATION_REQUIRED = "VERIFICATION_REQUIRED";
+        public static final String COMPLETED = "COMPLETED";
+        public static final String CANCELLED = "CANCELLED";
+        public static final String RETURNED = "RETURNED";
+        public static final String FAILED = "FAILED";
+        public static final String EXPIRED = "EXPIRED";
     }
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
-            QUOTED
+            QUOTED,
+            SCHEDULED,
+            IN_PROGRESS,
+            VERIFICATION_REQUIRED,
+            COMPLETED,
+            CANCELLED,
+            RETURNED,
+            FAILED,
+            EXPIRED
     })
     public @interface TransferStatus {
     }
@@ -316,11 +340,15 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
 
         public Builder() {
             mFields = new HashMap<>();
-            mFields.put(STATUS, QUOTED);
         }
 
         public Builder token(@NonNull final String token) {
             mFields.put(TOKEN, token);
+            return this;
+        }
+
+        public Builder status(@NonNull @TransferStatus final String status) {
+            mFields.put(TOKEN, status);
             return this;
         }
 

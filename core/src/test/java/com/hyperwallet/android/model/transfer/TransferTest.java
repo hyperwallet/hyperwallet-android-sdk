@@ -157,7 +157,7 @@ public class TransferTest {
         final Transfer.Builder emptyBuilder = new Transfer.Builder();
         final Transfer emptyTransfer = emptyBuilder.build();
         JSONObject emptyTransferJsonObject = emptyTransfer.toJsonObject();
-        assertThat(emptyTransferJsonObject.getString(STATUS), is(QUOTED));
+        assertThat(emptyTransferJsonObject.has(STATUS), is(false));
         assertThat(emptyTransferJsonObject.has(TOKEN), is(false));
         assertThat(emptyTransferJsonObject.has(CREATED_ON), is(false));
         assertThat(emptyTransferJsonObject.has(CLIENT_TRANSFER_ID), is(false));
