@@ -26,6 +26,8 @@ import static com.hyperwallet.android.model.transfer.Transfer.TransferStatuses.Q
 import static com.hyperwallet.android.util.DateUtil.fromDateTimeString;
 import static com.hyperwallet.android.util.JsonUtils.fromJsonString;
 
+import android.os.Parcel;
+
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
@@ -148,15 +150,6 @@ public class TransferTest {
         assertThat(foreignExchangeJson.getString(ForeignExchange.ForeignExchangeFields.DESTINATION_CURRENCY),
                 is("CAD"));
         assertThat(foreignExchangeJson.getString(ForeignExchange.ForeignExchangeFields.RATE), is("1.266"));
-
-        final Transfer.Builder emptyBuilder = new Transfer.Builder();
-        final Transfer emptyTransfer = emptyBuilder.build();
-        JSONObject emptyTransferJsonObject = emptyTransfer.toJsonObject();
-        assertThat(emptyTransferJsonObject.getString(STATUS), is(QUOTED));
-        assertThat(emptyTransferJsonObject.has(TOKEN), is(false));
-        assertThat(emptyTransferJsonObject.has(CREATED_ON), is(false));
-        assertThat(emptyTransferJsonObject.has(CLIENT_TRANSFER_ID), is(false));
-        assertThat(emptyTransferJsonObject.has(SOURCE_AMOUNT), is(false));
     }
 
     @Test
@@ -179,4 +172,46 @@ public class TransferTest {
         assertThat(emptyTransferJsonObject.has(FOREIGN_EXCHANGES), is(false));
     }
 
+    @Test
+    public void testTransfer_isParcelable() throws Exception {
+        Transfer transfer = fromJsonString(
+                mExternalResourceManager.getResourceContent("transfer_response.json"),
+                new TypeReference<Transfer>() {
+                });
+
+        assertThat(transfer.getToken(), is("trf-123"));
+        assertThat(transfer.getStatus(), is(QUOTED));
+        assertThat(transfer.getCreatedOn(), is(fromDateTimeString("2019-07-01T00:00:00")));
+        assertThat(transfer.getClientTransferId(), is("1234567890123"));
+        assertThat(transfer.getSourceAmount(), is("80"));
+        assertThat(transfer.getSourceCurrency(), is("CAD"));
+        assertThat(transfer.getSourceToken(), is("usr-4321"));
+        assertThat(transfer.getDestinationAmount(), is("62.29"));
+        assertThat(transfer.getDestinationCurrency(), is("USD"));
+        assertThat(transfer.getDestinationToken(), is("trm-246"));
+        assertThat(transfer.getNotes(), is("Partial-Balance Transfer"));
+        assertThat(transfer.getMemo(), is("TransferClientId321"));
+        assertThat(transfer.getExpiresOn(), is(fromDateTimeString("2019-07-01T00:02:00")));
+
+        Parcel parcel = Parcel.obtain();
+        transfer.writeToParcel(parcel, transfer.describeContents());
+        parcel.setDataPosition(0);
+        Transfer bundledTransfer =
+                Transfer.CREATOR.createFromParcel(parcel);
+
+        assertThat(bundledTransfer.getToken(), is("trf-123"));
+        assertThat(bundledTransfer.getStatus(), is(QUOTED));
+        assertThat(bundledTransfer.getCreatedOn(), is(fromDateTimeString("2019-07-01T00:00:00")));
+        assertThat(bundledTransfer.getClientTransferId(), is("1234567890123"));
+        assertThat(bundledTransfer.getSourceAmount(), is("80"));
+        assertThat(bundledTransfer.getSourceCurrency(), is("CAD"));
+        assertThat(bundledTransfer.getSourceToken(), is("usr-4321"));
+        assertThat(bundledTransfer.getDestinationAmount(), is("62.29"));
+        assertThat(bundledTransfer.getDestinationCurrency(), is("USD"));
+        assertThat(bundledTransfer.getDestinationToken(), is("trm-246"));
+        assertThat(bundledTransfer.getNotes(), is("Partial-Balance Transfer"));
+        assertThat(bundledTransfer.getMemo(), is("TransferClientId321"));
+        assertThat(bundledTransfer.getExpiresOn(), is(fromDateTimeString("2019-07-01T00:02:00")));
+
+    }
 }

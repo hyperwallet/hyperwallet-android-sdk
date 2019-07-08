@@ -24,6 +24,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents the object to hold foreign exchange data fields, is used in transfer object see:{@link Transfer}
+ */
 public final class ForeignExchange implements HyperwalletJsonModel, Parcelable {
 
     public static final class ForeignExchangeFields {
