@@ -29,30 +29,19 @@ package com.hyperwallet.android;
 import androidx.annotation.NonNull;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-class PathFormatter {
-    final String pattern;
-    Object[] arguments;
+/**
+ * Token less path formatter decorates the outcome of the {@link PathFormatter#format(String)} method.
+ * In case user token unnecessary for request formatter will ignore it and will apply incoming arguments to a path.
+ */
+class TokenLessPathFormatter extends PathFormatter {
 
-    private PathFormatter(String pattern) {
-        this.pattern = pattern;
+    TokenLessPathFormatter(@NonNull String pattern, Object... args) {
+        super(pattern, args);
     }
 
-    PathFormatter(@NonNull String pattern, Object... args) {
-        this(pattern);
-        arguments = args;
-    }
-
+    @Override
     String format(String token) {
-        arguments = prependArgument(token, arguments);
         return MessageFormat.format(pattern, arguments);
-    }
-
-    private Object[] prependArgument(Object newArgument, Object[] arguments) {
-        ArrayList<Object> argumentsList = new ArrayList<>(Arrays.asList(arguments));
-        argumentsList.add(0, newArgument);
-        return argumentsList.toArray();
     }
 }
