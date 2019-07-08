@@ -1,4 +1,4 @@
-package com.hyperwallet.android.model;
+package com.hyperwallet.android.model.transfermethod;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -9,9 +9,6 @@ import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDe
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.ASCENDANT_CREATE_ON;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON;
-
-import com.hyperwallet.android.model.transfermethod.HyperwalletBankCardQueryParam;
-import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
 
 import org.junit.Test;
 

@@ -1,10 +1,8 @@
-package com.hyperwallet.android.model.graphql;
+package com.hyperwallet.android.model.graphql.field;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
-
-import com.hyperwallet.android.model.graphql.field.EDataType;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
