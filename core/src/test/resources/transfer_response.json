@@ -26,7 +26,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://api.sandbox.hyperwallet.com/rest/v3/transfers/trf-123"
+      "href": "https://localhost:8181/rest/v3/transfers/trf-123"
     }
   ]
 }

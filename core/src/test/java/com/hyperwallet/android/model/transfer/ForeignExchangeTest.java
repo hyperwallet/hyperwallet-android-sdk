@@ -1,6 +1,7 @@
 package com.hyperwallet.android.model.transfer;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -11,9 +12,12 @@ import static com.hyperwallet.android.model.transfer.ForeignExchange.ForeignExch
 import static com.hyperwallet.android.model.transfer.ForeignExchange.ForeignExchangeFields.SOURCE_CURRENCY;
 import static com.hyperwallet.android.util.JsonUtils.fromJsonString;
 
+import android.os.Parcel;
+
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
+import org.hamcrest.CoreMatchers;
 import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,11 +41,13 @@ public class ForeignExchangeTest {
                 });
 
         assertThat(foreignExchange, is(notNullValue()));
+        assertThat(foreignExchange.getFields(), is(CoreMatchers.notNullValue()));
         assertThat(foreignExchange.getField(SOURCE_AMOUNT), is("100.00"));
         assertThat(foreignExchange.getField(SOURCE_CURRENCY), is("CAD"));
         assertThat(foreignExchange.getField(DESTINATION_AMOUNT), is("63.49"));
         assertThat(foreignExchange.getField(DESTINATION_CURRENCY), is("USD"));
         assertThat(foreignExchange.getField(RATE), is("0.79"));
+        assertThat(foreignExchange.getField("IncorrectField"), is(nullValue()));
 
         assertThat(foreignExchange.getSourceAmount(), is("100.00"));
         assertThat(foreignExchange.getSourceCurrency(), is("CAD"));
@@ -71,4 +77,30 @@ public class ForeignExchangeTest {
         assertThat(jsonObject.getString(RATE), is("1.266"));
     }
 
+    @Test
+    public void testForeignExchange_isParcelable() throws Exception {
+        ForeignExchange foreignExchange = fromJsonString(
+                mExternalResourceManager.getResourceContent("foreign_exchange_item.json"),
+                new TypeReference<ForeignExchange>() {
+                });
+
+        assertThat(foreignExchange, is(CoreMatchers.notNullValue()));
+        assertThat(foreignExchange.getSourceAmount(), is("100.00"));
+        assertThat(foreignExchange.getSourceCurrency(), is("CAD"));
+        assertThat(foreignExchange.getDestinationAmount(), is("63.49"));
+        assertThat(foreignExchange.getDestinationCurrency(), is("USD"));
+        assertThat(foreignExchange.getRate(), is("0.79"));
+
+        Parcel parcel = Parcel.obtain();
+        foreignExchange.writeToParcel(parcel, foreignExchange.describeContents());
+        parcel.setDataPosition(0);
+        ForeignExchange bundledForeignExchange =
+                ForeignExchange.CREATOR.createFromParcel(parcel);
+
+        assertThat(bundledForeignExchange.getSourceAmount(), is("100.00"));
+        assertThat(bundledForeignExchange.getSourceCurrency(), is("CAD"));
+        assertThat(bundledForeignExchange.getDestinationAmount(), is("63.49"));
+        assertThat(bundledForeignExchange.getDestinationCurrency(), is("USD"));
+        assertThat(bundledForeignExchange.getRate(), is("0.79"));
+    }
 }
