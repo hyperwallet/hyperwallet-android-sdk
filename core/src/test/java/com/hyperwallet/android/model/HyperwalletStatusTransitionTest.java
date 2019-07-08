@@ -30,8 +30,10 @@ public class HyperwalletStatusTransitionTest {
 
     @BeforeClass
     public static void setup() {
-        expectedStatusTransition = new HyperwalletStatusTransition("DE_ACTIVATED");
-        expectedStatusTransition.setNotes("TEST");
+        expectedStatusTransition = new HyperwalletStatusTransition.Builder()
+                .transition("DE_ACTIVATED")
+                .notes("TEST")
+                .build();
     }
 
     @Test
