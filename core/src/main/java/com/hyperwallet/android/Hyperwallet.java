@@ -16,6 +16,7 @@
  */
 package com.hyperwallet.android;
 
+import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.DE_ACTIVATED;
 import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 import static com.hyperwallet.android.util.HttpMethod.PUT;
@@ -411,9 +412,10 @@ public class Hyperwallet {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts/{1}/status-transitions",
                 transferMethodToken);
 
-        final HyperwalletStatusTransition deactivatedStatusTransition = new HyperwalletStatusTransition(
-                HyperwalletStatusTransition.StatusDefinition.DE_ACTIVATED);
-        deactivatedStatusTransition.setNotes(notes);
+        final HyperwalletStatusTransition deactivatedStatusTransition = new HyperwalletStatusTransition.Builder()
+                .transition(DE_ACTIVATED)
+                .notes(notes)
+                .build();
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
                 new TypeReference<HyperwalletStatusTransition>() {
                 }, listener).jsonModel(deactivatedStatusTransition);
@@ -443,9 +445,10 @@ public class Hyperwallet {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards/{1}/status-transitions",
                 transferMethodToken);
 
-        final HyperwalletStatusTransition deactivatedStatusTransition = new HyperwalletStatusTransition(
-                HyperwalletStatusTransition.StatusDefinition.DE_ACTIVATED);
-        deactivatedStatusTransition.setNotes(notes);
+        final HyperwalletStatusTransition deactivatedStatusTransition = new HyperwalletStatusTransition.Builder()
+                .transition(DE_ACTIVATED)
+                .notes(notes)
+                .build();
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
                 new TypeReference<HyperwalletStatusTransition>() {
                 }, listener).jsonModel(deactivatedStatusTransition);
@@ -475,9 +478,10 @@ public class Hyperwallet {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts/{1}/status-transitions",
                 transferMethodToken);
 
-        final HyperwalletStatusTransition deactivatedStatusTransition = new HyperwalletStatusTransition(
-                HyperwalletStatusTransition.StatusDefinition.DE_ACTIVATED);
-        deactivatedStatusTransition.setNotes(notes);
+        final HyperwalletStatusTransition deactivatedStatusTransition = new HyperwalletStatusTransition.Builder()
+                .transition(DE_ACTIVATED)
+                .notes(notes)
+                .build();
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
                 new TypeReference<HyperwalletStatusTransition>() {
                 }, listener).jsonModel(deactivatedStatusTransition);
