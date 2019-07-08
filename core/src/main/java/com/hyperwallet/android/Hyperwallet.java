@@ -38,6 +38,7 @@ import com.hyperwallet.android.model.graphql.query.HyperwalletTransferMethodConf
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
 import com.hyperwallet.android.model.receipt.Receipt;
 import com.hyperwallet.android.model.receipt.ReceiptQueryParam;
+import com.hyperwallet.android.model.transfer.Transfer;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountQueryParam;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankCard;
@@ -299,6 +300,30 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<HyperwalletUser>() {
+                }, listener);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
+     * Returns the {@link Transfer} linked to the specified token, or null if none exists.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param transferToken the Hyperwallet specific unique identifier for the {@code Transfer}
+     *                      being requested; must not be null
+     * @param listener      the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void getTransfer(@NonNull final String transferToken,
+            @NonNull final HyperwalletListener<Transfer> listener) {
+        PathFormatter pathFormatter = new TokenLessPathFormatter("transfers/{0}", transferToken);
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<Transfer>() {
                 }, listener);
 
         performRestTransaction(builder, listener);
