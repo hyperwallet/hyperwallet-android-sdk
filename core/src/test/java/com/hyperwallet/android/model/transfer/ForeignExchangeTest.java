@@ -42,12 +42,12 @@ public class ForeignExchangeTest {
 
         assertThat(foreignExchange, is(notNullValue()));
         assertThat(foreignExchange.getFields(), is(CoreMatchers.notNullValue()));
-        assertThat(foreignExchange.getFieldValueToString(SOURCE_AMOUNT), is("100.00"));
-        assertThat(foreignExchange.getFieldValueToString(SOURCE_CURRENCY), is("CAD"));
-        assertThat(foreignExchange.getFieldValueToString(DESTINATION_AMOUNT), is("63.49"));
-        assertThat(foreignExchange.getFieldValueToString(DESTINATION_CURRENCY), is("USD"));
-        assertThat(foreignExchange.getFieldValueToString(RATE), is("0.79"));
-        assertThat(foreignExchange.getFieldValueToString("IncorrectField"), is(nullValue()));
+        assertThat(foreignExchange.getField(SOURCE_AMOUNT), is("100.00"));
+        assertThat(foreignExchange.getField(SOURCE_CURRENCY), is("CAD"));
+        assertThat(foreignExchange.getField(DESTINATION_AMOUNT), is("63.49"));
+        assertThat(foreignExchange.getField(DESTINATION_CURRENCY), is("USD"));
+        assertThat(foreignExchange.getField(RATE), is("0.79"));
+        assertThat(foreignExchange.getField("IncorrectField"), is(nullValue()));
 
         assertThat(foreignExchange.getSourceAmount(), is("100.00"));
         assertThat(foreignExchange.getSourceCurrency(), is("CAD"));
