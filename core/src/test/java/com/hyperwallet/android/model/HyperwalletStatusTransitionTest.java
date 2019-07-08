@@ -3,6 +3,7 @@ package com.hyperwallet.android.model;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertNotNull;
 
@@ -49,6 +50,7 @@ public class HyperwalletStatusTransitionTest {
         assertThat(statusTransition.getToStatus(), is(equalTo("DE_ACTIVATED")));
         assertThat(statusTransition.getNotes(), is(equalTo(expectedStatusTransition.getNotes())));
         assertThat(statusTransition.getToken(), is(equalTo("sts-be2080a7-3831-488e-b282-129f41d7dbc9")));
+        assertThat(statusTransition.getStatusCode(), is(nullValue()));
         assertThat(statusTransition.getCreatedOn(), is(equalTo("2019-01-08T23:55:08")));
     }
 
@@ -75,6 +77,7 @@ public class HyperwalletStatusTransitionTest {
         assertThat(statusTransition.getNotes(), is("TEST"));
         assertThat(statusTransition.getToken(), is("sts-be2080a7-3831-488e-b282-129f41d7dbc9"));
         assertThat(statusTransition.getTransition(), is("DE_ACTIVATED"));
+        assertThat(statusTransition.getStatusCode(), is(nullValue()));
 
         Parcel parcel = Parcel.obtain();
         statusTransition.writeToParcel(parcel, statusTransition.describeContents());
@@ -89,7 +92,7 @@ public class HyperwalletStatusTransitionTest {
         assertThat(bundledHyperwalletStatusTransition.getNotes(), is("TEST"));
         assertThat(bundledHyperwalletStatusTransition.getToken(), is("sts-be2080a7-3831-488e-b282-129f41d7dbc9"));
         assertThat(bundledHyperwalletStatusTransition.getTransition(), is("DE_ACTIVATED"));
-
+        assertThat(bundledHyperwalletStatusTransition.getStatusCode(), is(nullValue()));
     }
 }
 

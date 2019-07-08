@@ -156,11 +156,6 @@ public class HyperwalletStatusTransition implements HyperwalletJsonModel, Parcel
     }
 
     @Nullable
-    private <T> T getFieldValue(@NonNull @StatusTransitionFieldKeys final String key, @NonNull Class<T> toType) {
-        return mFields.get(key) != null ? toType.cast(mFields.get(key)) : null;
-    }
-
-    @Nullable
     private String getFieldValueToString(@NonNull @StatusTransitionFieldKeys final String key) {
         return mFields.get(key) != null ? (String) mFields.get(key) : null;
     }
