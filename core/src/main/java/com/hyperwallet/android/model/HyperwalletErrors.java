@@ -29,21 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the object to hold list of Hyperwallet Error @see {@link com.hyperwallet.android.HttpTransaction}
+ * Represents the object to hold list of Hyperwallet Error
+ * @see com.hyperwallet.android.HttpTransaction
  */
 public class HyperwalletErrors {
 
     private static final String ERRORS = "errors";
     private List<HyperwalletError> mErrors = new ArrayList<>(0);
-
-    /**
-     * Create an empty instance.
-     *
-     * @return HyperwalletErrors
-     */
-    public static HyperwalletErrors getEmptyInstance() {
-        return new HyperwalletErrors();
-    }
 
     private HyperwalletErrors() {
 
@@ -55,6 +47,15 @@ public class HyperwalletErrors {
 
     public HyperwalletErrors(@NonNull List<HyperwalletError> errors) {
         mErrors = errors;
+    }
+
+    /**
+     * Create an empty instance.
+     *
+     * @return HyperwalletErrors
+     */
+    public static HyperwalletErrors getEmptyInstance() {
+        return new HyperwalletErrors();
     }
 
     @NonNull

@@ -10,10 +10,9 @@ import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 
 import com.hyperwallet.android.listener.HyperwalletListener;
-import com.hyperwallet.android.model.HyperwalletBankAccount;
 import com.hyperwallet.android.model.TypeReference;
-import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationKeyResult;
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
 
 import org.json.JSONException;
 import org.junit.Rule;
@@ -34,7 +33,7 @@ public class RestTransactionBuilderTest {
     public final MockitoRule mMockito = MockitoJUnit.rule();
 
     @Mock
-    private HyperwalletListener<HyperwalletTransferMethodConfigurationKeyResult> mListener;
+    private HyperwalletListener<HyperwalletBankAccount> mListener;
 
     @Test
     public void testBuild_withRequiredParametersOnly() throws JSONException {

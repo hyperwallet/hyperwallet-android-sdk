@@ -37,10 +37,21 @@ import java.util.Map;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public final class HttpClient {
     private static final String TAG = HttpClient.class.getName();
+    private static final int DEFAULT_TIMEOUT = 10_000;
 
     private final Map<String, String> mQueryMap;
     private final Map<String, String> mHeaderMap;
     private final HttpURLConnection mHttpUrlConnection;
+
+    private HttpClient(final Builder builder) {
+        mHeaderMap = builder.mHeaderMap;
+        mQueryMap = builder.mQueryMap;
+        mHttpUrlConnection = builder.mHttpUrlConnection;
+    }
+
+    public static boolean isSuccess(int httpCode) {
+        return httpCode >= 200 && httpCode < 300;
+    }
 
     public String getResponse() throws IOException {
         InputStream in = isSuccess(getResponseCode()) ? mHttpUrlConnection.getInputStream()
@@ -58,12 +69,6 @@ public final class HttpClient {
             in.close();
             disconnect();
         }
-    }
-
-    private HttpClient(final Builder builder) {
-        mHeaderMap = builder.mHeaderMap;
-        mQueryMap = builder.mQueryMap;
-        mHttpUrlConnection = builder.mHttpUrlConnection;
     }
 
     public Map<String, String> getQueryMap() {
@@ -115,6 +120,10 @@ public final class HttpClient {
         }
     }
 
+    private int getResponseCode() throws IOException {
+        return mHttpUrlConnection.getResponseCode();
+    }
+
     public static class Builder {
 
         private final String mBaseUrl;
@@ -130,8 +139,8 @@ public final class HttpClient {
             mBaseUrl = baseUrl;
             mQueryMap = new HashMap<>();
             mHeaderMap = new HashMap<>();
-            mConnectTimeout = 5_000;
-            mReadTimeout = 5_000;
+            mConnectTimeout = DEFAULT_TIMEOUT;
+            mReadTimeout = DEFAULT_TIMEOUT;
         }
 
         public Builder putHeaders(final Map<String, String> headers) {
@@ -170,7 +179,7 @@ public final class HttpClient {
          * time for waiting to read IO operations.
          * @param milliseconds
          *
-         * <p>The default timeout value is 5 seconds<p/>
+         * <p>The default timeout value is 10 seconds<p/>
          */
         public Builder readTimeout(int milliseconds) {
             if (milliseconds < 0) {
@@ -220,14 +229,6 @@ public final class HttpClient {
                 }
             }
         }
-    }
-
-    public static boolean isSuccess(int httpCode) {
-        return httpCode >= 200 && httpCode < 300;
-    }
-
-    private int getResponseCode() throws IOException {
-        return mHttpUrlConnection.getResponseCode();
     }
 
 }

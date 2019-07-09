@@ -18,7 +18,7 @@ import com.hyperwallet.android.exception.HyperwalletJsonParseException;
 import com.hyperwallet.android.model.HyperwalletError;
 import com.hyperwallet.android.model.HyperwalletErrors;
 import com.hyperwallet.android.model.TypeReference;
-import com.hyperwallet.android.model.meta.error.GqlErrors;
+import com.hyperwallet.android.model.graphql.error.GqlErrors;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.sdk.R;
 import com.hyperwallet.android.util.JsonUtils;

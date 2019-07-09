@@ -15,7 +15,16 @@
           ],
           "transferMethodType": "PAPER_CHECK",
           "profile": "INDIVIDUAL",
-          "processingTime": "1-3 Business days",
+          "processingTimes": {
+            "nodes": [
+              {
+                "value": "1-3 Business days",
+                "country": "CA",
+                "currency": "CAD",
+                "transferMethodType": "PAPER_CHECK"
+              }
+            ]
+          },
           "fees": {
             "nodes": [
               {

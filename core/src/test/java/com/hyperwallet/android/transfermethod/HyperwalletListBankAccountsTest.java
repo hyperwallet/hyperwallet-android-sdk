@@ -9,41 +9,42 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-import static com.hyperwallet.android.model.HyperwalletBankAccount.Purpose.SAVINGS;
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.ADDRESS_LINE_1;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.BANK_ACCOUNT_ID;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.BANK_ACCOUNT_PURPOSE;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.BANK_ACCOUNT_RELATIONSHIP;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.BANK_ID;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.BRANCH_ID;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.CITY;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.COUNTRY;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.CREATED_ON;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.DATE_OF_BIRTH;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.FIRST_NAME;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.GENDER;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.GOVERNMENT_ID;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.LAST_NAME;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.PHONE_NUMBER;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.POSTAL_CODE;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.STATE_PROVINCE;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.STATUS;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TOKEN;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TYPE;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount.Purpose.SAVINGS;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.ADDRESS_LINE_1;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.BANK_ACCOUNT_ID;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.BANK_ACCOUNT_PURPOSE;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.BANK_ACCOUNT_RELATIONSHIP;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.BANK_ID;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.BRANCH_ID;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.CITY;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.COUNTRY;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.CREATED_ON;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.DATE_OF_BIRTH;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.FIRST_NAME;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.GENDER;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.GOVERNMENT_ID;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.LAST_NAME;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.PHONE_NUMBER;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.POSTAL_CODE;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.STATE_PROVINCE;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.STATUS;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TOKEN;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TYPE;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
+import static com.hyperwallet.android.util.HttpMethod.GET;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
-import com.hyperwallet.android.model.HyperwalletBankAccount;
-import com.hyperwallet.android.model.HyperwalletBankAccountPagination;
 import com.hyperwallet.android.model.HyperwalletError;
 import com.hyperwallet.android.model.HyperwalletErrors;
 import com.hyperwallet.android.model.paging.HyperwalletPageLink;
 import com.hyperwallet.android.model.paging.HyperwalletPageList;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountQueryParam;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
@@ -59,8 +60,6 @@ import org.mockito.junit.MockitoRule;
 import org.robolectric.RobolectricTestRunner;
 
 import java.net.HttpURLConnection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -92,20 +91,19 @@ public class HyperwalletListBankAccountsTest {
                 "bank_account_list_single_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 
-        Map<String, String> query = new HashMap<>();
-        query.put(TYPE, BANK_ACCOUNT);
+        final HyperwalletBankAccountQueryParam queryParam = new HyperwalletBankAccountQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
+        assertThat(queryParam.getType(), is(BANK_ACCOUNT));
 
-        final HyperwalletBankAccountPagination hyperwalletBankAccountPagination =
-                new HyperwalletBankAccountPagination(query);
-        assertThat(hyperwalletBankAccountPagination.getType(), is(BANK_ACCOUNT));
-
-        Hyperwallet.getDefault().listBankAccounts(hyperwalletBankAccountPagination, mListener);
+        Hyperwallet.getDefault().listBankAccounts(queryParam, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts?limit=10&offset=0&type"
                         + "=BANK_ACCOUNT&status=ACTIVATED"));
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         verify(mListener).onSuccess(mListBankAccountCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
@@ -160,19 +158,20 @@ public class HyperwalletListBankAccountsTest {
     public void testListBankAccounts_returnsNoAccounts() throws InterruptedException {
         String responseBody = "";
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_NO_CONTENT).withBody(responseBody).mock();
-        Map<String, String> query = new HashMap<>();
-        query.put(TYPE, BANK_ACCOUNT);
 
-        final HyperwalletBankAccountPagination hyperwalletBankAccountPagination =
-                new HyperwalletBankAccountPagination(query);
-        assertThat(hyperwalletBankAccountPagination.getType(), is(BANK_ACCOUNT));
+        final HyperwalletBankAccountQueryParam queryParam = new HyperwalletBankAccountQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
+        assertThat(queryParam.getType(), is(BANK_ACCOUNT));
 
-        Hyperwallet.getDefault().listBankAccounts(hyperwalletBankAccountPagination, mListener);
+        Hyperwallet.getDefault().listBankAccounts(queryParam, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
                 containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts?"));
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
+
         assertThat(recordedRequest.getPath(), containsString("type=BANK_ACCOUNT"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
@@ -192,15 +191,12 @@ public class HyperwalletListBankAccountsTest {
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_INTERNAL_ERROR).withBody(
                 responseBody).mock();
 
+        final HyperwalletBankAccountQueryParam queryParam = new HyperwalletBankAccountQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
+        assertThat(queryParam.getType(), is(BANK_ACCOUNT));
 
-        Map<String, String> query = new HashMap<>();
-        query.put(TYPE, BANK_ACCOUNT);
-
-        final HyperwalletBankAccountPagination hyperwalletBankAccountPagination =
-                new HyperwalletBankAccountPagination(query);
-        assertThat(hyperwalletBankAccountPagination.getType(), is(BANK_ACCOUNT));
-
-        Hyperwallet.getDefault().listBankAccounts(hyperwalletBankAccountPagination, mListener);
+        Hyperwallet.getDefault().listBankAccounts(queryParam, mListener);
         mAwait.await(1000, TimeUnit.MILLISECONDS);
 
         verify(mListener, never()).onSuccess(any(HyperwalletPageList.class));
@@ -220,6 +216,8 @@ public class HyperwalletListBankAccountsTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
                 containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts?"));
+        assertThat(recordedRequest.getMethod(), is(GET.name()));
+
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
         assertThat(recordedRequest.getPath(), containsString("status=ACTIVATED"));

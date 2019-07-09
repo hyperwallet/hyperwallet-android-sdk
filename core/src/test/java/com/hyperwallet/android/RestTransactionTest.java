@@ -17,10 +17,9 @@ import android.os.Handler;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.exception.HyperwalletGqlException;
 import com.hyperwallet.android.listener.HyperwalletListener;
-import com.hyperwallet.android.model.HyperwalletBankAccount;
 import com.hyperwallet.android.model.TypeReference;
-import com.hyperwallet.android.model.meta.HyperwalletTransferMethodConfigurationKeyResult;
-import com.hyperwallet.android.model.meta.error.GqlErrors;
+import com.hyperwallet.android.model.graphql.error.GqlErrors;
+import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.util.HttpClient;
 import com.hyperwallet.android.util.JsonUtils;
@@ -45,7 +44,7 @@ public class RestTransactionTest {
     public HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
 
     @Mock
-    private HyperwalletListener<HyperwalletTransferMethodConfigurationKeyResult> mListener;
+    private HyperwalletListener<HyperwalletBankAccount> mListener;
     @Mock
     private HttpClient mHttpClient;
 
@@ -276,7 +275,7 @@ public class RestTransactionTest {
 
         Runnable r = mRunnableCaptor.getValue();
         r.run();
-        verify(mListener).onSuccess((HyperwalletTransferMethodConfigurationKeyResult) any());
+        verify(mListener).onSuccess((HyperwalletBankAccount) any());
     }
 
     @Test
@@ -298,7 +297,7 @@ public class RestTransactionTest {
 
         Runnable r = mRunnableCaptor.getValue();
         r.run();
-        verify(mListener, never()).onSuccess((HyperwalletTransferMethodConfigurationKeyResult) any());
+        verify(mListener, never()).onSuccess((HyperwalletBankAccount) any());
     }
 
 }

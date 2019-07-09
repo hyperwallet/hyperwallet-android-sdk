@@ -34,12 +34,11 @@ import java.util.Map;
 
 public abstract class HttpTransaction implements Runnable {
 
+    protected static final String AUTHENTICATION_STRATEGY = "Bearer ";
+    protected static final String HTTP_HEADER_AUTHORIZATION = "Authorization";
     private static final String APPLICATION_JSON = "application/json";
     private static final String HTTP_HEADER_ACCEPT_KEY = "Accept";
     private static final String HTTP_HEADER_CONTENT_TYPE_KEY = "Content-Type";
-    protected static final String AUTHENTICATION_STRATEGY = "Bearer ";
-    protected static final String HTTP_HEADER_AUTHORIZATION = "Authorization";
-
     private Map<String, String> mHeaderMap;
     private HyperwalletListener mListener;
     private HttpMethod mMethod;
@@ -90,12 +89,12 @@ public abstract class HttpTransaction implements Runnable {
         return mListener;
     }
 
-    protected void setPayload(String payload) {
-        mPayload = payload;
-    }
-
     protected String getPayload() {
         return mPayload;
+    }
+
+    protected void setPayload(String payload) {
+        mPayload = payload;
     }
 
     protected String getPath() {

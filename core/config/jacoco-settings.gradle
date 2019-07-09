@@ -29,12 +29,12 @@ def fileFilter = ['**/R.class',
                   '**/com/hyperwallet/android/Hyperwallet.class',
                   '**/com/hyperwallet/android/Hyperwallet$*.class']
 def debugClassPaths = [
-        '**/intermediates/javac/devDebug/*/classes/**'
+        '**/intermediates/javac/debug/*/classes/**'
 ]
 
 final def coverageSourceDirs = ["$project.projectDir/src/main/java/*"]
 
-task jacocoTestReport(type: JacocoReport, dependsOn: 'testDevDebugUnitTest') {
+task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
 
     group = 'Reporting'
     description = 'Generate Jacoco coverage reports.'
@@ -54,7 +54,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: 'testDevDebugUnitTest') {
 
     additionalSourceDirs.from = files(coverageSourceDirs)
     sourceDirectories.from = files(coverageSourceDirs)
-    executionData.from = files("${buildDir}/jacoco/testDevDebugUnitTest.exec")
+    executionData.from = files("${buildDir}/jacoco/testDebugUnitTest.exec")
 }
 
 task jacocoTestCoverageVerification(type: JacocoCoverageVerification, dependsOn: 'jacocoTestReport') {
@@ -67,7 +67,7 @@ task jacocoTestCoverageVerification(type: JacocoCoverageVerification, dependsOn:
     )
     additionalSourceDirs.from = files(coverageSourceDirs)
     sourceDirectories.from = files(coverageSourceDirs)
-    executionData.from = files("${buildDir}/jacoco/testDevDebugUnitTest.exec")
+    executionData.from = files("${buildDir}/jacoco/testDebugUnitTest.exec")
 
     violationRules {
         setFailOnViolation(true)

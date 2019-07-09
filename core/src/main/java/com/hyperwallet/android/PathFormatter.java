@@ -33,8 +33,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 class PathFormatter {
-    private Object[] arguments;
     private final String pattern;
+    private Object[] arguments;
 
     private PathFormatter(String pattern) {
         this.pattern = pattern;

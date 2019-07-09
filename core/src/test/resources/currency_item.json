@@ -1,0 +1,30 @@
+{
+  "code": "CAD",
+  "name": "Canadian Dollar",
+  "transferMethodTypes": {
+    "nodes": [
+      {
+        "code": "BANK_ACCOUNT",
+        "name": "Bank Account",
+        "processingTimes": {
+          "nodes": [
+            {
+              "value": "1-3 Business days",
+              "country": "CA",
+              "currency": "CAD",
+              "transferMethodType": "BANK_ACCOUNT"
+            }
+          ]
+        },
+        "fees": {
+          "nodes": [
+            {
+              "value": "5.00",
+              "feeRateType": "FLAT"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

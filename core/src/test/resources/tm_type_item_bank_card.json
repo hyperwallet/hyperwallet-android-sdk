@@ -1,0 +1,25 @@
+{
+  "code": "BANK_CARD",
+  "name": "Debit Card",
+  "fees": {
+    "nodes": [
+      {
+        "country": "US",
+        "currency": "USD",
+        "transferMethodType": "BANK_CARD",
+        "feeRateType": "FLAT",
+        "value": "2.00"
+      }
+    ]
+  },
+  "processingTimes": {
+    "nodes": [
+      {
+        "country": "US",
+        "currency": "USD",
+        "transferMethodType": "BANK_CARD",
+        "value": "1-2 Business days"
+      }
+    ]
+  }
+}

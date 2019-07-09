@@ -15,7 +15,7 @@ import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.HyperwalletError;
 import com.hyperwallet.android.model.HyperwalletErrors;
-import com.hyperwallet.android.model.HyperwalletUser;
+import com.hyperwallet.android.model.user.HyperwalletUser;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
@@ -110,8 +110,8 @@ public class HyperwalletGetUserTest {
         verify(mListener).onSuccess(mUserArgumentCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
 
-        HyperwalletUser hyperwalletUser = mUserArgumentCaptor.getValue();
-        assertThat(hyperwalletUser, is(nullValue()));
+        HyperwalletUser user = mUserArgumentCaptor.getValue();
+        assertThat(user, is(nullValue()));
     }
 
     @Test

@@ -1,0 +1,25 @@
+{
+  "code": "BANK_ACCOUNT",
+  "name": "Bank Account",
+  "fees": {
+    "nodes": [
+      {
+        "country": "US",
+        "currency": "USD",
+        "transferMethodType": "BANK_ACCOUNT",
+        "feeRateType": "FLAT",
+        "value": "2.00"
+      }
+    ]
+  },
+  "processingTimes": {
+    "nodes": [
+      {
+        "country": "US",
+        "currency": "USD",
+        "transferMethodType": "BANK_ACCOUNT",
+        "value": "1-3 Business days"
+      }
+    ]
+  }
+}
