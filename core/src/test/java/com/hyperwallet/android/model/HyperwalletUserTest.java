@@ -123,6 +123,7 @@ public class HyperwalletUserTest {
         assertThat(actualUser.getField(BUSINESS_TYPE), is("CORPORATION"));
         assertThat(actualUser.getField(LANGUAGE), is("en"));
         assertThat(actualUser.getField(PROGRAM_TOKEN), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
+        assertThat(actualUser.getField("FAKE_FIELD"), is(nullValue()));
 
     }
 

@@ -18,12 +18,14 @@
 
 package com.hyperwallet.android.model;
 
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.EMAIL;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
-import static com.hyperwallet.android.model.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
+
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,7 +63,7 @@ public class PayPalAccount extends HyperwalletTransferMethod {
 
     @Nullable
     public String getEmail() {
-        return getField(EMAIL);
+        return getField(TransferMethodFields.EMAIL);
     }
 
     public static class Builder {
