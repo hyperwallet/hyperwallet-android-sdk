@@ -17,6 +17,7 @@
 package com.hyperwallet.android;
 
 import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.DE_ACTIVATED;
+import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.SCHEDULED;
 import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 import static com.hyperwallet.android.util.HttpMethod.PUT;
@@ -760,6 +761,30 @@ public class Hyperwallet {
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<HyperwalletPageList<Receipt>>() {
                 }, listener).query(urlQuery);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
+     * Commit the transfer recently created, identified by the transfer token reference from create transfer response
+     *
+     * @param transferToken transfer token generated when transfer is created
+     * @param notes         additional information for committing transfer
+     * @param listener      the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void commitTransfer(@NonNull final String transferToken, @Nullable final String notes,
+            @NonNull final HyperwalletListener<HyperwalletStatusTransition> listener) {
+        PathFormatter pathFormatter = new PathFormatter("transfers/{1}/status-transitions",
+                transferToken);
+
+        final HyperwalletStatusTransition transferConfirm = new HyperwalletStatusTransition.Builder()
+                .transition(SCHEDULED)
+                .notes(notes)
+                .build();
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
+                new TypeReference<HyperwalletStatusTransition>() {
+                }, listener).jsonModel(transferConfirm);
 
         performRestTransaction(builder, listener);
     }
