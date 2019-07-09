@@ -32,7 +32,8 @@ import java.text.MessageFormat;
 
 /**
  * Token less path formatter decorates the outcome of the {@link PathFormatter#format(String)} method.
- * In case user token unnecessary for request formatter will ignore it and will apply incoming arguments to a path.
+ * In case user token unnecessary for a request the formatter will ignore it and will apply incoming arguments to a
+ * path.
  */
 class TokenLessPathFormatter extends PathFormatter {
 
