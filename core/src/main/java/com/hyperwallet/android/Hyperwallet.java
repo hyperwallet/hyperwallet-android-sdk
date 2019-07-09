@@ -766,7 +766,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Commit the transfer recently created, identified by the transfer token reference from create transfer response
+     * Commit the transfer recently created, identified by the transfer token, referenced from create transfer response
      *
      * @param transferToken transfer token generated when transfer is created
      * @param notes         additional information for committing transfer
@@ -777,14 +777,14 @@ public class Hyperwallet {
         PathFormatter pathFormatter = new PathFormatter("transfers/{1}/status-transitions",
                 transferToken);
 
-        final StatusTransition transferConfirm = new StatusTransition.Builder()
+        final StatusTransition statusTransition = new StatusTransition.Builder()
                 .transition(SCHEDULED)
                 .notes(notes)
                 .build();
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
                 new TypeReference<StatusTransition>() {
-                }, listener).jsonModel(transferConfirm);
+                }, listener).jsonModel(statusTransition);
 
         performRestTransaction(builder, listener);
     }
