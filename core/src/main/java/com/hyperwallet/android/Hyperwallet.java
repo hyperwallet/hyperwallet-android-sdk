@@ -238,6 +238,30 @@ public class Hyperwallet {
     }
 
     /**
+     * Creates a {@link Transfer} for the User associated with the authentication token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param transfer the {@code Transfer} to be created; must not be null
+     * @param listener    the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void createTransfer(@NonNull final Transfer transfer,
+            @NonNull final HyperwalletListener<Transfer> listener) {
+        PathFormatter pathFormatter = new PathFormatter("transfers");
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
+                new TypeReference<Transfer>() {
+                }, listener).jsonModel(transfer);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
      * Returns the {@link HyperwalletBankAccount} linked to the transfer method token specified, or null if none exists.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
@@ -757,30 +781,6 @@ public class Hyperwallet {
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<HyperwalletPageList<Receipt>>() {
                 }, listener).query(urlQuery);
-
-        performRestTransaction(builder, listener);
-    }
-
-    /**
-     * Creates a {@link Transfer} for the User associated with the authentication token returned from
-     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
-     *
-     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
-     * processing the request.</p>
-     *
-     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
-     * if the current one is expired or about to expire.</p>
-     *
-     * @param transfer the {@code Transfer} to be created; must not be null
-     * @param listener    the callback handler of responses from the Hyperwallet platform; must not be null
-     */
-    public void createTransfer(@NonNull final Transfer transfer,
-            @NonNull final HyperwalletListener<Transfer> listener) {
-        PathFormatter pathFormatter = new PathFormatter("transfers");
-
-        RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
-                new TypeReference<Transfer>() {
-                }, listener).jsonModel(transfer);
 
         performRestTransaction(builder, listener);
     }

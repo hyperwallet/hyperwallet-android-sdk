@@ -32,6 +32,7 @@ import org.junit.runners.Suite;
         HyperwalletListBankAccountsTest.class,
         HyperwalletCreateBankCardTest.class,
         HyperwalletCreatePayPalAccountTest.class,
+        HyperwalletCreateTransferTest.class,
         HyperwalletGetBankAccountTest.class,
         HyperwalletGetBankCardTest.class,
         HyperwalletGetPayPalTest.class,
@@ -47,8 +48,7 @@ import org.junit.runners.Suite;
         HyperwalletRetrieveTransferMethodConfigurationFieldsTest.class,
         HyperwalletListPayPalAccountsTest.class,
         HyperwalletListUserReceiptsTest.class,
-        HyperwalletListPrepaidCardReceiptsTest.class,
-        HyperwalletCreateTransferTest.class
+        HyperwalletListPrepaidCardReceiptsTest.class
 })
 public class HyperwalletTestSuite {
 
