@@ -65,12 +65,12 @@ public class HyperwalletGetTransferTest {
         String responseBody = mExternalResourceManager.getResourceContent("transfer_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getTransfer("trf-aa308d58-75b4-432b-dec1-eb6b9e341111", mListener);
+        Hyperwallet.getDefault().getTransfer("trf-123", mListener);
         mAwait.await(100, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/transfers/trf-aa308d58-75b4-432b-dec1-eb6b9e341111"));
+                is("/rest/v3/transfers/trf-123"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         verify(mListener).onSuccess(mTransferArgumentCaptor.capture());
@@ -78,7 +78,7 @@ public class HyperwalletGetTransferTest {
 
         Transfer transferResponse = mTransferArgumentCaptor.getValue();
         assertThat(transferResponse, is(notNullValue()));
-        assertThat(transferResponse.getToken(), is("trf-aa308d58-75b4-432b-dec1-eb6b9e341111"));
+        assertThat(transferResponse.getToken(), is("trf-123"));
         assertThat(transferResponse.getStatus(), is(QUOTED));
         assertThat(transferResponse.getCreatedOn(), is(fromDateTimeString("2019-07-01T00:00:00")));
         assertThat(transferResponse.getClientTransferId(), is("1234567890123"));
@@ -100,12 +100,12 @@ public class HyperwalletGetTransferTest {
         String responseBody = "";
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_NO_CONTENT).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getTransfer("trf-aa308d58-75b4-432b-dec1-eb6b9e341111", mListener);
+        Hyperwallet.getDefault().getTransfer("trf-123", mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/transfers/trf-aa308d58-75b4-432b-dec1-eb6b9e341111"));
+                is("/rest/v3/transfers/trf-123"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         verify(mListener).onSuccess(mTransferArgumentCaptor.capture());
@@ -121,11 +121,11 @@ public class HyperwalletGetTransferTest {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getTransfer("trf-aa308d58-75b4-432b-dec1-eb6b9e341111", mListener);
+        Hyperwallet.getDefault().getTransfer("trf-123", mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
-        assertThat(recordedRequest.getPath(), is("/rest/v3/transfers/trf-aa308d58-75b4-432b-dec1-eb6b9e341111"));
+        assertThat(recordedRequest.getPath(), is("/rest/v3/transfers/trf-123"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         verify(mListener, never()).onSuccess(any(Transfer.class));
