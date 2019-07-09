@@ -42,6 +42,21 @@ import java.util.Map;
  */
 public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
 
+    public static final Creator<HyperwalletUser> CREATOR =
+            new Creator<HyperwalletUser>() {
+                @Override
+                public HyperwalletUser createFromParcel(Parcel source) {
+                    final Map<String, Object> fields = new HashMap<>();
+                    source.readMap(fields, this.getClass().getClassLoader());
+                    return new HyperwalletUser(fields);
+                }
+
+                @Override
+                public HyperwalletUser[] newArray(int size) {
+                    return new HyperwalletUser[0];
+                }
+            };
+
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
             UserStatuses.PRE_ACTIVATED,
@@ -532,21 +547,6 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeMap(mFields);
     }
-
-    public static final Creator<HyperwalletUser> CREATOR =
-            new Creator<HyperwalletUser>() {
-                @Override
-                public HyperwalletUser createFromParcel(Parcel source) {
-                    final Map<String, Object> fields = new HashMap<>();
-                    source.readMap(fields, this.getClass().getClassLoader());
-                    return new HyperwalletUser(fields);
-                }
-
-                @Override
-                public HyperwalletUser[] newArray(int size) {
-                    return new HyperwalletUser[0];
-                }
-            };
 
     protected void setFields(@NonNull Map<String, Object> fields) {
         mFields = fields;
