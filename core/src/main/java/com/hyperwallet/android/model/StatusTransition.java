@@ -83,6 +83,8 @@ public class StatusTransition implements HyperwalletJsonModel, Parcelable {
     }
 
     public final class StatusDefinition {
+        private StatusDefinition() {
+        }
         public static final String ACTIVATED = "ACTIVATED";
         public static final String CANCELLED = "CANCELLED";
         public static final String COMPLETED = "COMPLETED";
@@ -116,6 +118,8 @@ public class StatusTransition implements HyperwalletJsonModel, Parcelable {
     }
 
     public final class StatusCodeDefinition {
+        private StatusCodeDefinition() {
+        }
         public static final String RECALLED = "RECALLED";
         public static final String RETURNED = "RETURNED";
     }
@@ -134,6 +138,8 @@ public class StatusTransition implements HyperwalletJsonModel, Parcelable {
     }
 
     public final class StatusTransitionField {
+        private StatusTransitionField() {
+        }
         public static final String CREATED_ON = "createdOn";
         public static final String FROM_STATUS = "fromStatus";
         public static final String TO_STATUS = "toStatus";
