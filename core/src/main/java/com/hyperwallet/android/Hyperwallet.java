@@ -16,8 +16,8 @@
  */
 package com.hyperwallet.android;
 
-import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.DE_ACTIVATED;
-import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.SCHEDULED;
+import static com.hyperwallet.android.model.StatusTransition.StatusDefinition.DE_ACTIVATED;
+import static com.hyperwallet.android.model.StatusTransition.StatusDefinition.SCHEDULED;
 import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 import static com.hyperwallet.android.util.HttpMethod.PUT;
@@ -28,8 +28,8 @@ import androidx.annotation.Nullable;
 import com.hyperwallet.android.exception.AuthenticationTokenProviderException;
 import com.hyperwallet.android.exception.HyperwalletInitializationException;
 import com.hyperwallet.android.listener.HyperwalletListener;
-import com.hyperwallet.android.model.HyperwalletStatusTransition;
 import com.hyperwallet.android.model.QueryParam;
+import com.hyperwallet.android.model.StatusTransition;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationField;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
@@ -409,16 +409,16 @@ public class Hyperwallet {
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void deactivateBankAccount(@NonNull final String transferMethodToken, @Nullable final String notes,
-            @NonNull final HyperwalletListener<HyperwalletStatusTransition> listener) {
+            @NonNull final HyperwalletListener<StatusTransition> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts/{1}/status-transitions",
                 transferMethodToken);
 
-        final HyperwalletStatusTransition deactivatedStatusTransition = new HyperwalletStatusTransition.Builder()
+        final StatusTransition deactivatedStatusTransition = new StatusTransition.Builder()
                 .transition(DE_ACTIVATED)
                 .notes(notes)
                 .build();
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
-                new TypeReference<HyperwalletStatusTransition>() {
+                new TypeReference<StatusTransition>() {
                 }, listener).jsonModel(deactivatedStatusTransition);
 
         performRestTransaction(builder, listener);
@@ -442,16 +442,16 @@ public class Hyperwallet {
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void deactivateBankCard(@NonNull final String transferMethodToken, @Nullable final String notes,
-            @NonNull final HyperwalletListener<HyperwalletStatusTransition> listener) {
+            @NonNull final HyperwalletListener<StatusTransition> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards/{1}/status-transitions",
                 transferMethodToken);
 
-        final HyperwalletStatusTransition deactivatedStatusTransition = new HyperwalletStatusTransition.Builder()
+        final StatusTransition deactivatedStatusTransition = new StatusTransition.Builder()
                 .transition(DE_ACTIVATED)
                 .notes(notes)
                 .build();
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
-                new TypeReference<HyperwalletStatusTransition>() {
+                new TypeReference<StatusTransition>() {
                 }, listener).jsonModel(deactivatedStatusTransition);
 
         performRestTransaction(builder, listener);
@@ -475,16 +475,16 @@ public class Hyperwallet {
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void deactivatePayPalAccount(@NonNull final String transferMethodToken, @Nullable final String notes,
-            @NonNull final HyperwalletListener<HyperwalletStatusTransition> listener) {
+            @NonNull final HyperwalletListener<StatusTransition> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts/{1}/status-transitions",
                 transferMethodToken);
 
-        final HyperwalletStatusTransition deactivatedStatusTransition = new HyperwalletStatusTransition.Builder()
+        final StatusTransition deactivatedStatusTransition = new StatusTransition.Builder()
                 .transition(DE_ACTIVATED)
                 .notes(notes)
                 .build();
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
-                new TypeReference<HyperwalletStatusTransition>() {
+                new TypeReference<StatusTransition>() {
                 }, listener).jsonModel(deactivatedStatusTransition);
 
         performRestTransaction(builder, listener);
@@ -773,17 +773,17 @@ public class Hyperwallet {
      * @param listener      the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void commitTransfer(@NonNull final String transferToken, @Nullable final String notes,
-            @NonNull final HyperwalletListener<HyperwalletStatusTransition> listener) {
+            @NonNull final HyperwalletListener<StatusTransition> listener) {
         PathFormatter pathFormatter = new PathFormatter("transfers/{1}/status-transitions",
                 transferToken);
 
-        final HyperwalletStatusTransition transferConfirm = new HyperwalletStatusTransition.Builder()
+        final StatusTransition transferConfirm = new StatusTransition.Builder()
                 .transition(SCHEDULED)
                 .notes(notes)
                 .build();
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
-                new TypeReference<HyperwalletStatusTransition>() {
+                new TypeReference<StatusTransition>() {
                 }, listener).jsonModel(transferConfirm);
 
         performRestTransaction(builder, listener);

@@ -15,7 +15,7 @@ import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.HyperwalletError;
 import com.hyperwallet.android.model.HyperwalletErrors;
-import com.hyperwallet.android.model.HyperwalletStatusTransition;
+import com.hyperwallet.android.model.StatusTransition;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
@@ -49,9 +49,9 @@ public class HyperwalletDeactivateBankAccountTest {
     @Rule
     public MockitoRule mMockitoRule = MockitoJUnit.rule();
     @Mock
-    private HyperwalletListener<HyperwalletStatusTransition> mMockStatusTransitionListener;
+    private HyperwalletListener<StatusTransition> mMockStatusTransitionListener;
     @Captor
-    private ArgumentCaptor<HyperwalletStatusTransition> mStatusTransitionCaptor;
+    private ArgumentCaptor<StatusTransition> mStatusTransitionCaptor;
     @Captor
     private ArgumentCaptor<HyperwalletException> mHyperwalletExceptionArgumentCaptor;
 
@@ -69,14 +69,14 @@ public class HyperwalletDeactivateBankAccountTest {
 
         verify(mMockStatusTransitionListener).onSuccess(mStatusTransitionCaptor.capture());
         verify(mMockStatusTransitionListener, never()).onFailure(any(HyperwalletException.class));
-        HyperwalletStatusTransition statusTransitionResponse = mStatusTransitionCaptor.getValue();
+        StatusTransition statusTransitionResponse = mStatusTransitionCaptor.getValue();
         assertNotNull(statusTransitionResponse);
         assertThat(statusTransitionResponse.getFromStatus(),
-                is(HyperwalletStatusTransition.StatusDefinition.ACTIVATED));
+                is(StatusTransition.StatusDefinition.ACTIVATED));
         assertThat(statusTransitionResponse.getToStatus(),
-                is(HyperwalletStatusTransition.StatusDefinition.DE_ACTIVATED));
+                is(StatusTransition.StatusDefinition.DE_ACTIVATED));
         assertThat(statusTransitionResponse.getTransition(),
-                is(HyperwalletStatusTransition.StatusDefinition.DE_ACTIVATED));
+                is(StatusTransition.StatusDefinition.DE_ACTIVATED));
         assertThat(statusTransitionResponse.getToken(), is("sts-70ddc78a-0c14-4a72-8390-75d49ff376f2"));
         assertNotNull(statusTransitionResponse.getCreatedOn());
 
@@ -99,7 +99,7 @@ public class HyperwalletDeactivateBankAccountTest {
         await.await(500, TimeUnit.MILLISECONDS);
 
         verify(mMockStatusTransitionListener).onFailure(mHyperwalletExceptionArgumentCaptor.capture());
-        verify(mMockStatusTransitionListener, never()).onSuccess(any(HyperwalletStatusTransition.class));
+        verify(mMockStatusTransitionListener, never()).onSuccess(any(StatusTransition.class));
         HyperwalletException hyperwalletException = mHyperwalletExceptionArgumentCaptor.getValue();
         assertNotNull(hyperwalletException);
         final HyperwalletErrors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
