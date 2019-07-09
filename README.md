@@ -17,7 +17,7 @@ We also provide an out-of-the-box  [Hyperwallet Android UI SDK](https://github.c
 To install Hyperwallet Core SDK, you just need to add the dependency into your build.gradle file in Android Studio (or Gradle). For example:
 
 ```bash
-api 'com.hyperwallet.android:core-sdk:1.0.0-beta02'
+api 'com.hyperwallet.android:core-sdk:1.0.0-beta03'
 ```
 
 ## Initialization
@@ -81,6 +81,17 @@ public class TestAuthenticationProvider implements HyperwalletAuthenticationToke
 ```
 ## Usage
 The functions in core SDK are available to use once the authentication is done.
+
+### Using ```createPayPalAccount```
+
+```
+final PayPalAccount payPalAccount = new PayPalAccount.Builder()
+                .transferMethodCountry("US")
+                .transferMethodCurrency("USD")
+                .email("jsmith@paypal.com")
+                .build();
+Hyperwallet.getDefault().createPayPalAccount(bankAccount, listener);
+```
 
 ### Using ```createBankAccount```
 
