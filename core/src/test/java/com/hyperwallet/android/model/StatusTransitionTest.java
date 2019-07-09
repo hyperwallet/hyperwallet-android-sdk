@@ -21,17 +21,17 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 @RunWith(RobolectricTestRunner.class)
-public class HyperwalletStatusTransitionTest {
+public class StatusTransitionTest {
 
     @Rule
     public final HyperwalletExternalResourceManager mExternalResourceManager =
             new HyperwalletExternalResourceManager();
 
-    private static HyperwalletStatusTransition expectedStatusTransition;
+    private static StatusTransition expectedStatusTransition;
 
     @BeforeClass
     public static void setup() {
-        expectedStatusTransition = new HyperwalletStatusTransition.Builder()
+        expectedStatusTransition = new StatusTransition.Builder()
                 .transition("DE_ACTIVATED")
                 .notes("TEST")
                 .build();
@@ -39,9 +39,9 @@ public class HyperwalletStatusTransitionTest {
 
     @Test
     public void testFromJsonString_convertStatusTransition() throws Exception {
-        HyperwalletStatusTransition statusTransition = fromJsonString(
+        StatusTransition statusTransition = fromJsonString(
                 mExternalResourceManager.getResourceContent("status_transition_response.json"),
-                new TypeReference<HyperwalletStatusTransition>() {
+                new TypeReference<StatusTransition>() {
                 });
 
         assertNotNull(statusTransition);
@@ -65,9 +65,9 @@ public class HyperwalletStatusTransitionTest {
 
     @Test
     public void testHyperwalletStatusTransition_isParcelable() throws Exception {
-        HyperwalletStatusTransition statusTransition = fromJsonString(
+        StatusTransition statusTransition = fromJsonString(
                 mExternalResourceManager.getResourceContent("status_transition_response.json"),
-                new TypeReference<HyperwalletStatusTransition>() {
+                new TypeReference<StatusTransition>() {
                 });
 
         assertThat(statusTransition, is(notNullValue()));
@@ -82,17 +82,17 @@ public class HyperwalletStatusTransitionTest {
         Parcel parcel = Parcel.obtain();
         statusTransition.writeToParcel(parcel, statusTransition.describeContents());
         parcel.setDataPosition(0);
-        HyperwalletStatusTransition bundledHyperwalletStatusTransition =
-                HyperwalletStatusTransition.CREATOR.createFromParcel(parcel);
+        StatusTransition bundledStatusTransition =
+                StatusTransition.CREATOR.createFromParcel(parcel);
 
-        assertThat(bundledHyperwalletStatusTransition, is(notNullValue()));
-        assertThat(bundledHyperwalletStatusTransition.getCreatedOn(), is("2019-01-08T23:55:08"));
-        assertThat(bundledHyperwalletStatusTransition.getFromStatus(), is("ACTIVATED"));
-        assertThat(bundledHyperwalletStatusTransition.getToStatus(), is("DE_ACTIVATED"));
-        assertThat(bundledHyperwalletStatusTransition.getNotes(), is("TEST"));
-        assertThat(bundledHyperwalletStatusTransition.getToken(), is("sts-be2080a7-3831-488e-b282-129f41d7dbc9"));
-        assertThat(bundledHyperwalletStatusTransition.getTransition(), is("DE_ACTIVATED"));
-        assertThat(bundledHyperwalletStatusTransition.getStatusCode(), is(nullValue()));
+        assertThat(bundledStatusTransition, is(notNullValue()));
+        assertThat(bundledStatusTransition.getCreatedOn(), is("2019-01-08T23:55:08"));
+        assertThat(bundledStatusTransition.getFromStatus(), is("ACTIVATED"));
+        assertThat(bundledStatusTransition.getToStatus(), is("DE_ACTIVATED"));
+        assertThat(bundledStatusTransition.getNotes(), is("TEST"));
+        assertThat(bundledStatusTransition.getToken(), is("sts-be2080a7-3831-488e-b282-129f41d7dbc9"));
+        assertThat(bundledStatusTransition.getTransition(), is("DE_ACTIVATED"));
+        assertThat(bundledStatusTransition.getStatusCode(), is(nullValue()));
     }
 }
 

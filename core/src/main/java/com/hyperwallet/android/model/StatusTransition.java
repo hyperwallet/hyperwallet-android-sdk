@@ -37,20 +37,20 @@ import java.util.Map;
 /**
  * Status transition representation that denotes Hyperwallet entity object status
  */
-public class HyperwalletStatusTransition implements HyperwalletJsonModel, Parcelable {
+public class StatusTransition implements HyperwalletJsonModel, Parcelable {
 
-    public static final Creator<HyperwalletStatusTransition> CREATOR =
-            new Creator<HyperwalletStatusTransition>() {
+    public static final Creator<StatusTransition> CREATOR =
+            new Creator<StatusTransition>() {
                 @Override
-                public HyperwalletStatusTransition createFromParcel(Parcel source) {
+                public StatusTransition createFromParcel(Parcel source) {
                     final Map<String, Object> fields = new HashMap<>();
                     source.readMap(fields, this.getClass().getClassLoader());
-                    return new HyperwalletStatusTransition(fields);
+                    return new StatusTransition(fields);
                 }
 
                 @Override
-                public HyperwalletStatusTransition[] newArray(int size) {
-                    return new HyperwalletStatusTransition[size];
+                public StatusTransition[] newArray(int size) {
+                    return new StatusTransition[size];
                 }
             };
 
@@ -143,15 +143,15 @@ public class HyperwalletStatusTransition implements HyperwalletJsonModel, Parcel
 
     private Map<String, Object> mFields;
 
-    public HyperwalletStatusTransition() {
+    public StatusTransition() {
         mFields = new HashMap<>();
     }
 
-    private HyperwalletStatusTransition(@NonNull final Map<String, Object> fields) {
+    private StatusTransition(@NonNull final Map<String, Object> fields) {
         mFields = fields;
     }
 
-    public HyperwalletStatusTransition(@NonNull final JSONObject jsonObject) throws JSONException {
+    public StatusTransition(@NonNull final JSONObject jsonObject) throws JSONException {
         toMap(jsonObject);
     }
 
@@ -262,8 +262,8 @@ public class HyperwalletStatusTransition implements HyperwalletJsonModel, Parcel
             return this;
         }
 
-        public HyperwalletStatusTransition build() {
-            return new HyperwalletStatusTransition(fields);
+        public StatusTransition build() {
+            return new StatusTransition(fields);
         }
     }
 }
