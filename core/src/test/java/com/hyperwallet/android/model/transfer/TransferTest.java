@@ -56,7 +56,7 @@ public class TransferTest {
                 });
 
         assertThat(transfer, is(notNullValue()));
-        assertThat(transfer.getField(TOKEN), is("trf-aa308d58-75b4-432b-dec1-eb6b9e341111"));
+        assertThat(transfer.getField(TOKEN), is("trf-123"));
         assertThat(transfer.getField(STATUS), is(QUOTED));
         assertThat(transfer.getField(CREATED_ON), is("2019-07-01T00:00:00"));
         assertThat(transfer.getField(CLIENT_TRANSFER_ID), is("1234567890123"));
@@ -72,7 +72,7 @@ public class TransferTest {
         assertThat(transfer.getField("incorrectField"), is(nullValue()));
 
 
-        assertThat(transfer.getToken(), is("trf-aa308d58-75b4-432b-dec1-eb6b9e341111"));
+        assertThat(transfer.getToken(), is("trf-123"));
         assertThat(transfer.getStatus(), is(QUOTED));
         assertThat(transfer.getCreatedOn(), is(fromDateTimeString("2019-07-01T00:00:00")));
         assertThat(transfer.getClientTransferId(), is("1234567890123"));
@@ -179,7 +179,7 @@ public class TransferTest {
                 new TypeReference<Transfer>() {
                 });
 
-        assertThat(transfer.getToken(), is("trf-aa308d58-75b4-432b-dec1-eb6b9e341111"));
+        assertThat(transfer.getToken(), is("trf-123"));
         assertThat(transfer.getStatus(), is(QUOTED));
         assertThat(transfer.getCreatedOn(), is(fromDateTimeString("2019-07-01T00:00:00")));
         assertThat(transfer.getClientTransferId(), is("1234567890123"));
@@ -199,7 +199,7 @@ public class TransferTest {
         Transfer bundledTransfer =
                 Transfer.CREATOR.createFromParcel(parcel);
 
-        assertThat(bundledTransfer.getToken(), is("trf-aa308d58-75b4-432b-dec1-eb6b9e341111"));
+        assertThat(bundledTransfer.getToken(), is("trf-123"));
         assertThat(bundledTransfer.getStatus(), is(QUOTED));
         assertThat(bundledTransfer.getCreatedOn(), is(fromDateTimeString("2019-07-01T00:00:00")));
         assertThat(bundledTransfer.getClientTransferId(), is("1234567890123"));
