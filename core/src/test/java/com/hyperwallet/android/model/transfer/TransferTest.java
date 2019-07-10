@@ -156,20 +156,12 @@ public class TransferTest {
     public void testToJsonObject_emptyTransfer() throws Exception {
         final Transfer.Builder emptyBuilder = new Transfer.Builder();
         final Transfer emptyTransfer = emptyBuilder.build();
+        assertThat(emptyTransfer.getForeignExchanges(), is(nullValue()));
+        assertThat(emptyTransfer.getToken(), is(nullValue()));
+        assertThat(emptyTransfer.containsKeyAndHasValue(TOKEN), is(false));
+        assertThat(emptyTransfer.getDateValue(CREATED_ON), is(nullValue()));
         JSONObject emptyTransferJsonObject = emptyTransfer.toJsonObject();
-        assertThat(emptyTransferJsonObject.has(STATUS), is(false));
-        assertThat(emptyTransferJsonObject.has(TOKEN), is(false));
-        assertThat(emptyTransferJsonObject.has(CREATED_ON), is(false));
-        assertThat(emptyTransferJsonObject.has(CLIENT_TRANSFER_ID), is(false));
-        assertThat(emptyTransferJsonObject.has(SOURCE_AMOUNT), is(false));
-        assertThat(emptyTransferJsonObject.has(SOURCE_CURRENCY), is(false));
-        assertThat(emptyTransferJsonObject.has(DESTINATION_AMOUNT), is(false));
-        assertThat(emptyTransferJsonObject.has(DESTINATION_CURRENCY), is(false));
-        assertThat(emptyTransferJsonObject.has(DESTINATION_TOKEN), is(false));
-        assertThat(emptyTransferJsonObject.has(NOTES), is(false));
-        assertThat(emptyTransferJsonObject.has(MEMO), is(false));
-        assertThat(emptyTransferJsonObject.has(EXPIRES_ON), is(false));
-        assertThat(emptyTransferJsonObject.has(FOREIGN_EXCHANGES), is(false));
+        assertThat(emptyTransferJsonObject.length(), is(0));
     }
 
     @Test
