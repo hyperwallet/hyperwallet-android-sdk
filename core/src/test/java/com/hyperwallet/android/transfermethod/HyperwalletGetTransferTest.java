@@ -101,7 +101,7 @@ public class HyperwalletGetTransferTest {
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_NO_CONTENT).withBody(responseBody).mock();
 
         Hyperwallet.getDefault().getTransfer("trf-123", mListener);
-        mAwait.await(500, TimeUnit.MILLISECONDS);
+        mAwait.await(100, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
@@ -122,7 +122,7 @@ public class HyperwalletGetTransferTest {
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
 
         Hyperwallet.getDefault().getTransfer("trf-123", mListener);
-        mAwait.await(500, TimeUnit.MILLISECONDS);
+        mAwait.await(100, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(), is("/rest/v3/transfers/trf-123"));
