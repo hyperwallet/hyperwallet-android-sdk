@@ -320,7 +320,7 @@ public class Hyperwallet {
      */
     public void getTransfer(@NonNull final String transferToken,
             @NonNull final HyperwalletListener<Transfer> listener) {
-        PathFormatter pathFormatter = new TokenLessPathFormatter("transfers/{0}", transferToken);
+        PathFormatter pathFormatter = new PathFormatter("transfers/{1}", transferToken);
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<Transfer>() {
