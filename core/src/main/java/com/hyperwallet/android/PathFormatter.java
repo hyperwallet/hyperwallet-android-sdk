@@ -29,14 +29,19 @@ package com.hyperwallet.android;
 import androidx.annotation.NonNull;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 class PathFormatter {
-    final String pattern;
-    Object[] arguments;
+    private final String pattern;
+    private Object[] arguments;
 
-    PathFormatter(@NonNull String pattern, @NonNull Object... args) {
+    private PathFormatter(String pattern) {
         this.pattern = pattern;
+    }
+
+    PathFormatter(@NonNull String pattern, Object... args) {
+        this(pattern);
         arguments = args;
     }
 
@@ -45,9 +50,9 @@ class PathFormatter {
         return MessageFormat.format(pattern, arguments);
     }
 
-    private Object[] prependArgument(final Object newArgument, @NonNull final Object[] arguments) {
-        Object[] result = Arrays.copyOf(new Object[]{newArgument}, arguments.length + 1);
-        System.arraycopy(arguments, 0, result, 1, arguments.length);
-        return result;
+    Object[] prependArgument(Object newArgument, Object[] arguments) {
+        ArrayList<Object> argumentsList = new ArrayList<>(Arrays.asList(arguments));
+        argumentsList.add(0, newArgument);
+        return argumentsList.toArray();
     }
 }
