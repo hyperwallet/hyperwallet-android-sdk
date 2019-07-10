@@ -64,27 +64,27 @@ public final class ForeignExchange implements HyperwalletJsonModel, Parcelable {
 
     @Nullable
     public String getSourceAmount() {
-        return getField(SOURCE_AMOUNT);
+        return getFieldValueToString(SOURCE_AMOUNT);
     }
 
     @Nullable
     public String getSourceCurrency() {
-        return getField(SOURCE_CURRENCY);
+        return getFieldValueToString(SOURCE_CURRENCY);
     }
 
     @Nullable
     public String getDestinationAmount() {
-        return getField(DESTINATION_AMOUNT);
+        return getFieldValueToString(DESTINATION_AMOUNT);
     }
 
     @Nullable
     public String getDestinationCurrency() {
-        return getField(DESTINATION_CURRENCY);
+        return getFieldValueToString(DESTINATION_CURRENCY);
     }
 
     @Nullable
     public String getRate() {
-        return getField(RATE);
+        return getFieldValueToString(RATE);
     }
 
     public Map<String, Object> getFields() {
@@ -125,7 +125,7 @@ public final class ForeignExchange implements HyperwalletJsonModel, Parcelable {
     /**
      * Returns a {@link String} value of a {@code Map<String, String>}
      * <p>
-     * Please use {@code getField(@NonNull String key, @NonNull Class<T> clazz)} if the value is not a {@link String}
+     * Please use {@code getFieldValueToString(@NonNull String key, @NonNull Class<T> clazz)} if the value is not a {@link String}
      * </p>
      *
      * @param key can only be a {@link String} that represents a {@link ForeignExchange.ForeignExchangeField}
@@ -133,7 +133,7 @@ public final class ForeignExchange implements HyperwalletJsonModel, Parcelable {
      * @return a {@link String} value that represents the value of a {@link ForeignExchange.ForeignExchangeField}
      */
     @Nullable
-    public String getField(@NonNull @ForeignExchange.ForeignExchangeField String key) {
+    public String getFieldValueToString(@NonNull @ForeignExchange.ForeignExchangeField String key) {
         return mFields.get(key) != null ? (String) mFields.get(key) : null;
     }
 

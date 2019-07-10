@@ -133,8 +133,8 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
      */
     public Transfer(@NonNull final JSONObject jsonObject) throws JSONException {
         toMap(jsonObject);
-        if (jsonObject.has(FOREIGN_EXCHANGES)) {
-            JSONArray jsonArray = jsonObject.optJSONArray(FOREIGN_EXCHANGES);
+        JSONArray jsonArray = jsonObject.optJSONArray(FOREIGN_EXCHANGES);
+        if (jsonArray != null && jsonArray.length() > 0) {
             List<ForeignExchange> foreignExchanges = new ArrayList<>(jsonArray.length());
             for (int i = 0; i < jsonArray.length(); i++) {
                 foreignExchanges.add(new ForeignExchange(jsonArray.getJSONObject(i)));
@@ -155,12 +155,12 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
 
     @Nullable
     public String getToken() {
-        return getField(TOKEN);
+        return getFieldValueToString(TOKEN);
     }
 
     @Nullable
     public String getStatus() {
-        return getField(STATUS);
+        return getFieldValueToString(STATUS);
     }
 
     @Nullable
@@ -170,37 +170,37 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
 
     @Nullable
     public String getClientTransferId() {
-        return getField(CLIENT_TRANSFER_ID);
+        return getFieldValueToString(CLIENT_TRANSFER_ID);
     }
 
     @Nullable
     public String getSourceToken() {
-        return getField(SOURCE_TOKEN);
+        return getFieldValueToString(SOURCE_TOKEN);
     }
 
     @Nullable
     public String getSourceAmount() {
-        return getField(SOURCE_AMOUNT);
+        return getFieldValueToString(SOURCE_AMOUNT);
     }
 
     @Nullable
     public String getSourceCurrency() {
-        return getField(SOURCE_CURRENCY);
+        return getFieldValueToString(SOURCE_CURRENCY);
     }
 
     @Nullable
     public String getDestinationToken() {
-        return getField(DESTINATION_TOKEN);
+        return getFieldValueToString(DESTINATION_TOKEN);
     }
 
     @Nullable
     public String getDestinationAmount() {
-        return getField(DESTINATION_AMOUNT);
+        return getFieldValueToString(DESTINATION_AMOUNT);
     }
 
     @Nullable
     public String getDestinationCurrency() {
-        return getField(DESTINATION_CURRENCY);
+        return getFieldValueToString(DESTINATION_CURRENCY);
     }
 
     @Nullable
@@ -210,12 +210,12 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
 
     @Nullable
     public String getNotes() {
-        return getField(NOTES);
+        return getFieldValueToString(NOTES);
     }
 
     @Nullable
     public String getMemo() {
-        return getField(MEMO);
+        return getFieldValueToString(MEMO);
     }
 
     @Nullable
@@ -256,14 +256,14 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
     /**
      * Returns a {@link String} value of a {@code Map<String, String>}
      * <p>
-     * Please use {@code getField(@NonNull String key, @NonNull Class<T> clazz)} if the value is not a {@link String}
+     * Please use {@code getFieldValueToString(@NonNull String key, @NonNull Class<T> clazz)} if the value is not a {@link String}
      * </p>
      *
      * @param key can only be a {@link String} that represents a {@link Transfer.TransferField} name
      * @return a {@link String} value that represents the value of a {@link TransferField}
      */
     @Nullable
-    String getField(@NonNull @Transfer.TransferField String key) {
+    String getFieldValueToString(@NonNull @Transfer.TransferField String key) {
         return mFields.get(key) != null ? (String) mFields.get(key) : null;
     }
 
@@ -284,15 +284,7 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
     @Override
     @NonNull
     public JSONObject toJsonObject() throws JSONException {
-        final JSONObject jsonObject = JsonUtils.mapToJsonObject(mFields);
-        if (getForeignExchanges() != null && !getForeignExchanges().isEmpty()) {
-            JSONArray foreignExchangeJson = new JSONArray();
-            for (ForeignExchange foreignExchange : getForeignExchanges()) {
-                foreignExchangeJson.put(foreignExchange.toJsonObject());
-            }
-            jsonObject.put(FOREIGN_EXCHANGES, foreignExchangeJson);
-        }
-        return jsonObject;
+        return JsonUtils.mapToJsonObject(mFields);
     }
 
     /**
