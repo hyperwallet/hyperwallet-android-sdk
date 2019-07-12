@@ -40,7 +40,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
-public class CommitTransferTest {
+public class ScheduleTransferTest {
 
     @Rule
     public HyperwalletMockWebServer mHwPlatform = new HyperwalletMockWebServer();
@@ -60,7 +60,7 @@ public class CommitTransferTest {
     private CountDownLatch mCountDownLatch = new CountDownLatch(1);
 
     @Test
-    public void testCommitTransfer_successfulCommit() throws InterruptedException {
+    public void testScheduleTransfer_successfulCommit() throws InterruptedException {
         // prepare mock
         String response = mResourceManager.getResourceContent("transfer_commit_successful.json");
         mHwPlatform.mockResponse().withHttpResponseCode(HTTP_CREATED).withBody(response).mock();
@@ -94,7 +94,7 @@ public class CommitTransferTest {
     }
 
     @Test
-    public void testCommitTransfer_unsuccessfulCommit() throws InterruptedException {
+    public void testScheduleTransfer_unsuccessfulCommit() throws InterruptedException {
         // prepare mock
         String response = mResourceManager.getResourceContent("transfer_commit_already_committed.json");
         mHwPlatform.mockResponse().withHttpResponseCode(HTTP_BAD_REQUEST).withBody(response).mock();
