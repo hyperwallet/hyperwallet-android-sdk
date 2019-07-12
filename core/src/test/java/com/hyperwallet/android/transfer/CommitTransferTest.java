@@ -66,7 +66,7 @@ public class CommitTransferTest {
         mHwPlatform.mockResponse().withHttpResponseCode(HTTP_CREATED).withBody(response).mock();
 
         // test
-        Hyperwallet.getDefault().commitTransfer("trf-recently-created-token",
+        Hyperwallet.getDefault().scheduleTransfer("trf-recently-created-token",
                 "commit transfer test notes", mMockedStatusTransitionListener);
         mCountDownLatch.await(100, TimeUnit.MILLISECONDS);
 
@@ -100,7 +100,7 @@ public class CommitTransferTest {
         mHwPlatform.mockResponse().withHttpResponseCode(HTTP_BAD_REQUEST).withBody(response).mock();
 
         // test
-        Hyperwallet.getDefault().commitTransfer("trf-will-fail-created-token",
+        Hyperwallet.getDefault().scheduleTransfer("trf-will-fail-created-token",
                 "commit transfer test notes that fails", mMockedStatusTransitionListener);
         mCountDownLatch.await(100, TimeUnit.MILLISECONDS);
 

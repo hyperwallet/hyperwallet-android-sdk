@@ -797,7 +797,7 @@ public class Hyperwallet {
      * @param notes         additional information for committing transfer
      * @param listener      the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void commitTransfer(@NonNull final String transferToken, @Nullable final String notes,
+    public void scheduleTransfer(@NonNull final String transferToken, @Nullable final String notes,
             @NonNull final HyperwalletListener<StatusTransition> listener) {
         PathFormatter pathFormatter = new PathFormatter("transfers/{1}/status-transitions",
                 transferToken);
