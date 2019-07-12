@@ -12,6 +12,7 @@ import static java.net.HttpURLConnection.HTTP_CREATED;
 
 import static com.hyperwallet.android.model.StatusTransition.StatusDefinition.QUOTED;
 import static com.hyperwallet.android.model.StatusTransition.StatusDefinition.SCHEDULED;
+import static com.hyperwallet.android.util.HttpMethod.POST;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
@@ -81,6 +82,8 @@ public class CommitTransferTest {
         String path = recordedRequest.getPath();
         assertThat(path, is("/rest/v3/transfers/trf-recently-created-token/status-transitions"));
 
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
+
         StatusTransition transferStatus = mTransferCommitCaptor.getValue();
         assertThat(transferStatus, is(notNullValue()));
         assertThat(transferStatus.getCreatedOn(), is("2019-07-08T08:08:39"));
@@ -113,6 +116,8 @@ public class CommitTransferTest {
 
         String path = recordedRequest.getPath();
         assertThat(path, is("/rest/v3/transfers/trf-will-fail-created-token/status-transitions"));
+
+        assertThat(recordedRequest.getMethod(), is(POST.name()));
 
         HyperwalletException exception = mExceptionArgumentCaptor.getValue();
         assertThat(exception, is(notNullValue()));

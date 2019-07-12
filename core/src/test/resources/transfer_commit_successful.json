@@ -1,5 +1,5 @@
 {
-  "token": "sts-90e58807-c370-47d1-bf2c-bbfab380a1b9",
+  "token": "sts-token",
   "createdOn": "2019-07-08T08:08:39",
   "transition": "SCHEDULED",
   "fromStatus": "QUOTED",
@@ -10,7 +10,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://localhost-hyperwallet.aws.paylution.net:8181/rest/v3/transfers/trf-c6fa681a-b77e-4649-9c20-0dd789c8da80/status-transitions/sts-90e58807-c370-47d1-bf2c-bbfab380a1b9"
+      "href": "https://localhost:8181/rest/v3/transfers/trf-token/status-transitions/sts-token"
     }
   ]
 }
