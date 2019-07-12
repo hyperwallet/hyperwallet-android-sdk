@@ -75,15 +75,7 @@ public class HyperwalletCreateTransferTest {
                 .sourceToken("usr-4321")
                 .destinationToken("trm-246");
         final Transfer transfer = transferBuilder.build();
-
-        assertThat(transfer.getClientTransferId(), is("1234567890123"));
-        assertThat(transfer.getDestinationAmount(), is("62.29"));
-        assertThat(transfer.getDestinationCurrency(), is("USD"));
-        assertThat(transfer.getNotes(), is("Partial-Balance Transfer"));
-        assertThat(transfer.getMemo(), is("TransferClientId321"));
-        assertThat(transfer.getSourceToken(), is("usr-4321"));
-        assertThat(transfer.getDestinationToken(), is("trm-246"));
-
+        
         Hyperwallet.getDefault().createTransfer(transfer, mListener);
         mAwait.await(50, TimeUnit.MILLISECONDS);
 
