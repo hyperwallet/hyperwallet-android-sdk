@@ -1,4 +1,4 @@
-package com.hyperwallet.android;
+package com.hyperwallet.android.util;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
@@ -8,7 +8,6 @@ import static org.junit.Assert.assertThat;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
-import com.hyperwallet.android.util.JsonUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
