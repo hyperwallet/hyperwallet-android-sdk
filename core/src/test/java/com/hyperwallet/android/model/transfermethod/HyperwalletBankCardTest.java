@@ -1,4 +1,4 @@
-package com.hyperwallet.android.model;
+package com.hyperwallet.android.model.transfermethod;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,7 +17,7 @@ import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMe
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
 import static com.hyperwallet.android.util.JsonUtils.fromJsonString;
 
-import com.hyperwallet.android.model.transfermethod.HyperwalletBankCard;
+import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
 import org.json.JSONObject;

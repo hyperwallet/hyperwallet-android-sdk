@@ -1,4 +1,4 @@
-package com.hyperwallet.android;
+package com.hyperwallet.android.util;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -7,7 +7,6 @@ import static org.junit.Assert.assertNotNull;
 
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
-import com.hyperwallet.android.util.HttpClient;
 
 import org.junit.ClassRule;
 import org.junit.Rule;
