@@ -56,20 +56,20 @@ public class TransferTest {
                 });
 
         assertThat(transfer, is(notNullValue()));
-        assertThat(transfer.getField(TOKEN), is("trf-123"));
-        assertThat(transfer.getField(STATUS), is(QUOTED));
-        assertThat(transfer.getField(CREATED_ON), is("2019-07-01T00:00:00"));
-        assertThat(transfer.getField(CLIENT_TRANSFER_ID), is("1234567890123"));
-        assertThat(transfer.getField(SOURCE_AMOUNT), is("80"));
-        assertThat(transfer.getField(SOURCE_CURRENCY), is("CAD"));
-        assertThat(transfer.getField(SOURCE_TOKEN), is("usr-4321"));
-        assertThat(transfer.getField(DESTINATION_AMOUNT), is("62.29"));
-        assertThat(transfer.getField(DESTINATION_CURRENCY), is("USD"));
-        assertThat(transfer.getField(DESTINATION_TOKEN), is("trm-246"));
-        assertThat(transfer.getField(NOTES), is("Partial-Balance Transfer"));
-        assertThat(transfer.getField(MEMO), is("TransferClientId321"));
-        assertThat(transfer.getField(EXPIRES_ON), is("2019-07-01T00:02:00"));
-        assertThat(transfer.getField("incorrectField"), is(nullValue()));
+        assertThat(transfer.getFieldValueToString(TOKEN), is("trf-123"));
+        assertThat(transfer.getFieldValueToString(STATUS), is(QUOTED));
+        assertThat(transfer.getFieldValueToString(CREATED_ON), is("2019-07-01T00:00:00"));
+        assertThat(transfer.getFieldValueToString(CLIENT_TRANSFER_ID), is("1234567890123"));
+        assertThat(transfer.getFieldValueToString(SOURCE_AMOUNT), is("80"));
+        assertThat(transfer.getFieldValueToString(SOURCE_CURRENCY), is("CAD"));
+        assertThat(transfer.getFieldValueToString(SOURCE_TOKEN), is("usr-4321"));
+        assertThat(transfer.getFieldValueToString(DESTINATION_AMOUNT), is("62.29"));
+        assertThat(transfer.getFieldValueToString(DESTINATION_CURRENCY), is("USD"));
+        assertThat(transfer.getFieldValueToString(DESTINATION_TOKEN), is("trm-246"));
+        assertThat(transfer.getFieldValueToString(NOTES), is("Partial-Balance Transfer"));
+        assertThat(transfer.getFieldValueToString(MEMO), is("TransferClientId321"));
+        assertThat(transfer.getFieldValueToString(EXPIRES_ON), is("2019-07-01T00:02:00"));
+        assertThat(transfer.getFieldValueToString("incorrectField"), is(nullValue()));
 
 
         assertThat(transfer.getToken(), is("trf-123"));
@@ -156,20 +156,12 @@ public class TransferTest {
     public void testToJsonObject_emptyTransfer() throws Exception {
         final Transfer.Builder emptyBuilder = new Transfer.Builder();
         final Transfer emptyTransfer = emptyBuilder.build();
+        assertThat(emptyTransfer.getForeignExchanges(), is(nullValue()));
+        assertThat(emptyTransfer.getToken(), is(nullValue()));
+        assertThat(emptyTransfer.containsKeyAndHasValue(TOKEN), is(false));
+        assertThat(emptyTransfer.getDateValue(CREATED_ON), is(nullValue()));
         JSONObject emptyTransferJsonObject = emptyTransfer.toJsonObject();
-        assertThat(emptyTransferJsonObject.has(STATUS), is(false));
-        assertThat(emptyTransferJsonObject.has(TOKEN), is(false));
-        assertThat(emptyTransferJsonObject.has(CREATED_ON), is(false));
-        assertThat(emptyTransferJsonObject.has(CLIENT_TRANSFER_ID), is(false));
-        assertThat(emptyTransferJsonObject.has(SOURCE_AMOUNT), is(false));
-        assertThat(emptyTransferJsonObject.has(SOURCE_CURRENCY), is(false));
-        assertThat(emptyTransferJsonObject.has(DESTINATION_AMOUNT), is(false));
-        assertThat(emptyTransferJsonObject.has(DESTINATION_CURRENCY), is(false));
-        assertThat(emptyTransferJsonObject.has(DESTINATION_TOKEN), is(false));
-        assertThat(emptyTransferJsonObject.has(NOTES), is(false));
-        assertThat(emptyTransferJsonObject.has(MEMO), is(false));
-        assertThat(emptyTransferJsonObject.has(EXPIRES_ON), is(false));
-        assertThat(emptyTransferJsonObject.has(FOREIGN_EXCHANGES), is(false));
+        assertThat(emptyTransferJsonObject.length(), is(0));
     }
 
     @Test
