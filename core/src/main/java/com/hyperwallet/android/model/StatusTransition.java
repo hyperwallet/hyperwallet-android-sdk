@@ -71,6 +71,7 @@ public class StatusTransition implements HyperwalletJsonModel, Parcelable {
             StatusDefinition.PENDING_TAX_VERIFICATION,
             StatusDefinition.PENDING_TRANSACTION_VERIFICATION,
             StatusDefinition.PENDING_TRANSFER_METHOD_ACTION,
+            StatusDefinition.QUOTED,
             StatusDefinition.RECALLED,
             StatusDefinition.RETURNED,
             StatusDefinition.SCHEDULED,
@@ -99,6 +100,7 @@ public class StatusTransition implements HyperwalletJsonModel, Parcelable {
         public static final String PENDING_TAX_VERIFICATION = "PENDING_TAX_VERIFICATION";
         public static final String PENDING_TRANSACTION_VERIFICATION = "PENDING_TRANSACTION_VERIFICATION";
         public static final String PENDING_TRANSFER_METHOD_ACTION = "PENDING_TRANSFER_METHOD_ACTION";
+        public static final String QUOTED = "QUOTED";
         public static final String RECALLED = "RECALLED";
         public static final String RETURNED = "RETURNED";
         public static final String SCHEDULED = "SCHEDULED";
