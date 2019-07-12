@@ -37,7 +37,6 @@ import androidx.annotation.VisibleForTesting;
 import com.hyperwallet.android.model.HyperwalletJsonModel;
 import com.hyperwallet.android.util.JsonUtils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -133,11 +132,11 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
      */
     public Transfer(@NonNull final JSONObject jsonObject) throws JSONException {
         toMap(jsonObject);
-        JSONArray jsonArray = jsonObject.optJSONArray(FOREIGN_EXCHANGES);
-        if (jsonArray != null && jsonArray.length() > 0) {
-            List<ForeignExchange> foreignExchanges = new ArrayList<>(jsonArray.length());
-            for (int i = 0; i < jsonArray.length(); i++) {
-                foreignExchanges.add(new ForeignExchange(jsonArray.getJSONObject(i)));
+        if (mFields.get(FOREIGN_EXCHANGES) instanceof List)  {
+            List<Map<String, Object>> rawMaps = (List<Map<String, Object>>) mFields.get(FOREIGN_EXCHANGES);
+            List<ForeignExchange> foreignExchanges = new ArrayList<>(1);
+            for (Map<String, Object> field : rawMaps) {
+                foreignExchanges.add(new ForeignExchange(field));
             }
             mFields.put(FOREIGN_EXCHANGES, foreignExchanges);
         }
