@@ -398,11 +398,6 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
             return this;
         }
 
-        public Builder expiresOn(@NonNull final Date expiresOn) {
-            mFields.put(EXPIRES_ON, toDateTimeFormat(expiresOn));
-            return this;
-        }
-
         public Transfer build() {
             return new Transfer(mFields);
         }

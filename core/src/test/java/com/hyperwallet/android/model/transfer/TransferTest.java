@@ -119,7 +119,6 @@ public class TransferTest {
                 .destinationCurrency("USD")
                 .destinationToken("trm-246")
                 .foreignExchanges(foreignExchanges)
-                .expiresOn(fromDateTimeString("2019-07-01T00:02:00"))
                 .memo("Transfer")
                 .notes("Partial-Balance Transfer");
 
@@ -136,7 +135,7 @@ public class TransferTest {
         assertThat(jsonObject.getString(DESTINATION_AMOUNT), is("62.29"));
         assertThat(jsonObject.getString(DESTINATION_CURRENCY), is("USD"));
         assertThat(jsonObject.getString(DESTINATION_TOKEN), is("trm-246"));
-        assertThat(jsonObject.getString(EXPIRES_ON), is("2019-07-01T00:02:00"));
+        assertThat(jsonObject.has(EXPIRES_ON), is(false));
         assertThat(jsonObject.getString(MEMO), is("Transfer"));
         assertThat(jsonObject.getString(NOTES), is("Partial-Balance Transfer"));
 
