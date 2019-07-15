@@ -1,0 +1,122 @@
+{
+  "count": 426004,
+  "offset": 0,
+  "limit": 10,
+  "data": [
+    {
+      "token": "trf-12345",
+      "status": "QUOTED",
+      "createdOn": "2019-07-12T16:00:00",
+      "clientTransferId": "6712348070812",
+      "sourceToken": "usr-12345",
+      "sourceAmount": "90.13",
+      "sourceCurrency": "CAD",
+      "destinationToken": "trm-123456",
+      "destinationAmount": "70",
+      "destinationFeeAmount": "1.20",
+      "destinationCurrency": "USD",
+      "foreignExchanges": [
+        {
+          "sourceAmount": "90.13",
+          "sourceCurrency": "CAD",
+          "destinationAmount": "71.20",
+          "destinationCurrency": "USD",
+          "rate": "0.79"
+        }
+      ],
+      "notes": "Partial-Balance Transfer",
+      "memo": "TransferClientId56387",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://api.sandbox.hyperwallet.com/rest/v3/transfers/trf-aa308d58-75b4-432b-dec1-eb6b9e341111"
+        }
+      ]
+    },
+    {
+      "status": "QUOTED",
+      "destinationAmount": "10.00",
+      "destinationCurrency": "USD",
+      "notes": "",
+      "expiresOn": "2017-06-28T21:31:50"
+    },
+    {
+      "status": "QUOTED",
+      "destinationAmount": "10.00",
+      "destinationCurrency": "USD",
+      "notes": "",
+      "expiresOn": "2017-06-29T02:01:00"
+    },
+    {
+      "status": "QUOTED",
+      "destinationAmount": "10.00",
+      "destinationCurrency": "USD",
+      "notes": "",
+      "expiresOn": "2017-06-29T03:21:49"
+    },
+    {
+      "status": "QUOTED",
+      "destinationAmount": "10.00",
+      "destinationCurrency": "USD",
+      "notes": "",
+      "expiresOn": "2017-07-05T18:40:04"
+    },
+    {
+      "status": "QUOTED",
+      "destinationAmount": "10.00",
+      "destinationCurrency": "USD",
+      "notes": "",
+      "expiresOn": "2017-07-05T22:21:27"
+    },
+    {
+      "status": "QUOTED",
+      "destinationAmount": "10.00",
+      "destinationCurrency": "USD",
+      "notes": "",
+      "expiresOn": "2017-07-05T23:48:11"
+    },
+    {
+      "status": "QUOTED",
+      "destinationAmount": "10.00",
+      "destinationCurrency": "USD",
+      "notes": "",
+      "expiresOn": "2017-07-06T18:18:46"
+    },
+    {
+      "status": "QUOTED",
+      "destinationAmount": "10.00",
+      "destinationCurrency": "USD",
+      "notes": "",
+      "expiresOn": "2017-07-07T01:55:39"
+    },
+    {
+      "status": "QUOTED",
+      "destinationAmount": "46.90",
+      "destinationCurrency": "USD",
+      "notes": "",
+      "expiresOn": "2017-07-07T22:06:31"
+    }
+  ],
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://qamaster-hyperwallet.aws.paylution.net/rest/v3/transfers?offset=0&limit=10"
+    },
+    {
+      "params": {
+        "rel": "next"
+      },
+      "href": "https://qamaster-hyperwallet.aws.paylution.net/rest/v3/transfers?offset=10&limit=10"
+    },
+    {
+      "params": {
+        "rel": "last"
+      },
+      "href": "https://qamaster-hyperwallet.aws.paylution.net/rest/v3/transfers?offset=425994&limit=10"
+    }
+  ]
+}
