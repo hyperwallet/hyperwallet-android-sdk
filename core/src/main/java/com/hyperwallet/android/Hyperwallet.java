@@ -41,6 +41,7 @@ import com.hyperwallet.android.model.paging.HyperwalletPageList;
 import com.hyperwallet.android.model.receipt.Receipt;
 import com.hyperwallet.android.model.receipt.ReceiptQueryParam;
 import com.hyperwallet.android.model.transfer.Transfer;
+import com.hyperwallet.android.model.transfer.TransferQueryParam;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountQueryParam;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankCard;
@@ -250,7 +251,7 @@ public class Hyperwallet {
      * if the current one is expired or about to expire.</p>
      *
      * @param transfer the {@code Transfer} to be created; must not be null
-     * @param listener    the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void createTransfer(@NonNull final Transfer transfer,
             @NonNull final HyperwalletListener<Transfer> listener) {
@@ -787,8 +788,8 @@ public class Hyperwallet {
      * receipts are the following: Other filter settings will be discarded</p>
      *
      * <ul>
-     *     <li>Created Before: date before, based on <code>createdOn</code> </li>
-     *     <li>Created After: date after, based on <code>createdOn</code></li>
+     * <li>Created Before: date before, based on <code>createdOn</code> </li>
+     * <li>Created After: date after, based on <code>createdOn</code></li>
      * </ul>
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
@@ -809,6 +810,47 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<HyperwalletPageList<Receipt>>() {
+                }, listener).query(urlQuery);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
+     * Returns the list of transfer {@link Transfer}s for the User associated with the authentication token
+     * returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
+     * or an empty {@code List} if non exist.
+     *
+     * <p>The ordering and filtering of {@code Transfer} will be based on the criteria specified within
+     * the {@link TransferQueryParam} object, if it is not null.  Filters that is accepted in transfer are
+     * the following: Other filter settings will be discarded</p>
+     *
+     * <ul>
+     * <li>Offset: 0</li>
+     * <li>Limit: 10</li>
+     * <li>Created Before: N/A</li>
+     * <li>Created After: N/A</li>
+     * <li>clientTransferId: N/A</li>
+     * <li>sourceToken: N/A</li>
+     * <li>destinationToken: N/A</li>
+     * </ul>
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param transferQueryParam the filtering criteria
+     * @param listener          the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void listTransfers(@Nullable final TransferQueryParam transferQueryParam,
+            @NonNull final HyperwalletListener<HyperwalletPageList<Transfer>> listener) {
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(transferQueryParam);
+        PathFormatter pathFormatter = new PathFormatter("transfers");
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<HyperwalletPageList<Transfer>>() {
                 }, listener).query(urlQuery);
 
         performRestTransaction(builder, listener);
