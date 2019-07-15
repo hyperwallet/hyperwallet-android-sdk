@@ -24,24 +24,33 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringDef;
 
+import com.hyperwallet.android.util.JsonUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.HashMap;
+import java.util.Map;
 
-public class HyperwalletStatusTransition implements HyperwalletJsonModel, Parcelable {
+/**
+ * Status transition representation that denotes Hyperwallet entity object status
+ */
+public class StatusTransition implements HyperwalletJsonModel, Parcelable {
 
-    public static final Creator<HyperwalletStatusTransition> CREATOR =
-            new Creator<HyperwalletStatusTransition>() {
+    public static final Creator<StatusTransition> CREATOR =
+            new Creator<StatusTransition>() {
                 @Override
-                public HyperwalletStatusTransition createFromParcel(Parcel source) {
-                    return new HyperwalletStatusTransition(source);
+                public StatusTransition createFromParcel(Parcel source) {
+                    final Map<String, Object> fields = new HashMap<>();
+                    source.readMap(fields, this.getClass().getClassLoader());
+                    return new StatusTransition(fields);
                 }
 
                 @Override
-                public HyperwalletStatusTransition[] newArray(int size) {
-                    return new HyperwalletStatusTransition[size];
+                public StatusTransition[] newArray(int size) {
+                    return new StatusTransition[size];
                 }
             };
 
@@ -62,6 +71,7 @@ public class HyperwalletStatusTransition implements HyperwalletJsonModel, Parcel
             StatusDefinition.PENDING_TAX_VERIFICATION,
             StatusDefinition.PENDING_TRANSACTION_VERIFICATION,
             StatusDefinition.PENDING_TRANSFER_METHOD_ACTION,
+            StatusDefinition.QUOTED,
             StatusDefinition.RECALLED,
             StatusDefinition.RETURNED,
             StatusDefinition.SCHEDULED,
@@ -73,6 +83,8 @@ public class HyperwalletStatusTransition implements HyperwalletJsonModel, Parcel
     }
 
     public final class StatusDefinition {
+        private StatusDefinition() {
+        }
         public static final String ACTIVATED = "ACTIVATED";
         public static final String CANCELLED = "CANCELLED";
         public static final String COMPLETED = "COMPLETED";
@@ -88,6 +100,7 @@ public class HyperwalletStatusTransition implements HyperwalletJsonModel, Parcel
         public static final String PENDING_TAX_VERIFICATION = "PENDING_TAX_VERIFICATION";
         public static final String PENDING_TRANSACTION_VERIFICATION = "PENDING_TRANSACTION_VERIFICATION";
         public static final String PENDING_TRANSFER_METHOD_ACTION = "PENDING_TRANSFER_METHOD_ACTION";
+        public static final String QUOTED = "QUOTED";
         public static final String RECALLED = "RECALLED";
         public static final String RETURNED = "RETURNED";
         public static final String SCHEDULED = "SCHEDULED";
@@ -105,117 +118,99 @@ public class HyperwalletStatusTransition implements HyperwalletJsonModel, Parcel
     }
 
     public final class StatusCodeDefinition {
+        private StatusCodeDefinition() {
+        }
         public static final String RECALLED = "RECALLED";
         public static final String RETURNED = "RETURNED";
     }
 
-    public static final String CREATED_ON = "createdOn";
-    public static final String FROM_STATUS = "fromStatus";
-    public static final String NOTES = "notes";
-    public static final String TOKEN = "token";
-    public static final String TO_STATUS = "toStatus";
-    public static final String TRANSITION = "transition";
-    public static final String STATUS_CODE = "statusCode";
-
-    private String mCreatedOn;
-    private @Status
-    String mFromStatus;
-    private String mNotes;
-    private @StatusCode
-    String mStatusCode;
-    private String mToken;
-    private @Status
-    String mToStatus;
-    private @Status
-    String mTransition;
-
-    public HyperwalletStatusTransition(@NonNull JSONObject jsonObject) throws JSONException {
-        fromJson(jsonObject);
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            StatusTransitionField.CREATED_ON,
+            StatusTransitionField.FROM_STATUS,
+            StatusTransitionField.TO_STATUS,
+            StatusTransitionField.STATUS_CODE,
+            StatusTransitionField.NOTES,
+            StatusTransitionField.TRANSITION,
+            StatusTransitionField.TOKEN
+    })
+    public @interface StatusTransitionFieldKeys {
     }
 
-    private HyperwalletStatusTransition(Parcel source) {
-        mCreatedOn = source.readString();
-        mFromStatus = source.readString();
-        mNotes = source.readString();
-        mStatusCode = source.readString();
-        mToken = source.readString();
-        mToStatus = source.readString();
-        mTransition = source.readString();
+    public final class StatusTransitionField {
+        private StatusTransitionField() {
+        }
+        public static final String CREATED_ON = "createdOn";
+        public static final String FROM_STATUS = "fromStatus";
+        public static final String TO_STATUS = "toStatus";
+        public static final String STATUS_CODE = "statusCode";
+        public static final String NOTES = "notes";
+        public static final String TRANSITION = "transition";
+        public static final String TOKEN = "token";
     }
 
-    public HyperwalletStatusTransition(@Status @NonNull String transition) {
-        mTransition = transition;
+    private Map<String, Object> mFields;
+
+    public StatusTransition() {
+        mFields = new HashMap<>();
     }
 
-    @NonNull
+    private StatusTransition(@NonNull final Map<String, Object> fields) {
+        mFields = fields;
+    }
+
+    public StatusTransition(@NonNull final JSONObject jsonObject) throws JSONException {
+        toMap(jsonObject);
+    }
+
+    @Nullable
+    private String getFieldValueToString(@NonNull @StatusTransitionFieldKeys final String key) {
+        return mFields.get(key) != null ? (String) mFields.get(key) : null;
+    }
+
+    @Nullable
     public String getCreatedOn() {
-        return mCreatedOn;
-    }
-
-    public void setCreatedOn(@NonNull String createdOn) {
-        mCreatedOn = createdOn;
+        return getFieldValueToString(StatusTransitionField.CREATED_ON);
     }
 
     @Status
-    @NonNull
+    @Nullable
     public String getFromStatus() {
-        return mFromStatus;
-    }
-
-    public void setFromStatus(@NonNull @Status String fromStatus) {
-        mFromStatus = fromStatus;
+        return getFieldValueToString(StatusTransitionField.FROM_STATUS);
     }
 
     @Nullable
     public String getNotes() {
-        return mNotes;
+        return getFieldValueToString(StatusTransitionField.NOTES);
     }
 
-    public void setNotes(@Nullable String notes) {
-        mNotes = notes;
-    }
-
-    @NonNull
+    @StatusCode
+    @Nullable
     public String getStatusCode() {
-        return mStatusCode;
+        return getFieldValueToString(StatusTransitionField.STATUS_CODE);
     }
 
-    public void setStatusCode(@NonNull @StatusCode String statusCode) {
-        mStatusCode = statusCode;
-    }
-
-    @NonNull
+    @Nullable
     public String getToken() {
-        return mToken;
-    }
-
-    public void setToken(@NonNull String token) {
-        mToken = token;
+        return getFieldValueToString(StatusTransitionField.TOKEN);
     }
 
     @Status
-    @NonNull
+    @Nullable
     public String getToStatus() {
-        return mToStatus;
-    }
-
-    public void setToStatus(@NonNull @Status String toStatus) {
-        mToStatus = toStatus;
+        return getFieldValueToString(StatusTransitionField.TO_STATUS);
     }
 
     @Status
-    @NonNull
+    @Nullable
     public String getTransition() {
-        return mTransition;
+        return getFieldValueToString(StatusTransitionField.TRANSITION);
     }
 
     @Override
     @NonNull
     public JSONObject toJsonObject() throws JSONException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put(NOTES, mNotes);
-        jsonObject.put(TRANSITION, mTransition);
-        return jsonObject;
+        return JsonUtils.mapToJsonObject(mFields);
     }
 
     @NonNull
@@ -224,14 +219,8 @@ public class HyperwalletStatusTransition implements HyperwalletJsonModel, Parcel
         return toJsonObject().toString();
     }
 
-    private void fromJson(@NonNull JSONObject jsonObject) {
-        mCreatedOn = jsonObject.optString(CREATED_ON);
-        mFromStatus = jsonObject.optString(FROM_STATUS);
-        mNotes = jsonObject.optString(NOTES);
-        mStatusCode = jsonObject.optString(STATUS_CODE);
-        mToken = jsonObject.optString(TOKEN);
-        mToStatus = jsonObject.optString(TO_STATUS);
-        mTransition = jsonObject.optString(TRANSITION);
+    private void toMap(@NonNull final JSONObject jsonObject) throws JSONException {
+        mFields = JsonUtils.jsonObjectToMap(jsonObject);
     }
 
     @Override
@@ -241,13 +230,48 @@ public class HyperwalletStatusTransition implements HyperwalletJsonModel, Parcel
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mCreatedOn);
-        dest.writeString(mFromStatus);
-        dest.writeString(mNotes);
-        dest.writeString(mStatusCode);
-        dest.writeString(mToken);
-        dest.writeString(mToStatus);
-        dest.writeString(mTransition);
+        dest.writeMap(mFields);
+    }
+
+    public static class Builder {
+        private Map<String, Object> fields;
+
+        public Builder() {
+            fields = new HashMap<>();
+        }
+
+        public Builder createdOn(@NonNull final String createdOn) {
+            fields.put(StatusTransitionField.CREATED_ON, createdOn);
+            return this;
+        }
+
+        public Builder fromStatus(@NonNull @Status final String fromStatus) {
+            fields.put(StatusTransitionField.FROM_STATUS, fromStatus);
+            return this;
+        }
+
+        public Builder toStatus(@NonNull @Status final String toStatus) {
+            fields.put(StatusTransitionField.TO_STATUS, toStatus);
+            return this;
+        }
+
+        public Builder notes(@Nullable final String notes) {
+            fields.put(StatusTransitionField.NOTES, notes);
+            return this;
+        }
+
+        public Builder statusCode(@NonNull @StatusCode final String statusCode) {
+            fields.put(StatusTransitionField.STATUS_CODE, statusCode);
+            return this;
+        }
+
+        public Builder transition(@NonNull @Status final String transition) {
+            fields.put(StatusTransitionField.TRANSITION, transition);
+            return this;
+        }
+
+        public StatusTransition build() {
+            return new StatusTransition(fields);
+        }
     }
 }
-

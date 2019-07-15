@@ -1,0 +1,8 @@
+{
+  "errors": [
+    {
+      "message": "The destination token you provided doesn’t exist or is not a valid destination.",
+      "code": "INVALID_DESTINATION_TOKEN"
+    }
+  ]
+}

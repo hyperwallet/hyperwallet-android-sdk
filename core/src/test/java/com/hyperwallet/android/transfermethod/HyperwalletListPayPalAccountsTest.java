@@ -14,8 +14,8 @@ import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
 
-import static com.hyperwallet.android.model.HyperwalletStatusTransition.CREATED_ON;
-import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
+import static com.hyperwallet.android.model.StatusTransition.StatusDefinition.ACTIVATED;
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.CREATED_ON;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.EMAIL;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.STATUS;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TOKEN;
@@ -184,6 +184,5 @@ public class HyperwalletListPayPalAccountsTest {
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
         assertThat(recordedRequest.getPath(), containsString("status=ACTIVATED"));
-
     }
 }

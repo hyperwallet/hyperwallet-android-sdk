@@ -17,10 +17,10 @@
  */
 package com.hyperwallet.android.model.transfermethod;
 
-import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.ACTIVATED;
-import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.DE_ACTIVATED;
-import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.INVALID;
-import static com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition.VERIFIED;
+import static com.hyperwallet.android.model.StatusTransition.StatusDefinition.ACTIVATED;
+import static com.hyperwallet.android.model.StatusTransition.StatusDefinition.DE_ACTIVATED;
+import static com.hyperwallet.android.model.StatusTransition.StatusDefinition.INVALID;
+import static com.hyperwallet.android.model.StatusTransition.StatusDefinition.VERIFIED;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
 import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
@@ -31,6 +31,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringDef;
 
 import com.hyperwallet.android.model.QueryParam;
+import com.hyperwallet.android.model.StatusTransition;
 import com.hyperwallet.android.util.DateUtil;
 
 import java.lang.annotation.Retention;
@@ -167,7 +168,7 @@ public class HyperwalletTransferMethodQueryParam extends QueryParam {
 
         /**
          * Specify status of this method. Which is one of the
-         * {@link com.hyperwallet.android.model.HyperwalletStatusTransition.StatusDefinition}.
+         * {@link StatusTransition.StatusDefinition}.
          *
          * @param status The status of this method
          * @return Builder
