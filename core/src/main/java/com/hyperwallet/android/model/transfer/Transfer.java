@@ -175,6 +175,7 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
     }
 
     @Nullable
+    @TransferStatus
     public String getStatus() {
         return getFieldValueToString(STATUS);
     }
