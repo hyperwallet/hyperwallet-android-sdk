@@ -92,7 +92,7 @@ public class HyperwalletListTransfersTest {
         HyperwalletPageList<Transfer> receiptResponse = mCaptor.getValue();
 
         assertThat(receiptResponse.getCount(), is(426004));
-        assertThat(receiptResponse.getDataList(), hasSize(10));
+        assertThat(receiptResponse.getDataList(), hasSize(1));
         assertThat(receiptResponse.getOffset(), is(0));
         assertThat(receiptResponse.getLimit(), is(10));
 

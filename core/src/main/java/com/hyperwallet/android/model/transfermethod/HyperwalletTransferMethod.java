@@ -66,8 +66,8 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
         toMap(jsonObject);
     }
 
-    private HyperwalletTransferMethod(Map<String, Object> fields) {
-        mFields = fields;
+    private HyperwalletTransferMethod(@NonNull Map<String, Object> fields) {
+        mFields = new HashMap<>(fields);
     }
 
     /**
@@ -115,7 +115,8 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
     /**
      * Returns a {@link String} value of a {@code Map<String, String>}
      * <p>
-     * Please use {@code getFieldValueToString(@NonNull String key, @NonNull Class<T> clazz)} if the value is not a {@link String}
+     * Please use {@code getFieldValueToString(@NonNull String key, @NonNull Class<T> clazz)} if the value is not a
+     * {@link String}
      * </p>
      *
      * @param key can only be a {@link String} that represents a {@link HyperwalletField} name
@@ -148,7 +149,9 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
     }
 
     protected void setFields(@NonNull Map<String, Object> fields) {
-        mFields = fields;
+        if (!fields.isEmpty()) {
+            mFields = new HashMap<>(fields);
+        }
     }
 
     @Retention(RetentionPolicy.SOURCE)

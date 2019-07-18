@@ -149,7 +149,7 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
      */
     public Transfer(@NonNull final JSONObject jsonObject) throws JSONException {
         toMap(jsonObject);
-        if (mFields.get(FOREIGN_EXCHANGES) instanceof List)  {
+        if (mFields.get(FOREIGN_EXCHANGES) instanceof List) {
             List<Map<String, Object>> rawMaps = (List<Map<String, Object>>) mFields.get(FOREIGN_EXCHANGES);
             List<ForeignExchange> foreignExchanges = new ArrayList<>(1);
             for (Map<String, Object> field : rawMaps) {
@@ -257,7 +257,7 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
             };
 
     protected void setFields(@NonNull Map<String, Object> fields) {
-        mFields = fields;
+        mFields = new HashMap<>(fields);
     }
 
     @Override
@@ -273,7 +273,8 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
     /**
      * Returns a {@link String} value of a {@code Map<String, String>}
      * <p>
-     * Please use {@code getFieldValueToString(@NonNull String key, @NonNull Class<T> clazz)} if the value is not a {@link String}
+     * Please use {@code getFieldValueToString(@NonNull String key, @NonNull Class<T> clazz)} if the value is not a
+     * {@link String}
      * </p>
      *
      * @param key can only be a {@link String} that represents a {@link Transfer.TransferField} name

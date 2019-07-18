@@ -472,7 +472,8 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
     /**
      * Returns a {@link String} value of a {@code Map<String, String>}
      * <p>
-     * Please use {@code getFieldValueToString(@NonNull String key, @NonNull Class<T> clazz)} if the value is not a {@link
+     * Please use {@code getFieldValueToString(@NonNull String key, @NonNull Class<T> clazz)} if the value is not a
+     * {@link
      * String}
      * </p>
      *
@@ -510,7 +511,7 @@ public final class Receipt implements HyperwalletJsonModel, Parcelable {
             };
 
     protected void setFields(@NonNull Map<String, Object> fields) {
-        mFields = fields;
+        mFields = new HashMap<>(fields);
     }
 
 

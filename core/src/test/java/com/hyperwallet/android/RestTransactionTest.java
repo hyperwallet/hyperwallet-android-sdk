@@ -8,6 +8,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 import static com.hyperwallet.android.util.HttpMethod.PUT;
@@ -25,6 +26,7 @@ import com.hyperwallet.android.util.HttpClient;
 import com.hyperwallet.android.util.JsonUtils;
 
 import org.hamcrest.CoreMatchers;
+import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -97,9 +99,11 @@ public class RestTransactionTest {
         restTransaction.performRequest(mHttpClient);
         verify(mHttpClient).post(mPayloadCaptor.capture());
 
-        String payload = mPayloadCaptor.getValue();
-        assertThat(payload, is("{\"transferMethodCurrency\":\"USD\","
-                + "\"transferMethodCountry\":\"US\",\"bankAccountId\":\"8017110254\",\"type\":\"BANK_ACCOUNT\"}"));
+        JSONObject resultPayload = new JSONObject(restTransaction.getPayload());
+        assertThat(resultPayload.getString("type"), is(BANK_ACCOUNT));
+        assertThat(resultPayload.getString("transferMethodCurrency"), is("USD"));
+        assertThat(resultPayload.getString("transferMethodCountry"), is("US"));
+        assertThat(resultPayload.getString("bankAccountId"), is("8017110254"));
     }
 
     @Test
@@ -123,8 +127,11 @@ public class RestTransactionTest {
         verify(mHttpClient).put(mPayloadCaptor.capture());
 
         String payload = mPayloadCaptor.getValue();
-        assertThat(payload, is("{\"transferMethodCurrency\":\"USD\","
-                + "\"transferMethodCountry\":\"US\",\"bankAccountId\":\"8017110254\",\"type\":\"BANK_ACCOUNT\"}"));
+        JSONObject resultPayload = new JSONObject(payload);
+        assertThat(resultPayload.getString("type"), is(BANK_ACCOUNT));
+        assertThat(resultPayload.getString("transferMethodCurrency"), is("USD"));
+        assertThat(resultPayload.getString("transferMethodCountry"), is("US"));
+        assertThat(resultPayload.getString("bankAccountId"), is("8017110254"));
     }
 
     @Test

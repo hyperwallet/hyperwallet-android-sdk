@@ -31,72 +31,9 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://api.sandbox.hyperwallet.com/rest/v3/transfers/trf-aa308d58-75b4-432b-dec1-eb6b9e341111"
+          "href": "https://localhost:8181/rest/v3/transfers/trf-123"
         }
       ]
-    },
-    {
-      "status": "QUOTED",
-      "destinationAmount": "10.00",
-      "destinationCurrency": "USD",
-      "notes": "",
-      "expiresOn": "2017-06-28T21:31:50"
-    },
-    {
-      "status": "QUOTED",
-      "destinationAmount": "10.00",
-      "destinationCurrency": "USD",
-      "notes": "",
-      "expiresOn": "2017-06-29T02:01:00"
-    },
-    {
-      "status": "QUOTED",
-      "destinationAmount": "10.00",
-      "destinationCurrency": "USD",
-      "notes": "",
-      "expiresOn": "2017-06-29T03:21:49"
-    },
-    {
-      "status": "QUOTED",
-      "destinationAmount": "10.00",
-      "destinationCurrency": "USD",
-      "notes": "",
-      "expiresOn": "2017-07-05T18:40:04"
-    },
-    {
-      "status": "QUOTED",
-      "destinationAmount": "10.00",
-      "destinationCurrency": "USD",
-      "notes": "",
-      "expiresOn": "2017-07-05T22:21:27"
-    },
-    {
-      "status": "QUOTED",
-      "destinationAmount": "10.00",
-      "destinationCurrency": "USD",
-      "notes": "",
-      "expiresOn": "2017-07-05T23:48:11"
-    },
-    {
-      "status": "QUOTED",
-      "destinationAmount": "10.00",
-      "destinationCurrency": "USD",
-      "notes": "",
-      "expiresOn": "2017-07-06T18:18:46"
-    },
-    {
-      "status": "QUOTED",
-      "destinationAmount": "10.00",
-      "destinationCurrency": "USD",
-      "notes": "",
-      "expiresOn": "2017-07-07T01:55:39"
-    },
-    {
-      "status": "QUOTED",
-      "destinationAmount": "46.90",
-      "destinationCurrency": "USD",
-      "notes": "",
-      "expiresOn": "2017-07-07T22:06:31"
     }
   ],
   "links": [
@@ -105,18 +42,6 @@
         "rel": "self"
       },
       "href": "https://qamaster-hyperwallet.aws.paylution.net/rest/v3/transfers?offset=0&limit=10"
-    },
-    {
-      "params": {
-        "rel": "next"
-      },
-      "href": "https://qamaster-hyperwallet.aws.paylution.net/rest/v3/transfers?offset=10&limit=10"
-    },
-    {
-      "params": {
-        "rel": "last"
-      },
-      "href": "https://qamaster-hyperwallet.aws.paylution.net/rest/v3/transfers?offset=425994&limit=10"
     }
   ]
 }

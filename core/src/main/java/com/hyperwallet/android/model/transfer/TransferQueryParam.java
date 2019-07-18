@@ -74,7 +74,7 @@ public class TransferQueryParam extends QueryParam {
     /**
      * Builder Class for the {@link TransferQueryParam}
      */
-    public static class Builder extends QueryParam.Builder<TransferQueryParam.Builder> {
+    public static class Builder extends QueryParam.Builder<Builder> {
         private String mClientTransferId;
         private String mSourceToken;
         private String mDestinationToken;

@@ -24,6 +24,8 @@ import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.hamcrest.Matchers;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,7 +62,7 @@ public class ScheduleTransferTest {
     private CountDownLatch mCountDownLatch = new CountDownLatch(1);
 
     @Test
-    public void testScheduleTransfer_successfulCommit() throws InterruptedException {
+    public void testScheduleTransfer_successfulCommit() throws InterruptedException, JSONException {
         // prepare mock
         String response = mResourceManager.getResourceContent("transfer_commit_successful.json");
         mHwPlatform.mockResponse().withHttpResponseCode(HTTP_CREATED).withBody(response).mock();
@@ -77,7 +79,9 @@ public class ScheduleTransferTest {
         // assert
         RecordedRequest recordedRequest = mHwPlatform.getRequest();
         String requestBody = recordedRequest.getBody().readUtf8();
-        assertThat(requestBody, is("{\"notes\":\"commit transfer test notes\",\"transition\":\"SCHEDULED\"}"));
+        JSONObject bodyJson = new JSONObject(requestBody);
+        assertThat(bodyJson.getString("notes"), is("commit transfer test notes"));
+        assertThat(bodyJson.getString("transition"), is(SCHEDULED));
 
         String path = recordedRequest.getPath();
         assertThat(path, is("/rest/v3/transfers/trf-recently-created-token/status-transitions"));
@@ -94,7 +98,7 @@ public class ScheduleTransferTest {
     }
 
     @Test
-    public void testScheduleTransfer_unsuccessfulCommit() throws InterruptedException {
+    public void testScheduleTransfer_unsuccessfulCommit() throws InterruptedException, JSONException {
         // prepare mock
         String response = mResourceManager.getResourceContent("transfer_commit_already_committed.json");
         mHwPlatform.mockResponse().withHttpResponseCode(HTTP_BAD_REQUEST).withBody(response).mock();
@@ -111,8 +115,9 @@ public class ScheduleTransferTest {
         // assert
         RecordedRequest recordedRequest = mHwPlatform.getRequest();
         String requestBody = recordedRequest.getBody().readUtf8();
-        assertThat(requestBody,
-                is("{\"notes\":\"commit transfer test notes that fails\",\"transition\":\"SCHEDULED\"}"));
+        JSONObject bodyJson = new JSONObject(requestBody);
+        assertThat(bodyJson.getString("notes"), is("commit transfer test notes that fails"));
+        assertThat(bodyJson.getString("transition"), is(SCHEDULED));
 
         String path = recordedRequest.getPath();
         assertThat(path, is("/rest/v3/transfers/trf-will-fail-created-token/status-transitions"));
