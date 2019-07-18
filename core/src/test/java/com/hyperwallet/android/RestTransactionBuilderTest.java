@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 
@@ -15,6 +16,7 @@ import com.hyperwallet.android.model.paging.HyperwalletPageList;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -78,8 +80,11 @@ public class RestTransactionBuilderTest {
         assertThat(restTransaction, is(notNullValue()));
         assertThat(restTransaction.getMethod(), is(POST));
         assertThat(restTransaction.getQueries().size(), is(0));
-        assertThat(restTransaction.getPayload(), is("{\"transferMethodCurrency\":\"USD\","
-                + "\"transferMethodCountry\":\"US\",\"bankAccountId\":\"8017110254\",\"type\":\"BANK_ACCOUNT\"}"));
+        JSONObject resultPayload = new JSONObject(restTransaction.getPayload());
+        assertThat(resultPayload.getString("type"), is(BANK_ACCOUNT));
+        assertThat(resultPayload.getString("transferMethodCurrency"), is("USD"));
+        assertThat(resultPayload.getString("transferMethodCountry"), is("US"));
+        assertThat(resultPayload.getString("bankAccountId"), is("8017110254"));
 
         Map<String, String> headers = restTransaction.getHeaders();
         assertThat(headers, is(notNullValue()));
