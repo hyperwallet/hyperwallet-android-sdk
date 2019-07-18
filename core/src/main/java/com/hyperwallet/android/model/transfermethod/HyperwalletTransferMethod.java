@@ -62,11 +62,11 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
         mFields = new HashMap<>();
     }
 
-    public HyperwalletTransferMethod(@NonNull JSONObject jsonObject) throws JSONException {
+    public HyperwalletTransferMethod(@NonNull final JSONObject jsonObject) throws JSONException {
         toMap(jsonObject);
     }
 
-    private HyperwalletTransferMethod(@NonNull Map<String, Object> fields) {
+    private HyperwalletTransferMethod(@NonNull final Map<String, Object> fields) {
         mFields = new HashMap<>(fields);
     }
 
@@ -108,7 +108,7 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
      * @param key   is a {@link String} that represents a {@link HyperwalletField} name
      * @param value is an {@link Object} that represent the value of a {@link HyperwalletField}
      */
-    public void setField(@NonNull @TransferMethodFieldKey String key, Object value) {
+    public void setField(@NonNull @TransferMethodFieldKey final String key, final Object value) {
         mFields.put(key, value);
     }
 
@@ -123,7 +123,7 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
      * @return a {@link String} value that represents the value of a {@link HyperwalletField}
      */
     @Nullable
-    public String getField(@NonNull @TransferMethodFieldKey String key) {
+    public String getField(@NonNull @TransferMethodFieldKey final String key) {
         return mFields.get(key) != null ? (String) mFields.get(key) : null;
     }
 
@@ -134,7 +134,7 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
      * @return a {@code T} value
      */
     @Nullable
-    public <T> T getField(@NonNull @TransferMethodFieldKey String key, @NonNull Class<T> clazz) {
+    public <T> T getField(@NonNull @TransferMethodFieldKey final String key, @NonNull final Class<T> clazz) {
         return clazz.cast(mFields.get(key));
     }
 
@@ -148,10 +148,8 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
         dest.writeMap(mFields);
     }
 
-    protected void setFields(@NonNull Map<String, Object> fields) {
-        if (!fields.isEmpty()) {
-            mFields = new HashMap<>(fields);
-        }
+    protected void setFields(@NonNull final Map<String, Object> fields) {
+        mFields = new HashMap<>(fields);
     }
 
     @Retention(RetentionPolicy.SOURCE)

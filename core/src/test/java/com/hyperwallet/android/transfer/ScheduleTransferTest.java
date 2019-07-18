@@ -62,7 +62,7 @@ public class ScheduleTransferTest {
     private CountDownLatch mCountDownLatch = new CountDownLatch(1);
 
     @Test
-    public void testScheduleTransfer_successfulCommit() throws InterruptedException, JSONException {
+    public void testScheduleTransfer_successfulCommit() throws Exception {
         // prepare mock
         String response = mResourceManager.getResourceContent("transfer_commit_successful.json");
         mHwPlatform.mockResponse().withHttpResponseCode(HTTP_CREATED).withBody(response).mock();
@@ -98,7 +98,7 @@ public class ScheduleTransferTest {
     }
 
     @Test
-    public void testScheduleTransfer_unsuccessfulCommit() throws InterruptedException, JSONException {
+    public void testScheduleTransfer_unsuccessfulCommit() throws Exception {
         // prepare mock
         String response = mResourceManager.getResourceContent("transfer_commit_already_committed.json");
         mHwPlatform.mockResponse().withHttpResponseCode(HTTP_BAD_REQUEST).withBody(response).mock();
