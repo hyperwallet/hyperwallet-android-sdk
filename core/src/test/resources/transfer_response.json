@@ -8,6 +8,7 @@
   "sourceCurrency": "CAD",
   "destinationToken": "trm-246",
   "destinationAmount": "62.29",
+  "destinationFeeAmount": "22.12",
   "destinationCurrency": "USD",
   "foreignExchanges": [
     {

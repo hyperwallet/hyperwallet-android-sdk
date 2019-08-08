@@ -13,6 +13,7 @@ import static com.hyperwallet.android.model.transfer.ForeignExchange.ForeignExch
 import static com.hyperwallet.android.model.transfer.ForeignExchange.ForeignExchangeFields.SOURCE_CURRENCY;
 import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.CLIENT_TRANSFER_ID;
 import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.CREATED_ON;
+import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.DESTINATION_FEE_AMOUNT;
 import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.DESTINATION_TOKEN;
 import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.EXPIRES_ON;
 import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.FOREIGN_EXCHANGES;
@@ -66,6 +67,7 @@ public class TransferTest {
         assertThat(transfer.getFieldValueToString(DESTINATION_AMOUNT), is("62.29"));
         assertThat(transfer.getFieldValueToString(DESTINATION_CURRENCY), is("USD"));
         assertThat(transfer.getFieldValueToString(DESTINATION_TOKEN), is("trm-246"));
+        assertThat(transfer.getFieldValueToString(DESTINATION_FEE_AMOUNT), is("22.12"));
         assertThat(transfer.getFieldValueToString(NOTES), is("Partial-Balance Transfer"));
         assertThat(transfer.getFieldValueToString(MEMO), is("TransferClientId321"));
         assertThat(transfer.getFieldValueToString(EXPIRES_ON), is("2019-07-01T00:02:00"));
@@ -82,6 +84,7 @@ public class TransferTest {
         assertThat(transfer.getDestinationAmount(), is("62.29"));
         assertThat(transfer.getDestinationCurrency(), is("USD"));
         assertThat(transfer.getDestinationToken(), is("trm-246"));
+        assertThat(transfer.getDestinationFeeAmount(), is("22.12"));
         assertThat(transfer.getNotes(), is("Partial-Balance Transfer"));
         assertThat(transfer.getMemo(), is("TransferClientId321"));
         assertThat(transfer.getExpiresOn(), is(fromDateTimeString("2019-07-01T00:02:00")));
@@ -180,6 +183,7 @@ public class TransferTest {
         assertThat(transfer.getDestinationAmount(), is("62.29"));
         assertThat(transfer.getDestinationCurrency(), is("USD"));
         assertThat(transfer.getDestinationToken(), is("trm-246"));
+        assertThat(transfer.getDestinationFeeAmount(), is("22.12"));
         assertThat(transfer.getNotes(), is("Partial-Balance Transfer"));
         assertThat(transfer.getMemo(), is("TransferClientId321"));
         assertThat(transfer.getExpiresOn(), is(fromDateTimeString("2019-07-01T00:02:00")));
@@ -199,6 +203,7 @@ public class TransferTest {
         assertThat(bundledTransfer.getSourceToken(), is("usr-4321"));
         assertThat(bundledTransfer.getDestinationAmount(), is("62.29"));
         assertThat(bundledTransfer.getDestinationCurrency(), is("USD"));
+        assertThat(bundledTransfer.getDestinationFeeAmount(), is("22.12"));
         assertThat(bundledTransfer.getDestinationToken(), is("trm-246"));
         assertThat(bundledTransfer.getNotes(), is("Partial-Balance Transfer"));
         assertThat(bundledTransfer.getMemo(), is("TransferClientId321"));
