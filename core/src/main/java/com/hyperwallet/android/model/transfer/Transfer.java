@@ -21,6 +21,7 @@ import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.CLI
 import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.CREATED_ON;
 import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.DESTINATION_AMOUNT;
 import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.DESTINATION_CURRENCY;
+import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.DESTINATION_FEE_AMOUNT;
 import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.DESTINATION_TOKEN;
 import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.EXPIRES_ON;
 import static com.hyperwallet.android.model.transfer.Transfer.TransferFields.FOREIGN_EXCHANGES;
@@ -84,6 +85,7 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
         public static final String DESTINATION_TOKEN = "destinationToken";
         public static final String DESTINATION_AMOUNT = "destinationAmount";
         public static final String DESTINATION_CURRENCY = "destinationCurrency";
+        public static final String DESTINATION_FEE_AMOUNT = "destinationFeeAmount";
         public static final String FOREIGN_EXCHANGES = "foreignExchanges";
         public static final String NOTES = "notes";
         public static final String MEMO = "memo";
@@ -102,6 +104,7 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
             DESTINATION_TOKEN,
             DESTINATION_AMOUNT,
             DESTINATION_CURRENCY,
+            DESTINATION_FEE_AMOUNT,
             FOREIGN_EXCHANGES,
             NOTES,
             MEMO,
@@ -218,6 +221,11 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
     @Nullable
     public String getDestinationCurrency() {
         return getFieldValueToString(DESTINATION_CURRENCY);
+    }
+
+    @NonNull
+    public String getDestinationFeeAmount() {
+        return getFieldValueToString(DESTINATION_FEE_AMOUNT);
     }
 
     @Nullable
