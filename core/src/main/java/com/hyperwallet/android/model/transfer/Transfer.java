@@ -366,7 +366,7 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
         }
 
         public Builder status(@NonNull @TransferStatus final String status) {
-            mFields.put(TOKEN, status);
+            mFields.put(STATUS, status);
             return this;
         }
 
