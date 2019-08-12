@@ -113,6 +113,7 @@ public class TransferTest {
 
         final Transfer.Builder builder = new Transfer.Builder()
                 .token("trf-123")
+                .status(QUOTED)
                 .createdOn(fromDateTimeString("2019-07-01T00:00:00"))
                 .clientTransferID("1234567890123")
                 .sourceAmount("80")
@@ -130,6 +131,7 @@ public class TransferTest {
         JSONObject jsonObject = transfer.toJsonObject();
 
         assertThat(jsonObject.getString(TOKEN), is("trf-123"));
+        assertThat(jsonObject.getString(STATUS), is(QUOTED));
         assertThat(jsonObject.getString(CREATED_ON), is("2019-07-01T00:00:00"));
         assertThat(jsonObject.getString(CLIENT_TRANSFER_ID), is("1234567890123"));
         assertThat(jsonObject.getString(SOURCE_AMOUNT), is("80"));
