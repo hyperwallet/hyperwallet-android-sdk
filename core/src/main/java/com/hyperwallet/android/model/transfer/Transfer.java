@@ -248,6 +248,9 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
         return getDateValue(EXPIRES_ON);
     }
 
+    public boolean hasForeignExchange() {
+        return getForeignExchanges() != null && !getForeignExchanges().isEmpty();
+    }
 
     public static final Creator<Transfer> CREATOR =
             new Creator<Transfer>() {

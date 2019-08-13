@@ -88,6 +88,7 @@ public class TransferTest {
         assertThat(transfer.getNotes(), is("Partial-Balance Transfer"));
         assertThat(transfer.getMemo(), is("TransferClientId321"));
         assertThat(transfer.getExpiresOn(), is(fromDateTimeString("2019-07-01T00:02:00")));
+        assertThat(transfer.hasForeignExchange(), is(true));
 
         List<ForeignExchange> foreignExchanges = transfer.getForeignExchanges();
         assertThat(foreignExchanges, hasSize(1));
@@ -166,6 +167,7 @@ public class TransferTest {
         assertThat(emptyTransfer.getDateValue(CREATED_ON), is(nullValue()));
         JSONObject emptyTransferJsonObject = emptyTransfer.toJsonObject();
         assertThat(emptyTransferJsonObject.length(), is(0));
+        assertThat(emptyTransfer.hasForeignExchange(), is(false));
     }
 
     @Test
@@ -189,12 +191,12 @@ public class TransferTest {
         assertThat(transfer.getNotes(), is("Partial-Balance Transfer"));
         assertThat(transfer.getMemo(), is("TransferClientId321"));
         assertThat(transfer.getExpiresOn(), is(fromDateTimeString("2019-07-01T00:02:00")));
+        assertThat(transfer.hasForeignExchange(), is(true));
 
         Parcel parcel = Parcel.obtain();
         transfer.writeToParcel(parcel, transfer.describeContents());
         parcel.setDataPosition(0);
-        Transfer bundledTransfer =
-                Transfer.CREATOR.createFromParcel(parcel);
+        Transfer bundledTransfer = Transfer.CREATOR.createFromParcel(parcel);
 
         assertThat(bundledTransfer.getToken(), is("trf-123"));
         assertThat(bundledTransfer.getStatus(), is(QUOTED));
@@ -210,6 +212,6 @@ public class TransferTest {
         assertThat(bundledTransfer.getNotes(), is("Partial-Balance Transfer"));
         assertThat(bundledTransfer.getMemo(), is("TransferClientId321"));
         assertThat(bundledTransfer.getExpiresOn(), is(fromDateTimeString("2019-07-01T00:02:00")));
-
+        assertThat(bundledTransfer.hasForeignExchange(), is(true));
     }
 }
