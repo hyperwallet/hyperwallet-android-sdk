@@ -265,6 +265,10 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
         return false;
     }
 
+    public boolean hasNotes() {
+        return !TextUtils.isEmpty(getNotes());
+    }
+
     public static final Creator<Transfer> CREATOR =
             new Creator<Transfer>() {
                 @Override

@@ -89,6 +89,7 @@ public class TransferTest {
         assertThat(transfer.getExpiresOn(), is(fromDateTimeString("2019-07-01T00:02:00")));
         assertThat(transfer.hasForeignExchange(), is(true));
         assertThat(transfer.hasFee(), is(true));
+        assertThat(transfer.hasNotes(), is(true));
 
         List<ForeignExchange> foreignExchanges = transfer.getForeignExchanges();
         assertThat(foreignExchanges, hasSize(1));
@@ -169,6 +170,7 @@ public class TransferTest {
         assertThat(emptyTransferJsonObject.length(), is(0));
         assertThat(emptyTransfer.hasForeignExchange(), is(false));
         assertThat(emptyTransfer.hasFee(), is(false));
+        assertThat(emptyTransfer.hasNotes(), is(false));
     }
 
     @Test
@@ -215,5 +217,6 @@ public class TransferTest {
         assertThat(bundledTransfer.getExpiresOn(), is(fromDateTimeString("2019-07-01T00:02:00")));
         assertThat(bundledTransfer.hasForeignExchange(), is(true));
         assertThat(bundledTransfer.hasFee(), is(true));
+        assertThat(bundledTransfer.hasNotes(), is(true));
     }
 }
