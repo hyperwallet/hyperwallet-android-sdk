@@ -73,7 +73,6 @@ public class TransferTest {
         assertThat(transfer.getFieldValueToString(EXPIRES_ON), is("2019-07-01T00:02:00"));
         assertThat(transfer.getFieldValueToString("incorrectField"), is(nullValue()));
 
-
         assertThat(transfer.getToken(), is("trf-123"));
         assertThat(transfer.getStatus(), is(QUOTED));
         assertThat(transfer.getCreatedOn(), is(fromDateTimeString("2019-07-01T00:00:00")));
@@ -89,6 +88,7 @@ public class TransferTest {
         assertThat(transfer.getMemo(), is("TransferClientId321"));
         assertThat(transfer.getExpiresOn(), is(fromDateTimeString("2019-07-01T00:02:00")));
         assertThat(transfer.hasForeignExchange(), is(true));
+        assertThat(transfer.hasFee(), is(true));
 
         List<ForeignExchange> foreignExchanges = transfer.getForeignExchanges();
         assertThat(foreignExchanges, hasSize(1));
@@ -168,6 +168,7 @@ public class TransferTest {
         JSONObject emptyTransferJsonObject = emptyTransfer.toJsonObject();
         assertThat(emptyTransferJsonObject.length(), is(0));
         assertThat(emptyTransfer.hasForeignExchange(), is(false));
+        assertThat(emptyTransfer.hasFee(), is(false));
     }
 
     @Test
@@ -213,5 +214,6 @@ public class TransferTest {
         assertThat(bundledTransfer.getMemo(), is("TransferClientId321"));
         assertThat(bundledTransfer.getExpiresOn(), is(fromDateTimeString("2019-07-01T00:02:00")));
         assertThat(bundledTransfer.hasForeignExchange(), is(true));
+        assertThat(bundledTransfer.hasFee(), is(true));
     }
 }

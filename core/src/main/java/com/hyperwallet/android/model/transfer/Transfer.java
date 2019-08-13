@@ -46,6 +46,7 @@ import static com.hyperwallet.android.util.DateUtil.toDateTimeFormat;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,6 +61,7 @@ import org.json.JSONObject;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -143,6 +145,8 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
     public @interface TransferStatus {
     }
 
+    public static final String CURRENCY_NUMERIC_SEPARATOR = ",";
+    public static final String EMPTY_STRING = "";
     private Map<String, Object> mFields;
 
     /**
@@ -250,6 +254,15 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
 
     public boolean hasForeignExchange() {
         return getForeignExchanges() != null && !getForeignExchanges().isEmpty();
+    }
+
+    public boolean hasFee() {
+        if (!TextUtils.isEmpty(getDestinationFeeAmount())) {
+            BigDecimal fee = new BigDecimal(
+                    getDestinationFeeAmount().replace(CURRENCY_NUMERIC_SEPARATOR, EMPTY_STRING));
+            return fee.doubleValue() != 0;
+        }
+        return false;
     }
 
     public static final Creator<Transfer> CREATOR =
