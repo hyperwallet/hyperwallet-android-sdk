@@ -60,6 +60,7 @@ import org.json.JSONObject;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -143,6 +144,8 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
     public @interface TransferStatus {
     }
 
+    public static final String CURRENCY_NUMERIC_SEPARATOR = ",";
+    public static final String EMPTY_STRING = "";
     private Map<String, Object> mFields;
 
     /**
@@ -223,7 +226,7 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
         return getFieldValueToString(DESTINATION_CURRENCY);
     }
 
-    @NonNull
+    @Nullable
     public String getDestinationFeeAmount() {
         return getFieldValueToString(DESTINATION_FEE_AMOUNT);
     }
@@ -248,6 +251,22 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
         return getDateValue(EXPIRES_ON);
     }
 
+    public boolean hasForeignExchange() {
+        return getForeignExchanges() != null && !getForeignExchanges().isEmpty();
+    }
+
+    public boolean hasFee() {
+        if (getDestinationFeeAmount() != null && !getDestinationFeeAmount().isEmpty()) {
+            BigDecimal fee = new BigDecimal(
+                    getDestinationFeeAmount().replace(CURRENCY_NUMERIC_SEPARATOR, EMPTY_STRING));
+            return fee.doubleValue() != 0;
+        }
+        return false;
+    }
+
+    public boolean hasNotes() {
+        return getNotes() != null && !getNotes().isEmpty();
+    }
 
     public static final Creator<Transfer> CREATOR =
             new Creator<Transfer>() {
