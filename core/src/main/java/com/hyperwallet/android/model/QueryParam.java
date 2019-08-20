@@ -41,7 +41,7 @@ public class QueryParam {
     public static final String SORT_BY = "sortBy";
     public static final String PAGINATION_OFFSET = "offset";
     public static final String PAGINATION_LIMIT = "limit";
-    private static final int DEFAULT_LIMIT = 10;
+    private static final int DEFAULT_LIMIT = 100;
     private static final int DEFAULT_OFFSET = 0;
     private final Date mCreatedAfter;
     private final Date mCreatedBefore;
