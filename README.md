@@ -24,7 +24,7 @@ api 'com.hyperwallet.android:core-sdk:1.0.0-beta03'
 
 After you're done installing the SDK, you need to initialize an instance in order to utilize core SDK functions. Also you need to provide a [HyperwalletAuthenticationTokenProvider](#Authentication) object to retrieve an authentication token.
 
-```java
+```
 // initialize core SDK
 Hyperwallet.getInstance(hyperwalletAuthenticationTokenProvider)
 
@@ -82,7 +82,12 @@ public class TestAuthenticationProvider implements HyperwalletAuthenticationToke
 ## Usage
 The functions in core SDK are available to use once the authentication is done.
 
-### Using ```createPayPalAccount```
+### Get User
+```java
+// TODO: 2019-10-01  
+```
+
+### Create PayPal Account
 
 ```
 final PayPalAccount payPalAccount = new PayPalAccount.Builder()
@@ -93,7 +98,28 @@ final PayPalAccount payPalAccount = new PayPalAccount.Builder()
 Hyperwallet.getDefault().createPayPalAccount(bankAccount, listener);
 ```
 
-### Using ```createBankAccount```
+### Get PayPal Account
+```java
+// TODO: 2019-10-01 
+```
+
+### Update PayPal Account
+```java
+// TODO: 2019-10-01 
+```
+
+### Deactivate PayPal Account
+```java
+// TODO: 2019-10-01
+```
+
+
+### List PayPal Account
+```java
+// TODO: 2019-10-01
+```
+
+### Create Bank Account
 
 ```
 final HyperwalletBankAccount bankAccount = new HyperwalletBankAccount.Builder("US", 
@@ -104,8 +130,33 @@ final HyperwalletBankAccount bankAccount = new HyperwalletBankAccount.Builder("U
 Hyperwallet.getDefault().createBankAccount(bankAccount, listener);
 ```
 
-### Using ```createBankCard```
+### Get Bank Account
+```java
+// TODO: 2019-10-01
+```
 
+### Update Bank Account
+```
+final HyperwalletBankAccount updatedBankAccount = new HyperwalletBankAccount
+                                                      .Builder()
+                                                      .bankAccountId("new bank account Id")
+                                                      .token("your-bank-account-token")
+                                                      .build();
+Hyperwallet.getDefault().updateBankAccount(updatedBankAccount, listener);
+```
+
+### Deactivate Bank Account
+```
+Hyperwallet.getDefault()
+           .deactivateBankAccount("your-bank-account-token", "deactivate bank account", listener);
+```
+
+### List Bank Account
+```java
+// TODO: 2019-10-01
+```
+
+### Create Bank Card
 ```
 final HyperwalletBankCard bankCard = new HyperwalletBankCard.Builder("US", 
                                                                      "USD", 
@@ -118,29 +169,12 @@ final HyperwalletBankCard bankCard = new HyperwalletBankCard.Builder("US",
 Hyperwallet.getDefault().createBankCard(bankCard, listener);
 ```
 
-### Using ```deactivateBankAccount```
-```
-Hyperwallet.getDefault()
-           .deactivateBankAccount("your-bank-account-token", "deactivate bank account", listener);
-```
-
-### Using ```deactivateBankCard```
-```
-Hyperwallet.getDefault()
-           .deactivateBankAccount("your-bank-card-token", "deactivate bank card", listener);
+### Get Bank Card
+```java
+// TODO: 2019-10-01  
 ```
 
-### Using ```updateBankAccount```
-```
-final HyperwalletBankAccount updatedBankAccount = new HyperwalletBankAccount
-                                                      .Builder()
-                                                      .bankAccountId("new bank account Id")
-                                                      .token("your-bank-account-token")
-                                                      .build();
-Hyperwallet.getDefault().updateBankAccount(updatedBankAccount, listener);
-```
-
-### Using ```updateBankCard```
+### Update Bank Card
 ```
 final HyperwalletBankCard updatedBankCard = new HyperwalletBankCard.Builder()
                                                                    .cardBrand("new card brand")
@@ -149,6 +183,58 @@ final HyperwalletBankCard updatedBankCard = new HyperwalletBankCard.Builder()
 
 Hyperwallet.getDefault().updateBankCard(updatedBankCard, listener);
 ```
+
+### Deactivate Bank Card
+```
+Hyperwallet.getDefault()
+           .deactivateBankAccount("your-bank-card-token", "deactivate bank card", listener);
+```
+
+### List Bank Card
+```java
+// TODO: 2019-10-01  
+```
+
+### List Prepaid Cards
+```java
+// TODO: 2019-10-01  
+```
+
+### List Prepaid Card Receipts
+```java
+// TODO: 2019-10-01  
+```
+
+### List User Receipts
+```java
+// TODO: 2019-10-01
+```
+
+### List Transfer Methods
+```java
+// TODO: 2019-10-01  
+```
+
+### Create Transfer
+```java
+// TODO: 2019-10-01  
+```
+
+### Schedule Transfer
+```java
+// TODO: 2019-10-01  
+```
+
+### Get Transfer
+```java
+// TODO: 2019-10-01  
+```
+
+### List Transfers
+```java
+// TODO: 2019-10-01  
+```
+
 
 ## License
 The Hyperwallet Android Core SDK is open source and available under the [MIT](https://github.com/hyperwallet/hyperwallet-android-sdk/blob/master/LICENSE) license.
