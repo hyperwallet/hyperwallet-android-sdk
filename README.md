@@ -244,11 +244,6 @@ HyperwalletBankCardQueryParam bankCardQueryParam = new HyperwalletBankCardQueryP
 Hyperwallet.getDefault().listBankCards(bankCardQueryParam, listener);
 // onSuccess: response (HyperwalletPageList<HyperwalletBankCard>) will contain a PageList of HyperwalletBankCard or null if not exists 
 // onFailure: error (HyperwalletErrorType) will contain HyperwalletErrors containing information about what caused the failure
- ```
-
-### List Prepaid Cards
-```java
-// TODO: 2019-10-01, dnip: cannot find method?
 ```
 
 ### List Prepaid Card Receipts
