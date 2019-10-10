@@ -1,4 +1,4 @@
-package com.hyperwallet.android.model.graphql;
+package com.hyperwallet.android.model.graphql.field;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.emptyOrNullString;
@@ -8,8 +8,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import com.hyperwallet.android.model.graphql.field.EDataType;
-import com.hyperwallet.android.model.graphql.field.HyperwalletField;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 
 import org.json.JSONException;

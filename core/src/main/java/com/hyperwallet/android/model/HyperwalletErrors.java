@@ -17,8 +17,6 @@
  */
 package com.hyperwallet.android.model;
 
-import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
 
 import org.json.JSONArray;
@@ -73,7 +71,8 @@ public class HyperwalletErrors {
     public boolean containsInputError() {
         boolean hasInputError = false;
         for (HyperwalletError hyperwalletError : mErrors) {
-            if (!TextUtils.isEmpty(hyperwalletError.getFieldName())) {
+            if (hyperwalletError.getFieldName() != null
+                    && !hyperwalletError.getFieldName().isEmpty()) {
                 hasInputError = true;
                 break;
             }

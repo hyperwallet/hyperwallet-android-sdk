@@ -310,7 +310,8 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     /**
      * Returns a {@link String} value of a {@code Map<String, String>}
      * <p>
-     * Please use {@code getField(@NonNull String key, @NonNull Class<T> clazz)} if the value is not a {@link String}
+     * Please use {@code getFieldValueToString(@NonNull String key, @NonNull Class<T> clazz)} if the value is not a
+     * {@link String}
      * </p>
      *
      * @param key can only be a {@link String} that represents a {@link HyperwalletUser.UserField} name
@@ -549,7 +550,7 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     }
 
     protected void setFields(@NonNull Map<String, Object> fields) {
-        mFields = fields;
+        mFields = new HashMap<>(fields);
     }
 
     public static class Builder {

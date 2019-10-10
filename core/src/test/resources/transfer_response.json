@@ -1,0 +1,33 @@
+{
+  "token": "trf-123",
+  "status": "QUOTED",
+  "createdOn": "2019-07-01T00:00:00",
+  "clientTransferId": "1234567890123",
+  "sourceToken": "usr-4321",
+  "sourceAmount": "80",
+  "sourceCurrency": "CAD",
+  "destinationToken": "trm-246",
+  "destinationAmount": "62.29",
+  "destinationFeeAmount": "22.12",
+  "destinationCurrency": "USD",
+  "foreignExchanges": [
+    {
+      "sourceAmount": "100.00",
+      "sourceCurrency": "CAD",
+      "destinationAmount": "63.49",
+      "destinationCurrency": "USD",
+      "rate": "0.79"
+    }
+  ],
+  "notes": "Partial-Balance Transfer",
+  "memo": "TransferClientId321",
+  "expiresOn": "2019-07-01T00:02:00",
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://localhost:8181/rest/v3/transfers/trf-123"
+    }
+  ]
+}
