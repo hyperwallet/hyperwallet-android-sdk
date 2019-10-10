@@ -42,7 +42,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
-public class ScheduleTransferTest {
+public class HyperwalletScheduleTransferTest {
 
     @Rule
     public HyperwalletMockWebServer mHwPlatform = new HyperwalletMockWebServer();

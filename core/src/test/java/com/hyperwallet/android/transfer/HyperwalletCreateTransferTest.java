@@ -1,4 +1,4 @@
-package com.hyperwallet.android.transfermethod;
+package com.hyperwallet.android.transfer;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;

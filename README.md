@@ -1,3 +1,5 @@
+[![Maven Central](https://img.shields.io/maven-central/v/com.hyperwallet.android/core-sdk.svg?color=0FA81E)]()
+
 # Hyperwallet Android Core SDK
 
 **NOTE: This is a beta product available for use in your mobile app. If you are interested in using this product, please notify your Relationship Manager and / or Project Manager to support you during the integration process.**
@@ -19,7 +21,7 @@ We also provide an out-of-the-box  [Hyperwallet Android UI SDK](https://github.c
 To install Hyperwallet Core SDK, you just need to add the dependency into your build.gradle file in Android Studio (or Gradle). For example:
 
 ```bash
-api 'com.hyperwallet.android:core-sdk:1.0.0-beta03'
+api 'com.hyperwallet.android:core-sdk:1.0.0-beta04'
 ```
 
 ## Initialization
