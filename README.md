@@ -1,5 +1,7 @@
 # Hyperwallet Android Core SDK
 
+**NOTE: This is a beta product available for use in your mobile app. If you are interested in using this product, please notify your Relationship Manager and / or Project Manager to support you during the integration process.**
+
 Welcome to Hyperwallet's Android Core SDK. This library will help you create transfer methods in your Android app, such as bank account, PayPal account, etc.
 
 Note that this SDK is geared towards those who only require back end data, which means you will have to build your own UI.
