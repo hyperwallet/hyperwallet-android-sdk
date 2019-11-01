@@ -109,6 +109,82 @@ public class Hyperwallet {
     }
 
     /**
+     * 3rd party.
+     * * future ui sdk will use this
+     * * if client is using our UI (UI SDK)
+     * *
+     * *
+     *
+     * Creates a new instance of the Hyperwallet Core SDK interface object. If a previously created instance exists,
+     * it will be replaced. This method includes a listener to a Configuration object which contains information
+     * on the authentication token, user, and program.
+     *
+     * @param hyperwalletAuthenticationTokenProvider a provider of Hyperwallet authentication tokens; must not be null
+     * @param listener                               the callback handler of responses from the Hyperwallet platform;
+     *                                               must not be null
+     */
+    public static synchronized Hyperwallet getInstance(
+            @NonNull final HyperwalletAuthenticationTokenProvider hyperwalletAuthenticationTokenProvider,
+            @NonNull final HyperwalletListener<Configuration> listener) {
+        sInstanceLast = new Hyperwallet(hyperwalletAuthenticationTokenProvider);
+        sInstanceLast.getConfiguration(listener);
+        return sInstanceLast;
+    }
+
+    /**
+     * Retrieves the Configuration based on the values from the Authentication Token Provider.
+     *
+     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public synchronized void getConfiguration(@NonNull final HyperwalletListener<Configuration> listener) {
+        if (mConfiguration == null || mConfiguration.isStale()) {
+            mHyperwalletAuthenticationTokenProvider.retrieveAuthenticationToken(
+                    new HyperwalletAuthenticationTokenListener() {
+                        @Override
+                        public void onSuccess(String authenticationToken) {
+                            try {
+                                mConfiguration = new Configuration(authenticationToken);
+                            } catch (final JSONException e) {
+                                if (listener.getHandler() == null) {
+                                    listener.onFailure(ExceptionMapper.toHyperwalletException(e));
+                                } else {
+                                    listener.getHandler().post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            listener.onFailure(ExceptionMapper.toHyperwalletException(e));
+                                        }
+                                    });
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(UUID uuid, String message) {
+                            final String logMessage = MessageFormat
+                                    .format("Integrator was unable to provide an authentication token. \nId: {0} "
+                                                    + "Message: {1}",
+                                            uuid.toString(), message);
+
+                            if (listener.getHandler() == null) {
+                                listener.onFailure(ExceptionMapper.toHyperwalletException(
+                                        new AuthenticationTokenProviderException(logMessage)));
+                            } else {
+                                listener.getHandler().post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        listener.onFailure(ExceptionMapper.toHyperwalletException(
+                                                new AuthenticationTokenProviderException(logMessage)));
+                                    }
+                                });
+                            }
+                        }
+                    });
+        } else {
+            listener.onSuccess(mConfiguration);
+        }
+    }
+
+    /**
      * Returns the previously initialized instance of the Hyperwallet Core SDK interface object.
      *
      * @return A previously initialized instance of Hyperwallet; maintaining its
