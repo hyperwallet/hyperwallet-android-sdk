@@ -109,12 +109,6 @@ public class Hyperwallet {
     }
 
     /**
-     * 3rd party.
-     * * future ui sdk will use this
-     * * if client is using our UI (UI SDK)
-     * *
-     * *
-     *
      * Creates a new instance of the Hyperwallet Core SDK interface object. If a previously created instance exists,
      * it will be replaced. This method includes a listener to a Configuration object which contains information
      * on the authentication token, user, and program.
