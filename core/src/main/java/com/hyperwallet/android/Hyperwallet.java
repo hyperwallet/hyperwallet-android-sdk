@@ -138,6 +138,7 @@ public class Hyperwallet {
                         public void onSuccess(String authenticationToken) {
                             try {
                                 mConfiguration = new Configuration(authenticationToken);
+                                listener.onSuccess(mConfiguration);
                             } catch (final JSONException e) {
                                 if (listener.getHandler() == null) {
                                     listener.onFailure(ExceptionMapper.toHyperwalletException(e));
