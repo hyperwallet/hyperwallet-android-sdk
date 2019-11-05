@@ -3,6 +3,7 @@ package com.hyperwallet.android;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.fail;
 
 import org.json.JSONException;
@@ -179,5 +180,18 @@ public class ConfigurationTest {
                 + "fnoZEr0-4ipMH_aY8GTBCDzsgab3NREGkgjSg");
 
         assertThat(configuration.isStale(), is(false));
+    }
+
+    @Test
+    public void testConfiguration_parseInsightParameters() throws JSONException {
+        Configuration configuration = new Configuration("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzd"
+                + "WIiOiJ1c3ItdG9rZW4iLCJpYXQiOjE1NzI5OTI0MzYsImV4cCI6MTU3Mjk5MjczNiwiYXVkIjoicGd1LXRva2VuIiwia"
+                + "XNzIjoicGdyLXRva2VuIiwicmVzdC11cmkiOiJyZXN0LnRlc3QuY29tIiwiZ3JhcGhxbC11cmkiOiJncmFwaHFsLnRlc3Qu"
+                + "Y29tIiwiaW5zaWdodHMtdXJpIjoiaW5zaWdodHMudGVzdC5jb20vdHJhY2svZXZlbnRzIiwiZW52aXJvbm1lbnQiOi"
+                + "JERVYifQ.7V2fZ9KmcMdRh40RnQmwVQjbanoGGDJcNmNbCiHVVEIII45OgWo0VF7KFpijVoNYFqkkiZEDpct7e44E5MPLgw");
+
+        assertThat(configuration, is(notNullValue()));
+        assertThat(configuration.getEnvironment(), is("DEV"));
+        assertThat(configuration.getInsightApiUrl(), is("insights.test.com/track/events"));
     }
 }

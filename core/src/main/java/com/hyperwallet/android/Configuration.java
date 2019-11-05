@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit;
 public class Configuration {
 
     private static final String INSIGHT_API_URL = "insights-uri";
-
+    private static final String ENVIRONMENT = "environment";
     private static final String JWT_EXP = "exp";
     private static final String JWT_IAT = "iat";
     private static final String JWT_ISS = "iss";
@@ -60,6 +60,7 @@ public class Configuration {
     private String mUserToken;
     private long mExpireOnBootTime;
     private String mInsightApiUrl;
+    private String mEnvironment;
 
     public Configuration(@NonNull final String token) throws JSONException {
         if (token.isEmpty()) {
@@ -101,6 +102,10 @@ public class Configuration {
         return mInsightApiUrl;
     }
 
+    public String getEnvironment() {
+        return mEnvironment;
+    }
+
     public boolean isStale() {
         return SystemClock.elapsedRealtime() >= mExpireOnBootTime - STALE_PERIOD;
     }
@@ -136,7 +141,7 @@ public class Configuration {
         mUserToken = jsonObject.getString(JWT_SUB);
         long tokenLifespan = mExpiresOn - mCreatedOn;
         mExpireOnBootTime = SystemClock.elapsedRealtime() + tokenLifespan;
-
+        mEnvironment = jsonObject.optString(ENVIRONMENT);
         mInsightApiUrl = jsonObject.optString(INSIGHT_API_URL);
     }
 }
