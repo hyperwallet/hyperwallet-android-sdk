@@ -117,7 +117,7 @@ public class Hyperwallet {
      * if it does not fit your use case please use the former.
      *
      * Moreover a callback is provided to listen if authentication is successful or not,
-     * if successful a {@link Configuration} is passed over the listener through
+     * if successful, a {@link Configuration} object is passed over the listener through
      * {@link HyperwalletListener#onSuccess(Object)};
      * otherwise {@link HyperwalletListener#onFailure(HyperwalletException)} is invoked with details on the error.
      *
