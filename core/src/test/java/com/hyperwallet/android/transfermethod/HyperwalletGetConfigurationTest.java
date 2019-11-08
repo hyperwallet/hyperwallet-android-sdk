@@ -41,7 +41,7 @@ public class HyperwalletGetConfigurationTest {
     @Rule
     public MockitoRule mMockito = MockitoJUnit.rule();
     @Mock
-    private HyperwalletListener<Configuration> mockConfigurationListener;
+    private HyperwalletListener<Configuration> mMockConfigurationListener;
     @Captor
     private ArgumentCaptor<Configuration> mConfigurationCaptor;
     @Captor
@@ -52,10 +52,10 @@ public class HyperwalletGetConfigurationTest {
     public void testGetConfiguration_Success() throws InterruptedException {
         mHyperwalletSdkMock.setFailAuthentication(false);
 
-        Hyperwallet.getDefault().getConfiguration(mockConfigurationListener);
+        Hyperwallet.getDefault().getConfiguration(mMockConfigurationListener);
         mAwait.await(100, TimeUnit.MILLISECONDS);
-        verify(mockConfigurationListener).onSuccess(mConfigurationCaptor.capture());
-        verify(mockConfigurationListener, never()).onFailure(any(HyperwalletException.class));
+        verify(mMockConfigurationListener).onSuccess(mConfigurationCaptor.capture());
+        verify(mMockConfigurationListener, never()).onFailure(any(HyperwalletException.class));
 
         Configuration capturedConfiguration = mConfigurationCaptor.getValue();
         assertThat(capturedConfiguration, is(notNullValue()));
@@ -67,10 +67,10 @@ public class HyperwalletGetConfigurationTest {
     public void testGetConfiguration_Failure() throws InterruptedException {
         mHyperwalletSdkMock.setFailAuthentication(true);
 
-        Hyperwallet.getDefault().getConfiguration(mockConfigurationListener);
+        Hyperwallet.getDefault().getConfiguration(mMockConfigurationListener);
         mAwait.await(100, TimeUnit.MILLISECONDS);
-        verify(mockConfigurationListener).onFailure(mHyperwalletExceptionCaptor.capture());
-        verify(mockConfigurationListener, never()).onSuccess(any(Configuration.class));
+        verify(mMockConfigurationListener).onFailure(mHyperwalletExceptionCaptor.capture());
+        verify(mMockConfigurationListener, never()).onSuccess(any(Configuration.class));
 
         HyperwalletException captorValue = mHyperwalletExceptionCaptor.getValue();
         assertThat(captorValue, is(notNullValue()));
