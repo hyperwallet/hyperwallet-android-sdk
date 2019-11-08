@@ -38,8 +38,10 @@ import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-class Configuration {
+public class Configuration {
 
+    private static final String INSIGHT_API_URL = "insights-uri";
+    private static final String ENVIRONMENT = "environment";
     private static final String JWT_EXP = "exp";
     private static final String JWT_IAT = "iat";
     private static final String JWT_ISS = "iss";
@@ -57,6 +59,8 @@ class Configuration {
     private String mRestUri;
     private String mUserToken;
     private long mExpireOnBootTime;
+    private String mInsightApiUrl;
+    private String mEnvironment;
 
     public Configuration(@NonNull final String token) throws JSONException {
         if (token.isEmpty()) {
@@ -94,6 +98,14 @@ class Configuration {
         return mUserToken;
     }
 
+    public String getInsightApiUrl() {
+        return mInsightApiUrl;
+    }
+
+    public String getEnvironment() {
+        return mEnvironment;
+    }
+
     public boolean isStale() {
         return SystemClock.elapsedRealtime() >= mExpireOnBootTime - STALE_PERIOD;
     }
@@ -129,6 +141,7 @@ class Configuration {
         mUserToken = jsonObject.getString(JWT_SUB);
         long tokenLifespan = mExpiresOn - mCreatedOn;
         mExpireOnBootTime = SystemClock.elapsedRealtime() + tokenLifespan;
+        mEnvironment = jsonObject.optString(ENVIRONMENT);
+        mInsightApiUrl = jsonObject.optString(INSIGHT_API_URL);
     }
-
 }

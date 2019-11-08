@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.hyperwallet.android.exception.AuthenticationTokenProviderException;
+import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.exception.HyperwalletInitializationException;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.QueryParam;
@@ -106,6 +107,87 @@ public class Hyperwallet {
             @NonNull final HyperwalletAuthenticationTokenProvider hyperwalletAuthenticationTokenProvider) {
         sInstanceLast = new Hyperwallet(hyperwalletAuthenticationTokenProvider);
         return sInstanceLast;
+    }
+
+    /**
+     * Creates a new instance of the Hyperwallet Core SDK interface object. If a previously created instance exists,
+     * it will be replaced. In addition to {@link Hyperwallet#getInstance(HyperwalletAuthenticationTokenProvider)},
+     * is a listener object {@link HyperwalletListener<Configuration>} this means that this method will eagerly
+     * authenticate.
+     * if it does not fit your use case please use the former.
+     *
+     * Moreover a callback is provided to listen if authentication is successful or not,
+     * if successful, a {@link Configuration} object is passed over the listener through
+     * {@link HyperwalletListener#onSuccess(Object)};
+     * otherwise {@link HyperwalletListener#onFailure(HyperwalletException)} is invoked with details on the error.
+     *
+     * @param hyperwalletAuthenticationTokenProvider a provider of Hyperwallet authentication tokens; must not be null
+     * @param listener                               the callback handler of responses from the Hyperwallet platform;
+     *                                               must not be null
+     */
+    public static synchronized Hyperwallet getInstance(
+            @NonNull final HyperwalletAuthenticationTokenProvider hyperwalletAuthenticationTokenProvider,
+            @NonNull final HyperwalletListener<Configuration> listener) {
+        sInstanceLast = new Hyperwallet(hyperwalletAuthenticationTokenProvider);
+        sInstanceLast.getConfiguration(listener);
+        return sInstanceLast;
+    }
+
+    /**
+     * Retrieves the Configuration based on the values from the Authentication Token Provider. Please be aware that this
+     * method will also authenticate, if for instance there's a previous authentication that is still valid then the
+     * valid
+     * {@link Configuration} will be provided in {@link HyperwalletListener#onSuccess(Object)}
+     *
+     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public synchronized void getConfiguration(@NonNull final HyperwalletListener<Configuration> listener) {
+        if (mConfiguration == null || mConfiguration.isStale()) {
+            mHyperwalletAuthenticationTokenProvider.retrieveAuthenticationToken(
+                    new HyperwalletAuthenticationTokenListener() {
+                        @Override
+                        public void onSuccess(String authenticationToken) {
+                            try {
+                                mConfiguration = new Configuration(authenticationToken);
+                                listener.onSuccess(mConfiguration);
+                            } catch (final JSONException e) {
+                                if (listener.getHandler() == null) {
+                                    listener.onFailure(ExceptionMapper.toHyperwalletException(e));
+                                } else {
+                                    listener.getHandler().post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            listener.onFailure(ExceptionMapper.toHyperwalletException(e));
+                                        }
+                                    });
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(UUID uuid, String message) {
+                            final String logMessage = MessageFormat
+                                    .format("Integrator was unable to provide an authentication token. \nId: {0} "
+                                                    + "Message: {1}",
+                                            uuid.toString(), message);
+
+                            if (listener.getHandler() == null) {
+                                listener.onFailure(ExceptionMapper.toHyperwalletException(
+                                        new AuthenticationTokenProviderException(logMessage)));
+                            } else {
+                                listener.getHandler().post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        listener.onFailure(ExceptionMapper.toHyperwalletException(
+                                                new AuthenticationTokenProviderException(logMessage)));
+                                    }
+                                });
+                            }
+                        }
+                    });
+        } else {
+            listener.onSuccess(mConfiguration);
+        }
     }
 
     /**
