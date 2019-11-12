@@ -60,7 +60,8 @@ public class GqlTransactionTest {
                 keysQuery,
                 new TypeReference<HyperwalletTransferMethodConfigurationKey>() {
                 }, mListener);
-        final GqlTransaction gqlTransaction = builder.build("test", "usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636");
+        final GqlTransaction gqlTransaction = builder.build("test", "usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636",
+                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9");
         assertThat(gqlTransaction.getMethod(), is(HttpMethod.POST));
 
         gqlTransaction.performRequest(mHttpClient);
@@ -121,7 +122,8 @@ public class GqlTransactionTest {
                 new GqlTransaction.Builder<>(keysQuery,
                         new TypeReference<HyperwalletTransferMethodConfigurationKey>() {
                         }, mListener);
-        final GqlTransaction gqlTransaction = builder.build("test", "usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636");
+        final GqlTransaction gqlTransaction = builder.build("test", "usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636",
+                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9");
 
         gqlTransaction.handleErrors(HttpURLConnection.HTTP_BAD_REQUEST, responseBody);
         verify(mListener).onFailure(mExceptionArgumentCaptor.capture());
@@ -145,7 +147,8 @@ public class GqlTransactionTest {
                 keysQuery,
                 new TypeReference<HyperwalletTransferMethodConfigurationKey>() {
                 }, mListener);
-        final GqlTransaction gqlTransaction = builder.build("test", "usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636");
+        final GqlTransaction gqlTransaction = builder.build("test", "usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636",
+                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9");
 
         gqlTransaction.handleErrors(HttpURLConnection.HTTP_BAD_REQUEST, "some non-parcelable error");
     }
