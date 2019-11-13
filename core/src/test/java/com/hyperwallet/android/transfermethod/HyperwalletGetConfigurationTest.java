@@ -49,7 +49,7 @@ public class HyperwalletGetConfigurationTest {
     private CountDownLatch mAwait = new CountDownLatch(1);
 
     @Test
-    public void testGetConfiguration_Success() throws InterruptedException {
+    public void testGetConfiguration_success() throws InterruptedException {
         mHyperwalletSdkMock.setFailAuthentication(false);
 
         Hyperwallet.getDefault().getConfiguration(mMockConfigurationListener);
@@ -64,7 +64,7 @@ public class HyperwalletGetConfigurationTest {
     }
 
     @Test
-    public void testGetConfiguration_Failure() throws InterruptedException {
+    public void testGetConfiguration_failure() throws InterruptedException {
         mHyperwalletSdkMock.setFailAuthentication(true);
 
         Hyperwallet.getDefault().getConfiguration(mMockConfigurationListener);
