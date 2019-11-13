@@ -976,7 +976,8 @@ public class Hyperwallet {
                             try {
                                 mConfiguration = new Configuration(authenticationToken);
                                 GqlTransaction transaction =
-                                        builder.build(mConfiguration.getGraphQlUri(), mConfiguration.getUserToken());
+                                        builder.build(mConfiguration.getGraphQlUri(), mConfiguration.getUserToken(),
+                                                mConfiguration.getAuthenticationToken());
                                 mExecutor.submit(transaction);
                             } catch (final JSONException e) {
                                 if (listener.getHandler() == null) {
@@ -1016,7 +1017,7 @@ public class Hyperwallet {
                     });
         } else {
             GqlTransaction transaction = builder.build(mConfiguration.getGraphQlUri(),
-                    mConfiguration.getUserToken());
+                    mConfiguration.getUserToken(), mConfiguration.getAuthenticationToken());
             mExecutor.submit(transaction);
         }
     }
