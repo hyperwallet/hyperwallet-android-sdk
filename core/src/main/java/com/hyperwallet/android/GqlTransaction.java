@@ -36,8 +36,10 @@ import java.lang.reflect.InvocationTargetException;
 class GqlTransaction extends HttpTransaction {
 
     private GqlTransaction(@NonNull final String uri, @NonNull final String body,
-            @NonNull final HyperwalletListener hyperwalletListener, @NonNull final TypeReference typeReference) {
+            @NonNull final String authenticationToken, @NonNull final HyperwalletListener hyperwalletListener,
+            @NonNull final TypeReference typeReference) {
         super(HttpMethod.POST, uri, typeReference, hyperwalletListener);
+        addHeader(HTTP_HEADER_AUTHORIZATION, AUTHENTICATION_STRATEGY + authenticationToken);
         setPayload(body);
     }
 
@@ -67,9 +69,10 @@ class GqlTransaction extends HttpTransaction {
             this.listener = listener;
         }
 
-        protected GqlTransaction build(@NonNull final String uri, @NonNull final String userToken) {
+        protected GqlTransaction build(@NonNull final String uri, @NonNull final String userToken,
+                @NonNull final String authenticationToken) {
             String query = gqlQuery.toQuery(userToken);
-            return new GqlTransaction(uri, query, listener, typeReference);
+            return new GqlTransaction(uri, query, authenticationToken, listener, typeReference);
         }
     }
 }
