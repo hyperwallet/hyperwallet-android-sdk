@@ -1,4 +1,4 @@
-package com.hyperwallet.android.transfermethod;
+package com.hyperwallet.android;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -9,8 +9,6 @@ import static org.mockito.Mockito.verify;
 
 import static com.hyperwallet.android.ExceptionMapper.EC_AUTHENTICATION_TOKEN_PROVIDER_EXCEPTION;
 
-import com.hyperwallet.android.Configuration;
-import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.HyperwalletError;
