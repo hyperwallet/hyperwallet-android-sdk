@@ -1,5 +1,7 @@
 package com.hyperwallet.android.rule;
 
+import com.hyperwallet.android.Hyperwallet;
+
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
@@ -30,6 +32,7 @@ public final class HyperwalletMockWebServer extends TestWatcher {
     @Override
     protected void finished(Description description) {
         super.finished(description);
+        Hyperwallet.setInstanceNull();
         try {
             mServer.shutdown();
             mServer.close();

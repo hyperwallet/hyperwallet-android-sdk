@@ -1104,7 +1104,7 @@ public class Hyperwallet {
     }
 
     @VisibleForTesting
-    static void setInstanceNull() {
+    public static void setInstanceNull() {
         sInstanceLast = null;
     }
 }
