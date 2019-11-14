@@ -32,7 +32,7 @@ public final class HyperwalletMockWebServer extends TestWatcher {
     @Override
     protected void finished(Description description) {
         super.finished(description);
-        Hyperwallet.setInstanceNull();
+        Hyperwallet.clearInstance();
         try {
             mServer.shutdown();
             mServer.close();

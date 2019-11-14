@@ -24,7 +24,6 @@ import static com.hyperwallet.android.util.HttpMethod.PUT;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 
 import com.hyperwallet.android.exception.AuthenticationTokenProviderException;
 import com.hyperwallet.android.exception.HyperwalletException;
@@ -1101,11 +1100,6 @@ public class Hyperwallet {
             queryMap = queryParam.buildQuery();
         }
         return queryMap;
-    }
-
-    @VisibleForTesting
-    public static void setInstanceNull() {
-        sInstanceLast = null;
     }
 }
 
