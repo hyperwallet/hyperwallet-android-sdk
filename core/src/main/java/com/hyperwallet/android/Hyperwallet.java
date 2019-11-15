@@ -103,9 +103,11 @@ public class Hyperwallet {
      * @param hyperwalletAuthenticationTokenProvider a provider of Hyperwallet authentication tokens; must not be null
      * @return A {@code Hyperwallet} instance
      */
-    public static Hyperwallet getInstance(
+    public static synchronized Hyperwallet getInstance(
             @NonNull final HyperwalletAuthenticationTokenProvider hyperwalletAuthenticationTokenProvider) {
-        sInstanceLast = new Hyperwallet(hyperwalletAuthenticationTokenProvider);
+        if (sInstanceLast == null) {
+            sInstanceLast = new Hyperwallet(hyperwalletAuthenticationTokenProvider);
+        }
         return sInstanceLast;
     }
 
@@ -128,8 +130,10 @@ public class Hyperwallet {
     public static synchronized Hyperwallet getInstance(
             @NonNull final HyperwalletAuthenticationTokenProvider hyperwalletAuthenticationTokenProvider,
             @NonNull final HyperwalletListener<Configuration> listener) {
-        sInstanceLast = new Hyperwallet(hyperwalletAuthenticationTokenProvider);
-        sInstanceLast.getConfiguration(listener);
+        if (sInstanceLast == null) {
+            sInstanceLast = new Hyperwallet(hyperwalletAuthenticationTokenProvider);
+            sInstanceLast.getConfiguration(listener);
+        }
         return sInstanceLast;
     }
 
