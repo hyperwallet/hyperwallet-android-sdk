@@ -49,4 +49,18 @@ public class HyperwalletMaskField {
     public List<HyperwalletConditionalPattern> getHyperwalletConditionalPatterns() {
         return mHyperwalletConditionalPatterns;
     }
+
+    public boolean containsConditionalPattern() {
+        return mHyperwalletConditionalPatterns != null && !mHyperwalletConditionalPatterns.isEmpty();
+    }
+
+    public String getConditionalPattern(@NonNull final String value) {
+        for (HyperwalletConditionalPattern pattern : mHyperwalletConditionalPatterns) {
+            if (value.matches(pattern.getRegex())) {
+                return pattern.getPattern();
+            }
+        }
+        return getDefaultPattern();
+    }
+
 }
