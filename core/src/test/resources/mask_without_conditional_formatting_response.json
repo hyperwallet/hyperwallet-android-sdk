@@ -1,0 +1,21 @@
+{
+  "category": "ACCOUNT",
+  "dataType": "NUMBER",
+  "isEditable": true,
+  "label": "Card Number",
+  "maxLength": 19,
+  "minLength": 13,
+  "name": "cardNumber",
+  "placeholder": "",
+  "regularExpression": "^[0-9]{13,19}$",
+  "mask": {
+    "defaultPattern": "#### #### #### ####",
+    "scrubRegex": "\\s"
+  },
+  "isRequired": true,
+  "validationMessage": {
+    "length": "The minimum length of this field is 13 and maximum length is 19.",
+    "pattern": "is invalid length or format.",
+    "empty": "You must provide a value for this field"
+  }
+}
