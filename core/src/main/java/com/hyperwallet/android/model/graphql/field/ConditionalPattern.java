@@ -22,12 +22,12 @@ import androidx.annotation.NonNull;
 import org.json.JSONObject;
 
 /**
- * {@code HyperwalletConditionalPattern} represents the input field format regex pattern needed on creation of an
+ * {@code ConditionalPattern} represents the input field format regex pattern needed on creation of an
  * account.
  * This aids on the input widget where rules and information about the input field is described in this
  * representation
  */
-public class HyperwalletConditionalPattern {
+public class ConditionalPattern {
 
     private static final String PATTERN = "pattern";
     private static final String REGEX = "regex";
@@ -35,9 +35,9 @@ public class HyperwalletConditionalPattern {
     private final String mPattern;
     private final String mRegex;
 
-    public HyperwalletConditionalPattern(@NonNull final JSONObject conditionalPattern) {
-        mPattern = conditionalPattern.optString(PATTERN);
-        mRegex = conditionalPattern.optString(REGEX);
+    public ConditionalPattern(@NonNull final JSONObject conditionalPatternJson) {
+        mPattern = conditionalPatternJson.optString(PATTERN);
+        mRegex = conditionalPatternJson.optString(REGEX);
     }
 
     public String getPattern() {

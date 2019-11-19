@@ -71,7 +71,8 @@ public class HyperwalletFieldTest {
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);
         HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
 
-        assertThat(hyperwalletField.getFieldMask(), is(notNullValue()));
+        assertTrue(hyperwalletField.containsMask());
+        assertThat(hyperwalletField.getMask(), is(notNullValue()));
     }
 
     @Test
@@ -81,6 +82,7 @@ public class HyperwalletFieldTest {
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);
         HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
 
-        assertThat(hyperwalletField.getFieldMask(), is(notNullValue()));
+        assertTrue(hyperwalletField.containsMask());
+        assertThat(hyperwalletField.getMask(), is(notNullValue()));
     }
 }

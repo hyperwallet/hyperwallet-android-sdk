@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 @RunWith(RobolectricTestRunner.class)
-public class HyperwalletConditionalPatternTest {
+public class ConditionalPatternTest {
 
     @Rule
     public HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
@@ -24,11 +24,11 @@ public class HyperwalletConditionalPatternTest {
         String jsonResponse = mExternalResourceManager.getResourceContent(
                 "conditional_pattern_response.json");
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);
-        HyperwalletConditionalPattern hyperwalletConditionalPattern = new HyperwalletConditionalPattern(
+        ConditionalPattern conditionalPattern = new ConditionalPattern(
                 jsonResponseObject);
 
-        assertThat(hyperwalletConditionalPattern, is(notNullValue()));
-        assertThat(hyperwalletConditionalPattern.getPattern(), is("#### ### ############"));
-        assertThat(hyperwalletConditionalPattern.getRegex(), is("^4[53]"));
+        assertThat(conditionalPattern, is(notNullValue()));
+        assertThat(conditionalPattern.getPattern(), is("#### ### ############"));
+        assertThat(conditionalPattern.getRegex(), is("^4[53]"));
     }
 }

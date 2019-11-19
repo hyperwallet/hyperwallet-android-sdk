@@ -65,7 +65,7 @@ public class HyperwalletField {
     private final String mRegularExpression;
     private final HyperwalletValidationMessage mHyperwalletValidationMessage;
     private final String mValue;
-    private final HyperwalletFieldMask mFieldMask;
+    private final Mask mMask;
 
     public HyperwalletField(@NonNull final JSONObject field) {
         mCategory = field.optString(CATEGORY);
@@ -106,9 +106,9 @@ public class HyperwalletField {
 
         JSONObject maskJsonObject = field.optJSONObject(MASK);
         if (maskJsonObject != null) {
-            mFieldMask = new HyperwalletFieldMask(maskJsonObject);
+            mMask = new Mask(maskJsonObject);
         } else {
-            mFieldMask = null;
+            mMask = null;
         }
     }
 
@@ -176,8 +176,12 @@ public class HyperwalletField {
     }
 
     @Nullable
-    public HyperwalletFieldMask getFieldMask() {
-        return mFieldMask;
+    public Mask getMask() {
+        return mMask;
+    }
+
+    public boolean containsMask() {
+        return mMask != null;
     }
 
 }

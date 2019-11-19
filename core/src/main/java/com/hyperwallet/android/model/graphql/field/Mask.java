@@ -26,11 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@code HyperwalletFieldMask} represents input field information needed on Field Formatting.
+ * {@code Mask} represents input field information needed on Field Formatting.
  * This aids on the formation of input widget where rules and information about the input field is described in this
  * representation
  */
-public class HyperwalletFieldMask {
+public class Mask {
 
     private static final String DEFAULT_PATTERN = "defaultPattern";
     private static final String SCRUB_REGEX = "scrubRegex";
@@ -38,19 +38,19 @@ public class HyperwalletFieldMask {
 
     private final String mDefaultPattern;
     private final String mScrubRegex;
-    private final List<HyperwalletConditionalPattern> mConditionalPatterns;
+    private final List<ConditionalPattern> mConditionalPatterns;
 
-    public HyperwalletFieldMask(@NonNull final JSONObject mask) {
-        mDefaultPattern = mask.optString(DEFAULT_PATTERN);
-        mScrubRegex = mask.optString(SCRUB_REGEX);
+    public Mask(@NonNull final JSONObject maskJson) {
+        mDefaultPattern = maskJson.optString(DEFAULT_PATTERN);
+        mScrubRegex = maskJson.optString(SCRUB_REGEX);
 
-        JSONArray jsonArray = mask.optJSONArray(CONDITIONAL_PATTERNS);
+        JSONArray jsonArray = maskJson.optJSONArray(CONDITIONAL_PATTERNS);
         if (jsonArray != null) {
             mConditionalPatterns = new ArrayList<>();
             for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject maskObject = jsonArray.optJSONObject(i);
-                if (maskObject != null) {
-                    mConditionalPatterns.add(new HyperwalletConditionalPattern(maskObject));
+                JSONObject conditionalPatternJson = jsonArray.optJSONObject(i);
+                if (conditionalPatternJson != null) {
+                    mConditionalPatterns.add(new ConditionalPattern(conditionalPatternJson));
                 }
             }
         } else {
@@ -66,8 +66,21 @@ public class HyperwalletFieldMask {
         return mScrubRegex;
     }
 
-    public List<HyperwalletConditionalPattern> getConditionalPatterns() {
+    public List<ConditionalPattern> getConditionalPatterns() {
         return mConditionalPatterns;
+    }
+
+    public boolean containsConditionalPattern() {
+        return mConditionalPatterns != null && !mConditionalPatterns.isEmpty();
+    }
+
+    public String getConditionalPattern(@NonNull final String value) {
+        for (ConditionalPattern pattern : mConditionalPatterns) {
+            if (value.matches(pattern.getRegex())) {
+                return pattern.getPattern();
+            }
+        }
+        return getDefaultPattern();
     }
 
 }
