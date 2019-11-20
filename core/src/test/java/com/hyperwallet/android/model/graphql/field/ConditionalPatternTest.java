@@ -20,7 +20,7 @@ public class ConditionalPatternTest {
     public HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
 
     @Test
-    public void testHyperwalletConditionalPattern_convertJsonObject() throws JSONException {
+    public void testConditionalPattern_convertJsonObject() throws JSONException {
         String jsonResponse = mExternalResourceManager.getResourceContent(
                 "conditional_pattern_response.json");
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);

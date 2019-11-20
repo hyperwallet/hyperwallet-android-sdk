@@ -58,10 +58,6 @@ public class Mask {
         }
     }
 
-    public String getDefaultPattern() {
-        return mDefaultPattern;
-    }
-
     public String getScrubRegex() {
         return mScrubRegex;
     }
@@ -70,18 +66,19 @@ public class Mask {
         return mConditionalPatterns;
     }
 
-    public boolean containsConditionalPattern() {
+    private boolean containsConditionalPattern() {
         return mConditionalPatterns != null && !mConditionalPatterns.isEmpty();
     }
 
-    public String getConditionalPattern(@NonNull final String value) {
-        for (ConditionalPattern pattern : mConditionalPatterns) {
-            if (value.matches(pattern.getRegex())) {
-                return pattern.getPattern();
+    public String getPattern(@NonNull final String value) {
+        if (containsConditionalPattern()) {
+            for (ConditionalPattern pattern : mConditionalPatterns) {
+                if (value.matches(pattern.getRegex())) {
+                    return pattern.getPattern();
+                }
             }
         }
-        return getDefaultPattern();
+        return mDefaultPattern;
     }
-
 }
 

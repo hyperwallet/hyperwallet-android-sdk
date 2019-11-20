@@ -65,7 +65,7 @@ public class HyperwalletFieldTest {
     }
 
     @Test
-    public void testHyperwalletField_convertJsonObjectWithoutConditionalFormat() throws JSONException {
+    public void testHyperwalletField_convertJsonObjectWithoutMask() throws JSONException {
         String jsonResponse = mExternalResourceManager.getResourceContent(
                 "mask_without_conditional_formatting_response.json");
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);
@@ -76,7 +76,7 @@ public class HyperwalletFieldTest {
     }
 
     @Test
-    public void testHyperwalletField_convertJsonObjectWithConditionalFormat() throws JSONException {
+    public void testHyperwalletField_convertJsonObjectWithMask() throws JSONException {
         String jsonResponse = mExternalResourceManager.getResourceContent(
                 "mask_with_conditional_formatting_response.json");
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);
