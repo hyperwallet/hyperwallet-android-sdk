@@ -66,7 +66,7 @@ public class Mask {
         return mConditionalPatterns;
     }
 
-    private boolean containsConditionalPattern() {
+    public boolean containsConditionalPattern() {
         return mConditionalPatterns != null && !mConditionalPatterns.isEmpty();
     }
 
