@@ -1,9 +1,8 @@
 package com.hyperwallet.android.model.graphql.field;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
@@ -29,9 +28,9 @@ public class MaskTest {
         HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
         Mask mask = hyperwalletField.getMask();
 
-        assertNotNull(mask);
+        assertThat(mask, is(notNullValue()));
         assertThat(mask.getScrubRegex(), is("\\s"));
-        assertNull(mask.getConditionalPatterns());
+        assertThat(mask.getConditionalPatterns(), is(nullValue()));
     }
 
     @Test
@@ -42,7 +41,7 @@ public class MaskTest {
         HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
         Mask mask = hyperwalletField.getMask();
 
-        assertNotNull(mask);
+        assertThat(mask, is(notNullValue()));
         assertThat(mask.getScrubRegex(), is("\\s"));
         assertThat(mask.getConditionalPatterns(), is(notNullValue()));
         assertThat(mask.getConditionalPatterns().size(), is(2));
@@ -56,7 +55,7 @@ public class MaskTest {
         HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
         Mask mask = hyperwalletField.getMask();
 
-        assertNotNull(mask);
+        assertThat(mask, is(notNullValue()));
         assertThat(mask.getPattern("613"), is("#### #### #### ####"));
     }
 
@@ -68,7 +67,7 @@ public class MaskTest {
         HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
         Mask mask = hyperwalletField.getMask();
 
-        assertNotNull(mask);
+        assertThat(mask, is(notNullValue()));
         assertThat(mask.getPattern("653"), is("######## ####### ####"));
     }
 }
