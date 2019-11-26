@@ -48,6 +48,7 @@ public class HyperwalletField {
     private static final String REGULAR_EXPRESSION = "regularExpression";
     private static final String VALIDATION_MESSAGE = "validationMessage";
     private static final String VALUE = "value";
+    private static final String MASK = "mask";
 
     private final String mCategory;
     private final EDataType mDataType;
@@ -64,6 +65,7 @@ public class HyperwalletField {
     private final String mRegularExpression;
     private final HyperwalletValidationMessage mHyperwalletValidationMessage;
     private final String mValue;
+    private final Mask mMask;
 
     public HyperwalletField(@NonNull final JSONObject field) {
         mCategory = field.optString(CATEGORY);
@@ -100,6 +102,13 @@ public class HyperwalletField {
             mHyperwalletValidationMessage = new HyperwalletValidationMessage(validationMessageObject);
         } else {
             mHyperwalletValidationMessage = null;
+        }
+
+        JSONObject maskJsonObject = field.optJSONObject(MASK);
+        if (maskJsonObject != null) {
+            mMask = new Mask(maskJsonObject);
+        } else {
+            mMask = null;
         }
     }
 
@@ -165,5 +174,15 @@ public class HyperwalletField {
     public HyperwalletValidationMessage getHyperwalletValidationMessage() {
         return mHyperwalletValidationMessage;
     }
+
+    @Nullable
+    public Mask getMask() {
+        return mMask;
+    }
+
+    public boolean containsMask() {
+        return mMask != null;
+    }
+
 }
 

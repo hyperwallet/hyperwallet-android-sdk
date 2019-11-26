@@ -63,4 +63,26 @@ public class HyperwalletFieldTest {
         assertThat(hyperwalletField.getFieldSelectionOptions(), is(hasSize(2)));
         assertThat(hyperwalletField.getHyperwalletValidationMessage(), is(notNullValue()));
     }
+
+    @Test
+    public void testHyperwalletField_convertJsonObjectWithoutMask() throws JSONException {
+        String jsonResponse = mExternalResourceManager.getResourceContent(
+                "mask_without_conditional_formatting_response.json");
+        JSONObject jsonResponseObject = new JSONObject(jsonResponse);
+        HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
+
+        assertTrue(hyperwalletField.containsMask());
+        assertThat(hyperwalletField.getMask(), is(notNullValue()));
+    }
+
+    @Test
+    public void testHyperwalletField_convertJsonObjectWithMask() throws JSONException {
+        String jsonResponse = mExternalResourceManager.getResourceContent(
+                "mask_with_conditional_formatting_response.json");
+        JSONObject jsonResponseObject = new JSONObject(jsonResponse);
+        HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
+
+        assertTrue(hyperwalletField.containsMask());
+        assertThat(hyperwalletField.getMask(), is(notNullValue()));
+    }
 }
