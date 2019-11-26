@@ -51,7 +51,7 @@ public class HyperwalletField {
     private static final String MASK = "mask";
 
     private final String mCategory;
-    private final EDataType mDataType;
+    private final String mDataType;
     private final List<HyperwalletFieldSelectionOption> mFieldSelectionOptions;
     private final HyperwalletFileSize mFileSize;
     private final String mFileType;
@@ -69,7 +69,7 @@ public class HyperwalletField {
 
     public HyperwalletField(@NonNull final JSONObject field) {
         mCategory = field.optString(CATEGORY);
-        mDataType = EDataType.getDataType(field.optString(DATA_TYPE));
+        mDataType = DataType.getDataType(field.optString(DATA_TYPE));
         mIsEditable = field.optBoolean(IS_EDITABLE);
         mIsRequired = field.optBoolean(IS_REQUIRED);
         mLabel = field.optString(LABEL);
@@ -116,7 +116,7 @@ public class HyperwalletField {
         return mCategory;
     }
 
-    public EDataType getDataType() {
+    public String getDataType() {
         return mDataType;
     }
 
