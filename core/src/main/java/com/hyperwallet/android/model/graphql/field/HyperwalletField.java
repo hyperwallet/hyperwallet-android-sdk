@@ -116,6 +116,7 @@ public class HyperwalletField {
         return mCategory;
     }
 
+    @DataType.DataTypes
     public String getDataType() {
         return mDataType;
     }

@@ -26,7 +26,9 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * Input field data type, used to create input widget
  */
-public class DataType {
+public final class DataType {
+    private DataType() {
+    }
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
@@ -42,7 +44,7 @@ public class DataType {
             EXPIRY_DATE,
             FILE
     })
-    public @interface DataFieldType {
+    public @interface DataTypes {
     }
 
     private static final String TAG = DataType.class.getName();
@@ -64,51 +66,46 @@ public class DataType {
      * @param name of the type.
      * @return String dataType or null if there is no constant with specified name
      */
-    @DataFieldType
+    @DataTypes
     @Nullable
     public static String getDataType(@NonNull String name) {
         String dataType = null;
-        try {
-            switch (name) {
-                case TEXT:
-                    dataType = DataType.TEXT;
-                    break;
-                case SELECTION:
-                    dataType = DataType.SELECTION;
-                    break;
-                case BOOLEAN:
-                    dataType = DataType.BOOLEAN;
-                    break;
-                case NUMBER:
-                    dataType = DataType.NUMBER;
-                    break;
-                case RANGE:
-                    dataType = DataType.RANGE;
-                    break;
-                case DATE:
-                    dataType = DataType.DATE;
-                    break;
-                case DATETIME:
-                    dataType = DataType.DATETIME;
-                    break;
-                case PHONE:
-                    dataType = DataType.PHONE;
-                    break;
-                case EMAIL:
-                    dataType = DataType.EMAIL;
-                    break;
-                case EXPIRY_DATE:
-                    dataType = DataType.EXPIRY_DATE;
-                    break;
-                case FILE:
-                    dataType = DataType.FILE;
-                    break;
-                default:
-
-            }
-        } catch (IllegalArgumentException e) {
+        switch (name) {
+            case TEXT:
+                dataType = DataType.TEXT;
+                break;
+            case SELECTION:
+                dataType = DataType.SELECTION;
+                break;
+            case BOOLEAN:
+                dataType = DataType.BOOLEAN;
+                break;
+            case NUMBER:
+                dataType = DataType.NUMBER;
+                break;
+            case RANGE:
+                dataType = DataType.RANGE;
+                break;
+            case DATE:
+                dataType = DataType.DATE;
+                break;
+            case DATETIME:
+                dataType = DataType.DATETIME;
+                break;
+            case PHONE:
+                dataType = DataType.PHONE;
+                break;
+            case EMAIL:
+                dataType = DataType.EMAIL;
+                break;
+            case EXPIRY_DATE:
+                dataType = DataType.EXPIRY_DATE;
+                break;
+            case FILE:
+                dataType = DataType.FILE;
+                break;
+            default:
         }
-
         return dataType;
     }
 }
