@@ -10,6 +10,7 @@ import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
 import com.hyperwallet.android.util.DateUtil;
 
+import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,5 +41,35 @@ public class HyperwalletPrepaidCardTest {
         assertThat(actualPrepaidCard.getCardNumber(), is("************8766"));
         assertThat(actualPrepaidCard.getCardBrand(), is("VISA"));
         assertThat(actualPrepaidCard.getDateOfExpiry(), is("2023-06"));
+    }
+
+    @Test
+    public void testFromJsonString_prepaidCardDefaultValue() throws Exception {
+        HyperwalletPrepaidCard actualPrepaidCard = new HyperwalletPrepaidCard();
+
+        assertThat(actualPrepaidCard, is(notNullValue()));
+        assertThat(actualPrepaidCard.getCardPackage(),is("DEFAULT"));
+        assertThat(actualPrepaidCard.getType(),is("PREPAID_CARD"));
+    }
+
+    @Test
+    public void testFromJsonString_prepaidCardWithCardPackage() throws Exception {
+        HyperwalletPrepaidCard actualPrepaidCard = new HyperwalletPrepaidCard("L1");
+
+        assertThat(actualPrepaidCard, is(notNullValue()));
+        assertThat(actualPrepaidCard.getCardPackage(),is("L1"));
+        assertThat(actualPrepaidCard.getType(),is("PREPAID_CARD"));
+    }
+
+    @Test
+    public void testFromJsonString_prepaidCardAllValuesByJsonObject() throws Exception {
+        JSONObject params = new JSONObject();
+        params.put(HyperwalletTransferMethod.TransferMethodFields.CARD_PACKAGE,"L1");
+        params.put(HyperwalletTransferMethod.TransferMethodFields.DATE_OF_EXPIRY,"2023-06");
+        HyperwalletPrepaidCard actualPrepaidCard = new HyperwalletPrepaidCard(params);
+
+        assertThat(actualPrepaidCard, is(notNullValue()));
+        assertThat(actualPrepaidCard.getCardPackage(),is("L1"));
+        assertThat(actualPrepaidCard.getDateOfExpiry(),is("2023-06"));
     }
 }

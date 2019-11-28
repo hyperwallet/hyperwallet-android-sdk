@@ -743,7 +743,6 @@ public class Hyperwallet {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/prepaid-cards");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<HyperwalletPageList<HyperwalletPrepaidCard>>() {
-
                 }, listener).query(urlQuery);
 
         performRestTransaction(builder, listener);

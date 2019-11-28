@@ -63,11 +63,13 @@ public class HyperwalletPrepaidCard extends HyperwalletTransferMethod {
 
     private HyperwalletPrepaidCard(@NonNull Map<String, Object> fields) {
         super();
+        setField(TransferMethodFields.TYPE, TransferMethodTypes.PREPAID_CARD);
         setFields(fields);
     }
 
     public HyperwalletPrepaidCard(@NonNull JSONObject jsonObject) throws JSONException {
         super(jsonObject);
+        setField(TransferMethodFields.TYPE, TransferMethodTypes.PREPAID_CARD);
     }
 
     @Nullable
