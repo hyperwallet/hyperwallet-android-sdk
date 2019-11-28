@@ -218,6 +218,7 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
             TransferMethodFields.CARD_TYPE,
             TransferMethodFields.DATE_OF_EXPIRY,
             TransferMethodFields.CVV,
+            TransferMethodFields.CARD_PACKAGE,
             TransferMethodFields.EMAIL
     })
     public @interface TransferMethodFieldKey {
@@ -263,6 +264,7 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
         public static final String CARD_TYPE = "cardType";
         public static final String DATE_OF_EXPIRY = "dateOfExpiry";
         public static final String CVV = "cvv";
+        public static final String CARD_PACKAGE = "cardPackage";
 
         // profile information
         public static final String PROFILE_TYPE = "profileType";

@@ -47,6 +47,8 @@ import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountQueryParam;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankCard;
 import com.hyperwallet.android.model.transfermethod.HyperwalletBankCardQueryParam;
+import com.hyperwallet.android.model.transfermethod.HyperwalletPrepaidCard;
+import com.hyperwallet.android.model.transfermethod.HyperwalletPrepaidCardQueryParam;
 import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
 import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam;
 import com.hyperwallet.android.model.transfermethod.PayPalAccount;
@@ -701,6 +703,47 @@ public class Hyperwallet {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<HyperwalletPageList<HyperwalletBankCard>>() {
+                }, listener).query(urlQuery);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
+     * Returns the {@link HyperwalletPrepaidCard} for the User associated with the authentication token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
+     * or an empty {@code List} if non exist.
+     *
+     * <p>The ordering and filtering of {@code HyperwalletPrepaidCard} will be based on the criteria specified within
+     * the
+     * {@link HyperwalletPrepaidCardQueryParam} object, if it is not null. Otherwise the default ordering and
+     * filtering will be applied.</p>
+     *
+     * <ul>
+     * <li>Offset: 0</li>
+     * <li>Limit: 10</li>
+     * <li>Created Before: N/A</li>
+     * <li>Created After: N/A</li>
+     * <li>Type: Prepaid Card</li>
+     * <li>Status: All</li>
+     * <li>Sort By: Created On</li>
+     * </ul>
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param queryParam the ordering and filtering criteria
+     * @param listener   the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void listPrepaidCards(@Nullable final HyperwalletPrepaidCardQueryParam queryParam,
+            @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletPrepaidCard>> listener) {
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/prepaid-cards");
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<HyperwalletPageList<HyperwalletPrepaidCard>>() {
+
                 }, listener).query(urlQuery);
 
         performRestTransaction(builder, listener);
