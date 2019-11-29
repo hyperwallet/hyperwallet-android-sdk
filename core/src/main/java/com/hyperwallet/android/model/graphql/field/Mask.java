@@ -24,6 +24,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * {@code Mask} represents input field information needed on Field Formatting.
@@ -72,9 +74,13 @@ public class Mask {
 
     public String getPattern(@NonNull final String value) {
         if (containsConditionalPattern()) {
-            for (ConditionalPattern pattern : mConditionalPatterns) {
-                if (value.matches(pattern.getRegex())) {
-                    return pattern.getPattern();
+            for (ConditionalPattern conditionalPattern : mConditionalPatterns) {
+                Pattern pattern = Pattern.compile(conditionalPattern.getRegex());
+                Matcher matcher = pattern.matcher(value);
+                while (matcher.find()) {
+                    if (matcher.end() > 0) {
+                        return conditionalPattern.getPattern();
+                    }
                 }
             }
         }
