@@ -69,5 +69,6 @@ public class MaskTest {
 
         assertThat(mask, is(notNullValue()));
         assertThat(mask.getPattern("653"), is("######## ####### ####"));
+        assertThat(mask.getPattern("65345678"), is("######## ####### ####"));
     }
 }
