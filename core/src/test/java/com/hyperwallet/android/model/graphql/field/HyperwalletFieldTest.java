@@ -30,7 +30,7 @@ public class HyperwalletFieldTest {
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);
         HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
         assertThat(hyperwalletField.getCategory(), is("ACCOUNT"));
-        assertThat(hyperwalletField.getDataType(), is(EDataType.NUMBER));
+        assertThat(hyperwalletField.getDataType(), is(DataType.NUMBER));
         assertTrue(hyperwalletField.isRequired());
         assertThat(hyperwalletField.getLabel(), is("Routing Number"));
         assertThat(hyperwalletField.getMaxLength(), is(9));
@@ -51,7 +51,7 @@ public class HyperwalletFieldTest {
         HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
 
         assertThat(hyperwalletField.getCategory(), is("ADDRESS"));
-        assertThat(hyperwalletField.getDataType(), is(EDataType.SELECTION));
+        assertThat(hyperwalletField.getDataType(), is(DataType.SELECTION));
         assertTrue(hyperwalletField.isRequired());
         assertThat(hyperwalletField.getLabel(), is("Country"));
         assertThat(hyperwalletField.getMaxLength(), is(Integer.MAX_VALUE));
