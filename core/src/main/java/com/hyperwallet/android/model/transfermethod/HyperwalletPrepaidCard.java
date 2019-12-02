@@ -56,7 +56,7 @@ public class HyperwalletPrepaidCard extends HyperwalletTransferMethod {
     }
 
     public HyperwalletPrepaidCard(@NonNull String cardPackage) {
-        super();
+        this();
         setField(TransferMethodFields.CARD_PACKAGE, cardPackage);
     }
 
