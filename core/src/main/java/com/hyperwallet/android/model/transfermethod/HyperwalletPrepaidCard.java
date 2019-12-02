@@ -57,13 +57,11 @@ public class HyperwalletPrepaidCard extends HyperwalletTransferMethod {
 
     public HyperwalletPrepaidCard(@NonNull String cardPackage) {
         super();
-        setField(TransferMethodFields.TYPE, TransferMethodTypes.PREPAID_CARD);
         setField(TransferMethodFields.CARD_PACKAGE, cardPackage);
     }
 
     private HyperwalletPrepaidCard(@NonNull Map<String, Object> fields) {
-        super();
-        setField(TransferMethodFields.TYPE, TransferMethodTypes.PREPAID_CARD);
+        this();
         setFields(fields);
     }
 
