@@ -48,9 +48,10 @@ public class HyperwalletField {
     private static final String REGULAR_EXPRESSION = "regularExpression";
     private static final String VALIDATION_MESSAGE = "validationMessage";
     private static final String VALUE = "value";
+    private static final String MASK = "mask";
 
     private final String mCategory;
-    private final EDataType mDataType;
+    private final String mDataType;
     private final List<HyperwalletFieldSelectionOption> mFieldSelectionOptions;
     private final HyperwalletFileSize mFileSize;
     private final String mFileType;
@@ -64,10 +65,11 @@ public class HyperwalletField {
     private final String mRegularExpression;
     private final HyperwalletValidationMessage mHyperwalletValidationMessage;
     private final String mValue;
+    private final Mask mMask;
 
     public HyperwalletField(@NonNull final JSONObject field) {
         mCategory = field.optString(CATEGORY);
-        mDataType = EDataType.getDataType(field.optString(DATA_TYPE));
+        mDataType = DataType.getDataType(field.optString(DATA_TYPE));
         mIsEditable = field.optBoolean(IS_EDITABLE);
         mIsRequired = field.optBoolean(IS_REQUIRED);
         mLabel = field.optString(LABEL);
@@ -101,13 +103,21 @@ public class HyperwalletField {
         } else {
             mHyperwalletValidationMessage = null;
         }
+
+        JSONObject maskJsonObject = field.optJSONObject(MASK);
+        if (maskJsonObject != null) {
+            mMask = new Mask(maskJsonObject);
+        } else {
+            mMask = null;
+        }
     }
 
     public String getCategory() {
         return mCategory;
     }
 
-    public EDataType getDataType() {
+    @DataType.DataTypes
+    public String getDataType() {
         return mDataType;
     }
 
@@ -165,5 +175,15 @@ public class HyperwalletField {
     public HyperwalletValidationMessage getHyperwalletValidationMessage() {
         return mHyperwalletValidationMessage;
     }
+
+    @Nullable
+    public Mask getMask() {
+        return mMask;
+    }
+
+    public boolean containsMask() {
+        return mMask != null;
+    }
+
 }
 

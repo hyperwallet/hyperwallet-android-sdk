@@ -30,7 +30,7 @@ public class HyperwalletFieldTest {
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);
         HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
         assertThat(hyperwalletField.getCategory(), is("ACCOUNT"));
-        assertThat(hyperwalletField.getDataType(), is(EDataType.NUMBER));
+        assertThat(hyperwalletField.getDataType(), is(DataType.NUMBER));
         assertTrue(hyperwalletField.isRequired());
         assertThat(hyperwalletField.getLabel(), is("Routing Number"));
         assertThat(hyperwalletField.getMaxLength(), is(9));
@@ -51,7 +51,7 @@ public class HyperwalletFieldTest {
         HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
 
         assertThat(hyperwalletField.getCategory(), is("ADDRESS"));
-        assertThat(hyperwalletField.getDataType(), is(EDataType.SELECTION));
+        assertThat(hyperwalletField.getDataType(), is(DataType.SELECTION));
         assertTrue(hyperwalletField.isRequired());
         assertThat(hyperwalletField.getLabel(), is("Country"));
         assertThat(hyperwalletField.getMaxLength(), is(Integer.MAX_VALUE));
@@ -62,5 +62,27 @@ public class HyperwalletFieldTest {
 
         assertThat(hyperwalletField.getFieldSelectionOptions(), is(hasSize(2)));
         assertThat(hyperwalletField.getHyperwalletValidationMessage(), is(notNullValue()));
+    }
+
+    @Test
+    public void testHyperwalletField_convertJsonObjectWithoutMask() throws JSONException {
+        String jsonResponse = mExternalResourceManager.getResourceContent(
+                "mask_without_conditional_formatting_response.json");
+        JSONObject jsonResponseObject = new JSONObject(jsonResponse);
+        HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
+
+        assertTrue(hyperwalletField.containsMask());
+        assertThat(hyperwalletField.getMask(), is(notNullValue()));
+    }
+
+    @Test
+    public void testHyperwalletField_convertJsonObjectWithMask() throws JSONException {
+        String jsonResponse = mExternalResourceManager.getResourceContent(
+                "mask_with_conditional_formatting_response.json");
+        JSONObject jsonResponseObject = new JSONObject(jsonResponse);
+        HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
+
+        assertTrue(hyperwalletField.containsMask());
+        assertThat(hyperwalletField.getMask(), is(notNullValue()));
     }
 }

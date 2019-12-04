@@ -1,6 +1,6 @@
 /*
  *  The MIT License (MIT)
- *  Copyright (c) 2018 Hyperwallet Systems Inc.
+ *  Copyright (c) 2019 Hyperwallet Systems Inc.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  *  associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -14,43 +14,38 @@
  *  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package com.hyperwallet.android.model.graphql.field;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
+import org.json.JSONObject;
 
 /**
- * Input field data type, used to create input widget
+ * {@code ConditionalPattern} represents the input field format regex pattern needed on creation of an
+ * account.
+ * This aids on the input widget where rules and information about the input field is described in this
+ * representation
  */
-public enum EDataType {
-    TEXT,
-    SELECTION,
-    BOOLEAN,
-    NUMBER,
-    RANGE,
-    DATE,
-    DATETIME,
-    PHONE,
-    EMAIL,
-    EXPIRY_DATE,
-    FILE;
+public class ConditionalPattern {
 
-    private static final String TAG = EDataType.class.getName();
+    private static final String PATTERN = "pattern";
+    private static final String REGEX = "regex";
 
-    /**
-     * Get {@link EDataType} by name.
-     *
-     * @param name of the type.
-     * @return {@link EDataType} or null if there is no constant with specified name
-     */
-    @Nullable
-    public static EDataType getDataType(@NonNull String name) {
-        EDataType dataType = null;
-        try {
-            dataType = EDataType.valueOf(name);
-        } catch (IllegalArgumentException e) {
-        }
+    private final String mPattern;
+    private final String mRegex;
 
-        return dataType;
+    public ConditionalPattern(@NonNull final JSONObject conditionalPatternJson) {
+        mPattern = conditionalPatternJson.optString(PATTERN);
+        mRegex = conditionalPatternJson.optString(REGEX);
+    }
+
+    public String getPattern() {
+        return mPattern;
+    }
+
+    public String getRegex() {
+        return mRegex;
     }
 }
+
