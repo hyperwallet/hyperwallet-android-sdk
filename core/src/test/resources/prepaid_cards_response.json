@@ -1,0 +1,59 @@
+{
+  "count": 2,
+  "offset": 0,
+  "limit": 10,
+  "data": [
+    {
+      "token": "trm-17d10cf0-121d-45df-903c-589fd881a549",
+      "type": "PREPAID_CARD",
+      "status": "ACTIVATED",
+      "verificationStatus": "VERIFIED",
+      "createdOn": "2019-06-20T22:49:12",
+      "transferMethodCountry": "US",
+      "transferMethodCurrency": "USD",
+      "cardType": "VIRTUAL",
+      "cardPackage": "L1",
+      "cardNumber": "************8766",
+      "cardBrand": "VISA",
+      "dateOfExpiry": "2023-06",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-02d381d3-bf7e-43fe-9d00-02e26b28df57/prepaid-cards/trm-17d10cf0-121d-45df-903c-589fd881a549"
+        }
+      ]
+    },
+    {
+      "token": "trm-17d10cf0-121d-45df-903c-589fd881a559",
+      "type": "PREPAID_CARD",
+      "status": "ACTIVATED",
+      "verificationStatus": "VERIFIED",
+      "createdOn": "2019-06-20T22:59:12",
+      "transferMethodCountry": "US",
+      "transferMethodCurrency": "USD",
+      "cardType": "VIRTUAL",
+      "cardPackage": "L1",
+      "cardNumber": "************8767",
+      "cardBrand": "VISA",
+      "dateOfExpiry": "2023-06",
+      "links": [
+        {
+          "params": {
+            "rel": "self"
+          },
+          "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-02d381d3-bf7e-43fe-9d00-02e26b28df57/prepaid-cards/trm-17d10cf0-121d-45df-903c-589fd881a549"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-02d381d3-bf7e-43fe-9d00-02e26b28df57/prepaid-cards?offset=0&limit=10"
+    }
+  ]
+}

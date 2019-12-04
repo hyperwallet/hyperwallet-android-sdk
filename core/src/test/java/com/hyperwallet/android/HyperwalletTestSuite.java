@@ -17,6 +17,7 @@ import com.hyperwallet.android.transfermethod.HyperwalletListBankAccountsTest;
 import com.hyperwallet.android.transfermethod.HyperwalletListBankCardsTest;
 import com.hyperwallet.android.transfermethod.HyperwalletListPayPalAccountsTest;
 import com.hyperwallet.android.transfermethod.HyperwalletListPrepaidCardReceiptsTest;
+import com.hyperwallet.android.transfermethod.HyperwalletListPrepaidCardsTest;
 import com.hyperwallet.android.transfermethod.HyperwalletListTransfersTest;
 import com.hyperwallet.android.transfermethod.HyperwalletListUserReceiptsTest;
 import com.hyperwallet.android.transfermethod.HyperwalletRetrieveTransferMethodConfigurationKeysTest;
@@ -53,7 +54,8 @@ import org.junit.runners.Suite;
         HyperwalletListPayPalAccountsTest.class,
         HyperwalletListUserReceiptsTest.class,
         HyperwalletListPrepaidCardReceiptsTest.class,
-        HyperwalletListTransfersTest.class
+        HyperwalletListTransfersTest.class,
+        HyperwalletListPrepaidCardsTest.class
 })
 public class HyperwalletTestSuite {
 

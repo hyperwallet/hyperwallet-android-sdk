@@ -250,6 +250,17 @@ Hyperwallet.getDefault().listBankCards(bankCardQueryParam, listener);
 // onFailure: error (HyperwalletErrorType) will contain HyperwalletErrors containing information about what caused the failure
 ```
 
+### List Prepaid Card
+```java
+HyperwalletPrepaidCardQueryParam prepaidCardQueryParam = new HyperwalletPrepaidCardQueryParam.Builder()
+        .status(ACTIVATED)
+        .sortByCreatedOnAsc()
+        .build();
+Hyperwallet.getDefault().listPrepaidCards(prepaidCardQueryParam, listener);
+// onSuccess: response (HyperwalletPageList<HyperwalletPrepaidCard>) will contain a PageList of HyperwalletPrepaidCard or null if not exists
+// onFailure: error (HyperwalletErrorType) will contain HyperwalletErrors containing information about what caused the failure
+```
+
 ### List Prepaid Card Receipts
 ```java
 Calendar calendar = Calendar.getInstance();
