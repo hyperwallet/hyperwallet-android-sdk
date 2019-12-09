@@ -36,7 +36,7 @@ public class HyperwalletTransferMethodType implements KeyedNode {
     private ProcessingTime mProcessingTime;
 
     /**
-     * Constructor to build HyperwalletTransferMethodType based on json
+     * Constructor to build HyperwalletTransferMethodType based on {@link JSONObject} representation
      *
      * @param transferMethodType JSON object that represents transfer method type data
      */

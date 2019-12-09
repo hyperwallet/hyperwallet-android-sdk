@@ -53,105 +53,6 @@ public class StatusTransition implements HyperwalletJsonModel, Parcelable {
                     return new StatusTransition[size];
                 }
             };
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            StatusDefinition.ACTIVATED,
-            StatusDefinition.CANCELLED,
-            StatusDefinition.COMPLETED,
-            StatusDefinition.CREATED,
-            StatusDefinition.DE_ACTIVATED,
-            StatusDefinition.EXPIRED,
-            StatusDefinition.FAILED,
-            StatusDefinition.IN_PROGRESS,
-            StatusDefinition.INVALID,
-            StatusDefinition.LOST_OR_STOLEN,
-            StatusDefinition.PENDING_ACCOUNT_ACTIVATION,
-            StatusDefinition.PENDING_ID_VERIFICATION,
-            StatusDefinition.PENDING_TAX_VERIFICATION,
-            StatusDefinition.PENDING_TRANSACTION_VERIFICATION,
-            StatusDefinition.PENDING_TRANSFER_METHOD_ACTION,
-            StatusDefinition.QUOTED,
-            StatusDefinition.RECALLED,
-            StatusDefinition.RETURNED,
-            StatusDefinition.SCHEDULED,
-            StatusDefinition.SUSPENDED,
-            StatusDefinition.UNSUSPENDED,
-            StatusDefinition.VERIFIED
-    })
-    public @interface Status {
-    }
-
-    public final class StatusDefinition {
-        private StatusDefinition() {
-        }
-
-        public static final String ACTIVATED = "ACTIVATED";
-        public static final String CANCELLED = "CANCELLED";
-        public static final String COMPLETED = "COMPLETED";
-        public static final String CREATED = "CREATED";
-        public static final String DE_ACTIVATED = "DE_ACTIVATED";
-        public static final String EXPIRED = "CANCELLED";
-        public static final String FAILED = "FAILED";
-        public static final String IN_PROGRESS = "IN_PROGRESS";
-        public static final String INVALID = "INVALID";
-        public static final String LOST_OR_STOLEN = "LOST_OR_STOLEN";
-        public static final String PENDING_ACCOUNT_ACTIVATION = "PENDING_ACCOUNT_ACTIVATION";
-        public static final String PENDING_ID_VERIFICATION = "PENDING_ID_VERIFICATION";
-        public static final String PENDING_TAX_VERIFICATION = "PENDING_TAX_VERIFICATION";
-        public static final String PENDING_TRANSACTION_VERIFICATION = "PENDING_TRANSACTION_VERIFICATION";
-        public static final String PENDING_TRANSFER_METHOD_ACTION = "PENDING_TRANSFER_METHOD_ACTION";
-        public static final String QUOTED = "QUOTED";
-        public static final String RECALLED = "RECALLED";
-        public static final String RETURNED = "RETURNED";
-        public static final String SCHEDULED = "SCHEDULED";
-        public static final String SUSPENDED = "SUSPENDED";
-        public static final String UNSUSPENDED = "UNSUSPENDED";
-        public static final String VERIFIED = "VERIFIED";
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            StatusCodeDefinition.RECALLED,
-            StatusCodeDefinition.RETURNED
-    })
-    public @interface StatusCode {
-    }
-
-    public final class StatusCodeDefinition {
-        private StatusCodeDefinition() {
-        }
-
-        public static final String RECALLED = "RECALLED";
-        public static final String RETURNED = "RETURNED";
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            StatusTransitionField.CREATED_ON,
-            StatusTransitionField.FROM_STATUS,
-            StatusTransitionField.TO_STATUS,
-            StatusTransitionField.STATUS_CODE,
-            StatusTransitionField.NOTES,
-            StatusTransitionField.TRANSITION,
-            StatusTransitionField.TOKEN
-    })
-    public @interface StatusTransitionFieldKeys {
-    }
-
-    public final class StatusTransitionField {
-        private StatusTransitionField() {
-        }
-
-        public static final String CREATED_ON = "createdOn";
-        public static final String FROM_STATUS = "fromStatus";
-        public static final String TO_STATUS = "toStatus";
-        public static final String STATUS_CODE = "statusCode";
-        public static final String NOTES = "notes";
-        public static final String TRANSITION = "transition";
-        public static final String TOKEN = "token";
-    }
-
     private Map<String, Object> mFields;
 
     public StatusTransition() {
@@ -236,9 +137,64 @@ public class StatusTransition implements HyperwalletJsonModel, Parcelable {
         dest.writeMap(mFields);
     }
 
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            StatusDefinition.ACTIVATED,
+            StatusDefinition.CANCELLED,
+            StatusDefinition.COMPLETED,
+            StatusDefinition.CREATED,
+            StatusDefinition.DE_ACTIVATED,
+            StatusDefinition.EXPIRED,
+            StatusDefinition.FAILED,
+            StatusDefinition.IN_PROGRESS,
+            StatusDefinition.INVALID,
+            StatusDefinition.LOST_OR_STOLEN,
+            StatusDefinition.PENDING_ACCOUNT_ACTIVATION,
+            StatusDefinition.PENDING_ID_VERIFICATION,
+            StatusDefinition.PENDING_TAX_VERIFICATION,
+            StatusDefinition.PENDING_TRANSACTION_VERIFICATION,
+            StatusDefinition.PENDING_TRANSFER_METHOD_ACTION,
+            StatusDefinition.QUOTED,
+            StatusDefinition.RECALLED,
+            StatusDefinition.RETURNED,
+            StatusDefinition.SCHEDULED,
+            StatusDefinition.SUSPENDED,
+            StatusDefinition.UNSUSPENDED,
+            StatusDefinition.VERIFIED
+    })
+    public @interface Status {
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            StatusCodeDefinition.RECALLED,
+            StatusCodeDefinition.RETURNED
+    })
+    public @interface StatusCode {
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            StatusTransitionField.CREATED_ON,
+            StatusTransitionField.FROM_STATUS,
+            StatusTransitionField.TO_STATUS,
+            StatusTransitionField.STATUS_CODE,
+            StatusTransitionField.NOTES,
+            StatusTransitionField.TRANSITION,
+            StatusTransitionField.TOKEN
+    })
+    public @interface StatusTransitionFieldKeys {
+    }
+
+    /**
+     * Builder for {@link StatusTransition} representation
+     */
     public static class Builder {
         private Map<String, Object> fields;
 
+        /**
+         * Constructs a new Builder for {@link StatusTransition}
+         */
         public Builder() {
             fields = new HashMap<>();
         }
@@ -275,6 +231,55 @@ public class StatusTransition implements HyperwalletJsonModel, Parcelable {
 
         public StatusTransition build() {
             return new StatusTransition(fields);
+        }
+    }
+
+    public final class StatusDefinition {
+        public static final String ACTIVATED = "ACTIVATED";
+        public static final String CANCELLED = "CANCELLED";
+        public static final String COMPLETED = "COMPLETED";
+        public static final String CREATED = "CREATED";
+        public static final String DE_ACTIVATED = "DE_ACTIVATED";
+        public static final String EXPIRED = "CANCELLED";
+        public static final String FAILED = "FAILED";
+        public static final String IN_PROGRESS = "IN_PROGRESS";
+        public static final String INVALID = "INVALID";
+        public static final String LOST_OR_STOLEN = "LOST_OR_STOLEN";
+        public static final String PENDING_ACCOUNT_ACTIVATION = "PENDING_ACCOUNT_ACTIVATION";
+        public static final String PENDING_ID_VERIFICATION = "PENDING_ID_VERIFICATION";
+        public static final String PENDING_TAX_VERIFICATION = "PENDING_TAX_VERIFICATION";
+        public static final String PENDING_TRANSACTION_VERIFICATION = "PENDING_TRANSACTION_VERIFICATION";
+        public static final String PENDING_TRANSFER_METHOD_ACTION = "PENDING_TRANSFER_METHOD_ACTION";
+        public static final String QUOTED = "QUOTED";
+        public static final String RECALLED = "RECALLED";
+        public static final String RETURNED = "RETURNED";
+        public static final String SCHEDULED = "SCHEDULED";
+        public static final String SUSPENDED = "SUSPENDED";
+        public static final String UNSUSPENDED = "UNSUSPENDED";
+        public static final String VERIFIED = "VERIFIED";
+
+        private StatusDefinition() {
+        }
+    }
+
+    public final class StatusCodeDefinition {
+        public static final String RECALLED = "RECALLED";
+        public static final String RETURNED = "RETURNED";
+
+        private StatusCodeDefinition() {
+        }
+    }
+
+    public final class StatusTransitionField {
+        public static final String CREATED_ON = "createdOn";
+        public static final String FROM_STATUS = "fromStatus";
+        public static final String TO_STATUS = "toStatus";
+        public static final String STATUS_CODE = "statusCode";
+        public static final String NOTES = "notes";
+        public static final String TRANSITION = "transition";
+        public static final String TOKEN = "token";
+
+        private StatusTransitionField() {
         }
     }
 }

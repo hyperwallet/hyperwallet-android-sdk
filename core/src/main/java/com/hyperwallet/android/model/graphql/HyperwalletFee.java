@@ -30,19 +30,6 @@ import java.util.Objects;
  */
 public class HyperwalletFee {
 
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            FeeRate.FLAT,
-            FeeRate.PERCENT
-    })
-    public @interface FeeRateType {
-    }
-
-    public final class FeeRate {
-        public static final String FLAT = "FLAT";
-        public static final String PERCENT = "PERCENT";
-    }
-
     private static final String COUNTRY = "country";
     private static final String CURRENCY = "currency";
     private static final String FEE_RATE_TYPE = "feeRateType";
@@ -51,7 +38,6 @@ public class HyperwalletFee {
     private static final String MIN = "minimum";
     private static final String TRANSFER_METHOD_TYPE = "transferMethodType";
     private static final String FEE_VALUE = "value";
-
     private String mCountry;
     private String mCurrency;
     private @FeeRateType
@@ -62,46 +48,75 @@ public class HyperwalletFee {
     private String mTransferMethodType;
     private String mValue;
 
-    public HyperwalletFee(@NonNull final JSONObject fee) {
-        mCountry = fee.optString(COUNTRY);
-        mCurrency = fee.optString(CURRENCY);
-        mFeeRateType = fee.optString(FEE_RATE_TYPE);
-        mIdToken = fee.optString(ID_TOKEN);
-        mMax = fee.optString(MAX);
-        mMin = fee.optString(MIN);
-        mTransferMethodType = fee.optString(TRANSFER_METHOD_TYPE);
-        mValue = fee.optString(FEE_VALUE);
+    /**
+     * Construct a {@code HyperwalletFee} object from {@link JSONObject} representation
+     *
+     * @param jsonObject raw data representation
+     */
+    public HyperwalletFee(@NonNull final JSONObject jsonObject) {
+        mCountry = jsonObject.optString(COUNTRY);
+        mCurrency = jsonObject.optString(CURRENCY);
+        mFeeRateType = jsonObject.optString(FEE_RATE_TYPE);
+        mIdToken = jsonObject.optString(ID_TOKEN);
+        mMax = jsonObject.optString(MAX);
+        mMin = jsonObject.optString(MIN);
+        mTransferMethodType = jsonObject.optString(TRANSFER_METHOD_TYPE);
+        mValue = jsonObject.optString(FEE_VALUE);
     }
 
+    /**
+     * @return Country information for this {@code Fee}
+     */
     public String getCountry() {
         return mCountry;
     }
 
+    /**
+     * @return @return Currency information for this {@code Fee}
+     */
     public String getCurrency() {
         return mCurrency;
     }
 
+    /**
+     * @return Fee rate information for this {@code Fee}
+     */
     public @FeeRateType
     String getFeeRateType() {
         return mFeeRateType;
     }
 
+    /**
+     * @return Token information for this {@code Fee}
+     */
     public String getIdToken() {
         return mIdToken;
     }
 
+    /**
+     * @return Max fee information for this {@code Fee}
+     */
     public String getMax() {
         return mMax;
     }
 
+    /**
+     * @return Min fee information for this {@code Fee}
+     */
     public String getMin() {
         return mMin;
     }
 
+    /**
+     * @return Transfer method type information for this {@code Fee}
+     */
     public String getTransferMethodType() {
         return mTransferMethodType;
     }
 
+    /**
+     * @return Fee value information for this {@code Fee}
+     */
     public String getValue() {
         return mValue;
     }
@@ -125,5 +140,18 @@ public class HyperwalletFee {
     public int hashCode() {
         return Objects.hash(getCountry(), getCurrency(), getFeeRateType(), getIdToken(), getMax(), getMin(),
                 getTransferMethodType(), getValue());
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            FeeRate.FLAT,
+            FeeRate.PERCENT
+    })
+    public @interface FeeRateType {
+    }
+
+    public final class FeeRate {
+        public static final String FLAT = "FLAT";
+        public static final String PERCENT = "PERCENT";
     }
 }

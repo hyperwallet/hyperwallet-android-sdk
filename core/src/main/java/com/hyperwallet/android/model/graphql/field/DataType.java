@@ -27,27 +27,6 @@ import java.lang.annotation.RetentionPolicy;
  * Input field data type, used to create input widget
  */
 public final class DataType {
-    private DataType() {
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            TEXT,
-            SELECTION,
-            BOOLEAN,
-            NUMBER,
-            RANGE,
-            DATE,
-            DATETIME,
-            PHONE,
-            EMAIL,
-            EXPIRY_DATE,
-            FILE
-    })
-    public @interface DataTypes {
-    }
-
-    private static final String TAG = DataType.class.getName();
     public static final String TEXT = "TEXT";
     public static final String SELECTION = "SELECTION";
     public static final String BOOLEAN = "BOOLEAN";
@@ -59,6 +38,10 @@ public final class DataType {
     public static final String EMAIL = "EMAIL";
     public static final String EXPIRY_DATE = "EXPIRY_DATE";
     public static final String FILE = "FILE";
+    private static final String TAG = DataType.class.getName();
+
+    private DataType() {
+    }
 
     /**
      * Get {@link DataType} by name.
@@ -68,7 +51,7 @@ public final class DataType {
      */
     @DataTypes
     @Nullable
-    public static String getDataType(@NonNull String name) {
+    public static String getDataType(@NonNull final String name) {
         String dataType = null;
         switch (name) {
             case TEXT:
@@ -107,5 +90,22 @@ public final class DataType {
             default:
         }
         return dataType;
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            TEXT,
+            SELECTION,
+            BOOLEAN,
+            NUMBER,
+            RANGE,
+            DATE,
+            DATETIME,
+            PHONE,
+            EMAIL,
+            EXPIRY_DATE,
+            FILE
+    })
+    public @interface DataTypes {
     }
 }

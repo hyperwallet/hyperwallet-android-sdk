@@ -22,11 +22,25 @@ import androidx.annotation.NonNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Hyperwallet Json Model contract for a Representation that can be
+ * Serialized/Deserialize; JSON -> HyperwalletJsonModel or vice versa
+ */
 public interface HyperwalletJsonModel {
 
+    /**
+     * De-serialize {@code HyperwalletJsonModel} subclass from JSON String to {@link JSONObject} representation
+     *
+     * @return {@link JSONObject}
+     */
     @NonNull
     JSONObject toJsonObject() throws JSONException;
 
+    /**
+     * Serialize {@code HyperwalletJsonModel} to JSON string
+     *
+     * @return JSON String representation
+     */
     @NonNull
     String toJsonString() throws JSONException;
 }

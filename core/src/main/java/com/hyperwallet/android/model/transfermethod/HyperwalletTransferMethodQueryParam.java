@@ -54,7 +54,8 @@ public class HyperwalletTransferMethodQueryParam extends QueryParam {
     private String mType;
 
     /**
-     * Constructors the QueryParam
+     * Construct a {@code HyperwalletTransferMethodQueryParam} object
+     * from {@link HyperwalletTransferMethodQueryParam.Builder}
      */
     public HyperwalletTransferMethodQueryParam(@NonNull final HyperwalletTransferMethodBuilder builder) {
         super(builder);
@@ -62,47 +63,6 @@ public class HyperwalletTransferMethodQueryParam extends QueryParam {
         mType = builder.mType;
         mCreatedOn = builder.mCreatedOn;
     }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            BANK_ACCOUNT,
-            WIRE_ACCOUNT,
-            BANK_CARD,
-            PAYPAL_ACCOUNT,
-            PREPAID_CARD
-    })
-    public @interface TransferMethodTypeQuery {
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            ACTIVATED,
-            DE_ACTIVATED,
-            INVALID,
-            VERIFIED,
-    })
-    public @interface TransferMethodStatusQuery {
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            TransferMethodSortable.ASCENDANT_CREATE_ON,
-            TransferMethodSortable.ASCENDANT_STATUS,
-            TransferMethodSortable.DESCENDANT_CREATE_ON,
-            TransferMethodSortable.DESCENDANT_STATUS
-    })
-    public @interface TransferMethodSortableQuery {
-    }
-
-    public final class TransferMethodSortable {
-        public static final String ASCENDANT_CREATE_ON = "+createdOn";
-        public static final String ASCENDANT_STATUS = "+status";
-        public static final String ASCENDANT_TYPE = "+type";
-        public static final String DESCENDANT_CREATE_ON = "-createdOn";
-        public static final String DESCENDANT_STATUS = "-status";
-        public static final String DESCENDANT_TYPE = "-type";
-    }
-
 
     @NonNull
     @Override
@@ -138,6 +98,36 @@ public class HyperwalletTransferMethodQueryParam extends QueryParam {
         return mCreatedOn;
     }
 
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            BANK_ACCOUNT,
+            WIRE_ACCOUNT,
+            BANK_CARD,
+            PAYPAL_ACCOUNT,
+            PREPAID_CARD
+    })
+    public @interface TransferMethodTypeQuery {
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            ACTIVATED,
+            DE_ACTIVATED,
+            INVALID,
+            VERIFIED,
+    })
+    public @interface TransferMethodStatusQuery {
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            TransferMethodSortable.ASCENDANT_CREATE_ON,
+            TransferMethodSortable.ASCENDANT_STATUS,
+            TransferMethodSortable.DESCENDANT_CREATE_ON,
+            TransferMethodSortable.DESCENDANT_STATUS
+    })
+    public @interface TransferMethodSortableQuery {
+    }
 
     /**
      * Builder Class for the {@link HyperwalletBankAccountQueryParam}
@@ -149,7 +139,6 @@ public class HyperwalletTransferMethodQueryParam extends QueryParam {
             return new HyperwalletTransferMethodQueryParam(this);
         }
     }
-
 
     static class HyperwalletTransferMethodBuilder<B extends QueryParam.Builder> extends QueryParam.Builder<B> {
 
@@ -204,7 +193,8 @@ public class HyperwalletTransferMethodQueryParam extends QueryParam {
         }
 
         /**
-         * Specify the sort order with the Status ascendant param {@link HyperwalletTransferMethodQueryParam.TransferMethodSortable#ASCENDANT_STATUS}.
+         * Specify the sort order with the Status ascendant param
+         * {@link HyperwalletTransferMethodQueryParam.TransferMethodSortable#ASCENDANT_STATUS}.
          *
          * @return Builder
          */
@@ -214,7 +204,8 @@ public class HyperwalletTransferMethodQueryParam extends QueryParam {
         }
 
         /**
-         * Specify the sort order with the Status descendant param {@link HyperwalletTransferMethodQueryParam.TransferMethodSortable#DESCENDANT_STATUS}.
+         * Specify the sort order with the Status descendant param
+         * {@link HyperwalletTransferMethodQueryParam.TransferMethodSortable#DESCENDANT_STATUS}.
          *
          * @return Builder
          */
@@ -224,7 +215,8 @@ public class HyperwalletTransferMethodQueryParam extends QueryParam {
         }
 
         /**
-         * Specify the sort order with the Type ascendant param {@link HyperwalletTransferMethodQueryParam.TransferMethodSortable#ASCENDANT_TYPE}.
+         * Specify the sort order with the Type ascendant param
+         * {@link HyperwalletTransferMethodQueryParam.TransferMethodSortable#ASCENDANT_TYPE}.
          *
          * @return Builder
          */
@@ -234,7 +226,8 @@ public class HyperwalletTransferMethodQueryParam extends QueryParam {
         }
 
         /**
-         * Specify the sort order with the Type descendant param {@link HyperwalletTransferMethodQueryParam.TransferMethodSortable#DESCENDANT_TYPE}.
+         * Specify the sort order with the Type descendant param
+         * {@link HyperwalletTransferMethodQueryParam.TransferMethodSortable#DESCENDANT_TYPE}.
          *
          * @return Builder
          */
@@ -243,5 +236,14 @@ public class HyperwalletTransferMethodQueryParam extends QueryParam {
             return self();
         }
 
+    }
+
+    public final class TransferMethodSortable {
+        public static final String ASCENDANT_CREATE_ON = "+createdOn";
+        public static final String ASCENDANT_STATUS = "+status";
+        public static final String ASCENDANT_TYPE = "+type";
+        public static final String DESCENDANT_CREATE_ON = "-createdOn";
+        public static final String DESCENDANT_STATUS = "-status";
+        public static final String DESCENDANT_TYPE = "-type";
     }
 }

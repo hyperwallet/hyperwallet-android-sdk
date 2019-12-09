@@ -30,6 +30,9 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class PayPalAccountQueryParam extends HyperwalletTransferMethodQueryParam {
 
+    /**
+     * Construct a {@code PayPalAccountQueryParam} object from {@link PayPalAccountQueryParam.Builder}
+     */
     private PayPalAccountQueryParam(@NonNull final Builder builder) {
         super(builder);
     }

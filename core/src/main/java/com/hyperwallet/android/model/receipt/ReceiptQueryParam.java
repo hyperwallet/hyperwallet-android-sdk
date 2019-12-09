@@ -65,23 +65,8 @@ public class ReceiptQueryParam extends QueryParam {
         return query;
     }
 
-    public final class ReceiptSortable {
-        public static final String ASCENDANT_CREATE_ON = "+createdOn";
-        public static final String ASCENDANT_AMOUNT = "+amount";
-        public static final String ASCENDANT_TYPE = "+type";
-        public static final String ASCENDANT_CURRENCY = "+currency";
-        public static final String DESCENDANT_CREATE_ON = "-createdOn";
-        public static final String DESCENDANT_AMOUNT = "-amount";
-        public static final String DESCENDANT_TYPE = "-type";
-        public static final String DESCENDANT_CURRENCY = "-currency";
-
-        private ReceiptSortable() {
-        }
-    }
-
     public @interface ReceiptSortableQuery {
     }
-
 
     /**
      * Common Receipt query parameters
@@ -195,6 +180,20 @@ public class ReceiptQueryParam extends QueryParam {
         public Builder sortByCreatedOnDesc() {
             sortBy(ReceiptSortable.DESCENDANT_CREATE_ON);
             return this;
+        }
+    }
+
+    public final class ReceiptSortable {
+        public static final String ASCENDANT_CREATE_ON = "+createdOn";
+        public static final String ASCENDANT_AMOUNT = "+amount";
+        public static final String ASCENDANT_TYPE = "+type";
+        public static final String ASCENDANT_CURRENCY = "+currency";
+        public static final String DESCENDANT_CREATE_ON = "-createdOn";
+        public static final String DESCENDANT_AMOUNT = "-amount";
+        public static final String DESCENDANT_TYPE = "-type";
+        public static final String DESCENDANT_CURRENCY = "-currency";
+
+        private ReceiptSortable() {
         }
     }
 

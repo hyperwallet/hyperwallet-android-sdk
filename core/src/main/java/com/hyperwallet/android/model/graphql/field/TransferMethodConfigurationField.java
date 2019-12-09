@@ -42,7 +42,7 @@ public class TransferMethodConfigurationField {
     private final Connection<ProcessingTime> mProcessingTimeConnection;
 
     /**
-     * Constructor to build transfer method configuration based on json
+     * Constructor to build transfer method configuration based on {@link JSONObject} representation
      *
      * @param configuration JSON object that represents transfer method configuration data with fees
      */
@@ -66,15 +66,24 @@ public class TransferMethodConfigurationField {
         }
     }
 
+    /**
+     * @return {@link Connection} of {@link HyperwalletFee}
+     */
     @Nullable
     public Connection<HyperwalletFee> getFeeConnection() {
         return mFeeConnection;
     }
 
+    /**
+     * @return {@link Connection} of {@link HyperwalletTransferMethodConfiguration}
+     */
     public Connection<HyperwalletTransferMethodConfiguration> getTransferMethodConfigurationConnection() {
         return mTransferMethodConfigurationConnection;
     }
 
+    /**
+     * @return {@link Connection} of {@link ProcessingTime}
+     */
     @Nullable
     public Connection<ProcessingTime> getProcessingTimeConnection() {
         return mProcessingTimeConnection;

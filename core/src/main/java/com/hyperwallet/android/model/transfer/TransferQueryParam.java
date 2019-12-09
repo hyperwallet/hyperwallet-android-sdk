@@ -36,6 +36,9 @@ public class TransferQueryParam extends QueryParam {
     private final String mSourceToken;
     private final String mDestinationToken;
 
+    /**
+     * Construct a {@code TransferQueryParam} object from {@link TransferQueryParam.Builder}
+     */
     public TransferQueryParam(@NonNull final Builder builder) {
         super(builder);
         mClientTransferId = builder.mClientTransferId;

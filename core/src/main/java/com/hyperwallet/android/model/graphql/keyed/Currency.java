@@ -44,7 +44,7 @@ public class Currency implements KeyedNode {
     private final String mName;
 
     /**
-     * Constructor to build Currency based on json
+     * Constructor to build Currency based on {@link JSONObject} representation
      *
      * @param currency JSON object that represents currency data
      */

@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@code HyperwalletFieldGroup} represents a logical grouping of fields
+ * {@code FieldGroup} represents a logical grouping of fields
  */
 public class HyperwalletFieldGroup {
 
@@ -40,6 +40,9 @@ public class HyperwalletFieldGroup {
     private final List<HyperwalletField> mFields;
     private final String mGroupName;
 
+    /**
+     * Constructs a {@code FieldGroup} object from {@link JSONObject} representation
+     */
     public HyperwalletFieldGroup(@NonNull final JSONObject fieldGroup) throws JSONException {
         mGroupName = fieldGroup.getString(GROUP_NAME);
 

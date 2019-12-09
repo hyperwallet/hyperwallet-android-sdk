@@ -34,6 +34,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * {@code HttpClient} object represents routine on making HTTP calls to Hyperwallet Platforms' API
+ */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public final class HttpClient {
     private static final String TAG = HttpClient.class.getName();
@@ -43,16 +46,29 @@ public final class HttpClient {
     private final Map<String, String> mHeaderMap;
     private final HttpURLConnection mHttpUrlConnection;
 
+    /**
+     * Construct a {@code HttpClient} object fom {@link HttpClient.Builder}
+     */
     private HttpClient(final Builder builder) {
         mHeaderMap = builder.mHeaderMap;
         mQueryMap = builder.mQueryMap;
         mHttpUrlConnection = builder.mHttpUrlConnection;
     }
 
+    /**
+     * Validates if specified HTTP code is a successful code.
+     *
+     * @return {@code True} if and only if {@code httpCode} specified is within the
+     * range from {@link HttpURLConnection#HTTP_OK} to {@link HttpURLConnection#HTTP_MULT_CHOICE}
+     */
     public static boolean isSuccess(int httpCode) {
         return httpCode >= 200 && httpCode < 300;
     }
 
+    /**
+     * @return Serialized string JSON response
+     * @throws IOException
+     */
     public String getResponse() throws IOException {
         InputStream in = isSuccess(getResponseCode()) ? mHttpUrlConnection.getInputStream()
                 : mHttpUrlConnection.getErrorStream();
@@ -71,22 +87,43 @@ public final class HttpClient {
         }
     }
 
+    /**
+     * @return Map of key-value paired HTTP query information
+     */
     public Map<String, String> getQueryMap() {
         return mQueryMap;
     }
 
+    /**
+     * @return Map of key-value paired HTTP header information
+     */
     public Map<String, String> getHeaderMap() {
         return mHeaderMap;
     }
 
+    /**
+     * @return {@link HttpURLConnection}
+     */
     public HttpURLConnection getHttpUrlConnection() {
         return mHttpUrlConnection;
     }
 
+    /**
+     * Executes {@link HttpMethod#GET} operation
+     * @return HTTP response code
+     * @throws IOException
+     */
     public int get() throws IOException {
         return getResponseCode();
     }
 
+    /**
+     * Executes {@link HttpMethod#POST} operation
+     *
+     * @param data
+     * @return
+     * @throws IOException
+     */
     public int post(String data) throws IOException {
         return submit(HttpMethod.POST.name(), data);
     }
@@ -124,6 +161,9 @@ public final class HttpClient {
         return mHttpUrlConnection.getResponseCode();
     }
 
+    /**
+     * Builder for {@link HttpClient}
+     */
     public static class Builder {
 
         private final String mBaseUrl;
@@ -135,6 +175,10 @@ public final class HttpClient {
         private String mPath;
         private HttpURLConnection mHttpUrlConnection;
 
+        /**
+         * Construct a builder with base URL
+         * @param baseUrl
+         */
         public Builder(final String baseUrl) {
             mBaseUrl = baseUrl;
             mQueryMap = new HashMap<>();

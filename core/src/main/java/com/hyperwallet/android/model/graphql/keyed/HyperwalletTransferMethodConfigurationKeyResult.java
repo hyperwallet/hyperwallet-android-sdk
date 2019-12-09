@@ -29,6 +29,9 @@ import org.json.JSONObject;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * {@code HyperwalletTransferMethodConfigurationKeyResult} transfer method configuration keys
+ */
 public class HyperwalletTransferMethodConfigurationKeyResult extends GqlResponse<TransferMethodConfigurationKey>
         implements HyperwalletTransferMethodConfigurationKey {
 
@@ -36,7 +39,7 @@ public class HyperwalletTransferMethodConfigurationKeyResult extends GqlResponse
     private final Set<Country> mCountries;
 
     /**
-     * Constructor to build HyperwalletTransferMethodConfigurationKeyResult based on json
+     * Constructor to build HyperwalletTransferMethodConfigurationKeyResult based on {@link JSONObject}
      *
      * @param data JSON object that represents key result data
      */

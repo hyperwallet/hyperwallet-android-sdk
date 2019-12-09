@@ -72,84 +72,26 @@ import java.util.Map;
  */
 public final class Transfer implements HyperwalletJsonModel, Parcelable {
 
-    public static final class TransferFields {
-        private TransferFields() {
-        }
-
-        public static final String TOKEN = "token";
-        public static final String STATUS = "status";
-        public static final String CREATED_ON = "createdOn";
-        public static final String CLIENT_TRANSFER_ID = "clientTransferId";
-        public static final String SOURCE_TOKEN = "sourceToken";
-        public static final String SOURCE_AMOUNT = "sourceAmount";
-        public static final String SOURCE_CURRENCY = "sourceCurrency";
-        public static final String DESTINATION_TOKEN = "destinationToken";
-        public static final String DESTINATION_AMOUNT = "destinationAmount";
-        public static final String DESTINATION_CURRENCY = "destinationCurrency";
-        public static final String DESTINATION_FEE_AMOUNT = "destinationFeeAmount";
-        public static final String FOREIGN_EXCHANGES = "foreignExchanges";
-        public static final String NOTES = "notes";
-        public static final String MEMO = "memo";
-        public static final String EXPIRES_ON = "expiresOn";
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            TOKEN,
-            STATUS,
-            CREATED_ON,
-            CLIENT_TRANSFER_ID,
-            SOURCE_TOKEN,
-            SOURCE_AMOUNT,
-            SOURCE_CURRENCY,
-            DESTINATION_TOKEN,
-            DESTINATION_AMOUNT,
-            DESTINATION_CURRENCY,
-            DESTINATION_FEE_AMOUNT,
-            FOREIGN_EXCHANGES,
-            NOTES,
-            MEMO,
-            EXPIRES_ON
-    })
-    public @interface TransferField {
-    }
-
-    public static final class TransferStatuses {
-        private TransferStatuses() {
-        }
-
-        public static final String QUOTED = "QUOTED";
-        public static final String SCHEDULED = "SCHEDULED";
-        public static final String IN_PROGRESS = "IN_PROGRESS";
-        public static final String VERIFICATION_REQUIRED = "VERIFICATION_REQUIRED";
-        public static final String COMPLETED = "COMPLETED";
-        public static final String CANCELLED = "CANCELLED";
-        public static final String RETURNED = "RETURNED";
-        public static final String FAILED = "FAILED";
-        public static final String EXPIRED = "EXPIRED";
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            QUOTED,
-            SCHEDULED,
-            IN_PROGRESS,
-            VERIFICATION_REQUIRED,
-            COMPLETED,
-            CANCELLED,
-            RETURNED,
-            FAILED,
-            EXPIRED
-    })
-    public @interface TransferStatus {
-    }
-
     public static final String CURRENCY_NUMERIC_SEPARATOR = ",";
     public static final String EMPTY_STRING = "";
+    public static final Creator<Transfer> CREATOR =
+            new Creator<Transfer>() {
+                @Override
+                public Transfer createFromParcel(Parcel source) {
+                    final Map<String, Object> fields = new HashMap<>();
+                    source.readMap(fields, this.getClass().getClassLoader());
+                    return new Transfer(fields);
+                }
+
+                @Override
+                public Transfer[] newArray(int size) {
+                    return new Transfer[0];
+                }
+            };
     private Map<String, Object> mFields;
 
     /**
-     * Constructor to build Transfer, based on json object
+     * Constructor to build Transfer, based on {@link JSONObject} representation
      *
      * @param jsonObject json object with transfer data fields
      */
@@ -164,7 +106,6 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
             mFields.put(FOREIGN_EXCHANGES, foreignExchanges);
         }
     }
-
     /**
      * Constructor to build Transfer, based on map
      *
@@ -268,21 +209,6 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
         return getNotes() != null && !getNotes().isEmpty();
     }
 
-    public static final Creator<Transfer> CREATOR =
-            new Creator<Transfer>() {
-                @Override
-                public Transfer createFromParcel(Parcel source) {
-                    final Map<String, Object> fields = new HashMap<>();
-                    source.readMap(fields, this.getClass().getClassLoader());
-                    return new Transfer(fields);
-                }
-
-                @Override
-                public Transfer[] newArray(int size) {
-                    return new Transfer[0];
-                }
-            };
-
     protected void setFields(@NonNull Map<String, Object> fields) {
         mFields = new HashMap<>(fields);
     }
@@ -367,6 +293,84 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
      */
     protected boolean containsKeyAndHasValue(@NonNull final String key) {
         return mFields.containsKey(key) && mFields.get(key) != null;
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            TOKEN,
+            STATUS,
+            CREATED_ON,
+            CLIENT_TRANSFER_ID,
+            SOURCE_TOKEN,
+            SOURCE_AMOUNT,
+            SOURCE_CURRENCY,
+            DESTINATION_TOKEN,
+            DESTINATION_AMOUNT,
+            DESTINATION_CURRENCY,
+            DESTINATION_FEE_AMOUNT,
+            FOREIGN_EXCHANGES,
+            NOTES,
+            MEMO,
+            EXPIRES_ON
+    })
+    public @interface TransferField {
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            QUOTED,
+            SCHEDULED,
+            IN_PROGRESS,
+            VERIFICATION_REQUIRED,
+            COMPLETED,
+            CANCELLED,
+            RETURNED,
+            FAILED,
+            EXPIRED
+    })
+    public @interface TransferStatus {
+    }
+
+    /**
+     * {@code Transfer} representation fields information
+     */
+    public static final class TransferFields {
+        public static final String TOKEN = "token";
+        public static final String STATUS = "status";
+        public static final String CREATED_ON = "createdOn";
+        public static final String CLIENT_TRANSFER_ID = "clientTransferId";
+        public static final String SOURCE_TOKEN = "sourceToken";
+        public static final String SOURCE_AMOUNT = "sourceAmount";
+        public static final String SOURCE_CURRENCY = "sourceCurrency";
+        public static final String DESTINATION_TOKEN = "destinationToken";
+        public static final String DESTINATION_AMOUNT = "destinationAmount";
+        public static final String DESTINATION_CURRENCY = "destinationCurrency";
+        public static final String DESTINATION_FEE_AMOUNT = "destinationFeeAmount";
+        public static final String FOREIGN_EXCHANGES = "foreignExchanges";
+        public static final String NOTES = "notes";
+        public static final String MEMO = "memo";
+        public static final String EXPIRES_ON = "expiresOn";
+
+        private TransferFields() {
+        }
+    }
+
+    /**
+     * {@code Transfer} status information
+     */
+    public static final class TransferStatuses {
+        public static final String QUOTED = "QUOTED";
+        public static final String SCHEDULED = "SCHEDULED";
+        public static final String IN_PROGRESS = "IN_PROGRESS";
+        public static final String VERIFICATION_REQUIRED = "VERIFICATION_REQUIRED";
+        public static final String COMPLETED = "COMPLETED";
+        public static final String CANCELLED = "CANCELLED";
+        public static final String RETURNED = "RETURNED";
+        public static final String FAILED = "FAILED";
+        public static final String EXPIRED = "EXPIRED";
+
+        private TransferStatuses() {
+        }
     }
 
     /**

@@ -39,20 +39,32 @@ public class HyperwalletValidationMessage {
     private final String mPattern;
     private final String mEmpty;
 
-    public HyperwalletValidationMessage(@NonNull final JSONObject message) {
-        mLength = message.optString(LENGTH);
-        mPattern = message.optString(PATTERN);
-        mEmpty = message.optString(EMPTY);
+    /**
+     * Construct a {@code HyperwalletValidationMessage} object from {@link JSONObject} representation
+     */
+    public HyperwalletValidationMessage(@NonNull final JSONObject jsonObject) {
+        mLength = jsonObject.optString(LENGTH);
+        mPattern = jsonObject.optString(PATTERN);
+        mEmpty = jsonObject.optString(EMPTY);
     }
 
+    /**
+     * @return length error message
+     */
     public String getLength() {
         return mLength;
     }
 
+    /**
+     * @return pattern error message
+     */
     public String getPattern() {
         return mPattern;
     }
 
+    /**
+     * @return empty error message
+     */
     public String getEmpty() {
         return mEmpty;
     }

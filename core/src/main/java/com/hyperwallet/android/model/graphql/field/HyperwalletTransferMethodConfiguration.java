@@ -44,7 +44,7 @@ public class HyperwalletTransferMethodConfiguration {
     private final Connection<HyperwalletFieldGroup> mHyperwalletFieldGroupConnection;
 
     /**
-     * Constructor to build transfer method configuration based on json
+     * Constructor to build transfer method configuration based on {@link JSONObject} representation
      *
      * @param configuration JSON object that represents transfer method configuration data
      */

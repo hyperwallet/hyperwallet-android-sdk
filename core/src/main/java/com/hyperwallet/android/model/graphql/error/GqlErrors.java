@@ -44,8 +44,8 @@ public class GqlErrors {
      * <p>The {@code JSONObject} passed in will have to contain a valid set of name/value pairs as described by the
      * June 2018 GraphQL specification.</p>
      *
-     * @param jsonObject the {@code JSONObject} that will be used to create the {@code GqlErrors}, must be non null
-     * @throws JSONException if the {@code JSONObject} is malformed
+     * @param jsonObject the {@link JSONObject} that will be used to create the {@code GqlErrors}, must be non null
+     * @throws JSONException if the {@link JSONObject} is malformed
      */
     public GqlErrors(@NonNull JSONObject jsonObject) throws JSONException {
         mGqlErrors = new ArrayList<>(0);

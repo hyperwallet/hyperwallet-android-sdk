@@ -56,220 +56,22 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
                     return new HyperwalletUser[0];
                 }
             };
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            UserStatuses.PRE_ACTIVATED,
-            UserStatuses.ACTIVATED,
-            UserStatuses.LOCKED,
-            UserStatuses.FROZEN,
-            UserStatuses.DE_ACTIVATED
-    })
-    public @interface UserStatus {
-    }
-
-    public final class UserStatuses {
-        public static final String PRE_ACTIVATED = "PRE_ACTIVATED";
-        public static final String ACTIVATED = "ACTIVATED";
-        public static final String LOCKED = "LOCKED";
-        public static final String FROZEN = "FROZEN";
-        public static final String DE_ACTIVATED = "DE_ACTIVATED";
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            VerificationStatuses.NOT_REQUIRED,
-            VerificationStatuses.REQUIRED,
-            VerificationStatuses.FAILED,
-            VerificationStatuses.UNDER_REVIEW,
-            VerificationStatuses.VERIFIED
-    })
-    public @interface VerificationStatus {
-    }
-
-
-    public final class VerificationStatuses {
-        public static final String NOT_REQUIRED = "NOT_REQUIRED";
-        public static final String REQUIRED = "REQUIRED";
-        public static final String FAILED = "FAILED";
-        public static final String UNDER_REVIEW = "UNDER_REVIEW";
-        public static final String VERIFIED = "VERIFIED";
-    }
-
-    public final class BusinessContactRoles {
-        public static final String DIRECTOR = "DIRECTOR";
-        public static final String OWNER = "OWNER";
-        public static final String OTHER = "OTHER";
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            BusinessContactRoles.DIRECTOR,
-            BusinessContactRoles.OWNER,
-            BusinessContactRoles.OTHER
-    })
-    public @interface BusinessContactRole {
-
-    }
-
-    public final class BusinessTypes {
-        public static final String CORPORATION = "CORPORATION";
-        public static final String PARTNERSHIP = "PARTNERSHIP";
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            BusinessTypes.CORPORATION,
-            BusinessTypes.PARTNERSHIP
-    })
-    public @interface BusinessType {
-
-    }
-
-    public final class GovernmentIdTypes {
-        public static final String PASSPORT = "PASSPORT";
-        public static final String NATIONAL_ID_CARD = "NATIONAL_ID_CARD";
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            GovernmentIdTypes.PASSPORT,
-            GovernmentIdTypes.NATIONAL_ID_CARD
-    })
-    public @interface GovernmentIdType {
-
-    }
-
-    public final class ProfileTypes {
-        public static final String INDIVIDUAL = "INDIVIDUAL";
-        public static final String BUSINESS = "BUSINESS";
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            ProfileTypes.INDIVIDUAL,
-            ProfileTypes.BUSINESS
-    })
-    public @interface ProfileType {
-
-    }
-
-    public final class Genders {
-        public static final String MALE = "MALE";
-        public static final String FEMALE = "FEMALE";
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            Genders.MALE,
-            Genders.FEMALE
-    })
-    public @interface Gender {
-
-    }
-
-    /**
-     * Common HyperwalletUser field keys
-     */
-    public interface UserFields {
-        String TOKEN = "token";
-        String STATUS = "status";
-        String VERIFICATION_STATUS = "verificationStatus";
-        String CREATED_ON = "createdOn";
-        String CLIENT_USER_ID = "clientUserId";
-        String ADDRESS_LINE_1 = "addressLine1";
-        String ADDRESS_LINE_2 = "addressLine2";
-        String BUSINESS_CONTACT_ROLE = "businessContactRole";
-        String BUSINESS_NAME = "businessName";
-        String BUSINESS_REGISTRATION_COUNTRY = "businessRegistrationCountry";
-        String BUSINESS_REGISTRATION_ID = "businessRegistrationId";
-        String BUSINESS_REGISTRATION_STATE_PROVINCE = "businessRegistrationStateProvince";
-        String BUSINESS_CONTACT_ADDRESS_LINE_1 = "businessContactAddressLine1";
-        String BUSINESS_CONTACT_ADDRESS_LINE_2 = "businessContactAddressLine2";
-        String BUSINESS_CONTACT_CITY = "businessContactCity";
-        String BUSINESS_CONTACT_STATE_PROVINCE = "businessContactStateProvince";
-        String BUSINESS_CONTACT_COUNTRY = "businessContactCountry";
-        String BUSINESS_CONTACT_POSTAL_CODE = "businessContactPostalCode";
-        String BUSINESS_OPERATING_NAME = "businessOperatingName";
-        String BUSINESS_TYPE = "businessType";
-        String CITY = "city";
-        String COUNTRY = "country";
-        String COUNTRY_OF_BIRTH = "countryOfBirth";
-        String COUNTRY_OF_NATIONALITY = "countryOfNationality";
-        String DATE_OF_BIRTH = "dateOfBirth";
-        String DRIVERS_LICENSE_ID = "driversLicenseId";
-        String EMAIL = "email";
-        String EMPLOYER_ID = "employerId";
-        String FIRST_NAME = "firstName";
-        String GENDER = "gender";
-        String GOVERNMENT_ID = "governmentId";
-        String GOVERNMENT_ID_TYPE = "governmentIdType";
-        String LANGUAGE = "language";
-        String LAST_NAME = "lastName";
-        String MIDDLE_NAME = "middleName";
-        String MOBILE_NUMBER = "mobileNumber";
-        String PASSPORT_ID = "passportId";
-        String PHONE_NUMBER = "phoneNumber";
-        String POSTAL_CODE = "postalCode";
-        String PROFILE_TYPE = "profileType";
-        String PROGRAM_TOKEN = "programToken";
-        String STATE_PROVINCE = "stateProvince";
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            UserFields.TOKEN,
-            UserFields.STATUS,
-            UserFields.VERIFICATION_STATUS,
-            UserFields.CREATED_ON,
-            UserFields.CLIENT_USER_ID,
-            UserFields.ADDRESS_LINE_1,
-            UserFields.ADDRESS_LINE_2,
-            UserFields.BUSINESS_CONTACT_ROLE,
-            UserFields.BUSINESS_NAME,
-            UserFields.BUSINESS_REGISTRATION_COUNTRY,
-            UserFields.BUSINESS_REGISTRATION_ID,
-            UserFields.BUSINESS_REGISTRATION_STATE_PROVINCE,
-            UserFields.BUSINESS_CONTACT_ADDRESS_LINE_1,
-            UserFields.BUSINESS_CONTACT_ADDRESS_LINE_2,
-            UserFields.BUSINESS_CONTACT_CITY,
-            UserFields.BUSINESS_CONTACT_STATE_PROVINCE,
-            UserFields.BUSINESS_CONTACT_COUNTRY,
-            UserFields.BUSINESS_CONTACT_POSTAL_CODE,
-            UserFields.BUSINESS_OPERATING_NAME,
-            UserFields.BUSINESS_TYPE,
-            UserFields.CITY,
-            UserFields.COUNTRY,
-            UserFields.COUNTRY_OF_BIRTH,
-            UserFields.COUNTRY_OF_NATIONALITY,
-            UserFields.DATE_OF_BIRTH,
-            UserFields.DRIVERS_LICENSE_ID,
-            UserFields.EMAIL,
-            UserFields.EMPLOYER_ID,
-            UserFields.FIRST_NAME,
-            UserFields.GENDER,
-            UserFields.GOVERNMENT_ID,
-            UserFields.GOVERNMENT_ID_TYPE,
-            UserFields.LANGUAGE,
-            UserFields.LAST_NAME,
-            UserFields.MIDDLE_NAME,
-            UserFields.MOBILE_NUMBER,
-            UserFields.PASSPORT_ID,
-            UserFields.PHONE_NUMBER,
-            UserFields.POSTAL_CODE,
-            UserFields.PROFILE_TYPE,
-            UserFields.PROGRAM_TOKEN,
-            UserFields.STATE_PROVINCE
-    })
-    public @interface UserField {
-    }
-
     private Map<String, Object> mFields;
 
+    /**
+     * Construct a {@code HyperwalletUser} object from {@link JSONObject} representation
+     *
+     * @param jsonObject raw data information
+     */
     public HyperwalletUser(@NonNull JSONObject jsonObject) throws JSONException {
         toMap(jsonObject);
     }
 
+    /**
+     * Construct a {@code HyperwalletUser} object from Map key-value pair representation
+     *
+     * @param fields map key-value raw data information
+     */
     public HyperwalletUser(@NonNull Map<String, Object> fields) {
         super();
         setFields(fields);
@@ -553,6 +355,173 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
         mFields = new HashMap<>(fields);
     }
 
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            UserStatuses.PRE_ACTIVATED,
+            UserStatuses.ACTIVATED,
+            UserStatuses.LOCKED,
+            UserStatuses.FROZEN,
+            UserStatuses.DE_ACTIVATED
+    })
+    public @interface UserStatus {
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            VerificationStatuses.NOT_REQUIRED,
+            VerificationStatuses.REQUIRED,
+            VerificationStatuses.FAILED,
+            VerificationStatuses.UNDER_REVIEW,
+            VerificationStatuses.VERIFIED
+    })
+    public @interface VerificationStatus {
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            BusinessContactRoles.DIRECTOR,
+            BusinessContactRoles.OWNER,
+            BusinessContactRoles.OTHER
+    })
+    public @interface BusinessContactRole {
+
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            BusinessTypes.CORPORATION,
+            BusinessTypes.PARTNERSHIP
+    })
+    public @interface BusinessType {
+
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            GovernmentIdTypes.PASSPORT,
+            GovernmentIdTypes.NATIONAL_ID_CARD
+    })
+    public @interface GovernmentIdType {
+
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            ProfileTypes.INDIVIDUAL,
+            ProfileTypes.BUSINESS
+    })
+    public @interface ProfileType {
+
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            Genders.MALE,
+            Genders.FEMALE
+    })
+    public @interface Gender {
+
+    }
+
+    /**
+     * Common HyperwalletUser field keys
+     */
+    public interface UserFields {
+        String TOKEN = "token";
+        String STATUS = "status";
+        String VERIFICATION_STATUS = "verificationStatus";
+        String CREATED_ON = "createdOn";
+        String CLIENT_USER_ID = "clientUserId";
+        String ADDRESS_LINE_1 = "addressLine1";
+        String ADDRESS_LINE_2 = "addressLine2";
+        String BUSINESS_CONTACT_ROLE = "businessContactRole";
+        String BUSINESS_NAME = "businessName";
+        String BUSINESS_REGISTRATION_COUNTRY = "businessRegistrationCountry";
+        String BUSINESS_REGISTRATION_ID = "businessRegistrationId";
+        String BUSINESS_REGISTRATION_STATE_PROVINCE = "businessRegistrationStateProvince";
+        String BUSINESS_CONTACT_ADDRESS_LINE_1 = "businessContactAddressLine1";
+        String BUSINESS_CONTACT_ADDRESS_LINE_2 = "businessContactAddressLine2";
+        String BUSINESS_CONTACT_CITY = "businessContactCity";
+        String BUSINESS_CONTACT_STATE_PROVINCE = "businessContactStateProvince";
+        String BUSINESS_CONTACT_COUNTRY = "businessContactCountry";
+        String BUSINESS_CONTACT_POSTAL_CODE = "businessContactPostalCode";
+        String BUSINESS_OPERATING_NAME = "businessOperatingName";
+        String BUSINESS_TYPE = "businessType";
+        String CITY = "city";
+        String COUNTRY = "country";
+        String COUNTRY_OF_BIRTH = "countryOfBirth";
+        String COUNTRY_OF_NATIONALITY = "countryOfNationality";
+        String DATE_OF_BIRTH = "dateOfBirth";
+        String DRIVERS_LICENSE_ID = "driversLicenseId";
+        String EMAIL = "email";
+        String EMPLOYER_ID = "employerId";
+        String FIRST_NAME = "firstName";
+        String GENDER = "gender";
+        String GOVERNMENT_ID = "governmentId";
+        String GOVERNMENT_ID_TYPE = "governmentIdType";
+        String LANGUAGE = "language";
+        String LAST_NAME = "lastName";
+        String MIDDLE_NAME = "middleName";
+        String MOBILE_NUMBER = "mobileNumber";
+        String PASSPORT_ID = "passportId";
+        String PHONE_NUMBER = "phoneNumber";
+        String POSTAL_CODE = "postalCode";
+        String PROFILE_TYPE = "profileType";
+        String PROGRAM_TOKEN = "programToken";
+        String STATE_PROVINCE = "stateProvince";
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            UserFields.TOKEN,
+            UserFields.STATUS,
+            UserFields.VERIFICATION_STATUS,
+            UserFields.CREATED_ON,
+            UserFields.CLIENT_USER_ID,
+            UserFields.ADDRESS_LINE_1,
+            UserFields.ADDRESS_LINE_2,
+            UserFields.BUSINESS_CONTACT_ROLE,
+            UserFields.BUSINESS_NAME,
+            UserFields.BUSINESS_REGISTRATION_COUNTRY,
+            UserFields.BUSINESS_REGISTRATION_ID,
+            UserFields.BUSINESS_REGISTRATION_STATE_PROVINCE,
+            UserFields.BUSINESS_CONTACT_ADDRESS_LINE_1,
+            UserFields.BUSINESS_CONTACT_ADDRESS_LINE_2,
+            UserFields.BUSINESS_CONTACT_CITY,
+            UserFields.BUSINESS_CONTACT_STATE_PROVINCE,
+            UserFields.BUSINESS_CONTACT_COUNTRY,
+            UserFields.BUSINESS_CONTACT_POSTAL_CODE,
+            UserFields.BUSINESS_OPERATING_NAME,
+            UserFields.BUSINESS_TYPE,
+            UserFields.CITY,
+            UserFields.COUNTRY,
+            UserFields.COUNTRY_OF_BIRTH,
+            UserFields.COUNTRY_OF_NATIONALITY,
+            UserFields.DATE_OF_BIRTH,
+            UserFields.DRIVERS_LICENSE_ID,
+            UserFields.EMAIL,
+            UserFields.EMPLOYER_ID,
+            UserFields.FIRST_NAME,
+            UserFields.GENDER,
+            UserFields.GOVERNMENT_ID,
+            UserFields.GOVERNMENT_ID_TYPE,
+            UserFields.LANGUAGE,
+            UserFields.LAST_NAME,
+            UserFields.MIDDLE_NAME,
+            UserFields.MOBILE_NUMBER,
+            UserFields.PASSPORT_ID,
+            UserFields.PHONE_NUMBER,
+            UserFields.POSTAL_CODE,
+            UserFields.PROFILE_TYPE,
+            UserFields.PROGRAM_TOKEN,
+            UserFields.STATE_PROVINCE
+    })
+    public @interface UserField {
+    }
+
+    /**
+     * Builder for {@link HyperwalletUser} representation
+     */
     public static class Builder {
         private Map<String, Object> mFields;
 
@@ -777,5 +746,47 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
         public HyperwalletUser build() {
             return new HyperwalletUser(mFields);
         }
+    }
+
+    public final class UserStatuses {
+        public static final String PRE_ACTIVATED = "PRE_ACTIVATED";
+        public static final String ACTIVATED = "ACTIVATED";
+        public static final String LOCKED = "LOCKED";
+        public static final String FROZEN = "FROZEN";
+        public static final String DE_ACTIVATED = "DE_ACTIVATED";
+    }
+
+    public final class VerificationStatuses {
+        public static final String NOT_REQUIRED = "NOT_REQUIRED";
+        public static final String REQUIRED = "REQUIRED";
+        public static final String FAILED = "FAILED";
+        public static final String UNDER_REVIEW = "UNDER_REVIEW";
+        public static final String VERIFIED = "VERIFIED";
+    }
+
+    public final class BusinessContactRoles {
+        public static final String DIRECTOR = "DIRECTOR";
+        public static final String OWNER = "OWNER";
+        public static final String OTHER = "OTHER";
+    }
+
+    public final class BusinessTypes {
+        public static final String CORPORATION = "CORPORATION";
+        public static final String PARTNERSHIP = "PARTNERSHIP";
+    }
+
+    public final class GovernmentIdTypes {
+        public static final String PASSPORT = "PASSPORT";
+        public static final String NATIONAL_ID_CARD = "NATIONAL_ID_CARD";
+    }
+
+    public final class ProfileTypes {
+        public static final String INDIVIDUAL = "INDIVIDUAL";
+        public static final String BUSINESS = "BUSINESS";
+    }
+
+    public final class Genders {
+        public static final String MALE = "MALE";
+        public static final String FEMALE = "FEMALE";
     }
 }

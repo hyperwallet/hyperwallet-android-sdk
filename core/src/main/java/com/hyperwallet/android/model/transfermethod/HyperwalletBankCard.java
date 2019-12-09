@@ -36,31 +36,52 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents the bank card fields
+ * Represents the Bank card
  */
-
 public class HyperwalletBankCard extends HyperwalletTransferMethod {
 
     /**
-     * Constructor to build bank card, based on json object
+     * Constructs a {@code HyperwalletBankCard} object from {@link JSONObject} representation
+     *
+     * @param jsonObject raw data representation
      */
     public HyperwalletBankCard(@NonNull JSONObject jsonObject) throws JSONException {
         super(jsonObject);
     }
 
+    /**
+     * Constructs a {@code HyperwalletBankCard} object from Mapped key-value pair representation
+     *
+     * @param fields map of key-value pair
+     */
     private HyperwalletBankCard(@NonNull Map<String, Object> fields) {
         super();
         setFields(fields);
     }
 
+    /**
+     * Builder for {@link HyperwalletBankCard} representation
+     */
     public static class Builder {
         private Map<String, Object> mFields;
 
+        /**
+         * Constructs a Builder
+         */
         public Builder() {
             mFields = new HashMap<>();
             mFields.put(TransferMethodFields.TYPE, TransferMethodTypes.BANK_CARD);
         }
 
+        /**
+         * Constructs a Builder with predefined builder data
+         *
+         * @param transferMethodCountry  transfer country of Bank card
+         * @param transferMethodCurrency transfer currency of Bank card
+         * @param cardNumber             card number of the Bank card
+         * @param dateOfExpiry           date of expiry of the Bank card
+         * @param cvv                    Card verification value of the Bank card
+         */
         public Builder(@NonNull String transferMethodCountry,
                 @NonNull String transferMethodCurrency,
                 @NonNull String cardNumber,

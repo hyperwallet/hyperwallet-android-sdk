@@ -32,6 +32,9 @@ public class Location {
     private final int mLine;
     private final int mColumn;
 
+    /**
+     * Default constructor to create {@code Location} from {@link JSONObject} representation
+     */
     Location(@NonNull JSONObject jsonObject) throws JSONException {
         mColumn = jsonObject.getInt(COLUMN);
         mLine = jsonObject.getInt(LINE);

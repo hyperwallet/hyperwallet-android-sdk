@@ -27,6 +27,9 @@ import androidx.annotation.RestrictTo;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class RequestNotBuiltException extends Exception {
 
+    /**
+     * Constructs a {@code RequestNotBuiltException} with specified error message
+     */
     public RequestNotBuiltException(String message) {
         super(message);
     }
