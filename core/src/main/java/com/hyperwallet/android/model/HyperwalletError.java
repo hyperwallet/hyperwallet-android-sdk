@@ -35,7 +35,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Represents the Hyperwallet Error
+ * Represents the Error
  */
 public class HyperwalletError implements Parcelable {
 
@@ -61,14 +61,14 @@ public class HyperwalletError implements Parcelable {
     private List<String> mRelatedResources;
 
     /**
-     * Construct a {@code HyperwalletError} object from {@link JSONObject} representation
+     * Construct a {@code Error} object from {@link JSONObject} representation
      */
     public HyperwalletError(@NonNull JSONObject jsonObject) throws JSONException {
         fromJson(jsonObject);
     }
 
     /**
-     * Construct a {@code HyperwalletError} object from specific error message and code
+     * Construct a {@code Error} object from specific error message and code
      *
      * @param message error message
      * @param code    error code
@@ -79,7 +79,7 @@ public class HyperwalletError implements Parcelable {
     }
 
     /**
-     * Construct a {@code HyperwalletError} object
+     * Construct a {@code Error} object
      * from specified {@link StringRes} message identification and error message code
      *
      * @param messageId {@link StringRes} of message identification
@@ -91,7 +91,7 @@ public class HyperwalletError implements Parcelable {
     }
 
     /**
-     * Construct a {@code HyperwalletError} object from specified error message, field name, and error code
+     * Construct a {@code Error} object from specified error message, field name, and error code
      *
      * @param message   error message
      * @param fieldName field name that has error
@@ -103,7 +103,7 @@ public class HyperwalletError implements Parcelable {
     }
 
     /**
-     * Construct a {@code HyperwalletError} object from specified error message, field name,
+     * Construct a {@code Error} object from specified error message, field name,
      * error code and related resource
      *
      * @param message          error message

@@ -47,7 +47,7 @@ public class HyperwalletPageList<T> {
     private int mOffset;
 
     /**
-     * Construct a {@code HyperwalletPageList} object from {@link JSONObject} representation and target class name
+     * Construct a {@code PageList} object from {@link JSONObject} representation and target class name
      *
      * @param page  raw data representation
      * @param clazz class name to construct

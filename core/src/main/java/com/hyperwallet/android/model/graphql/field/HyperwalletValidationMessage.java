@@ -21,7 +21,7 @@ import androidx.annotation.NonNull;
 import org.json.JSONObject;
 
 /**
- * {@code HyperwalletValidationMessage} represents validation error message data to be shown to user when
+ * {@code ValidationMessage} represents validation error message data to be shown to user when
  * one of the following errors are raised from user input:
  *
  * <ul>
@@ -40,7 +40,7 @@ public class HyperwalletValidationMessage {
     private final String mEmpty;
 
     /**
-     * Construct a {@code HyperwalletValidationMessage} object from {@link JSONObject} representation
+     * Construct a {@code ValidationMessage} object from {@link JSONObject} representation
      */
     public HyperwalletValidationMessage(@NonNull final JSONObject jsonObject) {
         mLength = jsonObject.optString(LENGTH);

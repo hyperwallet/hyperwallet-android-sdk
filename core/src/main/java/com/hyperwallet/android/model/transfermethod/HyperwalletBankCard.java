@@ -41,7 +41,7 @@ import java.util.Map;
 public class HyperwalletBankCard extends HyperwalletTransferMethod {
 
     /**
-     * Constructs a {@code HyperwalletBankCard} object from {@link JSONObject} representation
+     * Constructs a {@code BankCard} object from {@link JSONObject} representation
      *
      * @param jsonObject raw data representation
      */
@@ -50,7 +50,7 @@ public class HyperwalletBankCard extends HyperwalletTransferMethod {
     }
 
     /**
-     * Constructs a {@code HyperwalletBankCard} object from Mapped key-value pair representation
+     * Constructs a {@code BankCard} object from Mapped key-value pair representation
      *
      * @param fields map of key-value pair
      */

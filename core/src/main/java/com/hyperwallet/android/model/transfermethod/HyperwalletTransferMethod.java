@@ -59,14 +59,14 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
     private Map<String, Object> mFields;
 
     /**
-     * Construct a {@code HyperwalletTransferMethod}
+     * Construct a {@code TransferMethod}
      */
     public HyperwalletTransferMethod() {
         mFields = new HashMap<>();
     }
 
     /**
-     * Construct a {@code HyperwalletTransferMethod} object from {@link JSONObject} representation
+     * Construct a {@code TransferMethod} object from {@link JSONObject} representation
      *
      * @param jsonObject raw data information
      */
@@ -75,7 +75,7 @@ public class HyperwalletTransferMethod implements HyperwalletJsonModel, Parcelab
     }
 
     /**
-     * Construct a {@code HyperwalletTransferMethod} object from Map of key-value pair representation
+     * Construct a {@code TransferMethod} object from Map of key-value pair representation
      *
      * @param fields map of key value-pair raw data information
      */

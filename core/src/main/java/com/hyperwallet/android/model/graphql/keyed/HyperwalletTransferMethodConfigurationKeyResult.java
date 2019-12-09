@@ -30,7 +30,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * {@code HyperwalletTransferMethodConfigurationKeyResult} transfer method configuration keys
+ * {@code TransferMethodConfigurationKeyResult} transfer method configuration keys
  */
 public class HyperwalletTransferMethodConfigurationKeyResult extends GqlResponse<TransferMethodConfigurationKey>
         implements HyperwalletTransferMethodConfigurationKey {
@@ -39,7 +39,7 @@ public class HyperwalletTransferMethodConfigurationKeyResult extends GqlResponse
     private final Set<Country> mCountries;
 
     /**
-     * Constructor to build HyperwalletTransferMethodConfigurationKeyResult based on {@link JSONObject}
+     * Constructor to build TransferMethodConfigurationKeyResult based on {@link JSONObject}
      *
      * @param data JSON object that represents key result data
      */

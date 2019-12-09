@@ -23,12 +23,12 @@ import com.hyperwallet.android.model.graphql.field.HyperwalletTransferMethodConf
 import java.util.List;
 
 /**
- * {@code HyperwalletTransferMethodConfigurationField} represents Transfer method configuration set
+ * {@code TransferMethodConfigurationField} represents Transfer method configuration set
  */
 public interface HyperwalletTransferMethodConfigurationField {
 
     /**
-     * @return {@code HyperwalletTransferMethodConfiguration} form input field information to create account
+     * @return {@code TransferMethodConfiguration} form input field information to create account
      */
     HyperwalletTransferMethodConfiguration getFields();
 

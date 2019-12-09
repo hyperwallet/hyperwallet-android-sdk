@@ -47,7 +47,7 @@ public class HyperwalletPrepaidCard extends HyperwalletTransferMethod {
     private static final String DEFAULT_CARD_PACKAGE = "DEFAULT";
 
     /**
-     * Construct a {@code HyperwalletPrepaidCard}
+     * Construct a {@code PrepaidCard}
      */
     public HyperwalletPrepaidCard() {
         super();
@@ -56,7 +56,7 @@ public class HyperwalletPrepaidCard extends HyperwalletTransferMethod {
     }
 
     /**
-     * Construct a {@code HyperwalletPrepaidCard} with card package information
+     * Construct a {@code PrepaidCard} with card package information
      *
      * @param cardPackage card package information
      */
@@ -66,7 +66,7 @@ public class HyperwalletPrepaidCard extends HyperwalletTransferMethod {
     }
 
     /**
-     * Construct a {@code HyperwalletPrepaidCard} from Map of key-value pair representation
+     * Construct a {@code PrepaidCard} from Map of key-value pair representation
      *
      * @param fields map of key-value pair raw data
      */
@@ -76,7 +76,7 @@ public class HyperwalletPrepaidCard extends HyperwalletTransferMethod {
     }
 
     /**
-     * Construct a {@code HyperwalletPrepaidCard} object from {@link JSONObject} representation
+     * Construct a {@code PrepaidCard} object from {@link JSONObject} representation
      *
      * @param jsonObject raw data information
      */

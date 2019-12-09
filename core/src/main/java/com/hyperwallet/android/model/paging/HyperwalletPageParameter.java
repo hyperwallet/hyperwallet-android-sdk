@@ -20,7 +20,7 @@ package com.hyperwallet.android.model.paging;
 import org.json.JSONObject;
 
 /**
- * {@code HyperwalletPageParameter} representation
+ * {@code PageParameter} representation
  */
 public class HyperwalletPageParameter {
     private final static String REL = "rel";
@@ -28,7 +28,7 @@ public class HyperwalletPageParameter {
     private String mRel;
 
     /**
-     * Construct a {@code HyperwalletPageParameter} object from {@link JSONObject} representation
+     * Construct a {@code PageParameter} object from {@link JSONObject} representation
      *
      * @param jsonObject raw data information
      */

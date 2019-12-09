@@ -26,7 +26,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.Objects;
 
 /**
- * Represents Hyperwallet Fees
+ * Represents Fees
  */
 public class HyperwalletFee {
 
@@ -49,7 +49,7 @@ public class HyperwalletFee {
     private String mValue;
 
     /**
-     * Construct a {@code HyperwalletFee} object from {@link JSONObject} representation
+     * Construct a {@code Fee} object from {@link JSONObject} representation
      *
      * @param jsonObject raw data representation
      */

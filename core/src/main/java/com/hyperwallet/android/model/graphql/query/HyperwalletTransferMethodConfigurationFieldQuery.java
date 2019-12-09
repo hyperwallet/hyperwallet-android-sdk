@@ -23,7 +23,7 @@ import androidx.annotation.NonNull;
 import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
 
 /**
- * The {@code HyperwalletTransferMethodConfigurationFieldQuery} class defines and builds a query to retrieve the fields
+ * The {@code TransferMethodConfigurationFieldQuery} class defines and builds a query to retrieve the fields
  * required to create a transfer method (Bank Account, Bank Card, PayPay Account, Prepaid Card, Paper Check)
  * with the Hyperwallet platform.
  */
@@ -114,7 +114,7 @@ public class HyperwalletTransferMethodConfigurationFieldQuery implements Hyperwa
     private final String mTransferMethodType;
 
     /**
-     * Create a new {@code HyperwalletTransferMethodConfigurationQuery} from the country, currency, transferMethodType
+     * Create a new {@code TransferMethodConfigurationQuery} from the country, currency, transferMethodType
      * and profile.
      *
      * @param country            the 2 letter ISO 3166-1 country code

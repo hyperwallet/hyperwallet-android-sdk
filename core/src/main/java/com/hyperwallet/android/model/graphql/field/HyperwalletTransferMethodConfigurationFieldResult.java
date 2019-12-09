@@ -30,7 +30,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 /**
- * {@code HyperwalletTransferMethodConfigurationFieldResult} implementation of
+ * {@code TransferMethodConfigurationFieldResult} implementation of
  * {@link HyperwalletTransferMethodConfigurationField}
  */
 public class HyperwalletTransferMethodConfigurationFieldResult

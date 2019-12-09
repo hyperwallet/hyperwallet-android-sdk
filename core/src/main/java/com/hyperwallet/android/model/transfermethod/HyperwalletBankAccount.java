@@ -53,7 +53,7 @@ public class HyperwalletBankAccount extends HyperwalletTransferMethod {
     }
 
     /**
-     * Construct a {@code HyperwalletBankAccount} object from Map key-value pair representation
+     * Construct a {@code BankAccount} object from Map key-value pair representation
      *
      * @param fields Map key-value pair raw data information
      */

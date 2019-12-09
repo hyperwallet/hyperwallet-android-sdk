@@ -24,12 +24,12 @@ import org.json.JSONObject;
 
 /**
  * Hyperwallet Json Model contract for a Representation that can be
- * Serialized/Deserialize; JSON -> HyperwalletJsonModel or vice versa
+ * Serialized/Deserialize; JSON -> JsonModel or vice versa
  */
 public interface HyperwalletJsonModel {
 
     /**
-     * De-serialize {@code HyperwalletJsonModel} subclass from JSON String to {@link JSONObject} representation
+     * De-serialize {@code JsonModel} subclass from JSON String to {@link JSONObject} representation
      *
      * @return {@link JSONObject}
      */
@@ -37,7 +37,7 @@ public interface HyperwalletJsonModel {
     JSONObject toJsonObject() throws JSONException;
 
     /**
-     * Serialize {@code HyperwalletJsonModel} to JSON string
+     * Serialize {@code JsonModel} to JSON string
      *
      * @return JSON String representation
      */

@@ -54,7 +54,7 @@ public class HyperwalletTransferMethodQueryParam extends QueryParam {
     private String mType;
 
     /**
-     * Construct a {@code HyperwalletTransferMethodQueryParam} object
+     * Construct a {@code TransferMethodQueryParam} object
      * from {@link HyperwalletTransferMethodQueryParam.Builder}
      */
     public HyperwalletTransferMethodQueryParam(@NonNull final HyperwalletTransferMethodBuilder builder) {

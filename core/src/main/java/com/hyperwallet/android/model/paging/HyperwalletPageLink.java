@@ -23,7 +23,7 @@ import androidx.annotation.RestrictTo;
 import org.json.JSONObject;
 
 /**
- * {@code HyperwalletPageLink} representation
+ * {@code PageLink} representation
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class HyperwalletPageLink {
@@ -34,7 +34,7 @@ public class HyperwalletPageLink {
     private String mPageRef;
 
     /**
-     * Constructs a {@code HyperwalletPageLink} object from {@link JSONObject} representation
+     * Constructs a {@code PageLink} object from {@link JSONObject} representation
      *
      * @param fields raw data representation
      */

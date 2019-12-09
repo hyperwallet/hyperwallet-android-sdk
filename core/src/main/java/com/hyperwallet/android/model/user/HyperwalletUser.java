@@ -38,7 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents the HyperwalletUser fields.
+ * Represents the User fields.
  */
 public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
 
@@ -59,7 +59,7 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     private Map<String, Object> mFields;
 
     /**
-     * Construct a {@code HyperwalletUser} object from {@link JSONObject} representation
+     * Construct a {@code User} object from {@link JSONObject} representation
      *
      * @param jsonObject raw data information
      */
@@ -68,7 +68,7 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     }
 
     /**
-     * Construct a {@code HyperwalletUser} object from Map key-value pair representation
+     * Construct a {@code User} object from Map key-value pair representation
      *
      * @param fields map key-value raw data information
      */
@@ -424,7 +424,7 @@ public final class HyperwalletUser implements HyperwalletJsonModel, Parcelable {
     }
 
     /**
-     * Common HyperwalletUser field keys
+     * Common User field keys
      */
     public interface UserFields {
         String TOKEN = "token";
