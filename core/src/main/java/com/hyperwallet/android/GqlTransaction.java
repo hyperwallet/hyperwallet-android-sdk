@@ -33,8 +33,22 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * {@code GqlTransaction} HTTP transaction service that communicates
+ * to Hyperwallet GQL platform api
+ */
 class GqlTransaction extends HttpTransaction {
 
+    /**
+     * Construct a {@code GqlTransaction} object based on specified required parameters
+     *
+     * @param uri                 GQL uri
+     * @param body                request query information
+     * @param authenticationToken authentication token assigned during authentication flow
+     * @param hyperwalletListener callback information please refer to {@link HyperwalletListener}
+     * @param typeReference       The class type reference to use inorder to deserialize response into Hyperwallet SDK
+     *                            object
+     */
     private GqlTransaction(@NonNull final String uri, @NonNull final String body,
             @NonNull final String authenticationToken, @NonNull final HyperwalletListener hyperwalletListener,
             @NonNull final TypeReference typeReference) {
@@ -43,11 +57,17 @@ class GqlTransaction extends HttpTransaction {
         setPayload(body);
     }
 
+    /**
+     * Refer to {@link HttpTransaction#performRequest(HttpClient)}
+     */
     @Override
     protected int performRequest(final @NonNull HttpClient client) throws IOException {
         return client.post(getPayload());
     }
 
+    /**
+     * Refer to {@link HttpTransaction#handleErrors(int, String)}
+     */
     @Override
     protected void handleErrors(final int responseCode, @NonNull final String response) throws JSONException,
             InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
@@ -56,11 +76,21 @@ class GqlTransaction extends HttpTransaction {
         onFailure(new HyperwalletGqlException(gqlErrors));
     }
 
+    /**
+     * Builder for {@link GqlTransaction}
+     */
     protected final static class Builder<T> {
         private final HyperwalletGqlQuery gqlQuery;
         private final TypeReference<T> typeReference;
         private final HyperwalletListener listener;
 
+        /**
+         * Construct a builder based on parameters
+         *
+         * @param gqlQuery GQL query information
+         * @param typeReference Response type generator result
+         * @param listener callback object; refer to {@link HyperwalletListener}
+         */
         protected Builder(@NonNull final HyperwalletGqlQuery gqlQuery,
                 @NonNull final TypeReference<T> typeReference,
                 @NonNull final HyperwalletListener listener) {

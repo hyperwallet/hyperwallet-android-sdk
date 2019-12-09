@@ -154,6 +154,9 @@ public class Hyperwallet {
         return sInstanceLast;
     }
 
+    /**
+     * Resets class {@link Hyperwallet} instance reference to self
+     */
     public static void clearInstance() {
         sInstanceLast = null;
     }

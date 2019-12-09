@@ -38,6 +38,9 @@ import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * User APIs' session {@code Configuration} representation
+ */
 public class Configuration {
 
     private static final String INSIGHT_API_URL = "insights-uri";
@@ -62,6 +65,11 @@ public class Configuration {
     private String mInsightApiUrl;
     private String mEnvironment;
 
+    /**
+     * Construct {@Configuration} with Authentication token specified
+     *
+     * @param token authentication token
+     */
     public Configuration(@NonNull final String token) throws JSONException {
         if (token.isEmpty()) {
             throw new IllegalArgumentException();
@@ -70,42 +78,72 @@ public class Configuration {
         parseAuthenticationToken();
     }
 
+    /**
+     * @return authentication token assigned to this {@code Configuration}
+     */
     public String getAuthenticationToken() {
         return mAuthenticationToken;
     }
 
+    /**
+     * @return {@link Date} creation date of this {@code Configuration}
+     */
     public Date getCreatedOn() {
         return new Date(mCreatedOn);
     }
 
+    /**
+     * @return {@link Date} expiration date of this {@code Configuration}
+     */
     public Date getExpiresOn() {
         return new Date(mExpiresOn);
     }
 
+    /**
+     * @return GraphQL api URI
+     */
     public String getGraphQlUri() {
         return mGraphQlUri;
     }
 
+    /**
+     * @return Program token that this {@code Configuration} is linked
+     */
     public String getProgramToken() {
         return mProgramToken;
     }
 
+    /**
+     * @return REST api URI
+     */
     public String getRestUri() {
         return mRestUri;
     }
 
+    /**
+     * @return User token that this {@code Configuration} is linked
+     */
     public String getUserToken() {
         return mUserToken;
     }
 
+    /**
+     * @return Insight api URI
+     */
     public String getInsightApiUrl() {
         return mInsightApiUrl;
     }
 
+    /**
+     * @return Platform environment information
+     */
     public String getEnvironment() {
         return mEnvironment;
     }
 
+    /**
+     * @return {@code True} if and only if this {@code Configuration} is not stale; otherwise {@code False}
+     */
     public boolean isStale() {
         return SystemClock.elapsedRealtime() >= mExpireOnBootTime - STALE_PERIOD;
     }
