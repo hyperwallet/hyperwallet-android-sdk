@@ -34,7 +34,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * {@code GqlTransaction} HTTP transaction service that communicates
+ * {@code GqlTransaction} HTTP transaction service that sends request
  * to Hyperwallet GQL platform api
  */
 class GqlTransaction extends HttpTransaction {

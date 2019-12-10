@@ -39,7 +39,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
- * User APIs' session {@code Configuration} representation
+ * Authorized user's session {@code Configuration}
  */
 public class Configuration {
 
@@ -86,21 +86,21 @@ public class Configuration {
     }
 
     /**
-     * @return {@link Date} creation date of this {@code Configuration}
+     * @return creation {@link Date} of this {@code Configuration}
      */
     public Date getCreatedOn() {
         return new Date(mCreatedOn);
     }
 
     /**
-     * @return {@link Date} expiration date of this {@code Configuration}
+     * @return expiration {@link Date} of this {@code Configuration}
      */
     public Date getExpiresOn() {
         return new Date(mExpiresOn);
     }
 
     /**
-     * @return GraphQL api URI
+     * @return GraphQL Api Uri
      */
     public String getGraphQlUri() {
         return mGraphQlUri;
@@ -114,7 +114,7 @@ public class Configuration {
     }
 
     /**
-     * @return REST api URI
+     * @return Rest Api Uri
      */
     public String getRestUri() {
         return mRestUri;
@@ -128,7 +128,7 @@ public class Configuration {
     }
 
     /**
-     * @return Insight api URI
+     * @return Insight Api Uri
      */
     public String getInsightApiUrl() {
         return mInsightApiUrl;

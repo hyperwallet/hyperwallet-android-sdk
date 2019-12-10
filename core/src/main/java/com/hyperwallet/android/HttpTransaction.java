@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * {@code HttpTransaction} HTTP transaction service that communicates
+ * {@code HttpTransaction} HTTP transaction service that sends request
  * to Hyperwallet API platforms
  */
 public abstract class HttpTransaction implements Runnable {

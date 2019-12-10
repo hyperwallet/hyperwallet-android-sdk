@@ -36,7 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * {@code RestTransaction} HTTP transaction service that communicates
+ * {@code RestTransaction} HTTP transaction service that sends request
  * to Hyperwallet REST platform api
  */
 class RestTransaction extends HttpTransaction {
