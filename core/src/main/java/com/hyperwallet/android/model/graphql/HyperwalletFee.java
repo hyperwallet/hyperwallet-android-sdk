@@ -79,7 +79,7 @@ public class HyperwalletFee {
     }
 
     /**
-     * @return Fee rate information for this {@code Fee}
+     * @return Fee rate type information for this {@code Fee}
      */
     public @FeeRateType
     String getFeeRateType() {

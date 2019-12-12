@@ -96,7 +96,7 @@ public abstract class HttpTransaction implements Runnable {
     }
 
     /**
-     * Process errors if there is as a result of the HTTP request
+     * Process errors, if available, from the resulting HTTP request
      *
      * @param responseCode HTTP response code
      * @param response Serialized HTTP response
