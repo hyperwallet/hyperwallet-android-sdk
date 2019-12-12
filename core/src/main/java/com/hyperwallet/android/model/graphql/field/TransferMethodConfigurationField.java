@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.hyperwallet.android.model.graphql.Connection;
-import com.hyperwallet.android.model.graphql.HyperwalletFee;
+import com.hyperwallet.android.model.graphql.Fee;
 import com.hyperwallet.android.model.graphql.ProcessingTime;
 
 import org.json.JSONException;
@@ -37,8 +37,8 @@ public class TransferMethodConfigurationField {
     private static final String TRANSFER_METHOD_CONFIGURATION = "transferMethodUIConfigurations";
     private static final String PROCESSING_TIMES = "processingTimes";
 
-    private final Connection<HyperwalletFee> mFeeConnection;
-    private final Connection<HyperwalletTransferMethodConfiguration> mTransferMethodConfigurationConnection;
+    private final Connection<Fee> mFeeConnection;
+    private final Connection<TransferMethodConfiguration> mTransferMethodConfigurationConnection;
     private final Connection<ProcessingTime> mProcessingTimeConnection;
 
     /**
@@ -50,13 +50,13 @@ public class TransferMethodConfigurationField {
             NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         JSONObject fees = configuration.optJSONObject(TRANSFER_FEE);
         if (fees != null && fees.length() != 0) {
-            mFeeConnection = new Connection<>(fees, HyperwalletFee.class);
+            mFeeConnection = new Connection<>(fees, Fee.class);
         } else {
             mFeeConnection = null;
         }
         mTransferMethodConfigurationConnection = new Connection<>
                 (configuration.getJSONObject(TRANSFER_METHOD_CONFIGURATION),
-                        HyperwalletTransferMethodConfiguration.class);
+                        TransferMethodConfiguration.class);
 
         JSONObject processingTime = configuration.optJSONObject(PROCESSING_TIMES);
         if (processingTime != null && processingTime.length() != 0) {
@@ -67,17 +67,17 @@ public class TransferMethodConfigurationField {
     }
 
     /**
-     * @return {@link Connection} of {@link HyperwalletFee}
+     * @return {@link Connection} of {@link Fee}
      */
     @Nullable
-    public Connection<HyperwalletFee> getFeeConnection() {
+    public Connection<Fee> getFeeConnection() {
         return mFeeConnection;
     }
 
     /**
-     * @return {@link Connection} of {@link HyperwalletTransferMethodConfiguration}
+     * @return {@link Connection} of {@link TransferMethodConfiguration}
      */
-    public Connection<HyperwalletTransferMethodConfiguration> getTransferMethodConfigurationConnection() {
+    public Connection<TransferMethodConfiguration> getTransferMethodConfigurationConnection() {
         return mTransferMethodConfigurationConnection;
     }
 

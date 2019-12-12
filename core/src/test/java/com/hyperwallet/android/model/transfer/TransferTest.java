@@ -30,7 +30,7 @@ import static com.hyperwallet.android.util.JsonUtils.fromJsonString;
 import android.os.Parcel;
 
 import com.hyperwallet.android.model.TypeReference;
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -47,7 +47,7 @@ import java.util.Map;
 @RunWith(RobolectricTestRunner.class)
 public class TransferTest {
     @Rule
-    public final HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
+    public final ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
 
     @Test
     public void testFromJsonString_transferResponse() throws Exception {

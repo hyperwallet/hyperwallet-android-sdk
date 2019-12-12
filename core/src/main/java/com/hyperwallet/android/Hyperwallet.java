@@ -25,35 +25,35 @@ import static com.hyperwallet.android.util.HttpMethod.PUT;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.hyperwallet.android.exception.AuthenticationTokenProviderException;
+import com.hyperwallet.android.exception.HyperwalletAuthenticationTokenProviderException;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.exception.HyperwalletInitializationException;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.QueryParam;
 import com.hyperwallet.android.model.StatusTransition;
 import com.hyperwallet.android.model.TypeReference;
-import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationField;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
-import com.hyperwallet.android.model.graphql.field.HyperwalletTransferMethodConfigurationFieldResult;
-import com.hyperwallet.android.model.graphql.keyed.HyperwalletTransferMethodConfigurationKeyResult;
-import com.hyperwallet.android.model.graphql.query.HyperwalletTransferMethodConfigurationFieldQuery;
-import com.hyperwallet.android.model.graphql.query.HyperwalletTransferMethodConfigurationKeysQuery;
-import com.hyperwallet.android.model.paging.HyperwalletPageList;
+import com.hyperwallet.android.model.graphql.TransferMethodConfigurationField;
+import com.hyperwallet.android.model.graphql.field.TransferMethodConfigurationFieldResult;
+import com.hyperwallet.android.model.graphql.keyed.TransferMethodConfigurationKeyResult;
+import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationFieldQuery;
+import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationKeysQuery;
+import com.hyperwallet.android.model.paging.PageList;
 import com.hyperwallet.android.model.receipt.Receipt;
 import com.hyperwallet.android.model.receipt.ReceiptQueryParam;
 import com.hyperwallet.android.model.transfer.Transfer;
 import com.hyperwallet.android.model.transfer.TransferQueryParam;
-import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
-import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccountQueryParam;
-import com.hyperwallet.android.model.transfermethod.HyperwalletBankCard;
-import com.hyperwallet.android.model.transfermethod.HyperwalletBankCardQueryParam;
-import com.hyperwallet.android.model.transfermethod.HyperwalletPrepaidCard;
-import com.hyperwallet.android.model.transfermethod.HyperwalletPrepaidCardQueryParam;
-import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
-import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam;
+import com.hyperwallet.android.model.transfermethod.BankAccount;
+import com.hyperwallet.android.model.transfermethod.BankAccountQueryParam;
+import com.hyperwallet.android.model.transfermethod.BankCard;
+import com.hyperwallet.android.model.transfermethod.BankCardQueryParam;
 import com.hyperwallet.android.model.transfermethod.PayPalAccount;
 import com.hyperwallet.android.model.transfermethod.PayPalAccountQueryParam;
-import com.hyperwallet.android.model.user.HyperwalletUser;
+import com.hyperwallet.android.model.transfermethod.PrepaidCard;
+import com.hyperwallet.android.model.transfermethod.PrepaidCardQueryParam;
+import com.hyperwallet.android.model.transfermethod.TransferMethod;
+import com.hyperwallet.android.model.transfermethod.TransferMethodQueryParam;
+import com.hyperwallet.android.model.user.User;
 
 import org.json.JSONException;
 
@@ -201,13 +201,13 @@ public class Hyperwallet {
 
                             if (listener.getHandler() == null) {
                                 listener.onFailure(ExceptionMapper.toHyperwalletException(
-                                        new AuthenticationTokenProviderException(logMessage)));
+                                        new HyperwalletAuthenticationTokenProviderException(logMessage)));
                             } else {
                                 listener.getHandler().post(new Runnable() {
                                     @Override
                                     public void run() {
                                         listener.onFailure(ExceptionMapper.toHyperwalletException(
-                                                new AuthenticationTokenProviderException(logMessage)));
+                                                new HyperwalletAuthenticationTokenProviderException(logMessage)));
                                     }
                                 });
                             }
@@ -219,7 +219,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Creates a {@link HyperwalletBankAccount} for the User associated with the authentication token returned from
+     * Creates a {@link BankAccount} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
@@ -228,28 +228,28 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param bankAccount the {@code HyperwalletBankAccount} to be created; must not be null
+     * @param bankAccount the {@code BankAccount} to be created; must not be null
      * @param listener    the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void createBankAccount(@NonNull final HyperwalletBankAccount bankAccount,
-            @NonNull final HyperwalletListener<HyperwalletBankAccount> listener) {
+    public void createBankAccount(@NonNull final BankAccount bankAccount,
+            @NonNull final HyperwalletListener<BankAccount> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
-                new TypeReference<HyperwalletBankAccount>() {
+                new TypeReference<BankAccount>() {
                 }, listener).jsonModel(bankAccount);
 
         performRestTransaction(builder, listener);
     }
 
     /**
-     * Returns the list of {@link HyperwalletBankAccount}s for the User associated with the authentication token
+     * Returns the list of {@link BankAccount}s for the User associated with the authentication token
      * returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
      * or an empty {@code List} if non exist.
      *
      * <p>The ordering and filtering of {@code HyperwalletBankAccounts} will be based on the criteria specified within
-     * the {@link HyperwalletBankAccountQueryParam} object, if it is not null. Otherwise the default ordering and
+     * the {@link BankAccountQueryParam} object, if it is not null. Otherwise the default ordering and
      * filtering will be applied:</p>
      *
      * <ul>
@@ -271,20 +271,20 @@ public class Hyperwallet {
      * @param queryParam the ordering and filtering criteria
      * @param listener   the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listBankAccounts(@Nullable final HyperwalletBankAccountQueryParam queryParam,
-            @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletBankAccount>> listener) {
+    public void listBankAccounts(@Nullable final BankAccountQueryParam queryParam,
+            @NonNull final HyperwalletListener<PageList<BankAccount>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
-                new TypeReference<HyperwalletPageList<HyperwalletBankAccount>>() {
+                new TypeReference<PageList<BankAccount>>() {
                 }, listener).query(urlQuery);
 
         performRestTransaction(builder, listener);
     }
 
     /**
-     * Creates a {@link HyperwalletBankCard} for the User associated with the authentication token returned from
+     * Creates a {@link BankCard} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
@@ -293,15 +293,15 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param bankCard the {@code HyperwalletBankCard} to be created; must not be null
+     * @param bankCard the {@code BankCard} to be created; must not be null
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void createBankCard(@NonNull final HyperwalletBankCard bankCard,
-            @NonNull final HyperwalletListener<HyperwalletBankCard> listener) {
+    public void createBankCard(@NonNull final BankCard bankCard,
+            @NonNull final HyperwalletListener<BankCard> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
-                new TypeReference<HyperwalletBankCard>() {
+                new TypeReference<BankCard>() {
                 }, listener).jsonModel(bankCard);
 
         performRestTransaction(builder, listener);
@@ -356,7 +356,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Returns the {@link HyperwalletBankAccount} linked to the transfer method token specified, or null if none exists.
+     * Returns the {@link BankAccount} linked to the transfer method token specified, or null if none exists.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
@@ -364,23 +364,23 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code HyperwalletBankAccount}
+     * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code BankAccount}
      *                            being requested; must not be null
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void getBankAccount(@NonNull final String transferMethodToken,
-            @NonNull final HyperwalletListener<HyperwalletBankAccount> listener) {
+            @NonNull final HyperwalletListener<BankAccount> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts/{1}", transferMethodToken);
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
-                new TypeReference<HyperwalletBankAccount>() {
+                new TypeReference<BankAccount>() {
                 }, listener);
 
         performRestTransaction(builder, listener);
     }
 
     /**
-     * Returns the {@link HyperwalletBankCard} linked to the transfer method token specified, or null if none exists.
+     * Returns the {@link BankCard} linked to the transfer method token specified, or null if none exists.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
@@ -388,22 +388,22 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code HyperwalletBankCard}
+     * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code BankCard}
      *                            being requested; must not be null
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void getBankCard(@NonNull final String transferMethodToken,
-            @NonNull final HyperwalletListener<HyperwalletBankCard> listener) {
+            @NonNull final HyperwalletListener<BankCard> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards/{1}", transferMethodToken);
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
-                new TypeReference<HyperwalletBankCard>() {
+                new TypeReference<BankCard>() {
                 }, listener);
         performRestTransaction(builder, listener);
     }
 
     /**
-     * Returns the {@link HyperwalletUser} linked to the token specified, or null if none exists.
+     * Returns the {@link User} linked to the token specified, or null if none exists.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
@@ -413,11 +413,11 @@ public class Hyperwallet {
      *
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void getUser(@NonNull final HyperwalletListener<HyperwalletUser> listener) {
+    public void getUser(@NonNull final HyperwalletListener<User> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
-                new TypeReference<HyperwalletUser>() {
+                new TypeReference<User>() {
                 }, listener);
 
         performRestTransaction(builder, listener);
@@ -448,11 +448,11 @@ public class Hyperwallet {
     }
 
     /**
-     * Updates the {@link HyperwalletBankAccount} for the User associated with the authentication token returned from
+     * Updates the {@link BankAccount} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
-     * <p>To identify the {@code HyperwalletBankAccount} that is going to be updated, the transfer method token must be
-     * set as part of the {@code HyperwalletBankAccount} object passed in.</p>
+     * <p>To identify the {@code BankAccount} that is going to be updated, the transfer method token must be
+     * set as part of the {@code BankAccount} object passed in.</p>
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
@@ -460,28 +460,28 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param bankAccount the {@code HyperwalletBankAccount} to be created; must not be null
+     * @param bankAccount the {@code BankAccount} to be created; must not be null
      * @param listener    the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void updateBankAccount(@NonNull final HyperwalletBankAccount bankAccount,
-            @NonNull final HyperwalletListener<HyperwalletBankAccount> listener) {
+    public void updateBankAccount(@NonNull final BankAccount bankAccount,
+            @NonNull final HyperwalletListener<BankAccount> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts/{1}",
-                bankAccount.getField(HyperwalletTransferMethod.TransferMethodFields.TOKEN));
+                bankAccount.getField(TransferMethod.TransferMethodFields.TOKEN));
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(PUT, pathFormatter,
-                new TypeReference<HyperwalletBankAccount>() {
+                new TypeReference<BankAccount>() {
                 }, listener).jsonModel(bankAccount);
 
         performRestTransaction(builder, listener);
     }
 
     /**
-     * Updates the {@link HyperwalletBankCard} for the User associated with the authentication token returned from
+     * Updates the {@link BankCard} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
-     * <p>To identify the {@code HyperwalletBankCard} that is going to be updated, the transfer method token must be
+     * <p>To identify the {@code BankCard} that is going to be updated, the transfer method token must be
      * set as part of the
-     * {@code HyperwalletBankCard} object passed in.</p>
+     * {@code BankCard} object passed in.</p>
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
      * processing the request.</p>
@@ -489,16 +489,16 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param bankCard the {@code HyperwalletBankCard} to be created; must not be null
+     * @param bankCard the {@code BankCard} to be created; must not be null
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void updateBankCard(@NonNull final HyperwalletBankCard bankCard,
-            @NonNull final HyperwalletListener<HyperwalletBankCard> listener) {
+    public void updateBankCard(@NonNull final BankCard bankCard,
+            @NonNull final HyperwalletListener<BankCard> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards/{1}",
-                bankCard.getField(HyperwalletTransferMethod.TransferMethodFields.TOKEN));
+                bankCard.getField(TransferMethod.TransferMethodFields.TOKEN));
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(PUT, pathFormatter,
-                new TypeReference<HyperwalletBankCard>() {
+                new TypeReference<BankCard>() {
                 }, listener).jsonModel(bankCard);
 
         performRestTransaction(builder, listener);
@@ -523,7 +523,7 @@ public class Hyperwallet {
     public void updatePayPalAccount(@NonNull final PayPalAccount payPalAccount,
             @NonNull final HyperwalletListener<PayPalAccount> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts/{1}",
-                payPalAccount.getField(HyperwalletTransferMethod.TransferMethodFields.TOKEN));
+                payPalAccount.getField(TransferMethod.TransferMethodFields.TOKEN));
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(PUT, pathFormatter,
                 new TypeReference<PayPalAccount>() {
@@ -533,8 +533,8 @@ public class Hyperwallet {
     }
 
     /**
-     * Deactivates the {@link HyperwalletBankAccount} linked to the transfer method token specified. The
-     * {@code HyperwalletBankAccount} being deactivated must belong to the User that is associated with the
+     * Deactivates the {@link BankAccount} linked to the transfer method token specified. The
+     * {@code BankAccount} being deactivated must belong to the User that is associated with the
      * authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
@@ -544,7 +544,7 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code HyperwalletBankAccount}
+     * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code BankAccount}
      *                            being deactivated; must not be null
      * @param notes               a note regarding the status change
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
@@ -566,8 +566,8 @@ public class Hyperwallet {
     }
 
     /**
-     * Deactivates the {@link HyperwalletBankCard} linked to the transfer method token specified. The
-     * {@code HyperwalletBankCard} being deactivated must\ belong to the User that is associated with the
+     * Deactivates the {@link BankCard} linked to the transfer method token specified. The
+     * {@code BankCard} being deactivated must\ belong to the User that is associated with the
      * authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
@@ -577,7 +577,7 @@ public class Hyperwallet {
      * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
      * if the current one is expired or about to expire.</p>
      *
-     * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code HyperwalletBankCard} being
+     * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code BankCard} being
      *                            deactivated; must not be null
      * @param notes               a note regarding the status change
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
@@ -632,13 +632,13 @@ public class Hyperwallet {
     }
 
     /**
-     * Returns the {@link HyperwalletTransferMethod} (Bank Account, Bank Card, PayPay Account, Prepaid Card,
+     * Returns the {@link TransferMethod} (Bank Account, Bank Card, PayPay Account, Prepaid Card,
      * Paper Checks) for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
      * or an empty {@code List} if non exist.
      *
-     * <p>The ordering and filtering of {@code HyperwalletTransferMethod}s will be based on the criteria specified
-     * within the {@link HyperwalletTransferMethodQueryParam} object, if it is not null. Otherwise the default
+     * <p>The ordering and filtering of {@code TransferMethod}s will be based on the criteria specified
+     * within the {@link TransferMethodQueryParam} object, if it is not null. Otherwise the default
      * ordering and filtering will be applied.</p>
      *
      * <ul>
@@ -660,25 +660,25 @@ public class Hyperwallet {
      * @param queryParam the ordering and filtering criteria
      * @param listener   the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listTransferMethods(@Nullable final HyperwalletTransferMethodQueryParam queryParam,
-            @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletTransferMethod>> listener) {
+    public void listTransferMethods(@Nullable final TransferMethodQueryParam queryParam,
+            @NonNull final HyperwalletListener<PageList<TransferMethod>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/transfer-methods");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
-                new TypeReference<HyperwalletPageList<HyperwalletTransferMethod>>() {
+                new TypeReference<PageList<TransferMethod>>() {
                 }, listener).query(urlQuery);
 
         performRestTransaction(builder, listener);
     }
 
     /**
-     * Returns the {@link HyperwalletBankCard} for the User associated with the authentication token returned from
+     * Returns the {@link BankCard} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
      * or an empty {@code List} if non exist.
      *
-     * <p>The ordering and filtering of {@code HyperwalletBankCard} will be based on the criteria specified within the
-     * {@link HyperwalletBankAccountQueryParam} object, if it is not null. Otherwise the default ordering and
+     * <p>The ordering and filtering of {@code BankCard} will be based on the criteria specified within the
+     * {@link BankAccountQueryParam} object, if it is not null. Otherwise the default ordering and
      * filtering will be applied.</p>
      *
      * <ul>
@@ -700,25 +700,25 @@ public class Hyperwallet {
      * @param queryParam the ordering and filtering criteria
      * @param listener   the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listBankCards(@Nullable final HyperwalletBankCardQueryParam queryParam,
-            @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletBankCard>> listener) {
+    public void listBankCards(@Nullable final BankCardQueryParam queryParam,
+            @NonNull final HyperwalletListener<PageList<BankCard>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
-                new TypeReference<HyperwalletPageList<HyperwalletBankCard>>() {
+                new TypeReference<PageList<BankCard>>() {
                 }, listener).query(urlQuery);
 
         performRestTransaction(builder, listener);
     }
 
     /**
-     * Returns the {@link HyperwalletPrepaidCard} for the User associated with the authentication token returned from
+     * Returns the {@link PrepaidCard} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
      * or an empty {@code List} if non exist.
      *
-     * <p>The ordering and filtering of {@code HyperwalletPrepaidCard} will be based on the criteria specified within
+     * <p>The ordering and filtering of {@code PrepaidCard} will be based on the criteria specified within
      * the
-     * {@link HyperwalletPrepaidCardQueryParam} object, if it is not null. Otherwise the default ordering and
+     * {@link PrepaidCardQueryParam} object, if it is not null. Otherwise the default ordering and
      * filtering will be applied.</p>
      *
      * <ul>
@@ -740,12 +740,12 @@ public class Hyperwallet {
      * @param queryParam the ordering and filtering criteria
      * @param listener   the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void listPrepaidCards(@Nullable final HyperwalletPrepaidCardQueryParam queryParam,
-            @NonNull final HyperwalletListener<HyperwalletPageList<HyperwalletPrepaidCard>> listener) {
+    public void listPrepaidCards(@Nullable final PrepaidCardQueryParam queryParam,
+            @NonNull final HyperwalletListener<PageList<PrepaidCard>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/prepaid-cards");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
-                new TypeReference<HyperwalletPageList<HyperwalletPrepaidCard>>() {
+                new TypeReference<PageList<PrepaidCard>>() {
                 }, listener).query(urlQuery);
 
         performRestTransaction(builder, listener);
@@ -782,11 +782,11 @@ public class Hyperwallet {
      */
     public void listPayPalAccounts(
             @Nullable final PayPalAccountQueryParam queryParam,
-            @NonNull final HyperwalletListener<HyperwalletPageList<PayPalAccount>> listener) {
+            @NonNull final HyperwalletListener<PageList<PayPalAccount>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
-                new TypeReference<HyperwalletPageList<PayPalAccount>>() {
+                new TypeReference<PageList<PayPalAccount>>() {
                 }, listener).query(urlQuery);
 
         performRestTransaction(builder, listener);
@@ -831,10 +831,10 @@ public class Hyperwallet {
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void retrieveTransferMethodConfigurationKeys(
-            @NonNull final HyperwalletTransferMethodConfigurationKeysQuery query,
+            @NonNull final TransferMethodConfigurationKeysQuery query,
             @NonNull final HyperwalletListener<HyperwalletTransferMethodConfigurationKey> listener) {
-        GqlTransaction.Builder<HyperwalletTransferMethodConfigurationKeyResult> builder = new GqlTransaction.Builder<>(
-                query, new TypeReference<HyperwalletTransferMethodConfigurationKeyResult>() {
+        GqlTransaction.Builder<TransferMethodConfigurationKeyResult> builder = new GqlTransaction.Builder<>(
+                query, new TypeReference<TransferMethodConfigurationKeyResult>() {
         }, listener);
 
         performGqlTransaction(builder, listener);
@@ -857,12 +857,12 @@ public class Hyperwallet {
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void retrieveTransferMethodConfigurationFields(
-            @NonNull final HyperwalletTransferMethodConfigurationFieldQuery query,
-            @NonNull final HyperwalletListener<HyperwalletTransferMethodConfigurationField> listener) {
+            @NonNull final TransferMethodConfigurationFieldQuery query,
+            @NonNull final HyperwalletListener<TransferMethodConfigurationField> listener) {
 
-        GqlTransaction.Builder<HyperwalletTransferMethodConfigurationFieldResult> builder =
+        GqlTransaction.Builder<TransferMethodConfigurationFieldResult> builder =
                 new GqlTransaction.Builder<>(query,
-                        new TypeReference<HyperwalletTransferMethodConfigurationFieldResult>() {
+                        new TypeReference<TransferMethodConfigurationFieldResult>() {
                         }, listener);
         performGqlTransaction(builder, listener);
     }
@@ -897,12 +897,12 @@ public class Hyperwallet {
      * @param listener          the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listUserReceipts(@Nullable final ReceiptQueryParam receiptQueryParam,
-            @NonNull final HyperwalletListener<HyperwalletPageList<Receipt>> listener) {
+            @NonNull final HyperwalletListener<PageList<Receipt>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(receiptQueryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/receipts");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
-                new TypeReference<HyperwalletPageList<Receipt>>() {
+                new TypeReference<PageList<Receipt>>() {
                 }, listener).query(urlQuery);
 
         performRestTransaction(builder, listener);
@@ -935,12 +935,12 @@ public class Hyperwallet {
      */
     public void listPrepaidCardReceipts(@NonNull final String prepaidCardToken,
             @Nullable final ReceiptQueryParam receiptQueryParam,
-            @NonNull final HyperwalletListener<HyperwalletPageList<Receipt>> listener) {
+            @NonNull final HyperwalletListener<PageList<Receipt>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(receiptQueryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/prepaid-cards/{1}/receipts", prepaidCardToken);
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
-                new TypeReference<HyperwalletPageList<Receipt>>() {
+                new TypeReference<PageList<Receipt>>() {
                 }, listener).query(urlQuery);
 
         performRestTransaction(builder, listener);
@@ -976,12 +976,12 @@ public class Hyperwallet {
      * @param listener           the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listTransfers(@Nullable final TransferQueryParam transferQueryParam,
-            @NonNull final HyperwalletListener<HyperwalletPageList<Transfer>> listener) {
+            @NonNull final HyperwalletListener<PageList<Transfer>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(transferQueryParam);
         PathFormatter pathFormatter = new PathFormatter("transfers");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
-                new TypeReference<HyperwalletPageList<Transfer>>() {
+                new TypeReference<PageList<Transfer>>() {
                 }, listener).query(urlQuery);
 
         performRestTransaction(builder, listener);
@@ -1047,14 +1047,16 @@ public class Hyperwallet {
                                             uuid.toString(), message);
                             if (listener.getHandler() == null) {
                                 listener.onFailure(ExceptionMapper
-                                        .toHyperwalletException(new AuthenticationTokenProviderException(logMessage)));
+                                        .toHyperwalletException(
+                                                new HyperwalletAuthenticationTokenProviderException(logMessage)));
                             } else {
                                 listener.getHandler().post(new Runnable() {
                                     @Override
                                     public void run() {
                                         listener.onFailure(ExceptionMapper
                                                 .toHyperwalletException(
-                                                        new AuthenticationTokenProviderException(logMessage)));
+                                                        new HyperwalletAuthenticationTokenProviderException(
+                                                                logMessage)));
                                     }
                                 });
                             }
@@ -1103,13 +1105,13 @@ public class Hyperwallet {
 
                             if (listener.getHandler() == null) {
                                 listener.onFailure(ExceptionMapper.toHyperwalletException(
-                                        new AuthenticationTokenProviderException(logMessage)));
+                                        new HyperwalletAuthenticationTokenProviderException(logMessage)));
                             } else {
                                 listener.getHandler().post(new Runnable() {
                                     @Override
                                     public void run() {
                                         listener.onFailure(ExceptionMapper.toHyperwalletException(
-                                                new AuthenticationTokenProviderException(logMessage)));
+                                                new HyperwalletAuthenticationTokenProviderException(logMessage)));
                                     }
                                 });
                             }

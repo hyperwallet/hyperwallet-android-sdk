@@ -3,7 +3,7 @@ package com.hyperwallet.android.model.graphql.error;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,7 +16,7 @@ import org.robolectric.RobolectricTestRunner;
 public class ExtensionTest {
 
     @Rule
-    public final HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
+    public final ExternalResourceManager mResourceManager = new ExternalResourceManager();
 
     @Test
     public void testExtension_convertJsonObject() throws JSONException {

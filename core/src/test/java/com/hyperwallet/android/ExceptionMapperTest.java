@@ -11,15 +11,15 @@ import static com.hyperwallet.android.ExceptionMapper.toHyperwalletException;
 
 import android.content.res.Resources;
 
-import com.hyperwallet.android.exception.AuthenticationTokenProviderException;
+import com.hyperwallet.android.exception.HyperwalletAuthenticationTokenProviderException;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.exception.HyperwalletGqlException;
 import com.hyperwallet.android.exception.HyperwalletJsonParseException;
-import com.hyperwallet.android.model.HyperwalletError;
-import com.hyperwallet.android.model.HyperwalletErrors;
+import com.hyperwallet.android.model.Error;
+import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.graphql.error.GqlErrors;
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 import com.hyperwallet.android.sdk.R;
 import com.hyperwallet.android.util.JsonUtils;
 
@@ -39,7 +39,7 @@ import java.util.List;
 public class ExceptionMapperTest {
 
     @Rule
-    public final HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
+    public final ExternalResourceManager mResourceManager = new ExternalResourceManager();
     @Rule
     public MockitoRule mMockitoRule = MockitoJUnit.rule();
     @Mock
@@ -48,20 +48,20 @@ public class ExceptionMapperTest {
     @Test
     public void testToHyperwalletException_convertHyperwalletException() throws Exception {
 
-        HyperwalletErrors errors = JsonUtils.fromJsonString(mResourceManager.getResourceContentError(
+        Errors errors = JsonUtils.fromJsonString(mResourceManager.getResourceContentError(
                 "forbidden_error_response.json"),
-                new TypeReference<HyperwalletErrors>() {
+                new TypeReference<Errors>() {
                 });
         HyperwalletException hyperwalletException = new HyperwalletException(errors);
         HyperwalletException hyperwalletExceptionResult = toHyperwalletException(hyperwalletException);
         assertNotNull(hyperwalletExceptionResult);
 
-        final HyperwalletErrors hyperwalletErrors = hyperwalletExceptionResult.getHyperwalletErrors();
+        final Errors hyperwalletErrors = hyperwalletExceptionResult.getHyperwalletErrors();
         assertNotNull(hyperwalletErrors);
-        final List<HyperwalletError> list = hyperwalletErrors.getErrors();
+        final List<Error> list = hyperwalletErrors.getErrors();
         assertThat(list, hasSize(1));
 
-        HyperwalletError error = list.get(0);
+        Error error = list.get(0);
         assertThat(error.getCode(), is(equalTo("FORBIDDEN")));
         assertThat(error.getMessage(), is(equalTo("The caller does not have access to the requested resource")));
     }
@@ -73,12 +73,12 @@ public class ExceptionMapperTest {
         HyperwalletException hyperwalletException = toHyperwalletException(new IOException());
         assertNotNull(hyperwalletException);
 
-        final HyperwalletErrors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
+        final Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
         assertNotNull(hyperwalletErrors);
-        final List<HyperwalletError> list = hyperwalletErrors.getErrors();
+        final List<Error> list = hyperwalletErrors.getErrors();
         assertThat(list, hasSize(1));
 
-        HyperwalletError error = list.get(0);
+        Error error = list.get(0);
         assertThat(error.getCode(), is(equalTo("EC_IO_EXCEPTION")));
         assertThat(error.getMessageFromResourceWhenAvailable(mResources),
                 is(equalTo("An error that is preventing access to the required data and/or resources has occurred")));
@@ -91,12 +91,12 @@ public class ExceptionMapperTest {
         HyperwalletException hyperwalletException = toHyperwalletException(new JSONException("exception"));
         assertNotNull(hyperwalletException);
 
-        final HyperwalletErrors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
+        final Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
         assertNotNull(hyperwalletErrors);
-        final List<HyperwalletError> list = hyperwalletErrors.getErrors();
+        final List<Error> list = hyperwalletErrors.getErrors();
         assertThat(list, hasSize(1));
 
-        HyperwalletError error = list.get(0);
+        Error error = list.get(0);
         assertThat(error.getCode(), is(equalTo("EC_JSON_EXCEPTION")));
         assertThat(error.getMessageFromResourceWhenAvailable(mResources),
                 is(equalTo("Processing the JSON document resulted in an error")));
@@ -110,12 +110,12 @@ public class ExceptionMapperTest {
                 new HyperwalletJsonParseException("exception"));
         assertNotNull(hyperwalletException);
 
-        final HyperwalletErrors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
+        final Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
         assertNotNull(hyperwalletErrors);
-        final List<HyperwalletError> list = hyperwalletErrors.getErrors();
+        final List<Error> list = hyperwalletErrors.getErrors();
         assertThat(list, hasSize(1));
 
-        HyperwalletError error = list.get(0);
+        Error error = list.get(0);
         assertThat(error.getCode(), is(equalTo("EC_JSON_PARSE_EXCEPTION")));
         assertThat(error.getMessageFromResourceWhenAvailable(mResources),
                 is(equalTo("A document (JSON) parsing error occurred")));
@@ -126,15 +126,15 @@ public class ExceptionMapperTest {
         when(mResources.getString(R.string.authentication_token_provider_exception)).thenReturn(
                 "Authentication token retrieval attempt resulted in an error");
         HyperwalletException hyperwalletException = toHyperwalletException(
-                new AuthenticationTokenProviderException("exception"));
+                new HyperwalletAuthenticationTokenProviderException("exception"));
         assertNotNull(hyperwalletException);
 
-        final HyperwalletErrors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
+        final Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
         assertNotNull(hyperwalletErrors);
-        final List<HyperwalletError> list = hyperwalletErrors.getErrors();
+        final List<Error> list = hyperwalletErrors.getErrors();
         assertThat(list, hasSize(1));
 
-        HyperwalletError error = list.get(0);
+        Error error = list.get(0);
         assertThat(error.getCode(), is(equalTo("EC_AUTHENTICATION_TOKEN_PROVIDER_EXCEPTION")));
         assertThat(error.getMessageFromResourceWhenAvailable(mResources),
                 is(equalTo("Authentication token retrieval attempt resulted in an error")));
@@ -147,12 +147,12 @@ public class ExceptionMapperTest {
         HyperwalletException hyperwalletException = toHyperwalletException(new IllegalAccessException());
         assertNotNull(hyperwalletException);
 
-        final HyperwalletErrors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
+        final Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
         assertNotNull(hyperwalletErrors);
-        final List<HyperwalletError> list = hyperwalletErrors.getErrors();
+        final List<Error> list = hyperwalletErrors.getErrors();
         assertThat(list, hasSize(1));
 
-        HyperwalletError error = list.get(0);
+        Error error = list.get(0);
         assertThat(error.getCode(), is(equalTo("EC_UNEXPECTED_EXCEPTION")));
         assertThat(error.getMessageFromResourceWhenAvailable(mResources),
                 is(equalTo("An unexpected error has occurred, please try again")));
@@ -167,12 +167,12 @@ public class ExceptionMapperTest {
         HyperwalletException hyperwalletException = toHyperwalletException(new HyperwalletGqlException(gqlErrors));
         assertNotNull(hyperwalletException);
 
-        final HyperwalletErrors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
+        final Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
         assertNotNull(hyperwalletErrors);
-        final List<HyperwalletError> list = hyperwalletErrors.getErrors();
+        final List<Error> list = hyperwalletErrors.getErrors();
         assertThat(list, hasSize(1));
 
-        HyperwalletError error = list.get(0);
+        Error error = list.get(0);
         assertThat(error.getCode(), is(equalTo("DataFetchingException")));
         assertThat(error.getMessage(), is(equalTo("Could not find any currency.")));
     }

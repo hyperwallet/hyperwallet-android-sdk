@@ -7,10 +7,10 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_CARD;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.BANK_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.BANK_CARD;
 
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 
 import org.json.JSONObject;
 import org.junit.Rule;
@@ -23,7 +23,7 @@ import org.robolectric.RobolectricTestRunner;
 public class CurrencyTest {
 
     @Rule
-    public final HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
+    public final ExternalResourceManager mResourceManager = new ExternalResourceManager();
     @Rule
     public final ExpectedException mThrown = ExpectedException.none();
 

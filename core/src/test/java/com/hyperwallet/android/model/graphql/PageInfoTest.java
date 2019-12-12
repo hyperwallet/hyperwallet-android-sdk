@@ -3,7 +3,7 @@ package com.hyperwallet.android.model.graphql;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +17,7 @@ import org.robolectric.RobolectricTestRunner;
 @RunWith(RobolectricTestRunner.class)
 public class PageInfoTest {
     @Rule
-    public HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
+    public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
     public MockitoRule mMockito = MockitoJUnit.rule();
 

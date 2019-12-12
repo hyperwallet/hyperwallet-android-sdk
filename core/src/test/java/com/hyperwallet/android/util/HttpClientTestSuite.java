@@ -5,8 +5,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsMapWithSize.aMapWithSize;
 import static org.junit.Assert.assertNotNull;
 
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
-import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.ExternalResourceManager;
+import com.hyperwallet.android.rule.MockWebServer;
 
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -50,14 +50,13 @@ public class HttpClientTestSuite {
     @RunWith(JUnitParamsRunner.class)
     public static class HttpClientTest {
 
+        @ClassRule
+        public static final ExternalResourceManager hyperwalletResourceManager =
+                new ExternalResourceManager();
         @Rule
         public final ExpectedException thrown = ExpectedException.none();
         @Rule
-        public final HyperwalletMockWebServer server = new HyperwalletMockWebServer();
-        @ClassRule
-        public static final HyperwalletExternalResourceManager hyperwalletResourceManager =
-                new HyperwalletExternalResourceManager();
-
+        public final MockWebServer server = new MockWebServer();
 
         @Test
         public void testGetHttpUrlConnection_verifyDefaultValues()
@@ -137,7 +136,6 @@ public class HttpClientTestSuite {
 
             assertThat(httpResponseCode, is(HttpURLConnection.HTTP_CREATED));
         }
-
 
 
         @Test
@@ -256,6 +254,7 @@ public class HttpClientTestSuite {
                     {HttpURLConnection.HTTP_VERSION, false}
             });
         }
+
         @Test
         @Parameters(method = "testHttpResponseCodeWithinSuccessRangeData")
         public void testIsSuccess_httpResponseCodeWithinSuccessRange(
@@ -265,13 +264,13 @@ public class HttpClientTestSuite {
 
 
     }
-    
+
     public static class HttpClientBuilderTest {
 
         @Rule
         public final ExpectedException thrown = ExpectedException.none();
         @Rule
-        public final HyperwalletMockWebServer server = new HyperwalletMockWebServer();
+        public final MockWebServer server = new MockWebServer();
 
 
         @Test

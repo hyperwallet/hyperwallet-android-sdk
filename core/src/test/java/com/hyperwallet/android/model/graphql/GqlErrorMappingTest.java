@@ -12,11 +12,11 @@ import static com.hyperwallet.android.ExceptionMapper.toHyperwalletException;
 
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.exception.HyperwalletGqlException;
-import com.hyperwallet.android.model.HyperwalletError;
-import com.hyperwallet.android.model.HyperwalletErrors;
+import com.hyperwallet.android.model.Error;
+import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.graphql.error.GqlErrors;
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 import com.hyperwallet.android.util.JsonUtils;
 
 import org.junit.Rule;
@@ -30,7 +30,7 @@ import java.util.List;
 public class GqlErrorMappingTest {
 
     @Rule
-    public final HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
+    public final ExternalResourceManager mResourceManager = new ExternalResourceManager();
 
     @Test
     public void testGQLErrorDeserialization() throws Exception {
@@ -63,9 +63,9 @@ public class GqlErrorMappingTest {
         HyperwalletException hyperwalletException = toHyperwalletException(new HyperwalletGqlException(gqlErrors));
 
         assertThat(hyperwalletException, is(notNullValue()));
-        final HyperwalletErrors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
+        final Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
         assertNotNull(hyperwalletErrors);
-        final List<HyperwalletError> errors = hyperwalletErrors.getErrors();
+        final List<Error> errors = hyperwalletErrors.getErrors();
         assertThat(errors, is(not(empty())));
         assertThat(errors.size(), is(1));
         assertThat(errors.get(0).getCode(), is("DataFetchingException"));

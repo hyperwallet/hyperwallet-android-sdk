@@ -19,7 +19,7 @@ package com.hyperwallet.android.model.graphql.keyed;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
+import com.hyperwallet.android.model.transfermethod.TransferMethod;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,9 +38,9 @@ public class Currency implements KeyedNode {
     private static final String CURRENCY_NAME = NODE_NAME;
     private static final String TRANSFER_METHOD_TYPES = "transferMethodTypes";
 
-    private final Set<HyperwalletTransferMethodType> mHyperwalletTransferMethodTypes;
+    private final Set<TransferMethodType> mHyperwalletTransferMethodTypes;
     private final String mCode;
-    private final MappedConnection<HyperwalletTransferMethodType> mHyperwalletTransferMethodTypeMappedConnection;
+    private final MappedConnection<TransferMethodType> mHyperwalletTransferMethodTypeMappedConnection;
     private final String mName;
 
     /**
@@ -56,7 +56,7 @@ public class Currency implements KeyedNode {
         JSONObject transferMethodTypes = currency.optJSONObject(TRANSFER_METHOD_TYPES);
         if (transferMethodTypes != null && transferMethodTypes.length() != 0) {
             mHyperwalletTransferMethodTypeMappedConnection =
-                    new MappedConnection<>(transferMethodTypes, HyperwalletTransferMethodType.class);
+                    new MappedConnection<>(transferMethodTypes, TransferMethodType.class);
         } else {
             mHyperwalletTransferMethodTypeMappedConnection = null;
         }
@@ -81,10 +81,10 @@ public class Currency implements KeyedNode {
     }
 
     /**
-     * @return set of {@code HyperwalletTransferMethodType} represented by this {@link Currency} instance
+     * @return set of {@code TransferMethodType} represented by this {@link Currency} instance
      */
     @NonNull
-    public Set<HyperwalletTransferMethodType> getTransferMethodTypes() {
+    public Set<TransferMethodType> getTransferMethodTypes() {
         if (mHyperwalletTransferMethodTypeMappedConnection != null && mHyperwalletTransferMethodTypes.isEmpty()) {
             mHyperwalletTransferMethodTypes.addAll(mHyperwalletTransferMethodTypeMappedConnection.getNodes());
             return mHyperwalletTransferMethodTypes;
@@ -95,11 +95,11 @@ public class Currency implements KeyedNode {
     /**
      * Get specific Transfer Method Type
      *
-     * @param transferMethodType transfer method type {@link HyperwalletTransferMethod.TransferMethodTypes}
+     * @param transferMethodType transfer method type {@link TransferMethod.TransferMethodTypes}
      * @return Transfer method type representation based from parameter passed, if exists
      */
     @Nullable
-    public HyperwalletTransferMethodType getTransferMethodType(@NonNull final String transferMethodType) {
+    public TransferMethodType getTransferMethodType(@NonNull final String transferMethodType) {
         if (mHyperwalletTransferMethodTypeMappedConnection != null) {
             return mHyperwalletTransferMethodTypeMappedConnection.getNode(transferMethodType);
         }

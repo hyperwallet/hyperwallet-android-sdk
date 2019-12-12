@@ -6,8 +6,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 import com.hyperwallet.android.model.TypeReference;
-import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.model.transfermethod.BankAccount;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,15 +23,15 @@ import java.util.Map;
 public class JsonUtilsTest {
 
     @Rule
-    public final HyperwalletExternalResourceManager mHyperwalletExternalResourceManager =
-            new HyperwalletExternalResourceManager();
+    public final ExternalResourceManager mHyperwalletExternalResourceManager =
+            new ExternalResourceManager();
 
     @Test
     public void testMapToJsonObject_withValidBankAccountObject() throws JSONException {
-        final HyperwalletBankAccount request = new HyperwalletBankAccount
+        final BankAccount request = new BankAccount
                 .Builder("CA", "CAD", "12345")
                 .branchId("678910")
-                .bankAccountPurpose(HyperwalletBankAccount.Purpose.CHECKING)
+                .bankAccountPurpose(BankAccount.Purpose.CHECKING)
                 .build();
         JSONObject jsonRequest = request.toJsonObject();
         assertNotNull(jsonRequest);
@@ -42,8 +42,8 @@ public class JsonUtilsTest {
     @Test
     public void testFromJsonString_validBankAccountJson() throws Exception {
         String response = mHyperwalletExternalResourceManager.getResourceContent("bank_account_response.json");
-        HyperwalletBankAccount bankAccount = JsonUtils.fromJsonString(response,
-                new TypeReference<HyperwalletBankAccount>() {
+        BankAccount bankAccount = JsonUtils.fromJsonString(response,
+                new TypeReference<BankAccount>() {
                 });
         assertNotNull(bankAccount);
         assertEquals("BANK_ACCOUNT", bankAccount.getField("type"));
@@ -60,8 +60,8 @@ public class JsonUtilsTest {
     @Test
     public void testMapToJsonObject_withValidBankAccountJson() throws Exception {
         String response = mHyperwalletExternalResourceManager.getResourceContent("bank_account_response.json");
-        HyperwalletBankAccount bankAccount = JsonUtils.fromJsonString(response,
-                new TypeReference<HyperwalletBankAccount>() {
+        BankAccount bankAccount = JsonUtils.fromJsonString(response,
+                new TypeReference<BankAccount>() {
                 });
         assertNotNull(bankAccount);
         JSONObject jsonRequest = bankAccount.toJsonObject();

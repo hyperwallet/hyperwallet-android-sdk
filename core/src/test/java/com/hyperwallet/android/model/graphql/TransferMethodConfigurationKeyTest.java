@@ -7,7 +7,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 
 import org.json.JSONObject;
 import org.junit.Rule;
@@ -20,7 +20,7 @@ import org.robolectric.RobolectricTestRunner;
 public class TransferMethodConfigurationKeyTest {
 
     @Rule
-    public final HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
+    public final ExternalResourceManager mResourceManager = new ExternalResourceManager();
     @Rule
     public final ExpectedException mThrown = ExpectedException.none();
 

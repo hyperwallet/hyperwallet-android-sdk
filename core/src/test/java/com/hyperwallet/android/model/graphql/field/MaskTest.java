@@ -5,7 +5,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,14 +18,14 @@ import org.robolectric.RobolectricTestRunner;
 public class MaskTest {
 
     @Rule
-    public HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
+    public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
 
     @Test
     public void testHyperwalletFieldMask_convertJsonObjectWithoutConditionalPattern() throws JSONException {
         String jsonResponse = mExternalResourceManager.getResourceContent(
                 "mask_without_conditional_formatting_response.json");
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);
-        HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
+        Field hyperwalletField = new Field(jsonResponseObject);
         Mask mask = hyperwalletField.getMask();
 
         assertThat(mask, is(notNullValue()));
@@ -38,7 +38,7 @@ public class MaskTest {
         String jsonResponse = mExternalResourceManager.getResourceContent(
                 "mask_with_conditional_formatting_response.json");
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);
-        HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
+        Field hyperwalletField = new Field(jsonResponseObject);
         Mask mask = hyperwalletField.getMask();
 
         assertThat(mask, is(notNullValue()));
@@ -52,7 +52,7 @@ public class MaskTest {
         String jsonResponse = mExternalResourceManager.getResourceContent(
                 "mask_with_conditional_formatting_response.json");
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);
-        HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
+        Field hyperwalletField = new Field(jsonResponseObject);
         Mask mask = hyperwalletField.getMask();
 
         assertThat(mask, is(notNullValue()));
@@ -64,7 +64,7 @@ public class MaskTest {
         String jsonResponse = mExternalResourceManager.getResourceContent(
                 "mask_with_conditional_formatting_response.json");
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);
-        HyperwalletField hyperwalletField = new HyperwalletField(jsonResponseObject);
+        Field hyperwalletField = new Field(jsonResponseObject);
         Mask mask = hyperwalletField.getMask();
 
         assertThat(mask, is(notNullValue()));

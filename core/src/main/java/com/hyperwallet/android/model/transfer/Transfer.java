@@ -52,7 +52,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringDef;
 import androidx.annotation.VisibleForTesting;
 
-import com.hyperwallet.android.model.HyperwalletJsonModel;
+import com.hyperwallet.android.model.JsonModel;
 import com.hyperwallet.android.util.JsonUtils;
 
 import org.json.JSONException;
@@ -70,7 +70,7 @@ import java.util.Map;
 /**
  * Represents the object to hold  transfer data fields.
  */
-public final class Transfer implements HyperwalletJsonModel, Parcelable {
+public final class Transfer implements JsonModel, Parcelable {
 
     public static final String CURRENCY_NUMERIC_SEPARATOR = ",";
     public static final String EMPTY_STRING = "";
@@ -106,6 +106,7 @@ public final class Transfer implements HyperwalletJsonModel, Parcelable {
             mFields.put(FOREIGN_EXCHANGES, foreignExchanges);
         }
     }
+
     /**
      * Constructor to build Transfer, based on map
      *

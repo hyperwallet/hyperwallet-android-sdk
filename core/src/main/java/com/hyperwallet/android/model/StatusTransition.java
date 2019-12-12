@@ -37,7 +37,7 @@ import java.util.Map;
 /**
  * Status transition representation that denotes Hyperwallet entity object status
  */
-public class StatusTransition implements HyperwalletJsonModel, Parcelable {
+public class StatusTransition implements JsonModel, Parcelable {
 
     public static final Creator<StatusTransition> CREATOR =
             new Creator<StatusTransition>() {
