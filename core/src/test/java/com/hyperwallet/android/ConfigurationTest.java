@@ -192,6 +192,6 @@ public class ConfigurationTest {
 
         assertThat(configuration, is(notNullValue()));
         assertThat(configuration.getEnvironment(), is("DEV"));
-        assertThat(configuration.getInsightApiUrl(), is("insights.test.com/track/events"));
+        assertThat(configuration.getInsightApiUri(), is("insights.test.com/track/events"));
     }
 }
