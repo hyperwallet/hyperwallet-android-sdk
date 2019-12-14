@@ -40,8 +40,8 @@ public class Fee {
     private static final String FEE_VALUE = "value";
     private String mCountry;
     private String mCurrency;
-    private @FeeRateType
-    String mFeeRateType;
+    @FeeRateType
+    private String mFeeRateType;
     private String mIdToken;
     private String mMax;
     private String mMin;
@@ -81,8 +81,8 @@ public class Fee {
     /**
      * @return Fee rate information for this {@code Fee}
      */
-    public @FeeRateType
-    String getFeeRateType() {
+    @FeeRateType
+    public String getFeeRateType() {
         return mFeeRateType;
     }
 
