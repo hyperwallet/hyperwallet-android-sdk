@@ -31,16 +31,22 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class HyperwalletBankAccountQueryParam extends HyperwalletTransferMethodQueryParam {
 
+    /**
+     * Construct a {@code BankAccountQueryParam} object
+     * from {@link HyperwalletBankAccountQueryParam.Builder}
+     *
+     * @param builder specified to builder this query param
+     */
+    private HyperwalletBankAccountQueryParam(@NonNull final Builder builder) {
+        super(builder);
+    }
+
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
             BANK_ACCOUNT,
             WIRE_ACCOUNT,
     })
     public @interface BankAccountTypeQuery {
-    }
-
-    private HyperwalletBankAccountQueryParam(@NonNull final Builder builder) {
-        super(builder);
     }
 
     /**

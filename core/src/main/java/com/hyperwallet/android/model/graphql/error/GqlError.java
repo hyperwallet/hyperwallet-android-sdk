@@ -48,6 +48,9 @@ public class GqlError {
     private final String mMessage;
     private final List<String> mPaths;
 
+    /**
+     * Constructs a {@code GqlError} from {@link JSONObject} representation
+     */
     public GqlError(@NonNull JSONObject jsonObject) throws JSONException {
         mLocations = new ArrayList<>(0);
         mPaths = new ArrayList<>(0);

@@ -46,6 +46,12 @@ public class HyperwalletPageList<T> {
     private int mLimit;
     private int mOffset;
 
+    /**
+     * Construct a {@code PageList} object from {@link JSONObject} representation and target class name
+     *
+     * @param page  raw data representation
+     * @param clazz class name to construct
+     */
     public HyperwalletPageList(@NonNull final JSONObject page, @NonNull final Class<T> clazz)
             throws HyperwalletException {
         try {
@@ -83,22 +89,37 @@ public class HyperwalletPageList<T> {
         mDataList = dataList;
     }
 
+    /**
+     * @return page list size
+     */
     public int getCount() {
         return mCount;
     }
 
+    /**
+     * @return list of type T
+     */
     public List<T> getDataList() {
         return mDataList;
     }
 
+    /**
+     * @return limit information
+     */
     public int getLimit() {
         return mLimit;
     }
 
+    /**
+     * @return offset information
+     */
     public int getOffset() {
         return mOffset;
     }
 
+    /**
+     * @return List of {@link HyperwalletPageLink}
+     */
     public List<HyperwalletPageLink> getPageLinks() {
         return mHyperwalletPageLinks;
     }

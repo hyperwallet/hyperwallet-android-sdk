@@ -35,15 +35,24 @@ public class ConditionalPattern {
     private final String mPattern;
     private final String mRegex;
 
+    /**
+     * Constructs a {@code ConditionalPattern} object from {@link JSONObject} representation
+     */
     public ConditionalPattern(@NonNull final JSONObject conditionalPatternJson) {
         mPattern = conditionalPatternJson.optString(PATTERN);
         mRegex = conditionalPatternJson.optString(REGEX);
     }
 
+    /**
+     * @return String pattern to apply for set of input strings, identified by {@link #getRegex()}
+     */
     public String getPattern() {
         return mPattern;
     }
 
+    /**
+     * @return String regex used to identify if this instance' pattern is applicable
+     */
     public String getRegex() {
         return mRegex;
     }

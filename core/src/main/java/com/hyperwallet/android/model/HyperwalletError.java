@@ -35,7 +35,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Represents the Hyperwallet Error
+ * Represents the Error
  */
 public class HyperwalletError implements Parcelable {
 
@@ -60,25 +60,57 @@ public class HyperwalletError implements Parcelable {
     private String mCode;
     private List<String> mRelatedResources;
 
+    /**
+     * Construct a {@code Error} object from {@link JSONObject} representation
+     */
     public HyperwalletError(@NonNull JSONObject jsonObject) throws JSONException {
         fromJson(jsonObject);
     }
 
+    /**
+     * Construct a {@code Error} object from specific error message and code
+     *
+     * @param message error message
+     * @param code    error code
+     */
     public HyperwalletError(@NonNull String message, @NonNull String code) {
         mMessage = message;
         mCode = code;
     }
 
+    /**
+     * Construct a {@code Error} object
+     * from specified {@link StringRes} message identification and error message code
+     *
+     * @param messageId {@link StringRes} of message identification
+     * @param code      error code
+     */
     public HyperwalletError(@StringRes int messageId, @NonNull String code) {
         mMessageId = messageId;
         mCode = code;
     }
 
+    /**
+     * Construct a {@code Error} object from specified error message, field name, and error code
+     *
+     * @param message   error message
+     * @param fieldName field name that has error
+     * @param code      error code
+     */
     public HyperwalletError(@NonNull String message, @Nullable String fieldName, @NonNull String code) {
         this(message, code);
         mFieldName = fieldName;
     }
 
+    /**
+     * Construct a {@code Error} object from specified error message, field name,
+     * error code and related resource
+     *
+     * @param message          error message
+     * @param fieldName        field name that has error
+     * @param code             error code
+     * @param relatedResources List of related resources
+     */
     public HyperwalletError(@NonNull String message, @Nullable String fieldName, @NonNull String code,
             @Nullable List<String> relatedResources) {
         this(message, fieldName, code);
@@ -94,6 +126,9 @@ public class HyperwalletError implements Parcelable {
         source.readStringList(mRelatedResources);
     }
 
+    /**
+     * @return error message
+     */
     @NonNull
     public String getMessage() {
         return mMessage;
@@ -106,6 +141,9 @@ public class HyperwalletError implements Parcelable {
         return resources.getString(mMessageId);
     }
 
+    /**
+     * @return {@link StringRes} resource message id
+     */
     public int getMessageId() {
         return mMessageId;
     }
@@ -115,16 +153,25 @@ public class HyperwalletError implements Parcelable {
         mMessageId = messageId;
     }
 
+    /**
+     * @return Field name that has error on it
+     */
     @Nullable
     public String getFieldName() {
         return mFieldName;
     }
 
+    /**
+     * @return Error code
+     */
     @NonNull
     public String getCode() {
         return mCode;
     }
 
+    /**
+     * @return List of related resources
+     */
     @Nullable
     public List<String> getRelatedResources() {
         return mRelatedResources;

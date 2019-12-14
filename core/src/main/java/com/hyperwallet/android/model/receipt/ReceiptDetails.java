@@ -76,96 +76,36 @@ import java.util.Map;
  */
 public final class ReceiptDetails implements HyperwalletJsonModel, Parcelable {
 
-    /**
-     * Common Receipt detail field keys
-     */
-    public static final class ReceiptDetailsFields {
+    public static final Creator<ReceiptDetails> CREATOR =
+            new Creator<ReceiptDetails>() {
+                @Override
+                public ReceiptDetails createFromParcel(Parcel source) {
+                    final Map<String, Object> fields = new HashMap<>();
+                    source.readMap(fields, this.getClass().getClassLoader());
+                    return new ReceiptDetails(fields);
+                }
 
-        private ReceiptDetailsFields() {
-        }
-
-        public static final String BANK_ACCOUNT_ID = "bankAccountId";
-        public static final String BANK_ACCOUNT_PURPOSE = "bankAccountPurpose";
-        public static final String BANK_ID = "bankId";
-        public static final String BANK_NAME = "bankName";
-        public static final String BRANCH_ADDRESS_LINE_1 = "branchAddressLine1";
-        public static final String BRANCH_ADDRESS_LINE_2 = "branchAddressLine2";
-        public static final String BRANCH_CITY = "branchCity";
-        public static final String BRANCH_COUNTRY = "branchCountry";
-        public static final String BRANCH_ID = "branchId";
-        public static final String BRANCH_NAME = "branchName";
-        public static final String BRANCH_POSTAL_CODE = "branchPostalCode";
-        public static final String BRANCH_STATE_PROVINCE = "branchStateProvince";
-        public static final String CARD_NUMBER = "cardNumber";
-        public static final String CARD_EXPIRY_DATE = "cardExpiryDate";
-        public static final String CARD_HOLDER_NAME = "cardHolderName";
-        public static final String CHARITY_NAME = "charityName";
-        public static final String CHECK_NUMBER = "checkNumber";
-        public static final String CLIENT_PAYMENT_ID = "clientPaymentId";
-        public static final String MEMO = "memo";
-        public static final String NOTES = "notes";
-        public static final String PAYEE_ADDRESS_LINE_1 = "payeeAddressLine1";
-        public static final String PAYEE_ADDRESS_LINE_2 = "payeeAddressLine2";
-        public static final String PAYEE_CITY = "payeeCity";
-        public static final String PAYEE_COUNTRY = "payeeCountry";
-        public static final String PAYEE_EMAIL = "payeeEmail";
-        public static final String PAYEE_NAME = "payeeName";
-        public static final String PAYEE_POSTAL_CODE = "payeePostalCode";
-        public static final String PAYEE_STATE_PROVINCE = "payeeStateProvince";
-        public static final String PAYER_NAME = "payerName";
-        public static final String PAYMENT_EXPIRY_DATE = "paymentExpiryDate";
-        public static final String RETURN_OR_RECALL_REASON = "returnOrRecallReason";
-        public static final String SECURITY_ANSWER = "securityAnswer";
-        public static final String SECURITY_QUESTION = "securityQuestion";
-        public static final String WEBSITE = "website";
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            BANK_ACCOUNT_ID,
-            BANK_ACCOUNT_PURPOSE,
-            BANK_ID,
-            BANK_NAME,
-            BRANCH_ADDRESS_LINE_1,
-            BRANCH_ADDRESS_LINE_2,
-            BRANCH_CITY,
-            BRANCH_COUNTRY,
-            BRANCH_ID,
-            BRANCH_NAME,
-            BRANCH_POSTAL_CODE,
-            BRANCH_STATE_PROVINCE,
-            CARD_NUMBER,
-            CARD_EXPIRY_DATE,
-            CARD_HOLDER_NAME,
-            CHARITY_NAME,
-            CHECK_NUMBER,
-            CLIENT_PAYMENT_ID,
-            MEMO,
-            NOTES,
-            PAYEE_ADDRESS_LINE_1,
-            PAYEE_ADDRESS_LINE_2,
-            PAYEE_CITY,
-            PAYEE_COUNTRY,
-            PAYEE_EMAIL,
-            PAYEE_NAME,
-            PAYEE_POSTAL_CODE,
-            PAYEE_STATE_PROVINCE,
-            PAYER_NAME,
-            PAYMENT_EXPIRY_DATE,
-            RETURN_OR_RECALL_REASON,
-            SECURITY_ANSWER,
-            SECURITY_QUESTION,
-            WEBSITE
-    })
-    public @interface ReceiptDetailsField {
-    }
-
+                @Override
+                public ReceiptDetails[] newArray(int size) {
+                    return new ReceiptDetails[0];
+                }
+            };
     private Map<String, Object> mFields;
 
+    /**
+     * Construct a {@code ReceiptDetails} object from {@link JSONObject} representation
+     *
+     * @param jsonObject raw data representation
+     */
     public ReceiptDetails(@NonNull JSONObject jsonObject) throws JSONException {
         toMap(jsonObject);
     }
 
+    /**
+     * Construct a {@code ReceiptDetails} object from Map of key-value pair
+     *
+     * @param fields raw data of key-value pair
+     */
     ReceiptDetails(@NonNull Map<String, Object> fields) {
         setFields(fields);
     }
@@ -397,23 +337,92 @@ public final class ReceiptDetails implements HyperwalletJsonModel, Parcelable {
         dest.writeMap(mFields);
     }
 
-    public static final Creator<ReceiptDetails> CREATOR =
-            new Creator<ReceiptDetails>() {
-                @Override
-                public ReceiptDetails createFromParcel(Parcel source) {
-                    final Map<String, Object> fields = new HashMap<>();
-                    source.readMap(fields, this.getClass().getClassLoader());
-                    return new ReceiptDetails(fields);
-                }
-
-                @Override
-                public ReceiptDetails[] newArray(int size) {
-                    return new ReceiptDetails[0];
-                }
-            };
-
     protected void setFields(@NonNull Map<String, Object> fields) {
         mFields = new HashMap<>(fields);
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            BANK_ACCOUNT_ID,
+            BANK_ACCOUNT_PURPOSE,
+            BANK_ID,
+            BANK_NAME,
+            BRANCH_ADDRESS_LINE_1,
+            BRANCH_ADDRESS_LINE_2,
+            BRANCH_CITY,
+            BRANCH_COUNTRY,
+            BRANCH_ID,
+            BRANCH_NAME,
+            BRANCH_POSTAL_CODE,
+            BRANCH_STATE_PROVINCE,
+            CARD_NUMBER,
+            CARD_EXPIRY_DATE,
+            CARD_HOLDER_NAME,
+            CHARITY_NAME,
+            CHECK_NUMBER,
+            CLIENT_PAYMENT_ID,
+            MEMO,
+            NOTES,
+            PAYEE_ADDRESS_LINE_1,
+            PAYEE_ADDRESS_LINE_2,
+            PAYEE_CITY,
+            PAYEE_COUNTRY,
+            PAYEE_EMAIL,
+            PAYEE_NAME,
+            PAYEE_POSTAL_CODE,
+            PAYEE_STATE_PROVINCE,
+            PAYER_NAME,
+            PAYMENT_EXPIRY_DATE,
+            RETURN_OR_RECALL_REASON,
+            SECURITY_ANSWER,
+            SECURITY_QUESTION,
+            WEBSITE
+    })
+    public @interface ReceiptDetailsField {
+    }
+
+    /**
+     * Common Receipt detail field keys
+     */
+    public static final class ReceiptDetailsFields {
+
+        public static final String BANK_ACCOUNT_ID = "bankAccountId";
+        public static final String BANK_ACCOUNT_PURPOSE = "bankAccountPurpose";
+        public static final String BANK_ID = "bankId";
+        public static final String BANK_NAME = "bankName";
+        public static final String BRANCH_ADDRESS_LINE_1 = "branchAddressLine1";
+        public static final String BRANCH_ADDRESS_LINE_2 = "branchAddressLine2";
+        public static final String BRANCH_CITY = "branchCity";
+        public static final String BRANCH_COUNTRY = "branchCountry";
+        public static final String BRANCH_ID = "branchId";
+        public static final String BRANCH_NAME = "branchName";
+        public static final String BRANCH_POSTAL_CODE = "branchPostalCode";
+        public static final String BRANCH_STATE_PROVINCE = "branchStateProvince";
+        public static final String CARD_NUMBER = "cardNumber";
+        public static final String CARD_EXPIRY_DATE = "cardExpiryDate";
+        public static final String CARD_HOLDER_NAME = "cardHolderName";
+        public static final String CHARITY_NAME = "charityName";
+        public static final String CHECK_NUMBER = "checkNumber";
+        public static final String CLIENT_PAYMENT_ID = "clientPaymentId";
+        public static final String MEMO = "memo";
+        public static final String NOTES = "notes";
+        public static final String PAYEE_ADDRESS_LINE_1 = "payeeAddressLine1";
+        public static final String PAYEE_ADDRESS_LINE_2 = "payeeAddressLine2";
+        public static final String PAYEE_CITY = "payeeCity";
+        public static final String PAYEE_COUNTRY = "payeeCountry";
+        public static final String PAYEE_EMAIL = "payeeEmail";
+        public static final String PAYEE_NAME = "payeeName";
+        public static final String PAYEE_POSTAL_CODE = "payeePostalCode";
+        public static final String PAYEE_STATE_PROVINCE = "payeeStateProvince";
+        public static final String PAYER_NAME = "payerName";
+        public static final String PAYMENT_EXPIRY_DATE = "paymentExpiryDate";
+        public static final String RETURN_OR_RECALL_REASON = "returnOrRecallReason";
+        public static final String SECURITY_ANSWER = "securityAnswer";
+        public static final String SECURITY_QUESTION = "securityQuestion";
+        public static final String WEBSITE = "website";
+
+        private ReceiptDetailsFields() {
+        }
     }
 
 }

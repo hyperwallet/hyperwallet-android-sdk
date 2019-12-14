@@ -41,6 +41,11 @@ public class TransferMethodConfigurationKey {
     private final Set<Country> mCountries;
     private final MappedConnection<Country> mCountryMappedConnection;
 
+    /**
+     * Construct a {@code TransferMethodConfigurationKey} object from {@link JSONObject} representation
+     *
+     * @param configuration raw data representation
+     */
     public TransferMethodConfigurationKey(@NonNull final JSONObject configuration) throws JSONException,
             NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
         JSONObject countries = configuration.optJSONObject(TRANSFER_METHOD_COUNTRIES);
@@ -52,6 +57,9 @@ public class TransferMethodConfigurationKey {
         }
     }
 
+    /**
+     * @return List of countries
+     */
     @NonNull
     public Set<Country> getCountries() {
         if (mCountries.isEmpty() && hasNodes(mCountryMappedConnection)) {
@@ -61,6 +69,11 @@ public class TransferMethodConfigurationKey {
         return mCountries;
     }
 
+    /**
+     * Retrieve Country information based from specified country code
+     *
+     * @return {@link Country} if {@code countryCode} specified maps to Country configured in the program
+     */
     @Nullable
     public Country getCountry(@NonNull final String countryCode) {
         if (mCountryMappedConnection != null) {

@@ -43,10 +43,20 @@ import java.util.Map;
  */
 public class HyperwalletBankAccount extends HyperwalletTransferMethod {
 
+    /**
+     * Construct a {@code BankAccount} object from {@link JSONObject} representation
+     *
+     * @param jsonObject raw data information
+     */
     public HyperwalletBankAccount(@NonNull JSONObject jsonObject) throws JSONException {
         super(jsonObject);
     }
 
+    /**
+     * Construct a {@code BankAccount} object from Map key-value pair representation
+     *
+     * @param fields Map key-value pair raw data information
+     */
     private HyperwalletBankAccount(@NonNull Map<String, Object> fields) {
         super();
         setFields(fields);
@@ -60,11 +70,6 @@ public class HyperwalletBankAccount extends HyperwalletTransferMethod {
     public @interface PurposeType {
     }
 
-    public final class Purpose {
-        public static final String CHECKING = "CHECKING";
-        public static final String SAVINGS = "SAVINGS";
-    }
-
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
             BankAccountRelationships.SELF,
@@ -73,14 +78,15 @@ public class HyperwalletBankAccount extends HyperwalletTransferMethod {
     public @interface BankAccountRelationshipType {
     }
 
-    public final class BankAccountRelationships {
-        public static final String OWN_COMPANY = "OWN_COMPANY";
-        public static final String SELF = "SELF";
-    }
-
+    /**
+     * Builder for {@link HyperwalletBankAccount} representation
+     */
     public static class Builder {
         private Map<String, Object> mFields;
 
+        /**
+         * Construct a {@code Builder} class
+         */
         public Builder() {
             mFields = new HashMap<>();
             mFields.put(TransferMethodFields.TYPE, TransferMethodTypes.BANK_ACCOUNT);
@@ -115,7 +121,8 @@ public class HyperwalletBankAccount extends HyperwalletTransferMethod {
             return this;
         }
 
-        public Builder bankAccountRelationship(@NonNull @BankAccountRelationshipType final String bankAccountRelationship) {
+        public Builder bankAccountRelationship(
+                @NonNull @BankAccountRelationshipType final String bankAccountRelationship) {
             mFields.put(TransferMethodFields.BANK_ACCOUNT_RELATIONSHIP, bankAccountRelationship);
             return this;
         }
@@ -313,5 +320,15 @@ public class HyperwalletBankAccount extends HyperwalletTransferMethod {
         public HyperwalletBankAccount build() {
             return new HyperwalletBankAccount(mFields);
         }
+    }
+
+    public final class Purpose {
+        public static final String CHECKING = "CHECKING";
+        public static final String SAVINGS = "SAVINGS";
+    }
+
+    public final class BankAccountRelationships {
+        public static final String OWN_COMPANY = "OWN_COMPANY";
+        public static final String SELF = "SELF";
     }
 }

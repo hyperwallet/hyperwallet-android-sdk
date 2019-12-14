@@ -47,7 +47,7 @@ public class Connection<T> {
     private PageInfo mPageInfo;
 
     /**
-     * Constructor to build Connection based on json and class
+     * Constructor to build Connection based on {@link JSONObject} representation and class
      *
      * @param data  Json object
      * @param clazz Class name
@@ -72,15 +72,34 @@ public class Connection<T> {
         }
     }
 
+    /**
+     * Returns true if connection has nodes, false otherwise
+     *
+     * @param connection Connection object
+     * @return nodes
+     */
+    public static boolean hasNodes(@Nullable final Connection connection) {
+        return connection != null && connection.getNodes() != null && !connection.getNodes().isEmpty();
+    }
+
+    /**
+     * @return number of nodes
+     */
     public long getCount() {
         return mCount;
     }
 
+    /**
+     * @return node list
+     */
     @Nullable
     public List<T> getNodes() {
         return mNodes;
     }
 
+    /**
+     * @return Paging information
+     */
     @Nullable
     public PageInfo getPageInfo() {
         return mPageInfo;
@@ -99,14 +118,5 @@ public class Connection<T> {
             return null;
         }
         return mNodes.get(index);
-    }
-
-    /**
-     * Returns true if connection has nodes, false otherwise
-     * @param connection Connection object
-     * @return nodes
-     */
-    public static boolean hasNodes(@Nullable final Connection connection) {
-        return connection != null && connection.getNodes() != null && !connection.getNodes().isEmpty();
     }
 }

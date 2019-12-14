@@ -18,12 +18,22 @@
 
 package com.hyperwallet.android.exception;
 
+/**
+ * Exception type thrown when parsing JSON responses from API has errors
+ */
 public class HyperwalletJsonParseException extends Exception {
 
+    /**
+     * Constructs a {@code HyperwalletJsonParseException} with specified error message
+     */
     public HyperwalletJsonParseException(String message) {
         super(message);
     }
 
+    /**
+     * Constructs a {@code HyperwalletJsonParseException} with a specified error message
+     * and {@code Throwable} object error trace
+     */
     public HyperwalletJsonParseException(String message, Throwable throwable) {
         super(message, throwable);
     }

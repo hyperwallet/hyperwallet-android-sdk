@@ -58,7 +58,7 @@ public class HyperwalletGetConfigurationTest {
         Configuration capturedConfiguration = mConfigurationCaptor.getValue();
         assertThat(capturedConfiguration, is(notNullValue()));
         assertThat(capturedConfiguration.getEnvironment(), is("TEST-DEV"));
-        assertThat(capturedConfiguration.getInsightApiUrl(), is("insights.test.com/track/events"));
+        assertThat(capturedConfiguration.getInsightApiUri(), is("insights.test.com/track/events"));
     }
 
     @Test

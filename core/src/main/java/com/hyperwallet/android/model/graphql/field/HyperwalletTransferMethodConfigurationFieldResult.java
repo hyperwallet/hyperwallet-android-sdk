@@ -30,17 +30,24 @@ import org.json.JSONObject;
 import java.util.List;
 
 /**
- * {@code HyperwalletTransferMethodConfigurationFieldResult} implementation of
+ * {@code TransferMethodConfigurationFieldResult} implementation of
  * {@link HyperwalletTransferMethodConfigurationField}
  */
 public class HyperwalletTransferMethodConfigurationFieldResult
         extends GqlResponse<TransferMethodConfigurationField> implements HyperwalletTransferMethodConfigurationField {
 
+    /**
+     * Construct a {@code HyperwalletTransferMethodConfigurationFieldResult} object from {@link JSONObject}
+     * representation
+     */
     public HyperwalletTransferMethodConfigurationFieldResult(@NonNull final JSONObject response)
             throws ReflectiveOperationException, JSONException {
         super(response, TransferMethodConfigurationField.class);
     }
 
+    /**
+     * @return {@link HyperwalletTransferMethodConfiguration} representation
+     */
     @Override
     @Nullable
     public HyperwalletTransferMethodConfiguration getFields() {
@@ -48,12 +55,18 @@ public class HyperwalletTransferMethodConfigurationFieldResult
                 ? getData().getTransferMethodConfigurationConnection().getNodes().get(0) : null;
     }
 
+    /**
+     * @return List of {@link HyperwalletFee}
+     */
     @Override
     @Nullable
     public List<HyperwalletFee> getFees() {
         return getData().getFeeConnection() != null ? getData().getFeeConnection().getNodes() : null;
     }
 
+    /**
+     * @return {@link ProcessingTime}
+     */
     @Override
     @Nullable
     public ProcessingTime getProcessingTime() {

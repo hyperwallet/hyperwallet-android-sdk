@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@code HyperwalletField} represents the account input field information needed on creation of an account.
+ * {@code Field} represents the account input field information needed on creation of an account.
  * This aids on the creation of input widget where rules and information about the input field is described in this
  * representation
  */
@@ -67,6 +67,9 @@ public class HyperwalletField {
     private final String mValue;
     private final Mask mMask;
 
+    /**
+     * Constructs a {@code Field} object from {@link JSONObject} representation
+     */
     public HyperwalletField(@NonNull final JSONObject field) {
         mCategory = field.optString(CATEGORY);
         mDataType = DataType.getDataType(field.optString(DATA_TYPE));
@@ -112,19 +115,31 @@ public class HyperwalletField {
         }
     }
 
+    /**
+     * @return Field category
+     */
     public String getCategory() {
         return mCategory;
     }
 
+    /**
+     * @return Field data type
+     */
     @DataType.DataTypes
     public String getDataType() {
         return mDataType;
     }
 
+    /**
+     * @return if Field is editable
+     */
     public boolean isEditable() {
         return mIsEditable;
     }
 
+    /**
+     * @return if Field is required
+     */
     public boolean isRequired() {
         return mIsRequired;
     }

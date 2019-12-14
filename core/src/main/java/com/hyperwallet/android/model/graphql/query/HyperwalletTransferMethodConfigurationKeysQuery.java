@@ -21,7 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
 /**
- * The {@code HyperwalletTransferMethodConfigurationKeysQuery} class defines and builds a query to retrieve the key set
+ * The {@code TransferMethodConfigurationKeysQuery} class defines and builds a query to retrieve the key set
  * that is required to construct a {@code HyperwalletTransferMethodConfigurationFieldQuery}.
  *
  * <p>In addition to the key set, the query will also retrieve the processing time and fees associated with each
@@ -72,7 +72,7 @@ public class HyperwalletTransferMethodConfigurationKeysQuery implements Hyperwal
                     + "}";
 
     /**
-     * Constructs a {@code HyperwalletTransferMethodConfigurationKeysQuery}.
+     * Constructs a {@code TransferMethodConfigurationKeysQuery}.
      */
     public HyperwalletTransferMethodConfigurationKeysQuery() {
     }

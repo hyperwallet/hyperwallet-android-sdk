@@ -36,7 +36,7 @@ public class HyperwalletTransferMethodType implements KeyedNode {
     private ProcessingTime mProcessingTime;
 
     /**
-     * Constructor to build HyperwalletTransferMethodType based on json
+     * Constructor to build {@code TransferMethodType} based on {@link JSONObject} representation
      *
      * @param transferMethodType JSON object that represents transfer method type data
      */
@@ -80,7 +80,7 @@ public class HyperwalletTransferMethodType implements KeyedNode {
     }
 
     /**
-     * @return Fees associated with this {@code HyperwalletTransferMethodType} instance
+     * @return Fees associated with this {@code TransferMethodType} instance
      */
     @NonNull
     public Set<HyperwalletFee> getFees() {
@@ -92,7 +92,7 @@ public class HyperwalletTransferMethodType implements KeyedNode {
     }
 
     /**
-     * Returns processing time of this {@code HyperwalletTransferMethodType} instance
+     * Returns processing time of this {@code TransferMethodType} instance
      *
      * @return Processing time
      */

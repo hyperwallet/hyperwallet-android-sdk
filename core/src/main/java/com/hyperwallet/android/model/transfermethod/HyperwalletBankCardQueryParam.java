@@ -30,7 +30,10 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class HyperwalletBankCardQueryParam extends HyperwalletTransferMethodQueryParam {
 
-
+    /**
+     * Construct a {@code BankCardQueryParam} object
+     * from {@link HyperwalletBankCardQueryParam.Builder}
+     */
     private HyperwalletBankCardQueryParam(@NonNull final Builder builder) {
         super(builder);
     }

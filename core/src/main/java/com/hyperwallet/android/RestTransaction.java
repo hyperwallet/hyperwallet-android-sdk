@@ -35,8 +35,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * {@code RestTransaction} HTTP transaction service that sends request
+ * to Hyperwallet REST platform api
+ */
 class RestTransaction extends HttpTransaction {
-
 
     private RestTransaction(@NonNull final HttpMethod httpMethod, @NonNull final String uri,
             @NonNull final String authenticationToken, @NonNull final HyperwalletListener hyperwalletListener,
@@ -45,6 +48,9 @@ class RestTransaction extends HttpTransaction {
         addHeader(HTTP_HEADER_AUTHORIZATION, AUTHENTICATION_STRATEGY + authenticationToken);
     }
 
+    /**
+     * Refer to {@link HttpTransaction#performRequest(HttpClient)}
+     */
     @Override
     protected int performRequest(HttpClient client) throws IOException {
         int code;
@@ -65,6 +71,9 @@ class RestTransaction extends HttpTransaction {
         return code;
     }
 
+    /**
+     * Refer to {@link HttpTransaction#handleErrors(int, String)}
+     */
     @Override
     protected void handleErrors(int responseCode, String response) throws JSONException, InvocationTargetException,
             NoSuchMethodException, InstantiationException, IllegalAccessException {
@@ -73,6 +82,9 @@ class RestTransaction extends HttpTransaction {
         onFailure(new HyperwalletRestException(responseCode, errors));
     }
 
+    /**
+     * Builder for {@link RestTransaction}
+     */
     protected final static class Builder<T> {
         //Required Parameters
         private final HttpMethod httpMethod;
@@ -84,6 +96,14 @@ class RestTransaction extends HttpTransaction {
         private HyperwalletJsonModel jsonModel = null;
         private Map<String, String> query = new HashMap<>();
 
+        /**
+         * Construct builder based from specified required parameters
+         *
+         * @param httpMethod    HTTP method to use for request transaction
+         * @param pathFormatter Path formatter to use {@link PathFormatter}
+         * @param typeReference Response type generator result
+         * @param listener      callback object; refer to {@link HyperwalletListener}
+         */
         protected Builder(@NonNull final HttpMethod httpMethod, @NonNull final PathFormatter pathFormatter,
                 @NonNull final TypeReference<T> typeReference, @NonNull final HyperwalletListener listener) {
             this.httpMethod = httpMethod;

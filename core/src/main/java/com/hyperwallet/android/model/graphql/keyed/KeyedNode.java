@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 
 /**
  * Represents a Node in GraphQL and is paired with key
+ *
  * @see MappedConnection
  */
 interface KeyedNode {

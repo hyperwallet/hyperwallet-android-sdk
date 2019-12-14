@@ -22,7 +22,7 @@ import androidx.annotation.NonNull;
 import org.json.JSONObject;
 
 /**
- * {@code HyperwalletFieldSelectionOption} represents selection option that a user can choose based on the
+ * {@code FieldSelectionOption} represents selection option that a user can choose based on the
  * required information from the input field
  */
 public class HyperwalletFieldSelectionOption {
@@ -32,6 +32,9 @@ public class HyperwalletFieldSelectionOption {
     private final String mLabel;
     private final String mValue;
 
+    /**
+     * Constructs a {@code FieldSelectionOption} object from {@link JSONObject} representation
+     */
     public HyperwalletFieldSelectionOption(@NonNull final JSONObject selectionOption) {
         mLabel = selectionOption.optString(LABEL);
         mValue = selectionOption.optString(VALUE);

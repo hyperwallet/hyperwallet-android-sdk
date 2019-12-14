@@ -26,6 +26,10 @@ import androidx.annotation.NonNull;
  */
 public class HyperwalletPrepaidCardQueryParam extends HyperwalletTransferMethodQueryParam {
 
+    /**
+     * Construct a {@code PrepaidCardQueryParam} object
+     * from {@link HyperwalletPrepaidCardQueryParam.Builder}
+     */
     private HyperwalletPrepaidCardQueryParam(@NonNull final Builder builder) {
         super(builder);
     }

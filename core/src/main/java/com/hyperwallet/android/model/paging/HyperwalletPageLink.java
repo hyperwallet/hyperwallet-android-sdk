@@ -22,6 +22,9 @@ import androidx.annotation.RestrictTo;
 
 import org.json.JSONObject;
 
+/**
+ * {@code PageLink} representation
+ */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class HyperwalletPageLink {
     private static final String PAGE_HREF = "href";
@@ -30,15 +33,26 @@ public class HyperwalletPageLink {
     private HyperwalletPageParameter mPageParameter;
     private String mPageRef;
 
+    /**
+     * Constructs a {@code PageLink} object from {@link JSONObject} representation
+     *
+     * @param fields raw data representation
+     */
     public HyperwalletPageLink(@NonNull final JSONObject fields) {
         mPageRef = fields.optString(PAGE_HREF);
         mPageParameter = new HyperwalletPageParameter(fields.optJSONObject(PAGE_PARAMS));
     }
 
+    /**
+     * @return Page reference link information
+     */
     public String getPageHref() {
         return mPageRef;
     }
 
+    /**
+     * @return {@link HyperwalletPageParameter}
+     */
     public HyperwalletPageParameter getPageParameter() {
         return mPageParameter;
     }

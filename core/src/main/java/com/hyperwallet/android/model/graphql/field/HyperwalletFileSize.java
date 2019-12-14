@@ -21,7 +21,7 @@ import androidx.annotation.NonNull;
 import org.json.JSONObject;
 
 /**
- * @code HyperwalletFileSize representation
+ * {@code FileSize} representation
  */
 public class HyperwalletFileSize {
 
@@ -31,6 +31,9 @@ public class HyperwalletFileSize {
     private final int mMax;
     private final int mMin;
 
+    /**
+     * Constructs a {@code FileSize} object from {@link JSONObject} representation
+     */
     public HyperwalletFileSize(@NonNull final JSONObject fileSize) {
         mMax = fileSize.optInt(MAX);
         mMin = fileSize.optInt(MIN);

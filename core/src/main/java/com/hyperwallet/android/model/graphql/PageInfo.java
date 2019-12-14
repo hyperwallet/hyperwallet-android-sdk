@@ -31,15 +31,26 @@ public class PageInfo {
     private int mLimit;
     private int mOffset;
 
-    public PageInfo(@NonNull final JSONObject page) {
-        mLimit = page.optInt(LIMIT, 0);
-        mOffset = page.optInt(OFFSET, 0);
+    /**
+     * Construct a {@code PageInfo} object from {@link JSONObject} representation
+     *
+     * @param jsonObject raw data representation
+     */
+    public PageInfo(@NonNull final JSONObject jsonObject) {
+        mLimit = jsonObject.optInt(LIMIT, 0);
+        mOffset = jsonObject.optInt(OFFSET, 0);
     }
 
+    /**
+     * @return page limit information
+     */
     public int getLimit() {
         return mLimit;
     }
 
+    /**
+     * @return page offset information
+     */
     public int getOffset() {
         return mOffset;
     }

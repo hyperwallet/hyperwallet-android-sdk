@@ -20,6 +20,10 @@ package com.hyperwallet.android.model;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+/**
+ * Class to enclose type reference of object during
+ * dynamic construction and preserve's the {@code n}th Type of the enclosing class
+ */
 public class TypeReference<T> {
     private final Type type;
 

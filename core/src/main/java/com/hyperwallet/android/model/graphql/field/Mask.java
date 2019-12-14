@@ -42,6 +42,9 @@ public class Mask {
     private final String mScrubRegex;
     private final List<ConditionalPattern> mConditionalPatterns;
 
+    /**
+     * Constructs a {@code Mask} object from {@link JSONObject} representation
+     */
     public Mask(@NonNull final JSONObject maskJson) {
         mDefaultPattern = maskJson.optString(DEFAULT_PATTERN);
         mScrubRegex = maskJson.optString(SCRUB_REGEX);
@@ -60,18 +63,34 @@ public class Mask {
         }
     }
 
+    /**
+     * @return Regex used to cleanup display value to api value
+     */
     public String getScrubRegex() {
         return mScrubRegex;
     }
 
+    /**
+     * @return List of {@link ConditionalPattern}
+     */
     public List<ConditionalPattern> getConditionalPatterns() {
         return mConditionalPatterns;
     }
 
+    /**
+     * @return {@code True} if and only if {@link Mask} has {@link #getConditionalPatterns()} configured;
+     * {@code False} otherwise.
+     */
     public boolean containsConditionalPattern() {
         return mConditionalPatterns != null && !mConditionalPatterns.isEmpty();
     }
 
+    /**
+     * Get specific pattern to apply based on input passed
+     *
+     * @param value input string passed
+     * @return Pattern to use for formatting
+     */
     public String getPattern(@NonNull final String value) {
         if (containsConditionalPattern()) {
             for (ConditionalPattern conditionalPattern : mConditionalPatterns) {

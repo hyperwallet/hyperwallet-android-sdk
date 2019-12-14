@@ -27,8 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the object to hold list of Hyperwallet Error
- * @see com.hyperwallet.android.HttpTransaction
+ * Represents the object to hold list of Errors
  */
 public class HyperwalletErrors {
 
@@ -39,10 +38,20 @@ public class HyperwalletErrors {
 
     }
 
+    /**
+     * Construct a {@code Errors} object from {@link JSONObject} representation
+     *
+     * @param jsonObject raw data representation
+     */
     public HyperwalletErrors(@NonNull JSONObject jsonObject) throws JSONException {
         fromJson(jsonObject);
     }
 
+    /**
+     * Construct a {@code HyperwalletErrors} object from List of {@link HyperwalletError}
+     *
+     * @param errors list of {@link HyperwalletError}
+     */
     public HyperwalletErrors(@NonNull List<HyperwalletError> errors) {
         mErrors = errors;
     }

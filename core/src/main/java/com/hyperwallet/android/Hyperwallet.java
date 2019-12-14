@@ -140,6 +140,28 @@ public class Hyperwallet {
     }
 
     /**
+     * Returns the previously initialized instance of the Hyperwallet Core SDK interface object.
+     *
+     * @return A previously initialized instance of Hyperwallet; maintaining its
+     * {@link HyperwalletAuthenticationTokenProvider}
+     * @throws HyperwalletInitializationException if this Hyperwallet object was not initialized with
+     *                                            {@link #getInstance(HyperwalletAuthenticationTokenProvider)}
+     */
+    public static Hyperwallet getDefault() {
+        if (sInstanceLast == null) {
+            throw new HyperwalletInitializationException();
+        }
+        return sInstanceLast;
+    }
+
+    /**
+     * Resets class {@link Hyperwallet} instance reference to self
+     */
+    public static void clearInstance() {
+        sInstanceLast = null;
+    }
+
+    /**
      * Retrieves the Configuration based on the values from the Authentication Token Provider. Please be aware that this
      * method will also authenticate, if for instance there's a previous authentication that is still valid then the
      * valid
@@ -194,25 +216,6 @@ public class Hyperwallet {
         } else {
             listener.onSuccess(mConfiguration);
         }
-    }
-
-    /**
-     * Returns the previously initialized instance of the Hyperwallet Core SDK interface object.
-     *
-     * @return A previously initialized instance of Hyperwallet; maintaining its
-     * {@link HyperwalletAuthenticationTokenProvider}
-     * @throws HyperwalletInitializationException if this Hyperwallet object was not initialized with
-     *                                            {@link #getInstance(HyperwalletAuthenticationTokenProvider)}
-     */
-    public static Hyperwallet getDefault() {
-        if (sInstanceLast == null) {
-            throw new HyperwalletInitializationException();
-        }
-        return sInstanceLast;
-    }
-
-    public static void clearInstance() {
-        sInstanceLast = null;
     }
 
     /**
@@ -339,7 +342,7 @@ public class Hyperwallet {
      * if the current one is expired or about to expire.</p>
      *
      * @param transfer the {@code Transfer} to be created; must not be null
-     * @param listener    the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void createTransfer(@NonNull final Transfer transfer,
             @NonNull final HyperwalletListener<Transfer> listener) {
@@ -916,8 +919,8 @@ public class Hyperwallet {
      * receipts are the following: Other filter settings will be discarded</p>
      *
      * <ul>
-     *     <li>Created Before: date before, based on <code>createdOn</code> </li>
-     *     <li>Created After: date after, based on <code>createdOn</code></li>
+     * <li>Created Before: date before, based on <code>createdOn</code> </li>
+     * <li>Created After: date after, based on <code>createdOn</code></li>
      * </ul>
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
@@ -970,7 +973,7 @@ public class Hyperwallet {
      * if the current one is expired or about to expire.</p>
      *
      * @param transferQueryParam the filtering criteria
-     * @param listener          the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener           the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listTransfers(@Nullable final TransferQueryParam transferQueryParam,
             @NonNull final HyperwalletListener<HyperwalletPageList<Transfer>> listener) {

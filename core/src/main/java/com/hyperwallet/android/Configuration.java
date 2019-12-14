@@ -38,9 +38,12 @@ import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Authorized user's session {@code Configuration}
+ */
 public class Configuration {
 
-    private static final String INSIGHT_API_URL = "insights-uri";
+    private static final String INSIGHT_API_URI = "insights-uri";
     private static final String ENVIRONMENT = "environment";
     private static final String JWT_EXP = "exp";
     private static final String JWT_IAT = "iat";
@@ -59,9 +62,14 @@ public class Configuration {
     private String mRestUri;
     private String mUserToken;
     private long mExpireOnBootTime;
-    private String mInsightApiUrl;
+    private String mInsightApiUri;
     private String mEnvironment;
 
+    /**
+     * Construct {@Configuration} with Authentication token specified
+     *
+     * @param token authentication token
+     */
     public Configuration(@NonNull final String token) throws JSONException {
         if (token.isEmpty()) {
             throw new IllegalArgumentException();
@@ -70,42 +78,72 @@ public class Configuration {
         parseAuthenticationToken();
     }
 
+    /**
+     * @return authentication token assigned to this {@code Configuration}
+     */
     public String getAuthenticationToken() {
         return mAuthenticationToken;
     }
 
+    /**
+     * @return creation {@link Date} of this {@code Configuration}
+     */
     public Date getCreatedOn() {
         return new Date(mCreatedOn);
     }
 
+    /**
+     * @return expiration {@link Date} of this {@code Configuration}
+     */
     public Date getExpiresOn() {
         return new Date(mExpiresOn);
     }
 
+    /**
+     * @return GraphQL Api Uri
+     */
     public String getGraphQlUri() {
         return mGraphQlUri;
     }
 
+    /**
+     * @return Program token that this {@code Configuration} is linked
+     */
     public String getProgramToken() {
         return mProgramToken;
     }
 
+    /**
+     * @return Rest Api Uri
+     */
     public String getRestUri() {
         return mRestUri;
     }
 
+    /**
+     * @return User token that this {@code Configuration} is linked
+     */
     public String getUserToken() {
         return mUserToken;
     }
 
-    public String getInsightApiUrl() {
-        return mInsightApiUrl;
+    /**
+     * @return Insight Api Uri
+     */
+    public String getInsightApiUri() {
+        return mInsightApiUri;
     }
 
+    /**
+     * @return Platform environment information
+     */
     public String getEnvironment() {
         return mEnvironment;
     }
 
+    /**
+     * @return {@code True} if and only if this {@code Configuration} is not stale; otherwise {@code False}
+     */
     public boolean isStale() {
         return SystemClock.elapsedRealtime() >= mExpireOnBootTime - STALE_PERIOD;
     }
@@ -142,6 +180,6 @@ public class Configuration {
         long tokenLifespan = mExpiresOn - mCreatedOn;
         mExpireOnBootTime = SystemClock.elapsedRealtime() + tokenLifespan;
         mEnvironment = jsonObject.optString(ENVIRONMENT);
-        mInsightApiUrl = jsonObject.optString(INSIGHT_API_URL);
+        mInsightApiUri = jsonObject.optString(INSIGHT_API_URI);
     }
 }
