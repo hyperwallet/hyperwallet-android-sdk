@@ -20,7 +20,7 @@ package com.hyperwallet.android.model.graphql.query;
 /**
  * The interface contract for creating a GraphQL query with the Hyperwallet platform.
  */
-public interface HyperwalletGqlQuery {
+public interface GqlQuery {
 
     /**
      * Returns a formatted query string that can be posted to the Hyperwallet platforms GraphQL schema.

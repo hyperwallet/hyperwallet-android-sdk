@@ -21,8 +21,8 @@ import androidx.annotation.Nullable;
 
 import com.hyperwallet.android.model.graphql.Fee;
 import com.hyperwallet.android.model.graphql.GqlResponse;
+import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationField;
 import com.hyperwallet.android.model.graphql.ProcessingTime;
-import com.hyperwallet.android.model.graphql.TransferMethodConfigurationField;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,11 +31,11 @@ import java.util.List;
 
 /**
  * {@code TransferMethodConfigurationFieldResult} implementation of
- * {@link TransferMethodConfigurationField}
+ * {@link HyperwalletTransferMethodConfigurationField}
  */
 public class TransferMethodConfigurationFieldResult
         extends GqlResponse<com.hyperwallet.android.model.graphql.field.TransferMethodConfigurationField> implements
-        TransferMethodConfigurationField {
+        HyperwalletTransferMethodConfigurationField {
 
     /**
      * Construct a {@code TransferMethodConfigurationFieldResult} object from {@link JSONObject}

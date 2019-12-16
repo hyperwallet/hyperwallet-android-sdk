@@ -27,7 +27,7 @@ import com.hyperwallet.android.model.transfermethod.TransferMethod;
  * required to create a transfer method (Bank Account, Bank Card, PayPay Account, Prepaid Card, Paper Check)
  * with the Hyperwallet platform.
  */
-public class TransferMethodConfigurationFieldQuery implements HyperwalletGqlQuery {
+public class TransferMethodConfigurationFieldQuery implements GqlQuery {
 
     private static final String GRAPH_QL_REQUEST =
             "query TransferMethodConfigurationFieldsWithFees (\n"

@@ -23,7 +23,7 @@ import com.hyperwallet.android.exception.HyperwalletGqlException;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.graphql.error.GqlErrors;
-import com.hyperwallet.android.model.graphql.query.HyperwalletGqlQuery;
+import com.hyperwallet.android.model.graphql.query.GqlQuery;
 import com.hyperwallet.android.util.HttpClient;
 import com.hyperwallet.android.util.HttpMethod;
 import com.hyperwallet.android.util.JsonUtils;
@@ -80,7 +80,7 @@ class GqlTransaction extends HttpTransaction {
      * Builder for {@link GqlTransaction}
      */
     protected final static class Builder<T> {
-        private final HyperwalletGqlQuery gqlQuery;
+        private final GqlQuery gqlQuery;
         private final TypeReference<T> typeReference;
         private final HyperwalletListener listener;
 
@@ -91,7 +91,7 @@ class GqlTransaction extends HttpTransaction {
          * @param typeReference Response type generator result
          * @param listener callback object; refer to {@link HyperwalletListener}
          */
-        protected Builder(@NonNull final HyperwalletGqlQuery gqlQuery,
+        protected Builder(@NonNull final GqlQuery gqlQuery,
                 @NonNull final TypeReference<T> typeReference,
                 @NonNull final HyperwalletListener listener) {
             this.gqlQuery = gqlQuery;

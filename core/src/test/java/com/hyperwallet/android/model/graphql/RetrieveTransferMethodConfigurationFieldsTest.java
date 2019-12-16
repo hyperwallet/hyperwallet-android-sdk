@@ -53,7 +53,7 @@ public class RetrieveTransferMethodConfigurationFieldsTest {
     @Mock
     private TransferMethodConfigurationFieldQuery mMockedQuery;
     @Mock
-    private HyperwalletListener<TransferMethodConfigurationField> mListener;
+    private HyperwalletListener<HyperwalletTransferMethodConfigurationField> mListener;
     @Captor
     private ArgumentCaptor<HyperwalletException> mExceptionCaptor;
     @Captor
@@ -74,7 +74,7 @@ public class RetrieveTransferMethodConfigurationFieldsTest {
         // retrieve response
         verify(mListener).onSuccess(mResultArgumentCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
-        TransferMethodConfigurationField resultFields = mResultArgumentCaptor.getValue();
+        HyperwalletTransferMethodConfigurationField resultFields = mResultArgumentCaptor.getValue();
 
         // assert fields
         assertThat(resultFields.getFields(), is(notNullValue()));
@@ -99,7 +99,7 @@ public class RetrieveTransferMethodConfigurationFieldsTest {
         // retrieve response
         verify(mListener).onSuccess(mResultArgumentCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
-        TransferMethodConfigurationField resultFields = mResultArgumentCaptor.getValue();
+        HyperwalletTransferMethodConfigurationField resultFields = mResultArgumentCaptor.getValue();
 
         // assert fields
         assertThat(resultFields.getFields(), is(notNullValue()));

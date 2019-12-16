@@ -27,7 +27,7 @@ import androidx.annotation.VisibleForTesting;
  * <p>In addition to the key set, the query will also retrieve the processing time and fees associated with each
  * country, currency, transfer method type, and profile tuple.</p>
  */
-public class TransferMethodConfigurationKeysQuery implements HyperwalletGqlQuery {
+public class TransferMethodConfigurationKeysQuery implements GqlQuery {
 
     @VisibleForTesting
     static final String GRAPH_QL_REQUEST_CONFIGURATION =
