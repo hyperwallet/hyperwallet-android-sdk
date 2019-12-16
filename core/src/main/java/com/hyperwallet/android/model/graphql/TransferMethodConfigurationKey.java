@@ -72,7 +72,7 @@ public class TransferMethodConfigurationKey {
     /**
      * Retrieve Country information based from specified country code
      *
-     * @return {@link Country}
+     * @return {@link Country} if {@code countryCode} specified maps to Country configured in the program
      */
     @Nullable
     public Country getCountry(@NonNull final String countryCode) {

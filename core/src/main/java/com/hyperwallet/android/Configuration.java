@@ -43,7 +43,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Configuration {
 
-    private static final String INSIGHT_API_URL = "insights-uri";
+    private static final String INSIGHT_API_URI = "insights-uri";
     private static final String ENVIRONMENT = "environment";
     private static final String JWT_EXP = "exp";
     private static final String JWT_IAT = "iat";
@@ -62,7 +62,7 @@ public class Configuration {
     private String mRestUri;
     private String mUserToken;
     private long mExpireOnBootTime;
-    private String mInsightApiUrl;
+    private String mInsightApiUri;
     private String mEnvironment;
 
     /**
@@ -130,8 +130,8 @@ public class Configuration {
     /**
      * @return Insight Api Uri
      */
-    public String getInsightApiUrl() {
-        return mInsightApiUrl;
+    public String getInsightApiUri() {
+        return mInsightApiUri;
     }
 
     /**
@@ -180,6 +180,6 @@ public class Configuration {
         long tokenLifespan = mExpiresOn - mCreatedOn;
         mExpireOnBootTime = SystemClock.elapsedRealtime() + tokenLifespan;
         mEnvironment = jsonObject.optString(ENVIRONMENT);
-        mInsightApiUrl = jsonObject.optString(INSIGHT_API_URL);
+        mInsightApiUri = jsonObject.optString(INSIGHT_API_URI);
     }
 }

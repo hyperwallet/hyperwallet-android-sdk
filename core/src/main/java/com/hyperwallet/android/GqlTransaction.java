@@ -46,7 +46,7 @@ class GqlTransaction extends HttpTransaction {
      * @param body                request query information
      * @param authenticationToken authentication token assigned during authentication flow
      * @param hyperwalletListener callback information please refer to {@link HyperwalletListener}
-     * @param typeReference       The class type reference to use inorder to deserialize response into Hyperwallet SDK
+     * @param typeReference       The class type reference to use in order to deserialize response into Hyperwallet SDK
      *                            object
      */
     private GqlTransaction(@NonNull final String uri, @NonNull final String body,

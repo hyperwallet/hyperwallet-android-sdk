@@ -79,7 +79,7 @@ public class Fee {
     }
 
     /**
-     * @return Fee rate information for this {@code Fee}
+     * @return Fee rate type information for this {@code Fee}
      */
     @FeeRateType
     public String getFeeRateType() {
