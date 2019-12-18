@@ -35,8 +35,8 @@ import com.hyperwallet.android.model.graphql.keyed.TransferMethodConfigurationKe
 import com.hyperwallet.android.model.graphql.keyed.TransferMethodType;
 import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationKeysQuery;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
@@ -62,9 +62,9 @@ import okhttp3.mockwebserver.RecordedRequest;
 public class RetrieveTransferMethodConfigurationKeysTest {
 
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
@@ -212,14 +212,14 @@ public class RetrieveTransferMethodConfigurationKeysTest {
 
         HyperwalletException hyperwalletException = mExceptionCaptor.getValue();
         assertThat(hyperwalletException, is(notNullValue()));
-        Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
-        assertThat(hyperwalletErrors, is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors(), is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors().size(), is(1));
+        Errors errors = hyperwalletException.getErrors();
+        assertThat(errors, is(notNullValue()));
+        assertThat(errors.getErrors(), is(notNullValue()));
+        assertThat(errors.getErrors().size(), is(1));
 
-        Error hyperwalletError = hyperwalletErrors.getErrors().get(0);
-        assertThat(hyperwalletError.getCode(), is("DataFetchingException"));
-        assertThat(hyperwalletError.getMessage(), is("Could not find any currency."));
+        Error error = errors.getErrors().get(0);
+        assertThat(error.getCode(), is("DataFetchingException"));
+        assertThat(error.getMessage(), is("Could not find any currency."));
     }
 
     @Test

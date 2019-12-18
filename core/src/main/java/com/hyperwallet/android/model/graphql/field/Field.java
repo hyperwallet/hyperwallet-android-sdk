@@ -63,7 +63,7 @@ public class Field {
     private final String mName;
     private final String mPlaceholder;
     private final String mRegularExpression;
-    private final ValidationMessage mHyperwalletValidationMessage;
+    private final ValidationMessage mValidationMessage;
     private final String mValue;
     private final Mask mMask;
 
@@ -102,9 +102,9 @@ public class Field {
 
         JSONObject validationMessageObject = field.optJSONObject(VALIDATION_MESSAGE);
         if (validationMessageObject != null) {
-            mHyperwalletValidationMessage = new ValidationMessage(validationMessageObject);
+            mValidationMessage = new ValidationMessage(validationMessageObject);
         } else {
-            mHyperwalletValidationMessage = null;
+            mValidationMessage = null;
         }
 
         JSONObject maskJsonObject = field.optJSONObject(MASK);
@@ -187,8 +187,8 @@ public class Field {
     }
 
     @Nullable
-    public ValidationMessage getHyperwalletValidationMessage() {
-        return mHyperwalletValidationMessage;
+    public ValidationMessage getValidationMessage() {
+        return mValidationMessage;
     }
 
     @Nullable

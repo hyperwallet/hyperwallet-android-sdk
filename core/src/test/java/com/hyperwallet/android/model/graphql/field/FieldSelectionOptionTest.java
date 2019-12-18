@@ -20,7 +20,7 @@ public class FieldSelectionOptionTest {
     public final ExternalResourceManager mResourceManager = new ExternalResourceManager();
 
     @Test
-    public void testHyperwalletFieldSelectionOption_convertJsonObject() throws JSONException {
+    public void testFieldSelectionOption_convertJsonObject() throws JSONException {
         String data = mResourceManager.getResourceContent("field_selection_option_data.json");
         JSONObject jsonObject = new JSONObject(data);
         FieldSelectionOption option = new FieldSelectionOption(jsonObject);

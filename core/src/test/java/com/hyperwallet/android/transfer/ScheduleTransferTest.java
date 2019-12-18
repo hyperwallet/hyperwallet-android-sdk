@@ -20,8 +20,8 @@ import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.StatusTransition;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.hamcrest.Matchers;
 import org.json.JSONObject;
@@ -44,9 +44,9 @@ import okhttp3.mockwebserver.RecordedRequest;
 public class ScheduleTransferTest {
 
     @Rule
-    public MockWebServer mHwPlatform = new MockWebServer();
+    public HyperwalletMockWebServer mHwPlatform = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mSdkMock = new SdkMock(mHwPlatform);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mHwPlatform);
     @Rule
     public ExternalResourceManager mResourceManager = new ExternalResourceManager();
     @Rule
@@ -125,9 +125,9 @@ public class ScheduleTransferTest {
 
         HyperwalletException exception = mExceptionArgumentCaptor.getValue();
         assertThat(exception, is(notNullValue()));
-        assertThat(exception.getHyperwalletErrors().getErrors(), Matchers.<Error>hasSize(1));
-        assertThat(exception.getHyperwalletErrors().getErrors().get(0).getMessage(),
+        assertThat(exception.getErrors().getErrors(), Matchers.<Error>hasSize(1));
+        assertThat(exception.getErrors().getErrors().get(0).getMessage(),
                 is("This status transition is not allowed."));
-        assertThat(exception.getHyperwalletErrors().getErrors().get(0).getCode(), is("INVALID_STATUS_TRANSITION"));
+        assertThat(exception.getErrors().getErrors().get(0).getCode(), is("INVALID_STATUS_TRANSITION"));
     }
 }

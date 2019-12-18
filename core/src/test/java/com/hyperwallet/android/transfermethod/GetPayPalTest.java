@@ -27,8 +27,8 @@ import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.transfermethod.PayPalAccount;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -51,9 +51,9 @@ public class GetPayPalTest {
     private static final long COUNTDOWN_TIMEOUT_MILLIS = 100L;
     private final CountDownLatch mAwait = new CountDownLatch(1);
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
@@ -138,7 +138,7 @@ public class GetPayPalTest {
 
         HyperwalletException exception = mExceptionCaptor.getValue();
         assertThat(exception, is(notNullValue()));
-        Errors errors = exception.getHyperwalletErrors();
+        Errors errors = exception.getErrors();
         assertThat(errors, is(notNullValue()));
         assertThat(errors.getErrors(), hasSize(1));
 

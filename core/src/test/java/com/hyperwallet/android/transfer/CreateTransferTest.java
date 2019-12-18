@@ -19,8 +19,8 @@ import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.transfer.ForeignExchange;
 import com.hyperwallet.android.model.transfer.Transfer;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 import com.hyperwallet.android.util.DateUtil;
 
 import org.junit.Rule;
@@ -43,9 +43,9 @@ import okhttp3.mockwebserver.RecordedRequest;
 public class CreateTransferTest {
     private final CountDownLatch mAwait = new CountDownLatch(1);
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
@@ -129,12 +129,12 @@ public class CreateTransferTest {
 
         assertThat(recordedRequest.getPath(), is("/rest/v3/transfers"));
 
-        Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
-        assertThat(hyperwalletErrors.getErrors(), hasSize(1));
+        Errors errors = hyperwalletException.getErrors();
+        assertThat(errors.getErrors(), hasSize(1));
 
-        Error hyperwalletError = hyperwalletErrors.getErrors().get(0);
-        assertThat(hyperwalletError.getCode(), is("INVALID_DESTINATION_TOKEN"));
-        assertThat(hyperwalletError.getMessage(),
+        Error error = errors.getErrors().get(0);
+        assertThat(error.getCode(), is("INVALID_DESTINATION_TOKEN"));
+        assertThat(error.getMessage(),
                 is("The destination token you provided doesn’t exist or is not a valid destination."));
     }
 }

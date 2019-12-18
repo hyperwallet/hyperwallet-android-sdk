@@ -42,7 +42,7 @@ public class PageList<T> {
 
     private int mCount;
     private List<T> mDataList;
-    private List<PageLink> mHyperwalletPageLinks;
+    private List<PageLink> mPageLinks;
     private int mLimit;
     private int mOffset;
 
@@ -70,9 +70,9 @@ public class PageList<T> {
         try {
             JSONArray jsonArray = page.getJSONArray(PAGE_LINKS);
             if (jsonArray != null) {
-                mHyperwalletPageLinks = new ArrayList<>();
+                mPageLinks = new ArrayList<>();
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    mHyperwalletPageLinks.add(new PageLink(jsonArray.optJSONObject(i)));
+                    mPageLinks.add(new PageLink(jsonArray.optJSONObject(i)));
                 }
             }
         } catch (Exception e) {
@@ -121,6 +121,6 @@ public class PageList<T> {
      * @return List of {@link PageLink}
      */
     public List<PageLink> getPageLinks() {
-        return mHyperwalletPageLinks;
+        return mPageLinks;
     }
 }

@@ -63,7 +63,7 @@ public class StatusTransitionTest {
     }
 
     @Test
-    public void testHyperwalletStatusTransition_isParcelable() throws Exception {
+    public void testStatusTransition_isParcelable() throws Exception {
         StatusTransition statusTransition = fromJsonString(
                 mExternalResourceManager.getResourceContent("status_transition_response.json"),
                 new TypeReference<StatusTransition>() {

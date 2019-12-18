@@ -79,9 +79,9 @@ public class Errors {
 
     public boolean containsInputError() {
         boolean hasInputError = false;
-        for (Error hyperwalletError : mErrors) {
-            if (hyperwalletError.getFieldName() != null
-                    && !hyperwalletError.getFieldName().isEmpty()) {
+        for (Error error : mErrors) {
+            if (error.getFieldName() != null
+                    && !error.getFieldName().isEmpty()) {
                 hasInputError = true;
                 break;
             }

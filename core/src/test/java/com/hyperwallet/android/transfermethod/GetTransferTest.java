@@ -19,8 +19,8 @@ import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.transfer.Transfer;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -42,9 +42,9 @@ import okhttp3.mockwebserver.RecordedRequest;
 public class GetTransferTest {
 
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
@@ -133,7 +133,7 @@ public class GetTransferTest {
 
         HyperwalletException exception = mExceptionCaptor.getValue();
         assertThat(exception, is(notNullValue()));
-        Errors errors = exception.getHyperwalletErrors();
+        Errors errors = exception.getErrors();
         assertThat(errors, is(notNullValue()));
         assertThat(errors.getErrors(), is(notNullValue()));
         assertThat(errors.getErrors().size(), is(1));

@@ -23,8 +23,7 @@ import java.util.Map;
 public class JsonUtilsTest {
 
     @Rule
-    public final ExternalResourceManager mHyperwalletExternalResourceManager =
-            new ExternalResourceManager();
+    public final ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
 
     @Test
     public void testMapToJsonObject_withValidBankAccountObject() throws JSONException {
@@ -41,7 +40,7 @@ public class JsonUtilsTest {
 
     @Test
     public void testFromJsonString_validBankAccountJson() throws Exception {
-        String response = mHyperwalletExternalResourceManager.getResourceContent("bank_account_response.json");
+        String response = mExternalResourceManager.getResourceContent("bank_account_response.json");
         BankAccount bankAccount = JsonUtils.fromJsonString(response,
                 new TypeReference<BankAccount>() {
                 });
@@ -52,14 +51,14 @@ public class JsonUtilsTest {
 
     @Test
     public void testJsonObjectToMap_validBankAccountJson() throws JSONException {
-        String listResponse = mHyperwalletExternalResourceManager.getResourceContent("bank_account_list_response.json");
+        String listResponse = mExternalResourceManager.getResourceContent("bank_account_list_response.json");
         Map<String, Object> map = JsonUtils.jsonObjectToMap(new JSONObject(listResponse));
         assertNotNull(map);
     }
 
     @Test
     public void testMapToJsonObject_withValidBankAccountJson() throws Exception {
-        String response = mHyperwalletExternalResourceManager.getResourceContent("bank_account_response.json");
+        String response = mExternalResourceManager.getResourceContent("bank_account_response.json");
         BankAccount bankAccount = JsonUtils.fromJsonString(response,
                 new TypeReference<BankAccount>() {
                 });

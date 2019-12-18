@@ -30,7 +30,7 @@ public class PrepaidCardQueryParamTest {
 
 
     @Test
-    public void testHyperwalletPrepaidCardQueryParam_withUrlQueryMap() {
+    public void testPrepaidCardQueryParam_withUrlQueryMap() {
         Calendar createdBefore = Calendar.getInstance();
         createdBefore.set(2019, 0, 1, 10, 12, 22);
         Calendar createdAfter = Calendar.getInstance();
@@ -83,7 +83,7 @@ public class PrepaidCardQueryParamTest {
     }
 
     @Test
-    public void testHyperwalletPrepaidCardQueryParam_verifyDefaultValues() {
+    public void testPrepaidCardQueryParam_verifyDefaultValues() {
         PrepaidCardQueryParam queryParam = new PrepaidCardQueryParam.Builder().build();
         assertThat(queryParam.getLimit(), is(10));
         assertThat(queryParam.getOffset(), is(0));

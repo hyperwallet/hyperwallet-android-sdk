@@ -17,8 +17,8 @@ import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.StatusTransition;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -41,9 +41,9 @@ import okhttp3.mockwebserver.RecordedRequest;
 public class DeactivateBankAccountTest {
 
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock hyperwalletSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock hyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
@@ -102,9 +102,9 @@ public class DeactivateBankAccountTest {
         verify(mMockStatusTransitionListener, never()).onSuccess(any(StatusTransition.class));
         HyperwalletException hyperwalletException = mHyperwalletExceptionArgumentCaptor.getValue();
         assertNotNull(hyperwalletException);
-        final Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
-        assertNotNull(hyperwalletErrors);
-        final List<Error> statusTransitionErrorList = hyperwalletErrors.getErrors();
+        final Errors errors = hyperwalletException.getErrors();
+        assertNotNull(errors);
+        final List<Error> statusTransitionErrorList = errors.getErrors();
         assertNotNull(statusTransitionErrorList);
         assertThat(statusTransitionErrorList.size(), is(1));
         Error statusTransitionError = statusTransitionErrorList.get(0);

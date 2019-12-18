@@ -57,6 +57,6 @@ import org.junit.runners.Suite;
         ListTransfersTest.class,
         ListPrepaidCardsTest.class
 })
-public class TestSuite {
+public class HyperwalletTestSuite {
 
 }

@@ -22,31 +22,31 @@ public class BankAccountPagingTest {
     @Test
     public void testParseBankPaging() throws Exception {
         PageList<BankAccount>
-                bankAccountHyperwalletPageList = JsonUtils.fromJsonString(getBankAccounts(),
+                bankAccountPageList = JsonUtils.fromJsonString(getBankAccounts(),
                 new TypeReference<PageList<BankAccount>>() {
                 });
         // assert
-        assertAll(bankAccountHyperwalletPageList);
+        assertAll(bankAccountPageList);
     }
 
-    private void assertAll(PageList<BankAccount> bankAccountHyperwalletPageList) {
-        assertThat(bankAccountHyperwalletPageList, is(notNullValue()));
-        assertThat(bankAccountHyperwalletPageList.getCount(), is(1));
-        assertThat(bankAccountHyperwalletPageList.getLimit(), is(10));
-        assertThat(bankAccountHyperwalletPageList.getOffset(), is(0));
-        assertThat(bankAccountHyperwalletPageList.getPageLinks().isEmpty(), is(false));
+    private void assertAll(PageList<BankAccount> bankAccountPageList) {
+        assertThat(bankAccountPageList, is(notNullValue()));
+        assertThat(bankAccountPageList.getCount(), is(1));
+        assertThat(bankAccountPageList.getLimit(), is(10));
+        assertThat(bankAccountPageList.getOffset(), is(0));
+        assertThat(bankAccountPageList.getPageLinks().isEmpty(), is(false));
 
         // assert page links
-        List<PageLink> hyperwalletPageLinks = bankAccountHyperwalletPageList.getPageLinks();
-        assertThat(hyperwalletPageLinks, hasSize(1));
-        assertThat(hyperwalletPageLinks.get(0).getPageHref(),
+        List<PageLink> pageLinks = bankAccountPageList.getPageLinks();
+        assertThat(pageLinks, hasSize(1));
+        assertThat(pageLinks.get(0).getPageHref(),
                 is("https://localhost:8181/rest/v3/users/usr-e8715a30-3e79-4c4f-a7b7-0f4c42c3a5a5/bank-accounts"
                         + "?offset=0&limit=10"));
-        assertThat(hyperwalletPageLinks.get(0).getPageParameter(), is(notNullValue()));
-        assertThat(hyperwalletPageLinks.get(0).getPageParameter().getRel(), is("self"));
+        assertThat(pageLinks.get(0).getPageParameter(), is(notNullValue()));
+        assertThat(pageLinks.get(0).getPageParameter().getRel(), is("self"));
 
         // assert bank account contents
-        List<BankAccount> bankAccounts = bankAccountHyperwalletPageList.getDataList();
+        List<BankAccount> bankAccounts = bankAccountPageList.getDataList();
         assertThat(bankAccounts, hasSize(1));
         assertThat(bankAccounts.get(0).getField(TransferMethod.TransferMethodFields.TOKEN),
                 is("trm-c47aee4e-2b4c-4d0a-b3ee-d8fdb2be0422"));

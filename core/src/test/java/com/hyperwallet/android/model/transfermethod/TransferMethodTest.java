@@ -29,7 +29,7 @@ public class TransferMethodTest {
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
 
     @Test
-    public void testHyperwalletTransfer_isParcelable() throws Exception {
+    public void testTransfer_isParcelable() throws Exception {
 
         String json = mExternalResourceManager.getResourceContent("bank_card_response.json");
 

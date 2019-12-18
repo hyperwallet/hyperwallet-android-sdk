@@ -38,9 +38,9 @@ public class Currency implements KeyedNode {
     private static final String CURRENCY_NAME = NODE_NAME;
     private static final String TRANSFER_METHOD_TYPES = "transferMethodTypes";
 
-    private final Set<TransferMethodType> mHyperwalletTransferMethodTypes;
+    private final Set<TransferMethodType> mTransferMethodTypes;
     private final String mCode;
-    private final MappedConnection<TransferMethodType> mHyperwalletTransferMethodTypeMappedConnection;
+    private final MappedConnection<TransferMethodType> mTransferMethodTypeMappedConnection;
     private final String mName;
 
     /**
@@ -52,13 +52,13 @@ public class Currency implements KeyedNode {
             IllegalAccessException, InstantiationException, InvocationTargetException {
         mCode = currency.optString(CURRENCY_CODE);
         mName = currency.optString(CURRENCY_NAME);
-        mHyperwalletTransferMethodTypes = new LinkedHashSet<>(1);
+        mTransferMethodTypes = new LinkedHashSet<>(1);
         JSONObject transferMethodTypes = currency.optJSONObject(TRANSFER_METHOD_TYPES);
         if (transferMethodTypes != null && transferMethodTypes.length() != 0) {
-            mHyperwalletTransferMethodTypeMappedConnection =
+            mTransferMethodTypeMappedConnection =
                     new MappedConnection<>(transferMethodTypes, TransferMethodType.class);
         } else {
-            mHyperwalletTransferMethodTypeMappedConnection = null;
+            mTransferMethodTypeMappedConnection = null;
         }
     }
 
@@ -85,11 +85,11 @@ public class Currency implements KeyedNode {
      */
     @NonNull
     public Set<TransferMethodType> getTransferMethodTypes() {
-        if (mHyperwalletTransferMethodTypeMappedConnection != null && mHyperwalletTransferMethodTypes.isEmpty()) {
-            mHyperwalletTransferMethodTypes.addAll(mHyperwalletTransferMethodTypeMappedConnection.getNodes());
-            return mHyperwalletTransferMethodTypes;
+        if (mTransferMethodTypeMappedConnection != null && mTransferMethodTypes.isEmpty()) {
+            mTransferMethodTypes.addAll(mTransferMethodTypeMappedConnection.getNodes());
+            return mTransferMethodTypes;
         }
-        return mHyperwalletTransferMethodTypes;
+        return mTransferMethodTypes;
     }
 
     /**
@@ -100,8 +100,8 @@ public class Currency implements KeyedNode {
      */
     @Nullable
     public TransferMethodType getTransferMethodType(@NonNull final String transferMethodType) {
-        if (mHyperwalletTransferMethodTypeMappedConnection != null) {
-            return mHyperwalletTransferMethodTypeMappedConnection.getNode(transferMethodType);
+        if (mTransferMethodTypeMappedConnection != null) {
+            return mTransferMethodTypeMappedConnection.getNode(transferMethodType);
         }
         return null;
     }

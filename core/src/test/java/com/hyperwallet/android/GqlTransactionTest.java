@@ -53,8 +53,7 @@ public class GqlTransactionTest {
 
     @Test
     public void testPerformRequest_usingHttpPost() throws IOException {
-        TransferMethodConfigurationKeysQuery keysQuery =
-                new TransferMethodConfigurationKeysQuery();
+        TransferMethodConfigurationKeysQuery keysQuery = new TransferMethodConfigurationKeysQuery();
 
         GqlTransaction.Builder<HyperwalletTransferMethodConfigurationKey> builder = new GqlTransaction.Builder<>(
                 keysQuery,
@@ -115,8 +114,7 @@ public class GqlTransactionTest {
     public void testHandleErrors_responseParsedSuccessfully() throws Exception {
         String responseBody = mExternalResourceManager.getResourceContentError("tmc_gql_error_response.json");
 
-        TransferMethodConfigurationKeysQuery keysQuery =
-                new TransferMethodConfigurationKeysQuery();
+        TransferMethodConfigurationKeysQuery keysQuery = new TransferMethodConfigurationKeysQuery();
 
         GqlTransaction.Builder<HyperwalletTransferMethodConfigurationKey> builder =
                 new GqlTransaction.Builder<>(keysQuery,
@@ -129,8 +127,8 @@ public class GqlTransactionTest {
         verify(mListener).onFailure(mExceptionArgumentCaptor.capture());
 
         HyperwalletException exception = mExceptionArgumentCaptor.getValue();
-        assertThat(exception.getHyperwalletErrors().getErrors().size(), is(1));
-        Error error = exception.getHyperwalletErrors().getErrors().get(0);
+        assertThat(exception.getErrors().getErrors().size(), is(1));
+        Error error = exception.getErrors().getErrors().get(0);
         assertThat(error.getCode(), is("DataFetchingException"));
         assertThat(error.getMessage(), is("Could not find any currency."));
     }
@@ -140,8 +138,7 @@ public class GqlTransactionTest {
         mThrown.expect(JSONException.class);
         mThrown.expectMessage("Value some of type java.lang.String cannot be converted to JSONObject");
 
-        TransferMethodConfigurationKeysQuery keysQuery =
-                new TransferMethodConfigurationKeysQuery();
+        TransferMethodConfigurationKeysQuery keysQuery = new TransferMethodConfigurationKeysQuery();
 
         GqlTransaction.Builder<HyperwalletTransferMethodConfigurationKey> builder = new GqlTransaction.Builder<>(
                 keysQuery,

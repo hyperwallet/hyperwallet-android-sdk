@@ -10,25 +10,26 @@ import java.net.HttpURLConnection;
 
 import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 
-public final class MockWebServer extends TestWatcher {
+public final class HyperwalletMockWebServer extends TestWatcher {
 
-    private okhttp3.mockwebserver.MockWebServer mServer;
+    private MockWebServer mServer;
     private int port;
 
-    public MockWebServer() {
+    public HyperwalletMockWebServer() {
         this.port = 0;
     }
 
-    public MockWebServer(int port) {
+    public HyperwalletMockWebServer(int port) {
         this.port = port;
     }
 
     @Override
     protected void starting(Description description) {
         super.starting(description);
-        mServer = new okhttp3.mockwebserver.MockWebServer();
+        mServer = new MockWebServer();
         try {
             mServer.start(port);
         } catch (IOException e) {
@@ -65,7 +66,7 @@ public final class MockWebServer extends TestWatcher {
         mServer.setDispatcher(dispatcher);
     }
 
-    public okhttp3.mockwebserver.MockWebServer getServer() {
+    public MockWebServer getServer() {
         return mServer;
     }
 
@@ -120,10 +121,10 @@ public final class MockWebServer extends TestWatcher {
         private String path;
         private String body;
         private int responseCode;
-        private okhttp3.mockwebserver.MockWebServer server;
+        private MockWebServer server;
 
 
-        Builder(final okhttp3.mockwebserver.MockWebServer server) {
+        Builder(final MockWebServer server) {
             this.path = "";
             this.responseCode = HttpURLConnection.HTTP_OK;
             this.body = "";

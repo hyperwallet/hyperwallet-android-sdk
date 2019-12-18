@@ -26,8 +26,8 @@ import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.transfermethod.PayPalAccount;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -49,9 +49,9 @@ import okhttp3.mockwebserver.RecordedRequest;
 public class UpdatePayPalAccountTest {
     private final CountDownLatch mAwait = new CountDownLatch(1);
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
@@ -135,13 +135,13 @@ public class UpdatePayPalAccountTest {
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts/trm-56b976c5-26b2-42fa-87cf"
                         + "-14b3366673c6"));
 
-        Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
-        assertThat(hyperwalletErrors, is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors(), hasSize(1));
+        Errors errors = hyperwalletException.getErrors();
+        assertThat(errors, is(notNullValue()));
+        assertThat(errors.getErrors(), hasSize(1));
 
-        Error hyperwalletError1 = hyperwalletErrors.getErrors().get(0);
-        assertThat(hyperwalletError1.getCode(), is("CONSTRAINT_VIOLATIONS"));
-        assertThat(hyperwalletError1.getFieldName(), is("email"));
-        assertThat(hyperwalletError1.getMessage(), is("Invalid Email"));
+        Error error1 = errors.getErrors().get(0);
+        assertThat(error1.getCode(), is("CONSTRAINT_VIOLATIONS"));
+        assertThat(error1.getFieldName(), is("email"));
+        assertThat(error1.getMessage(), is("Invalid Email"));
     }
 }

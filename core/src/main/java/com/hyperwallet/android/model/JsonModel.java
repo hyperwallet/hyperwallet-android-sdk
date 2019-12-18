@@ -23,7 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Hyperwallet Json Model contract for a Representation that can be
+ * Json Model contract for a Representation that can be
  * Serialized/Deserialize; JSON -> JsonModel or vice versa
  */
 public interface JsonModel {

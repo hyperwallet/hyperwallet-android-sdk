@@ -20,7 +20,7 @@ public class ValidationMessageTest {
     public final ExternalResourceManager mResourceManager = new ExternalResourceManager();
 
     @Test
-    public void testHyperwalletValidationMessage_convertJsonObject() throws JSONException {
+    public void testValidationMessage_convertJsonObject() throws JSONException {
         String data = mResourceManager.getResourceContent("validation_message_data.json");
         JSONObject jsonObject = new JSONObject(data);
         ValidationMessage validationMessage = new ValidationMessage(jsonObject);

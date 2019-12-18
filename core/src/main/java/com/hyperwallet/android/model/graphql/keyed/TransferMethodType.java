@@ -28,7 +28,7 @@ public class TransferMethodType implements KeyedNode {
     private static final String TRANSFER_METHOD_FEES = "fees";
     private static final String TRANSFER_METHOD_PROCESSING_TIMES = "processingTimes";
 
-    private final Set<Fee> mHyperwalletFees;
+    private final Set<Fee> mFees;
     private final String mCode;
     private final Connection<Fee> mFeeConnection;
     private final String mName;
@@ -44,7 +44,7 @@ public class TransferMethodType implements KeyedNode {
             NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         mCode = transferMethodType.optString(TRANSFER_METHOD_CODE);
         mName = transferMethodType.optString(TRANSFER_METHOD_NAME);
-        mHyperwalletFees = new LinkedHashSet<>(1);
+        mFees = new LinkedHashSet<>(1);
         JSONObject fees = transferMethodType.optJSONObject(TRANSFER_METHOD_FEES);
         if (fees != null && fees.length() != 0) {
             mFeeConnection = new Connection<>(fees, Fee.class);
@@ -84,11 +84,11 @@ public class TransferMethodType implements KeyedNode {
      */
     @NonNull
     public Set<Fee> getFees() {
-        if (mHyperwalletFees.isEmpty() && hasNodes(mFeeConnection)) {
-            mHyperwalletFees.addAll(mFeeConnection.getNodes());
-            return mHyperwalletFees;
+        if (mFees.isEmpty() && hasNodes(mFeeConnection)) {
+            mFees.addAll(mFeeConnection.getNodes());
+            return mFees;
         }
-        return mHyperwalletFees;
+        return mFees;
     }
 
     /**

@@ -129,7 +129,7 @@ public class ErrorsTest {
     }
 
     @Test
-    public void testHyperwalletError_isParcelable() throws Exception {
+    public void testError_isParcelable() throws Exception {
         Errors actualErrors = fromJsonString(mResourceManager
                         .getResourceContent("errors/related_resources_error_response.json"),
                 new TypeReference<Errors>() {
@@ -157,16 +157,16 @@ public class ErrorsTest {
 
     @Test
     public void testContainsInputError_withFieldInputError() {
-        Errors hyperwalletErrors = new Errors(Arrays.asList(INVALID_BRANCH_ID_ERROR));
-        boolean hasFieldInputError = hyperwalletErrors.containsInputError();
+        Errors errors = new Errors(Arrays.asList(INVALID_BRANCH_ID_ERROR));
+        boolean hasFieldInputError = errors.containsInputError();
         assertTrue(hasFieldInputError);
     }
 
     @Test
     public void testContainsInputError_noFieldInputError() {
-        Errors hyperwalletErrors = new Errors(
+        Errors errors = new Errors(
                 Arrays.asList(FORBIDDEN_HYPERWALLET_ERROR, UNAUTHORIZED_HYPERWALLET_ERROR));
-        boolean hasFieldInputError = hyperwalletErrors.containsInputError();
+        boolean hasFieldInputError = errors.containsInputError();
         assertFalse(hasFieldInputError);
     }
 }

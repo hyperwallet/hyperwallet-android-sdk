@@ -18,8 +18,8 @@ import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.StatusTransition;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -43,9 +43,9 @@ public class DeactivatePayPalAccountTest {
 
     private final CountDownLatch mAwait = new CountDownLatch(1);
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
@@ -100,9 +100,9 @@ public class DeactivatePayPalAccountTest {
         verify(mListener, never()).onSuccess(any(StatusTransition.class));
         HyperwalletException hyperwalletException = mExceptionArgumentCaptor.getValue();
         assertNotNull(hyperwalletException);
-        final Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
-        assertNotNull(hyperwalletErrors);
-        final List<Error> statusTransitionErrorList = hyperwalletErrors.getErrors();
+        final Errors errors = hyperwalletException.getErrors();
+        assertNotNull(errors);
+        final List<Error> statusTransitionErrorList = errors.getErrors();
         assertNotNull(statusTransitionErrorList);
         assertThat(statusTransitionErrorList, hasSize(1));
         Error statusTransitionError = statusTransitionErrorList.get(0);

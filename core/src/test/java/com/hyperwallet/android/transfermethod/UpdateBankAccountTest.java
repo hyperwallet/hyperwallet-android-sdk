@@ -27,8 +27,8 @@ import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.transfermethod.BankAccount;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -50,9 +50,9 @@ import okhttp3.mockwebserver.RecordedRequest;
 public class UpdateBankAccountTest {
 
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mHyperwalletSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
@@ -72,7 +72,7 @@ public class UpdateBankAccountTest {
         String responseBody = mExternalResourceManager.getResourceContent("bank_account_update_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 
-        final BankAccount hyperwalletBankAccount = new BankAccount
+        final BankAccount bankAccount = new BankAccount
                 .Builder()
                 .addressLine1("618 Confluence Way")
                 .city("Calgary")
@@ -83,16 +83,16 @@ public class UpdateBankAccountTest {
                 .token("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56")
                 .build();
 
-        assertThat(hyperwalletBankAccount.getField(ADDRESS_LINE_1), is("618 Confluence Way"));
-        assertThat(hyperwalletBankAccount.getField(CITY), is("Calgary"));
-        assertThat(hyperwalletBankAccount.getField(MOBILE_NUMBER), is("604 666 7777"));
-        assertThat(hyperwalletBankAccount.getField(PHONE_NUMBER), is("+1 403-452-3115"));
-        assertThat(hyperwalletBankAccount.getField(POSTAL_CODE), is("T2G0G1"));
-        assertThat(hyperwalletBankAccount.getField(STATE_PROVINCE), is("AB"));
-        assertThat(hyperwalletBankAccount.getField(TOKEN),
+        assertThat(bankAccount.getField(ADDRESS_LINE_1), is("618 Confluence Way"));
+        assertThat(bankAccount.getField(CITY), is("Calgary"));
+        assertThat(bankAccount.getField(MOBILE_NUMBER), is("604 666 7777"));
+        assertThat(bankAccount.getField(PHONE_NUMBER), is("+1 403-452-3115"));
+        assertThat(bankAccount.getField(POSTAL_CODE), is("T2G0G1"));
+        assertThat(bankAccount.getField(STATE_PROVINCE), is("AB"));
+        assertThat(bankAccount.getField(TOKEN),
                 is("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56"));
 
-        Hyperwallet.getDefault().updateBankAccount(hyperwalletBankAccount, mockBankAccountListener);
+        Hyperwallet.getDefault().updateBankAccount(bankAccount, mockBankAccountListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
@@ -125,19 +125,19 @@ public class UpdateBankAccountTest {
                 "bank_account_update_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
 
-        final BankAccount hyperwalletBankAccount = new BankAccount
+        final BankAccount bankAccount = new BankAccount
                 .Builder()
                 .postalCode("00G0G1")
                 .stateProvince("WW")
                 .token("trm-56b976c5-26b2-42fa-87cf-14b3366673c6")
                 .build();
 
-        assertThat(hyperwalletBankAccount.getField(POSTAL_CODE), is("00G0G1"));
-        assertThat(hyperwalletBankAccount.getField(STATE_PROVINCE), is("WW"));
-        assertThat(hyperwalletBankAccount.getField(TOKEN),
+        assertThat(bankAccount.getField(POSTAL_CODE), is("00G0G1"));
+        assertThat(bankAccount.getField(STATE_PROVINCE), is("WW"));
+        assertThat(bankAccount.getField(TOKEN),
                 is("trm-56b976c5-26b2-42fa-87cf-14b3366673c6"));
 
-        Hyperwallet.getDefault().updateBankAccount(hyperwalletBankAccount, mockBankAccountListener);
+        Hyperwallet.getDefault().updateBankAccount(bankAccount, mockBankAccountListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
@@ -154,19 +154,19 @@ public class UpdateBankAccountTest {
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts/trm-56b976c5-26b2-42fa-87cf"
                         + "-14b3366673c6"));
 
-        Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
-        assertThat(hyperwalletErrors, is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors(), is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors().size(), is(2));
+        Errors errors = hyperwalletException.getErrors();
+        assertThat(errors, is(notNullValue()));
+        assertThat(errors.getErrors(), is(notNullValue()));
+        assertThat(errors.getErrors().size(), is(2));
 
-        Error hyperwalletError1 = hyperwalletErrors.getErrors().get(0);
-        assertThat(hyperwalletError1.getCode(), is("CONSTRAINT_VIOLATIONS"));
-        assertThat(hyperwalletError1.getFieldName(), is("postalCode"));
-        assertThat(hyperwalletError1.getMessage(), is("Invalid Postal Code"));
+        Error error1 = errors.getErrors().get(0);
+        assertThat(error1.getCode(), is("CONSTRAINT_VIOLATIONS"));
+        assertThat(error1.getFieldName(), is("postalCode"));
+        assertThat(error1.getMessage(), is("Invalid Postal Code"));
 
-        Error hyperwalletError2 = hyperwalletErrors.getErrors().get(1);
-        assertThat(hyperwalletError2.getCode(), is("VALIDATION_ERROR"));
-        assertThat(hyperwalletError2.getFieldName(), is("stateProvince"));
-        assertThat(hyperwalletError2.getMessage(), is("Invalid State Province"));
+        Error error2 = errors.getErrors().get(1);
+        assertThat(error2.getCode(), is("VALIDATION_ERROR"));
+        assertThat(error2.getFieldName(), is("stateProvince"));
+        assertThat(error2.getMessage(), is("Invalid State Province"));
     }
 }

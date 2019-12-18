@@ -17,8 +17,8 @@ import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.user.User;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -40,9 +40,9 @@ import okhttp3.mockwebserver.RecordedRequest;
 public class GetUserTest {
     private static final long AWAIT_TIMEOUT_MILLIS = 100l;
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
@@ -132,14 +132,14 @@ public class GetUserTest {
 
         HyperwalletException hyperwalletException = mExceptionCaptor.getValue();
         assertThat(hyperwalletException, is(notNullValue()));
-        Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
-        assertThat(hyperwalletErrors, is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors(), is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors().size(), is(1));
+        Errors errors = hyperwalletException.getErrors();
+        assertThat(errors, is(notNullValue()));
+        assertThat(errors.getErrors(), is(notNullValue()));
+        assertThat(errors.getErrors().size(), is(1));
 
-        Error hyperwalletError = hyperwalletErrors.getErrors().get(0);
-        assertThat(hyperwalletError.getCode(), is("SYSTEM_ERROR"));
-        assertThat(hyperwalletError.getMessage(),
+        Error error = errors.getErrors().get(0);
+        assertThat(error.getCode(), is("SYSTEM_ERROR"));
+        assertThat(error.getMessage(),
                 is("A system error has occurred. Please try again. If you continue to receive this error, please "
                         + "contact customer support for assistance (Ref ID: 99b4ad5c-4aac-4cc2-aa9b-4b4f4844ac9b)."));
     }

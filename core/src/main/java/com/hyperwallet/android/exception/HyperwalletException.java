@@ -25,7 +25,7 @@ import com.hyperwallet.android.model.Errors;
  * This exception is thrown when an issue is detected during the processing of a request to the Hyperwallet Core SDK.
  *
  * <p>The underlying details and reason for the exception being thrown can be derived by inspecting the
- * {@code Errors} value returned from {@link #getHyperwalletErrors()}.</p>
+ * {@code Errors} value returned from {@link #getErrors()}.</p>
  */
 public class HyperwalletException extends Exception {
 
@@ -67,7 +67,7 @@ public class HyperwalletException extends Exception {
      * @return the specified Errors cause of the HyperwalletException
      */
     @NonNull
-    public Errors getHyperwalletErrors() {
+    public Errors getErrors() {
         return mErrors;
     }
 }

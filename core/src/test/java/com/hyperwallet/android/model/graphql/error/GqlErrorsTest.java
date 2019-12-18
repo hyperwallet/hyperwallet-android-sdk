@@ -22,7 +22,7 @@ public class GqlErrorsTest {
     public final ExternalResourceManager mResourceManager = new ExternalResourceManager();
 
     @Test
-    public void testGqQlErrors_convertJsonObject() throws JSONException {
+    public void testGqlErrors_convertJsonObject() throws JSONException {
         JSONObject jsonObject = new JSONObject(mResourceManager.getResourceContentError(
                 "gql_error_response.json"));
         GqlErrors gqlErrors = new GqlErrors(jsonObject);

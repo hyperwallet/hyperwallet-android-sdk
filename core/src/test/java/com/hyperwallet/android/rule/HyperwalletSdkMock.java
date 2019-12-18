@@ -16,12 +16,12 @@ import java.util.Calendar;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-public class SdkMock extends TestWatcher {
+public class HyperwalletSdkMock extends TestWatcher {
 
-    private MockWebServer server;
+    private HyperwalletMockWebServer server;
     private boolean failAuthentication;
 
-    public SdkMock(MockWebServer server) {
+    public HyperwalletSdkMock(HyperwalletMockWebServer server) {
         this.server = server;
         failAuthentication = false;
     }
@@ -48,9 +48,9 @@ public class SdkMock extends TestWatcher {
         private final static String GRAPH_QL_URL = "graphql-uri";
         private static final String INSIGHT_API_URL = "insights-uri";
         private static final String ENVIRONMENT = "environment";
-        private MockWebServer server;
+        private HyperwalletMockWebServer server;
 
-        private AuthenticationProvider(MockWebServer server) {
+        private AuthenticationProvider(HyperwalletMockWebServer server) {
             this.server = server;
         }
 

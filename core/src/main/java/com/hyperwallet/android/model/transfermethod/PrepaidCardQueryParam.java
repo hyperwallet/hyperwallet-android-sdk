@@ -37,7 +37,7 @@ public class PrepaidCardQueryParam extends TransferMethodQueryParam {
     /**
      * Builder Class for the {@link PrepaidCardQueryParam}
      */
-    public static class Builder extends HyperwalletTransferMethodBuilder<Builder> {
+    public static class Builder extends TransferMethodBuilder<Builder> {
 
         @Override
         public PrepaidCardQueryParam build() {

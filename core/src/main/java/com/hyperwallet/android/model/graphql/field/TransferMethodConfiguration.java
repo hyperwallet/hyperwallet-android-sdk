@@ -41,7 +41,7 @@ public class TransferMethodConfiguration {
     private final String mCurrency;
     private final String mProfile;
     private final String mTransferMethodType;
-    private final Connection<FieldGroup> mHyperwalletFieldGroupConnection;
+    private final Connection<FieldGroup> mFieldGroupConnection;
 
     /**
      * Constructor to build transfer method configuration based on {@link JSONObject} representation
@@ -54,7 +54,7 @@ public class TransferMethodConfiguration {
         mCurrency = configuration.getString(CURRENCY);
         mProfile = configuration.getString(PROFILE);
         mTransferMethodType = configuration.getString(TRANSFER_METHOD_TYPE);
-        mHyperwalletFieldGroupConnection = new Connection<>(configuration.getJSONObject(FIELD_GROUPS),
+        mFieldGroupConnection = new Connection<>(configuration.getJSONObject(FIELD_GROUPS),
                 FieldGroup.class);
     }
 
@@ -75,6 +75,6 @@ public class TransferMethodConfiguration {
     }
 
     public List<FieldGroup> getFieldGroups() {
-        return mHyperwalletFieldGroupConnection.getNodes();
+        return mFieldGroupConnection.getNodes();
     }
 }

@@ -24,65 +24,65 @@ public class FieldTest {
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
 
     @Test
-    public void testHyperwalletField_convertJsonObjectWithoutFieldSelection() throws JSONException {
+    public void testField_convertJsonObjectWithoutFieldSelection() throws JSONException {
         String jsonResponse = mExternalResourceManager.getResourceContent(
                 "field_without_selection_response.json");
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);
-        Field hyperwalletField = new Field(jsonResponseObject);
-        assertThat(hyperwalletField.getCategory(), is("ACCOUNT"));
-        assertThat(hyperwalletField.getDataType(), is(DataType.NUMBER));
-        assertTrue(hyperwalletField.isRequired());
-        assertThat(hyperwalletField.getLabel(), is("Routing Number"));
-        assertThat(hyperwalletField.getMaxLength(), is(9));
-        assertThat(hyperwalletField.getMinLength(), is(9));
-        assertThat(hyperwalletField.getName(), is("branchId"));
-        assertThat(hyperwalletField.getPlaceholder(), is("A place holder"));
-        assertThat(hyperwalletField.getRegularExpression(), is("^[0-9]{9}$"));
+        Field field = new Field(jsonResponseObject);
+        assertThat(field.getCategory(), is("ACCOUNT"));
+        assertThat(field.getDataType(), is(DataType.NUMBER));
+        assertTrue(field.isRequired());
+        assertThat(field.getLabel(), is("Routing Number"));
+        assertThat(field.getMaxLength(), is(9));
+        assertThat(field.getMinLength(), is(9));
+        assertThat(field.getName(), is("branchId"));
+        assertThat(field.getPlaceholder(), is("A place holder"));
+        assertThat(field.getRegularExpression(), is("^[0-9]{9}$"));
 
-        assertNull(hyperwalletField.getFieldSelectionOptions());
-        assertNull(hyperwalletField.getHyperwalletValidationMessage());
+        assertNull(field.getFieldSelectionOptions());
+        assertNull(field.getValidationMessage());
     }
 
     @Test
-    public void testHyperwalletField_convertJsonObject() throws JSONException {
+    public void testField_convertJsonObject() throws JSONException {
         String jsonResponse = mExternalResourceManager.getResourceContent(
                 "field_selection_response.json");
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);
-        Field hyperwalletField = new Field(jsonResponseObject);
+        Field field = new Field(jsonResponseObject);
 
-        assertThat(hyperwalletField.getCategory(), is("ADDRESS"));
-        assertThat(hyperwalletField.getDataType(), is(DataType.SELECTION));
-        assertTrue(hyperwalletField.isRequired());
-        assertThat(hyperwalletField.getLabel(), is("Country"));
-        assertThat(hyperwalletField.getMaxLength(), is(Integer.MAX_VALUE));
-        assertThat(hyperwalletField.getMinLength(), is(0));
-        assertThat(hyperwalletField.getName(), is("country"));
-        assertThat(hyperwalletField.getPlaceholder(), is(emptyOrNullString()));
-        assertThat(hyperwalletField.getRegularExpression(), is(emptyOrNullString()));
+        assertThat(field.getCategory(), is("ADDRESS"));
+        assertThat(field.getDataType(), is(DataType.SELECTION));
+        assertTrue(field.isRequired());
+        assertThat(field.getLabel(), is("Country"));
+        assertThat(field.getMaxLength(), is(Integer.MAX_VALUE));
+        assertThat(field.getMinLength(), is(0));
+        assertThat(field.getName(), is("country"));
+        assertThat(field.getPlaceholder(), is(emptyOrNullString()));
+        assertThat(field.getRegularExpression(), is(emptyOrNullString()));
 
-        assertThat(hyperwalletField.getFieldSelectionOptions(), is(hasSize(2)));
-        assertThat(hyperwalletField.getHyperwalletValidationMessage(), is(notNullValue()));
+        assertThat(field.getFieldSelectionOptions(), is(hasSize(2)));
+        assertThat(field.getValidationMessage(), is(notNullValue()));
     }
 
     @Test
-    public void testHyperwalletField_convertJsonObjectWithoutMask() throws JSONException {
+    public void testField_convertJsonObjectWithoutMask() throws JSONException {
         String jsonResponse = mExternalResourceManager.getResourceContent(
                 "mask_without_conditional_formatting_response.json");
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);
-        Field hyperwalletField = new Field(jsonResponseObject);
+        Field field = new Field(jsonResponseObject);
 
-        assertTrue(hyperwalletField.containsMask());
-        assertThat(hyperwalletField.getMask(), is(notNullValue()));
+        assertTrue(field.containsMask());
+        assertThat(field.getMask(), is(notNullValue()));
     }
 
     @Test
-    public void testHyperwalletField_convertJsonObjectWithMask() throws JSONException {
+    public void testField_convertJsonObjectWithMask() throws JSONException {
         String jsonResponse = mExternalResourceManager.getResourceContent(
                 "mask_with_conditional_formatting_response.json");
         JSONObject jsonResponseObject = new JSONObject(jsonResponse);
-        Field hyperwalletField = new Field(jsonResponseObject);
+        Field field = new Field(jsonResponseObject);
 
-        assertTrue(hyperwalletField.containsMask());
-        assertThat(hyperwalletField.getMask(), is(notNullValue()));
+        assertTrue(field.containsMask());
+        assertThat(field.getMask(), is(notNullValue()));
     }
 }

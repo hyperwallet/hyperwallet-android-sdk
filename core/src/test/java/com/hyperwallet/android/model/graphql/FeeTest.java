@@ -21,7 +21,7 @@ public class FeeTest {
     public final ExternalResourceManager mResourceManager = new ExternalResourceManager();
 
     @Test
-    public void testHyperwalletFee_convertJsonObject() throws JSONException {
+    public void testFee_convertJsonObject() throws JSONException {
         String data = mResourceManager.getResourceContent("fee_item.json");
         JSONObject jsonObject = new JSONObject(data);
         Fee fee = new Fee(jsonObject);
@@ -30,7 +30,7 @@ public class FeeTest {
     }
 
     @Test
-    public void testHyperwalletFee_equalsObjects() throws JSONException {
+    public void testFee_equalsObjects() throws JSONException {
         String data = mResourceManager.getResourceContent("fee_item.json");
         JSONObject jsonObject = new JSONObject(data);
         Fee fee = new Fee(jsonObject);

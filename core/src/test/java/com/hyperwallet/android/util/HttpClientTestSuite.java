@@ -6,7 +6,7 @@ import static org.hamcrest.collection.IsMapWithSize.aMapWithSize;
 import static org.junit.Assert.assertNotNull;
 
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -51,12 +51,12 @@ public class HttpClientTestSuite {
     public static class HttpClientTest {
 
         @ClassRule
-        public static final ExternalResourceManager hyperwalletResourceManager =
+        public static final ExternalResourceManager resourceManager =
                 new ExternalResourceManager();
         @Rule
         public final ExpectedException thrown = ExpectedException.none();
         @Rule
-        public final MockWebServer server = new MockWebServer();
+        public final HyperwalletMockWebServer server = new HyperwalletMockWebServer();
 
         @Test
         public void testGetHttpUrlConnection_verifyDefaultValues()
@@ -153,7 +153,7 @@ public class HttpClientTestSuite {
         @Test
         public void testGetResponse_withBody() throws Exception {
 
-            String body = hyperwalletResourceManager.getResourceContent("bank_account_response.json");
+            String body = resourceManager.getResourceContent("bank_account_response.json");
             String requestUrl = server.mockResponse().withBody(body).getRequestUrl();
             HttpClient client = new HttpClient.Builder(requestUrl).build();
 
@@ -270,7 +270,7 @@ public class HttpClientTestSuite {
         @Rule
         public final ExpectedException thrown = ExpectedException.none();
         @Rule
-        public final MockWebServer server = new MockWebServer();
+        public final HyperwalletMockWebServer server = new HyperwalletMockWebServer();
 
 
         @Test

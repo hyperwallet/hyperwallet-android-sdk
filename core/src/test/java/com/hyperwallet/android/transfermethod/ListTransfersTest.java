@@ -29,8 +29,8 @@ import com.hyperwallet.android.model.transfer.ForeignExchange;
 import com.hyperwallet.android.model.transfer.Transfer;
 import com.hyperwallet.android.model.transfer.TransferQueryParam;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -55,9 +55,9 @@ public class ListTransfersTest {
     public final ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     private final CountDownLatch mAwait = new CountDownLatch(1);
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public MockitoRule mMockito = MockitoJUnit.rule();
     @Mock
@@ -167,17 +167,17 @@ public class ListTransfersTest {
         assertThat(((HyperwalletRestException) hyperwalletException).getHttpCode(),
                 is(HTTP_INTERNAL_ERROR));
 
-        Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
-        assertThat(hyperwalletErrors, is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors(), is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors(), Matchers.<Error>hasSize(1));
+        Errors errors = hyperwalletException.getErrors();
+        assertThat(errors, is(notNullValue()));
+        assertThat(errors.getErrors(), is(notNullValue()));
+        assertThat(errors.getErrors(), Matchers.<Error>hasSize(1));
 
-        Error hyperwalletError = hyperwalletErrors.getErrors().get(0);
-        assertThat(hyperwalletError.getCode(), is("SYSTEM_ERROR"));
-        assertThat(hyperwalletError.getMessage(),
+        Error error = errors.getErrors().get(0);
+        assertThat(error.getCode(), is("SYSTEM_ERROR"));
+        assertThat(error.getMessage(),
                 is("A system error has occurred. Please try again. If you continue to receive this error, please "
                         + "contact customer support for assistance (Ref ID: 99b4ad5c-4aac-4cc2-aa9b-4b4f4844ac9b)."));
-        assertThat(hyperwalletError.getFieldName(), is(nullValue()));
+        assertThat(error.getFieldName(), is(nullValue()));
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
                 containsString("/transfers?"));

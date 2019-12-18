@@ -31,7 +31,7 @@ public class TransferMethodTypeTest {
     public final ExpectedException mThrown = ExpectedException.none();
 
     @Test
-    public void testHyperwalletTransferMethodType_convertJsonObject() throws Exception {
+    public void testTransferMethodType_convertJsonObject() throws Exception {
         String data = mResourceManager.getResourceContent("tm_type_item.json");
         JSONObject jsonObject = new JSONObject(data);
         TransferMethodType transferMethodType = new TransferMethodType(jsonObject);
@@ -48,7 +48,7 @@ public class TransferMethodTypeTest {
     }
 
     @Test
-    public void testHyperwalletTransferMethodType_convertJsonObjectWithoutConnection() throws Exception {
+    public void testTransferMethodType_convertJsonObjectWithoutConnection() throws Exception {
         String data = mResourceManager.getResourceContent("tm_type_without_fees_item.json");
         JSONObject jsonObject = new JSONObject(data);
         TransferMethodType transferMethodType = new TransferMethodType(jsonObject);
@@ -60,7 +60,7 @@ public class TransferMethodTypeTest {
 
 
     @Test
-    public void testHyperwalletTransferMethodType_isNotEqual() throws Exception {
+    public void testTransferMethodType_isNotEqual() throws Exception {
         String data = mResourceManager.getResourceContent("tm_type_item.json");
         JSONObject jsonObjectData = new JSONObject(data);
         TransferMethodType transferMethodType = new TransferMethodType(jsonObjectData);

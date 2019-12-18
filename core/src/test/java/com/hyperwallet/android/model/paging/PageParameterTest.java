@@ -20,7 +20,7 @@ public class PageParameterTest {
 
 
     @Test
-    public void testHyperwalletPageParameter_convertJsonObject() throws JSONException {
+    public void testPageParameter_convertJsonObject() throws JSONException {
         String pageParameter = externalResourceManager.getResourceContent("page_parameter.json");
         JSONObject pageParameterJSON = new JSONObject(pageParameter);
 

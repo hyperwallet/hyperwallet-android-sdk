@@ -29,8 +29,8 @@ import com.hyperwallet.android.model.paging.PageList;
 import com.hyperwallet.android.model.transfermethod.PrepaidCard;
 import com.hyperwallet.android.model.transfermethod.PrepaidCardQueryParam;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 import com.hyperwallet.android.util.DateUtil;
 
 import org.junit.Rule;
@@ -53,9 +53,9 @@ public class ListPrepaidCardsTest {
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public MockitoRule mMockito = MockitoJUnit.rule();
     @Mock
@@ -88,31 +88,30 @@ public class ListPrepaidCardsTest {
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
-        PageList<PrepaidCard> hyperwalletPrepaidCardsResponse =
-                mListTransferMethodCaptor.getValue();
+        PageList<PrepaidCard> prepaidCardsResponse = mListTransferMethodCaptor.getValue();
 
-        assertThat(hyperwalletPrepaidCardsResponse.getCount(), is(2));
-        assertThat(hyperwalletPrepaidCardsResponse.getDataList(), hasSize(2));
-        assertThat(hyperwalletPrepaidCardsResponse.getOffset(), is(0));
-        assertThat(hyperwalletPrepaidCardsResponse.getLimit(), is(10));
+        assertThat(prepaidCardsResponse.getCount(), is(2));
+        assertThat(prepaidCardsResponse.getDataList(), hasSize(2));
+        assertThat(prepaidCardsResponse.getOffset(), is(0));
+        assertThat(prepaidCardsResponse.getLimit(), is(10));
 
         assertThat(recordedRequest.getPath(),
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards?limit=10&offset=0&type"
                         + "=PREPAID_CARD&status=ACTIVATED"));
 
-        PrepaidCard hyperwalletPrepaidCard = hyperwalletPrepaidCardsResponse.getDataList().get(0);
-        assertThat(hyperwalletPrepaidCard.getField(TOKEN), is("trm-17d10cf0-121d-45df-903c-589fd881a549"));
-        assertThat(hyperwalletPrepaidCard.getType(), is(PREPAID_CARD));
-        assertThat(hyperwalletPrepaidCard.getStatus(), is(ACTIVATED));
-        assertThat(DateUtil.toDateTimeFormat(hyperwalletPrepaidCard.getCreatedOn()), is("2019-06-20T22:49:12"));
-        assertThat(hyperwalletPrepaidCard.getTransferMethodCountry(), is("US"));
-        assertThat(hyperwalletPrepaidCard.getTransferMethodCurrency(), is("USD"));
-        assertThat(hyperwalletPrepaidCard.getCardType(), is("VIRTUAL"));
-        assertThat(hyperwalletPrepaidCard.getCardPackage(), is("L1"));
-        assertThat(hyperwalletPrepaidCard.getCardNumber(), is("************8766"));
-        assertThat(hyperwalletPrepaidCard.getCardBrand(), is("VISA"));
-        assertThat(hyperwalletPrepaidCard.getDateOfExpiry(), is("2023-06"));
-        assertThat(hyperwalletPrepaidCard.getField("verificationStatus"), is("VERIFIED"));
+        PrepaidCard prepaidCard = prepaidCardsResponse.getDataList().get(0);
+        assertThat(prepaidCard.getField(TOKEN), is("trm-17d10cf0-121d-45df-903c-589fd881a549"));
+        assertThat(prepaidCard.getType(), is(PREPAID_CARD));
+        assertThat(prepaidCard.getStatus(), is(ACTIVATED));
+        assertThat(DateUtil.toDateTimeFormat(prepaidCard.getCreatedOn()), is("2019-06-20T22:49:12"));
+        assertThat(prepaidCard.getTransferMethodCountry(), is("US"));
+        assertThat(prepaidCard.getTransferMethodCurrency(), is("USD"));
+        assertThat(prepaidCard.getCardType(), is("VIRTUAL"));
+        assertThat(prepaidCard.getCardPackage(), is("L1"));
+        assertThat(prepaidCard.getCardNumber(), is("************8766"));
+        assertThat(prepaidCard.getCardBrand(), is("VISA"));
+        assertThat(prepaidCard.getDateOfExpiry(), is("2023-06"));
+        assertThat(prepaidCard.getField("verificationStatus"), is("VERIFIED"));
     }
 
     @Test
@@ -141,9 +140,8 @@ public class ListPrepaidCardsTest {
         verify(mListener).onSuccess(mListTransferMethodCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
 
-        PageList<PrepaidCard> hyperwalletPrepaidCardsResponse =
-                mListTransferMethodCaptor.getValue();
-        assertThat(hyperwalletPrepaidCardsResponse, is(nullValue()));
+        PageList<PrepaidCard> prepaidCardsResponse = mListTransferMethodCaptor.getValue();
+        assertThat(prepaidCardsResponse, is(nullValue()));
     }
 
     @Test
@@ -166,17 +164,17 @@ public class ListPrepaidCardsTest {
         assertThat(((HyperwalletRestException) hyperwalletException).getHttpCode(),
                 is(HTTP_INTERNAL_ERROR));
 
-        Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
-        assertThat(hyperwalletErrors, is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors(), is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors().size(), is(1));
+        Errors errors = hyperwalletException.getErrors();
+        assertThat(errors, is(notNullValue()));
+        assertThat(errors.getErrors(), is(notNullValue()));
+        assertThat(errors.getErrors().size(), is(1));
 
-        Error hyperwalletError = hyperwalletErrors.getErrors().get(0);
-        assertThat(hyperwalletError.getCode(), is("SYSTEM_ERROR"));
-        assertThat(hyperwalletError.getMessage(),
+        Error error = errors.getErrors().get(0);
+        assertThat(error.getCode(), is("SYSTEM_ERROR"));
+        assertThat(error.getMessage(),
                 is("A system error has occurred. Please try again. If you continue to receive this error, please "
                         + "contact customer support for assistance (Ref ID: 99b4ad5c-4aac-4cc2-aa9b-4b4f4844ac9b)."));
-        assertThat(hyperwalletError.getFieldName(), is(nullValue()));
+        assertThat(error.getFieldName(), is(nullValue()));
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),

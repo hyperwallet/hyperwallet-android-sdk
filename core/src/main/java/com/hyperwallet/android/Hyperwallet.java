@@ -248,7 +248,7 @@ public class Hyperwallet {
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
      * or an empty {@code List} if non exist.
      *
-     * <p>The ordering and filtering of {@code HyperwalletBankAccounts} will be based on the criteria specified within
+     * <p>The ordering and filtering of {@code BankAccounts} will be based on the criteria specified within
      * the {@link BankAccountQueryParam} object, if it is not null. Otherwise the default ordering and
      * filtering will be applied:</p>
      *
@@ -874,7 +874,7 @@ public class Hyperwallet {
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
      * or an empty {@code List} if non exist.
      *
-     * <p>The ordering and filtering of {@code HyperwalletReceipts} will be based on the criteria specified within
+     * <p>The ordering and filtering of {@code Receipt}s will be based on the criteria specified within
      * the {@link ReceiptQueryParam} object, if it is not null. Otherwise the default ordering and
      * filtering will be applied:</p>
      *
@@ -914,7 +914,7 @@ public class Hyperwallet {
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
      * or an empty {@code List} if non exist.
      *
-     * <p>The ordering and filtering of {@code HyperwalletReceipts} will be based on the criteria specified within
+     * <p>The ordering and filtering of {@code Receipt}s will be based on the criteria specified within
      * the {@link ReceiptQueryParam} object, if it is not null.  Filters that is accepted in Prepaid card
      * receipts are the following: Other filter settings will be discarded</p>
      *

@@ -47,7 +47,7 @@ public class PayPalAccountQueryParam extends TransferMethodQueryParam {
     /**
      * Builder Class for the {@link BankAccountQueryParam}
      */
-    public static class Builder extends HyperwalletTransferMethodBuilder<Builder> {
+    public static class Builder extends TransferMethodBuilder<Builder> {
 
         @Override
         public Builder type(@NonNull @PayPalTypeQuery String type) {

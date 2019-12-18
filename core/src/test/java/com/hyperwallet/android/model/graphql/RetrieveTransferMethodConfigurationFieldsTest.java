@@ -20,8 +20,8 @@ import com.hyperwallet.android.model.graphql.field.FieldGroup;
 import com.hyperwallet.android.model.graphql.field.TransferMethodConfigurationFieldResult;
 import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationFieldQuery;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -45,9 +45,9 @@ public class RetrieveTransferMethodConfigurationFieldsTest {
     public final ExternalResourceManager mExternalResourceManager =
             new ExternalResourceManager();
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public MockitoRule mMockito = MockitoJUnit.rule();
     @Mock
@@ -200,13 +200,13 @@ public class RetrieveTransferMethodConfigurationFieldsTest {
 
         // assert/verify
         assertThat(hyperwalletException, is(notNullValue()));
-        Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
-        assertThat(hyperwalletErrors, is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors(), is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors().size(), is(1));
+        Errors errors = hyperwalletException.getErrors();
+        assertThat(errors, is(notNullValue()));
+        assertThat(errors.getErrors(), is(notNullValue()));
+        assertThat(errors.getErrors().size(), is(1));
 
-        Error hyperwalletError = hyperwalletErrors.getErrors().get(0);
-        assertThat(hyperwalletError.getCode(), is("DataFetchingException"));
-        assertThat(hyperwalletError.getMessage(), is("Could not find any currency."));
+        Error error = errors.getErrors().get(0);
+        assertThat(error.getCode(), is("DataFetchingException"));
+        assertThat(error.getMessage(), is("Could not find any currency."));
     }
 }

@@ -27,8 +27,8 @@ import com.hyperwallet.android.model.paging.PageList;
 import com.hyperwallet.android.model.transfermethod.BankCard;
 import com.hyperwallet.android.model.transfermethod.BankCardQueryParam;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -50,9 +50,9 @@ public class ListBankCardsTest {
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public MockitoRule mMockito = MockitoJUnit.rule();
     @Mock
@@ -85,12 +85,12 @@ public class ListBankCardsTest {
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
-        PageList<BankCard> hyperwalletBankCardsResponse = mListTransferMethodCaptor.getValue();
+        PageList<BankCard> bankCardsResponse = mListTransferMethodCaptor.getValue();
 
-        assertThat(hyperwalletBankCardsResponse.getCount(), is(2));
-        assertThat(hyperwalletBankCardsResponse.getDataList(), hasSize(2));
-        assertThat(hyperwalletBankCardsResponse.getOffset(), is(0));
-        assertThat(hyperwalletBankCardsResponse.getLimit(), is(10));
+        assertThat(bankCardsResponse.getCount(), is(2));
+        assertThat(bankCardsResponse.getDataList(), hasSize(2));
+        assertThat(bankCardsResponse.getOffset(), is(0));
+        assertThat(bankCardsResponse.getLimit(), is(10));
 
         assertThat(recordedRequest.getPath(),
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards?limit=10&offset=0&type"
@@ -123,8 +123,8 @@ public class ListBankCardsTest {
         verify(mListener).onSuccess(mListTransferMethodCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
 
-        PageList<BankCard> hyperwalletBankCardsResponse = mListTransferMethodCaptor.getValue();
-        assertThat(hyperwalletBankCardsResponse, is(nullValue()));
+        PageList<BankCard> bankCardsResponse = mListTransferMethodCaptor.getValue();
+        assertThat(bankCardsResponse, is(nullValue()));
     }
 
     @Test
@@ -147,17 +147,17 @@ public class ListBankCardsTest {
         assertThat(((HyperwalletRestException) hyperwalletException).getHttpCode(),
                 is(HTTP_INTERNAL_ERROR));
 
-        Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
-        assertThat(hyperwalletErrors, is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors(), is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors().size(), is(1));
+        Errors errors = hyperwalletException.getErrors();
+        assertThat(errors, is(notNullValue()));
+        assertThat(errors.getErrors(), is(notNullValue()));
+        assertThat(errors.getErrors().size(), is(1));
 
-        Error hyperwalletError = hyperwalletErrors.getErrors().get(0);
-        assertThat(hyperwalletError.getCode(), is("SYSTEM_ERROR"));
-        assertThat(hyperwalletError.getMessage(),
+        Error error = errors.getErrors().get(0);
+        assertThat(error.getCode(), is("SYSTEM_ERROR"));
+        assertThat(error.getMessage(),
                 is("A system error has occurred. Please try again. If you continue to receive this error, please "
                         + "contact customer support for assistance (Ref ID: 99b4ad5c-4aac-4cc2-aa9b-4b4f4844ac9b)."));
-        assertThat(hyperwalletError.getFieldName(), is(nullValue()));
+        assertThat(error.getFieldName(), is(nullValue()));
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),

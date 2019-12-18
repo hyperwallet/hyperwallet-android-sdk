@@ -33,8 +33,7 @@ import java.util.List;
  * {@code TransferMethodConfigurationFieldResult} implementation of
  * {@link HyperwalletTransferMethodConfigurationField}
  */
-public class TransferMethodConfigurationFieldResult
-        extends GqlResponse<com.hyperwallet.android.model.graphql.field.TransferMethodConfigurationField> implements
+public class TransferMethodConfigurationFieldResult extends GqlResponse<TransferMethodConfigurationField> implements
         HyperwalletTransferMethodConfigurationField {
 
     /**
@@ -43,7 +42,7 @@ public class TransferMethodConfigurationFieldResult
      */
     public TransferMethodConfigurationFieldResult(@NonNull final JSONObject response)
             throws ReflectiveOperationException, JSONException {
-        super(response, com.hyperwallet.android.model.graphql.field.TransferMethodConfigurationField.class);
+        super(response, TransferMethodConfigurationField.class);
     }
 
     /**
@@ -71,8 +70,7 @@ public class TransferMethodConfigurationFieldResult
     @Override
     @Nullable
     public ProcessingTime getProcessingTime() {
-        return getData().getProcessingTimeConnection() != null
-                ? getData().getProcessingTimeConnection().getNodeAt(0)
-                : null;
+        return getData().getProcessingTimeConnection() != null ?
+                getData().getProcessingTimeConnection().getNodeAt(0) : null;
     }
 }

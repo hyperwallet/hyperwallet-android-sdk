@@ -57,7 +57,7 @@ public class TransferMethodQueryParam extends QueryParam {
      * Construct a {@code TransferMethodQueryParam} object
      * from {@link TransferMethodQueryParam.Builder}
      */
-    public TransferMethodQueryParam(@NonNull final HyperwalletTransferMethodBuilder builder) {
+    public TransferMethodQueryParam(@NonNull final TransferMethodBuilder builder) {
         super(builder);
         mStatus = builder.mStatus;
         mType = builder.mType;
@@ -132,7 +132,7 @@ public class TransferMethodQueryParam extends QueryParam {
     /**
      * Builder Class for the {@link BankAccountQueryParam}
      */
-    public static class Builder extends HyperwalletTransferMethodBuilder<Builder> {
+    public static class Builder extends TransferMethodBuilder<Builder> {
 
         @Override
         public TransferMethodQueryParam build() {
@@ -140,7 +140,7 @@ public class TransferMethodQueryParam extends QueryParam {
         }
     }
 
-    static class HyperwalletTransferMethodBuilder<B extends QueryParam.Builder> extends QueryParam.Builder<B> {
+    static class TransferMethodBuilder<B extends QueryParam.Builder> extends QueryParam.Builder<B> {
 
         Date mCreatedOn;
         String mStatus;

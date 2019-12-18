@@ -12,8 +12,8 @@ import static com.hyperwallet.android.ExceptionMapper.EC_AUTHENTICATION_TOKEN_PR
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.Error;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -33,9 +33,9 @@ import java.util.concurrent.TimeUnit;
 public class GetConfigurationTest {
 
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mHyperwalletSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public MockitoRule mMockito = MockitoJUnit.rule();
     @Mock
@@ -72,8 +72,8 @@ public class GetConfigurationTest {
 
         HyperwalletException captorValue = mHyperwalletExceptionCaptor.getValue();
         assertThat(captorValue, is(notNullValue()));
-        assertThat(captorValue.getHyperwalletErrors().getErrors(), Matchers.<Error>hasSize(1));
-        assertThat(captorValue.getHyperwalletErrors().getErrors().get(0).getCode(),
+        assertThat(captorValue.getErrors().getErrors(), Matchers.<Error>hasSize(1));
+        assertThat(captorValue.getErrors().getErrors().get(0).getCode(),
                 is(EC_AUTHENTICATION_TOKEN_PROVIDER_EXCEPTION));
     }
 }

@@ -46,8 +46,8 @@ import com.hyperwallet.android.model.paging.PageList;
 import com.hyperwallet.android.model.transfermethod.BankAccount;
 import com.hyperwallet.android.model.transfermethod.BankAccountQueryParam;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -69,9 +69,9 @@ import okhttp3.mockwebserver.RecordedRequest;
 public class ListBankAccountsTest {
 
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
@@ -117,41 +117,41 @@ public class ListBankAccountsTest {
         assertThat(listBankAccountResponse.getDataList(), is(notNullValue()));
         assertThat(listBankAccountResponse.getDataList().size(), is(1));
 
-        BankAccount hyperwalletBankAccount = listBankAccountResponse.getDataList().get(0);
-        assertThat(hyperwalletBankAccount.getField(TOKEN), is("usr-fbfd5848-60d0-43c5-8462-099c959b49c7"));
-        assertThat(hyperwalletBankAccount.getField(TYPE), is(BANK_ACCOUNT));
-        assertThat(hyperwalletBankAccount.getField(STATUS), is(ACTIVATED));
-        assertThat(hyperwalletBankAccount.getField("verificationStatus"), is("NOT_REQUIRED"));
-        assertThat(hyperwalletBankAccount.getField(CREATED_ON), is("2019-02-21T12:12:00"));
-        assertThat(hyperwalletBankAccount.getField(TRANSFER_METHOD_COUNTRY), is("US"));
-        assertThat(hyperwalletBankAccount.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
-        assertThat(hyperwalletBankAccount.getField(BANK_ID), is("021000021"));
-        assertThat(hyperwalletBankAccount.getField(BRANCH_ID), is("021000021"));
-        assertThat(hyperwalletBankAccount.getField(BANK_ACCOUNT_ID), is("5288606281332"));
-        assertThat(hyperwalletBankAccount.getField(BANK_ACCOUNT_RELATIONSHIP), is(
+        BankAccount bankAccount = listBankAccountResponse.getDataList().get(0);
+        assertThat(bankAccount.getField(TOKEN), is("usr-fbfd5848-60d0-43c5-8462-099c959b49c7"));
+        assertThat(bankAccount.getField(TYPE), is(BANK_ACCOUNT));
+        assertThat(bankAccount.getField(STATUS), is(ACTIVATED));
+        assertThat(bankAccount.getField("verificationStatus"), is("NOT_REQUIRED"));
+        assertThat(bankAccount.getField(CREATED_ON), is("2019-02-21T12:12:00"));
+        assertThat(bankAccount.getField(TRANSFER_METHOD_COUNTRY), is("US"));
+        assertThat(bankAccount.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
+        assertThat(bankAccount.getField(BANK_ID), is("021000021"));
+        assertThat(bankAccount.getField(BRANCH_ID), is("021000021"));
+        assertThat(bankAccount.getField(BANK_ACCOUNT_ID), is("5288606281332"));
+        assertThat(bankAccount.getField(BANK_ACCOUNT_RELATIONSHIP), is(
                 BankAccount.BankAccountRelationships.SELF));
-        assertThat(hyperwalletBankAccount.getField(BANK_ACCOUNT_PURPOSE), is(SAVINGS));
-        assertThat(hyperwalletBankAccount.getField("profileType"), is("INDIVIDUAL"));
-        assertThat(hyperwalletBankAccount.getField(FIRST_NAME), is("Kevin"));
-        assertThat(hyperwalletBankAccount.getField(LAST_NAME), is("Wilcox"));
-        assertThat(hyperwalletBankAccount.getField(DATE_OF_BIRTH), is("1999-01-01"));
-        assertThat(hyperwalletBankAccount.getField(GENDER), is("MALE"));
-        assertThat(hyperwalletBankAccount.getField(PHONE_NUMBER), is("6041231234"));
-        assertThat(hyperwalletBankAccount.getField(GOVERNMENT_ID), is("111222333"));
-        assertThat(hyperwalletBankAccount.getField(ADDRESS_LINE_1), is("950 Granville St"));
-        assertThat(hyperwalletBankAccount.getField(CITY), is("San Jose"));
-        assertThat(hyperwalletBankAccount.getField(STATE_PROVINCE), is("California"));
-        assertThat(hyperwalletBankAccount.getField(COUNTRY), is("CA"));
-        assertThat(hyperwalletBankAccount.getField(POSTAL_CODE), is("H0H0H0"));
+        assertThat(bankAccount.getField(BANK_ACCOUNT_PURPOSE), is(SAVINGS));
+        assertThat(bankAccount.getField("profileType"), is("INDIVIDUAL"));
+        assertThat(bankAccount.getField(FIRST_NAME), is("Kevin"));
+        assertThat(bankAccount.getField(LAST_NAME), is("Wilcox"));
+        assertThat(bankAccount.getField(DATE_OF_BIRTH), is("1999-01-01"));
+        assertThat(bankAccount.getField(GENDER), is("MALE"));
+        assertThat(bankAccount.getField(PHONE_NUMBER), is("6041231234"));
+        assertThat(bankAccount.getField(GOVERNMENT_ID), is("111222333"));
+        assertThat(bankAccount.getField(ADDRESS_LINE_1), is("950 Granville St"));
+        assertThat(bankAccount.getField(CITY), is("San Jose"));
+        assertThat(bankAccount.getField(STATE_PROVINCE), is("California"));
+        assertThat(bankAccount.getField(COUNTRY), is("CA"));
+        assertThat(bankAccount.getField(POSTAL_CODE), is("H0H0H0"));
 
         assertThat(listBankAccountResponse.getPageLinks(), is(notNullValue()));
         assertThat(listBankAccountResponse.getPageLinks().size(), is(1));
-        PageLink hyperwalletPageLink = listBankAccountResponse.getPageLinks().get(0);
-        assertThat(hyperwalletPageLink.getPageHref(),
+        PageLink pageLink = listBankAccountResponse.getPageLinks().get(0);
+        assertThat(pageLink.getPageHref(),
                 is("https://localhost:8181/rest/v3/users/usr-fbfd5848-60d0-43c5-8462"
                         + "-099c959b49c7/bank-accounts?offset=0&limit=10"));
-        assertThat(hyperwalletPageLink.getPageParameter(), is(notNullValue()));
-        assertThat(hyperwalletPageLink.getPageParameter().getRel(), is("self"));
+        assertThat(pageLink.getPageParameter(), is(notNullValue()));
+        assertThat(pageLink.getPageParameter().getRel(), is("self"));
     }
 
     @Test
@@ -204,12 +204,12 @@ public class ListBankAccountsTest {
 
         HyperwalletException hyperwalletException = mExceptionCaptor.getValue();
         assertThat(hyperwalletException, is(notNullValue()));
-        Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
-        assertThat(hyperwalletErrors.getErrors().size(), is(1));
+        Errors errors = hyperwalletException.getErrors();
+        assertThat(errors.getErrors().size(), is(1));
 
-        Error hyperwalletError = hyperwalletErrors.getErrors().get(0);
-        assertThat(hyperwalletError.getCode(), is("SYSTEM_ERROR"));
-        assertThat(hyperwalletError.getMessage(),
+        Error error = errors.getErrors().get(0);
+        assertThat(error.getCode(), is("SYSTEM_ERROR"));
+        assertThat(error.getMessage(),
                 is("A system error has occurred. Please try again. If you continue to receive this error, please "
                         + "contact customer support for assistance (Ref ID: 99b4ad5c-4aac-4cc2-aa9b-4b4f4844ac9b)."));
 

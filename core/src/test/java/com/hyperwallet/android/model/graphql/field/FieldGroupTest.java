@@ -23,7 +23,7 @@ public class FieldGroupTest {
     public ExternalResourceManager mResourceManager = new ExternalResourceManager();
 
     @Test
-    public void testHyperwalletFieldGroup_convertJson() throws JSONException {
+    public void testFieldGroup_convertJson() throws JSONException {
         String data = mResourceManager.getResourceContent("field_group_item.json");
         JSONObject jsonObject = new JSONObject(data);
         FieldGroup fieldGroup = new FieldGroup(jsonObject);
@@ -32,7 +32,7 @@ public class FieldGroupTest {
     }
 
     @Test
-    public void testHyperwalletFieldGroup_convertJsonWithEmptyFields() throws JSONException {
+    public void testFieldGroup_convertJsonWithEmptyFields() throws JSONException {
         String data = mResourceManager.getResourceContent("field_group_empty_fields_item.json");
         JSONObject jsonObject = new JSONObject(data);
         FieldGroup fieldGroup = new FieldGroup(jsonObject);
@@ -40,7 +40,7 @@ public class FieldGroupTest {
     }
 
     @Test
-    public void testHyperwalletFieldGroup_convertIncorrectJsonObject() throws Exception {
+    public void testFieldGroup_convertIncorrectJsonObject() throws Exception {
         mThrown.expect(JSONException.class);
 
         String data = mResourceManager.getResourceContent("field_group_item.json");

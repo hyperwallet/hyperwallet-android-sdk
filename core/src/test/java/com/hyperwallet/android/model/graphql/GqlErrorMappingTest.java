@@ -63,12 +63,12 @@ public class GqlErrorMappingTest {
         HyperwalletException hyperwalletException = toHyperwalletException(new HyperwalletGqlException(gqlErrors));
 
         assertThat(hyperwalletException, is(notNullValue()));
-        final Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
-        assertNotNull(hyperwalletErrors);
-        final List<Error> errors = hyperwalletErrors.getErrors();
-        assertThat(errors, is(not(empty())));
-        assertThat(errors.size(), is(1));
-        assertThat(errors.get(0).getCode(), is("DataFetchingException"));
-        assertThat(errors.get(0).getMessage(), is("Could not find any currency."));
+        final Errors errors = hyperwalletException.getErrors();
+        assertNotNull(errors);
+        final List<Error> errorsList = errors.getErrors();
+        assertThat(errorsList, is(not(empty())));
+        assertThat(errorsList.size(), is(1));
+        assertThat(errorsList.get(0).getCode(), is("DataFetchingException"));
+        assertThat(errorsList.get(0).getMessage(), is("Could not find any currency."));
     }
 }

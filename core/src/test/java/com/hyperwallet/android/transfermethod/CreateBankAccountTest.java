@@ -59,8 +59,8 @@ import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.transfermethod.BankAccount;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -82,9 +82,9 @@ import okhttp3.mockwebserver.RecordedRequest;
 public class CreateBankAccountTest {
 
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mHyperwalletSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
@@ -104,7 +104,7 @@ public class CreateBankAccountTest {
         String responseBody = mExternalResourceManager.getResourceContent("bank_account_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_CREATED).withBody(responseBody).mock();
 
-        final BankAccount hyperwalletBankAccount = new BankAccount
+        final BankAccount bankAccount = new BankAccount
                 .Builder("US", "USD", "8017110254")
                 .addressLine1("950 Granville Street")
                 .bankAccountPurpose(BankAccount.Purpose.SAVINGS)
@@ -129,7 +129,7 @@ public class CreateBankAccountTest {
                 .token("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56")
                 .build();
 
-        Hyperwallet.getDefault().createBankAccount(hyperwalletBankAccount, mockBankAccountListener);
+        Hyperwallet.getDefault().createBankAccount(bankAccount, mockBankAccountListener);
         mAwait.await(1000, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
@@ -191,13 +191,13 @@ public class CreateBankAccountTest {
         String responseBody = mExternalResourceManager.getResourceContentError("transfer_method_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
 
-        final BankAccount hyperwalletBankAccount = new BankAccount
+        final BankAccount bankAccount = new BankAccount
                 .Builder(null, "USD", "8017110254")
                 .branchId("211179539")
                 .bankAccountPurpose(BankAccount.Purpose.CHECKING)
                 .build();
 
-        Hyperwallet.getDefault().createBankAccount(hyperwalletBankAccount, mockBankAccountListener);
+        Hyperwallet.getDefault().createBankAccount(bankAccount, mockBankAccountListener);
         mAwait.await(1000, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
@@ -211,15 +211,15 @@ public class CreateBankAccountTest {
         assertThat(recordedRequest.getPath(),
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts"));
 
-        Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
-        assertThat(hyperwalletErrors, is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors(), is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors().size(), is(1));
+        Errors errors = hyperwalletException.getErrors();
+        assertThat(errors, is(notNullValue()));
+        assertThat(errors.getErrors(), is(notNullValue()));
+        assertThat(errors.getErrors().size(), is(1));
 
-        Error hyperwalletError = hyperwalletErrors.getErrors().get(0);
-        assertThat(hyperwalletError.getCode(), is("CONSTRAINT_VIOLATIONS"));
-        assertThat(hyperwalletError.getFieldName(), is("transferMethodCountry"));
-        assertThat(hyperwalletError.getMessage(), is("You must provide a value for this field"));
+        Error error = errors.getErrors().get(0);
+        assertThat(error.getCode(), is("CONSTRAINT_VIOLATIONS"));
+        assertThat(error.getFieldName(), is("transferMethodCountry"));
+        assertThat(error.getMessage(), is("You must provide a value for this field"));
     }
 
 }

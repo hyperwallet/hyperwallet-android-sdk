@@ -30,8 +30,8 @@ import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.transfermethod.BankCard;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -53,9 +53,9 @@ import okhttp3.mockwebserver.RecordedRequest;
 public class UpdateBankCardTest {
 
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
@@ -97,19 +97,19 @@ public class UpdateBankCardTest {
         verify(mListener).onSuccess(mBankCardArgumentCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
 
-        BankCard hyperwalletBankCardResponse = mBankCardArgumentCaptor.getValue();
-        assertThat(hyperwalletBankCardResponse, is(notNullValue()));
-        assertThat(hyperwalletBankCardResponse.getField(TYPE), is(BANK_CARD));
-        assertThat(hyperwalletBankCardResponse.getField(CARD_BRAND), is("VISA"));
-        assertThat(hyperwalletBankCardResponse.getField(CARD_NUMBER), is("************1114"));
-        assertThat(hyperwalletBankCardResponse.getField(CARD_TYPE), is("DEBIT"));
-        assertThat(hyperwalletBankCardResponse.getField(CVV), is(nullValue()));
-        assertThat(hyperwalletBankCardResponse.getField(CREATED_ON), is("2019-01-08T00:56:15"));
-        assertThat(hyperwalletBankCardResponse.getField(DATE_OF_EXPIRY), is("2019-11"));
-        assertThat(hyperwalletBankCardResponse.getField(TOKEN), is("trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636"));
-        assertThat(hyperwalletBankCardResponse.getField(TRANSFER_METHOD_COUNTRY), is("US"));
-        assertThat(hyperwalletBankCardResponse.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
-        assertThat(hyperwalletBankCardResponse.getField(STATUS), is(ACTIVATED));
+        BankCard bankCardResponse = mBankCardArgumentCaptor.getValue();
+        assertThat(bankCardResponse, is(notNullValue()));
+        assertThat(bankCardResponse.getField(TYPE), is(BANK_CARD));
+        assertThat(bankCardResponse.getField(CARD_BRAND), is("VISA"));
+        assertThat(bankCardResponse.getField(CARD_NUMBER), is("************1114"));
+        assertThat(bankCardResponse.getField(CARD_TYPE), is("DEBIT"));
+        assertThat(bankCardResponse.getField(CVV), is(nullValue()));
+        assertThat(bankCardResponse.getField(CREATED_ON), is("2019-01-08T00:56:15"));
+        assertThat(bankCardResponse.getField(DATE_OF_EXPIRY), is("2019-11"));
+        assertThat(bankCardResponse.getField(TOKEN), is("trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636"));
+        assertThat(bankCardResponse.getField(TRANSFER_METHOD_COUNTRY), is("US"));
+        assertThat(bankCardResponse.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
+        assertThat(bankCardResponse.getField(STATUS), is(ACTIVATED));
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
@@ -156,15 +156,15 @@ public class UpdateBankCardTest {
 
         HyperwalletException hyperwalletException = mExceptionCaptor.getValue();
         assertThat(hyperwalletException, is(notNullValue()));
-        Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
-        assertThat(hyperwalletErrors, is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors(), is(notNullValue()));
-        assertThat(hyperwalletErrors.getErrors().size(), is(1));
+        Errors errors = hyperwalletException.getErrors();
+        assertThat(errors, is(notNullValue()));
+        assertThat(errors.getErrors(), is(notNullValue()));
+        assertThat(errors.getErrors().size(), is(1));
 
-        Error hyperwalletError = hyperwalletErrors.getErrors().get(0);
-        assertThat(hyperwalletError.getCode(), is("VISADIRECT_UI_008"));
-        assertThat(hyperwalletError.getFieldName(), is("cardNumber"));
-        assertThat(hyperwalletError.getMessage(),
+        Error error = errors.getErrors().get(0);
+        assertThat(error.getCode(), is("VISADIRECT_UI_008"));
+        assertThat(error.getFieldName(), is("cardNumber"));
+        assertThat(error.getMessage(),
                 is("The card cannot be registered - Please contact your issuer or the bank for further information."));
 
     }

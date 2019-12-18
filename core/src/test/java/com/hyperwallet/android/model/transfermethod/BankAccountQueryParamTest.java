@@ -29,7 +29,7 @@ public class BankAccountQueryParamTest {
     private static final String STATUS = "status";
 
     @Test
-    public void testHyperwalletBankAccountQueryParam_withUrlQueryMap() {
+    public void testBankAccountQueryParam_withUrlQueryMap() {
         final int offset = 100;
         final int limit = 200;
 
@@ -74,7 +74,7 @@ public class BankAccountQueryParamTest {
 
 
     @Test
-    public void testHyperwalletBankAccountQueryParam_verifyDefaultValues() {
+    public void testBankAccountQueryParam_verifyDefaultValues() {
 
         BankAccountQueryParam queryParam = new BankAccountQueryParam.Builder().build();
         assertThat(queryParam.getLimit(), is(10));

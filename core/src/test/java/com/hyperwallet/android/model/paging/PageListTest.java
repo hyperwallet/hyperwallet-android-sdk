@@ -24,7 +24,7 @@ public class PageListTest {
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
 
     @Test
-    public void testHyperwalletPageList_convertJsonObject() throws JSONException, HyperwalletException {
+    public void testPageList_convertJsonObject() throws JSONException, HyperwalletException {
         String json = mExternalResourceManager.getResourceContent("bank_account_list_response.json");
         JSONObject jsonObject = new JSONObject(json);
         PageList<BankAccount> pageList = new PageList<>(jsonObject,
@@ -37,7 +37,7 @@ public class PageListTest {
     }
 
     @Test
-    public void testHyperwalletPageList_verifyDefaultValues() {
+    public void testPageList_verifyDefaultValues() {
         PageList<BankAccount> pageList = new PageList<>(
                 Collections.<BankAccount>emptyList());
 

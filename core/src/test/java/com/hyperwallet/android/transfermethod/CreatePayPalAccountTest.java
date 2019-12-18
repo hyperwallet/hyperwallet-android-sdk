@@ -26,8 +26,8 @@ import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.transfermethod.PayPalAccount;
 import com.hyperwallet.android.rule.ExternalResourceManager;
-import com.hyperwallet.android.rule.MockWebServer;
-import com.hyperwallet.android.rule.SdkMock;
+import com.hyperwallet.android.rule.HyperwalletMockWebServer;
+import com.hyperwallet.android.rule.HyperwalletSdkMock;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -49,9 +49,9 @@ import okhttp3.mockwebserver.RecordedRequest;
 public class CreatePayPalAccountTest {
     private final CountDownLatch mAwait = new CountDownLatch(1);
     @Rule
-    public MockWebServer mServer = new MockWebServer();
+    public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
     @Rule
-    public SdkMock mSdkMock = new SdkMock(mServer);
+    public HyperwalletSdkMock mHyperwalletSdkMock = new HyperwalletSdkMock(mServer);
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
@@ -124,12 +124,12 @@ public class CreatePayPalAccountTest {
         assertThat(recordedRequest.getPath(),
                 is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts"));
 
-        Errors hyperwalletErrors = hyperwalletException.getHyperwalletErrors();
-        assertThat(hyperwalletErrors.getErrors(), hasSize(1));
+        Errors errors = hyperwalletException.getErrors();
+        assertThat(errors.getErrors(), hasSize(1));
 
-        Error hyperwalletError = hyperwalletErrors.getErrors().get(0);
-        assertThat(hyperwalletError.getCode(), is("CONSTRAINT_VIOLATIONS"));
-        assertThat(hyperwalletError.getFieldName(), is("transferMethodCountry"));
-        assertThat(hyperwalletError.getMessage(), is("You must provide a value for this field"));
+        Error error = errors.getErrors().get(0);
+        assertThat(error.getCode(), is("CONSTRAINT_VIOLATIONS"));
+        assertThat(error.getFieldName(), is("transferMethodCountry"));
+        assertThat(error.getMessage(), is("You must provide a value for this field"));
     }
 }
