@@ -159,7 +159,7 @@ public class ExceptionMapperTest {
     }
 
     @Test
-    public void testToHyperwalletException_convertGqlException() throws Exception {
+    public void testToHyperwalletException_convertHyperwalletGqlException() throws Exception {
         GqlErrors gqlErrors = JsonUtils.fromJsonString(mResourceManager.getResourceContentError(
                 "gql_error_response.json"), new TypeReference<GqlErrors>() {
         });
