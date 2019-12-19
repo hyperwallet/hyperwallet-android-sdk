@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 
 import com.hyperwallet.android.model.graphql.keyed.Country;
 import com.hyperwallet.android.model.graphql.keyed.Currency;
-import com.hyperwallet.android.model.graphql.keyed.HyperwalletTransferMethodType;
+import com.hyperwallet.android.model.graphql.keyed.TransferMethodType;
 
 import java.util.Set;
 
@@ -64,8 +64,8 @@ public interface HyperwalletTransferMethodConfigurationKey {
      *
      * @param countryCode  represented in ISO 3166-1 alpha-2 code format
      * @param currencyCode represented in ISO 4217 three-letter code format
-     * @return Set of {@code HyperwalletTransferMethodType} based from parameters specified
+     * @return Set of {@code TransferMethodType} based from parameters specified
      */
-    Set<HyperwalletTransferMethodType> getTransferMethodType(@NonNull final String countryCode,
+    Set<TransferMethodType> getTransferMethodType(@NonNull final String countryCode,
             @NonNull final String currencyCode);
 }

@@ -20,7 +20,7 @@ package com.hyperwallet.android.model.graphql;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
+import com.hyperwallet.android.model.transfermethod.TransferMethod;
 
 import org.json.JSONObject;
 
@@ -72,7 +72,7 @@ public final class ProcessingTime {
      * @return Transfer method type information
      */
     @Nullable
-    @HyperwalletTransferMethod.TransferMethodType
+    @TransferMethod.TransferMethodType
     public String getTransferMethodType() {
         return mTransferMethodType;
     }

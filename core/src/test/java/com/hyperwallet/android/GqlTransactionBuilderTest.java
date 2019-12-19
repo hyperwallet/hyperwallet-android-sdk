@@ -9,8 +9,8 @@ import static com.hyperwallet.android.util.HttpMethod.POST;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
-import com.hyperwallet.android.model.graphql.query.HyperwalletTransferMethodConfigurationKeysQuery;
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationKeysQuery;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,16 +25,16 @@ public class GqlTransactionBuilderTest {
     @Rule
     public final MockitoRule mMockito = MockitoJUnit.rule();
     @Rule
-    public final HyperwalletExternalResourceManager mExternalResourceManager =
-            new HyperwalletExternalResourceManager();
+    public final ExternalResourceManager mExternalResourceManager =
+            new ExternalResourceManager();
 
     @Mock
     private HyperwalletListener<HyperwalletTransferMethodConfigurationKey> mListener;
 
     @Test
     public void testBuild_withRequiredParametersOnly() {
-        HyperwalletTransferMethodConfigurationKeysQuery keysQuery =
-                new HyperwalletTransferMethodConfigurationKeysQuery();
+        TransferMethodConfigurationKeysQuery keysQuery =
+                new TransferMethodConfigurationKeysQuery();
 
         GqlTransaction.Builder<HyperwalletTransferMethodConfigurationKey> builder = new GqlTransaction.Builder<>(
                 keysQuery,

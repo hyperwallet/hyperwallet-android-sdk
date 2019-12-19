@@ -20,8 +20,8 @@ import static com.hyperwallet.android.ExceptionMapper.EC_UNEXPECTED_EXCEPTION;
 
 import androidx.annotation.NonNull;
 
-import com.hyperwallet.android.model.HyperwalletError;
-import com.hyperwallet.android.model.HyperwalletErrors;
+import com.hyperwallet.android.model.Error;
+import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.graphql.error.GqlError;
 import com.hyperwallet.android.model.graphql.error.GqlErrors;
 
@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Indicates an exceptional condition that occurred while executing a GraphQL transaction with the Hyperwallet platform.
  *
- * <p>A {@code HyperwalletGqlException} contains the {@link HyperwalletErrors} cause.</p>
+ * <p>A {@code HyperwalletGqlException} contains the {@link Errors} cause.</p>
  */
 public class HyperwalletGqlException extends HyperwalletException {
 
@@ -42,13 +42,13 @@ public class HyperwalletGqlException extends HyperwalletException {
      */
     public HyperwalletGqlException(@NonNull final GqlErrors gqlErrors) {
         super();
-        List<HyperwalletError> errorList = new ArrayList<>();
+        List<Error> errorList = new ArrayList<>();
         List<GqlError> errors = gqlErrors.getGQLErrors();
         for (GqlError gqlError : errors) {
             String code = gqlError.getExtensions() != null ? gqlError.getExtensions().getCode()
                     : EC_UNEXPECTED_EXCEPTION;
-            errorList.add(new HyperwalletError(gqlError.getMessage(), code));
+            errorList.add(new Error(gqlError.getMessage(), code));
         }
-        mErrors = new HyperwalletErrors(errorList);
+        mErrors = new Errors(errorList);
     }
 }

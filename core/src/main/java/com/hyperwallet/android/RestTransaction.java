@@ -21,8 +21,8 @@ import androidx.annotation.NonNull;
 
 import com.hyperwallet.android.exception.HyperwalletRestException;
 import com.hyperwallet.android.listener.HyperwalletListener;
-import com.hyperwallet.android.model.HyperwalletErrors;
-import com.hyperwallet.android.model.HyperwalletJsonModel;
+import com.hyperwallet.android.model.Errors;
+import com.hyperwallet.android.model.JsonModel;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.util.HttpClient;
 import com.hyperwallet.android.util.HttpMethod;
@@ -77,7 +77,7 @@ class RestTransaction extends HttpTransaction {
     @Override
     protected void handleErrors(int responseCode, String response) throws JSONException, InvocationTargetException,
             NoSuchMethodException, InstantiationException, IllegalAccessException {
-        HyperwalletErrors errors = JsonUtils.fromJsonString(response, new TypeReference<HyperwalletErrors>() {
+        Errors errors = JsonUtils.fromJsonString(response, new TypeReference<Errors>() {
         });
         onFailure(new HyperwalletRestException(responseCode, errors));
     }
@@ -93,7 +93,7 @@ class RestTransaction extends HttpTransaction {
         private final HyperwalletListener listener;
 
         //Optional Parameters
-        private HyperwalletJsonModel jsonModel = null;
+        private JsonModel jsonModel = null;
         private Map<String, String> query = new HashMap<>();
 
         /**
@@ -112,7 +112,7 @@ class RestTransaction extends HttpTransaction {
             this.typeReference = typeReference;
         }
 
-        protected Builder jsonModel(@NonNull final HyperwalletJsonModel jsonModel) {
+        protected Builder jsonModel(@NonNull final JsonModel jsonModel) {
             this.jsonModel = jsonModel;
             return this;
         }

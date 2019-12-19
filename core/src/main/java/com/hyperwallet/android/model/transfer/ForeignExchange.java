@@ -30,7 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringDef;
 
-import com.hyperwallet.android.model.HyperwalletJsonModel;
+import com.hyperwallet.android.model.JsonModel;
 import com.hyperwallet.android.util.JsonUtils;
 
 import org.json.JSONException;
@@ -44,7 +44,7 @@ import java.util.Map;
 /**
  * Represents the object to hold foreign exchange data fields, is used in transfer object see:{@link Transfer}
  */
-public final class ForeignExchange implements HyperwalletJsonModel, Parcelable {
+public final class ForeignExchange implements JsonModel, Parcelable {
 
     public static final Creator<ForeignExchange> CREATOR =
             new Creator<ForeignExchange>() {

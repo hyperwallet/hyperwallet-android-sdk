@@ -18,6 +18,14 @@ public final class HyperwalletMockWebServer extends TestWatcher {
     private MockWebServer mServer;
     private int port;
 
+    public HyperwalletMockWebServer() {
+        this.port = 0;
+    }
+
+    public HyperwalletMockWebServer(int port) {
+        this.port = port;
+    }
+
     @Override
     protected void starting(Description description) {
         super.starting(description);
@@ -39,14 +47,6 @@ public final class HyperwalletMockWebServer extends TestWatcher {
         } catch (IOException e) {
             throw new IllegalStateException("Un error occurred when shutting down mock mServer", e);
         }
-    }
-
-    public HyperwalletMockWebServer() {
-        this.port = 0;
-    }
-
-    public HyperwalletMockWebServer(int port) {
-        this.port = port;
     }
 
     public HyperwalletMockResponse mockResponse() {

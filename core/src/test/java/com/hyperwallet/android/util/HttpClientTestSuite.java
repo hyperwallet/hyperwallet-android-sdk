@@ -5,7 +5,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsMapWithSize.aMapWithSize;
 import static org.junit.Assert.assertNotNull;
 
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 
 import org.junit.ClassRule;
@@ -50,14 +50,13 @@ public class HttpClientTestSuite {
     @RunWith(JUnitParamsRunner.class)
     public static class HttpClientTest {
 
+        @ClassRule
+        public static final ExternalResourceManager resourceManager =
+                new ExternalResourceManager();
         @Rule
         public final ExpectedException thrown = ExpectedException.none();
         @Rule
         public final HyperwalletMockWebServer server = new HyperwalletMockWebServer();
-        @ClassRule
-        public static final HyperwalletExternalResourceManager hyperwalletResourceManager =
-                new HyperwalletExternalResourceManager();
-
 
         @Test
         public void testGetHttpUrlConnection_verifyDefaultValues()
@@ -139,7 +138,6 @@ public class HttpClientTestSuite {
         }
 
 
-
         @Test
         public void testPut_verifyHttpResponseCode() throws Exception {
             String requestUrl = server.mockResponse()
@@ -155,7 +153,7 @@ public class HttpClientTestSuite {
         @Test
         public void testGetResponse_withBody() throws Exception {
 
-            String body = hyperwalletResourceManager.getResourceContent("bank_account_response.json");
+            String body = resourceManager.getResourceContent("bank_account_response.json");
             String requestUrl = server.mockResponse().withBody(body).getRequestUrl();
             HttpClient client = new HttpClient.Builder(requestUrl).build();
 
@@ -256,6 +254,7 @@ public class HttpClientTestSuite {
                     {HttpURLConnection.HTTP_VERSION, false}
             });
         }
+
         @Test
         @Parameters(method = "testHttpResponseCodeWithinSuccessRangeData")
         public void testIsSuccess_httpResponseCodeWithinSuccessRange(
@@ -265,7 +264,7 @@ public class HttpClientTestSuite {
 
 
     }
-    
+
     public static class HttpClientBuilderTest {
 
         @Rule

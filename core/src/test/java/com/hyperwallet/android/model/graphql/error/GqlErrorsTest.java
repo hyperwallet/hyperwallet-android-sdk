@@ -4,7 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,10 +19,10 @@ import java.util.List;
 public class GqlErrorsTest {
 
     @Rule
-    public final HyperwalletExternalResourceManager mResourceManager = new HyperwalletExternalResourceManager();
+    public final ExternalResourceManager mResourceManager = new ExternalResourceManager();
 
     @Test
-    public void testGqQlErrors_convertJsonObject() throws JSONException {
+    public void testGqlErrors_convertJsonObject() throws JSONException {
         JSONObject jsonObject = new JSONObject(mResourceManager.getResourceContentError(
                 "gql_error_response.json"));
         GqlErrors gqlErrors = new GqlErrors(jsonObject);

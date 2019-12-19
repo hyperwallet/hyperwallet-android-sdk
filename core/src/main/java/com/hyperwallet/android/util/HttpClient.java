@@ -19,7 +19,7 @@ package com.hyperwallet.android.util;
 
 import androidx.annotation.RestrictTo;
 
-import com.hyperwallet.android.exception.InvalidRequestPathException;
+import com.hyperwallet.android.exception.HyperwalletInvalidRequestPathException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -233,7 +233,7 @@ public final class HttpClient {
             return this;
         }
 
-        public HttpClient build() throws IOException, URISyntaxException, InvalidRequestPathException {
+        public HttpClient build() throws IOException, URISyntaxException, HyperwalletInvalidRequestPathException {
 
             StringBuilder url = new StringBuilder(mBaseUrl);
             if (mPath != null) {

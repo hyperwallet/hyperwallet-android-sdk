@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 
-import com.hyperwallet.android.model.HyperwalletJsonModel;
+import com.hyperwallet.android.model.JsonModel;
 import com.hyperwallet.android.model.TypeReference;
 
 import org.json.JSONArray;
@@ -116,8 +116,8 @@ public final class JsonUtils {
                 jsonArray.put(i, mapToJsonObject((Map<String, Object>) element));
             } else if (element instanceof List) {
                 getJSONArray((List) element);
-            } else if (element instanceof HyperwalletJsonModel) {
-                jsonArray.put(i, ((HyperwalletJsonModel) element).toJsonObject());
+            } else if (element instanceof JsonModel) {
+                jsonArray.put(i, ((JsonModel) element).toJsonObject());
             }
         }
         return jsonArray;

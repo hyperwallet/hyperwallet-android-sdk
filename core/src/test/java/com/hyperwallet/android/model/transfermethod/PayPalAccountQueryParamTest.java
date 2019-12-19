@@ -5,10 +5,10 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import static com.hyperwallet.android.model.StatusTransition.StatusDefinition.ACTIVATED;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.ASCENDANT_CREATE_ON;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.ASCENDANT_STATUS;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.TransferMethodQueryParam.TransferMethodSortable.ASCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.transfermethod.TransferMethodQueryParam.TransferMethodSortable.ASCENDANT_STATUS;
+import static com.hyperwallet.android.model.transfermethod.TransferMethodQueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON;
 
 import com.hyperwallet.android.model.QueryParam;
 
@@ -30,7 +30,7 @@ public class PayPalAccountQueryParamTest {
 
 
     @Test
-    public void testHyperwalletPayPalAccountQueryParam_withUrlQueryMap() {
+    public void testPayPalAccountQueryParam_withUrlQueryMap() {
         Calendar createdBefore = Calendar.getInstance();
         createdBefore.set(2017, 0, 1, 10, 12, 22);
         Calendar createdAfter = Calendar.getInstance();
@@ -83,7 +83,7 @@ public class PayPalAccountQueryParamTest {
     }
 
     @Test
-    public void testHyperwalletPayPalAccountQueryParam_verifyDefaultValues() {
+    public void testPayPalAccountQueryParam_verifyDefaultValues() {
         PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder().build();
         assertThat(queryParam.getLimit(), is(10));
         assertThat(queryParam.getOffset(), is(0));

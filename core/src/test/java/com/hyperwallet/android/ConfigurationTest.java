@@ -19,11 +19,10 @@ import java.util.Date;
 @RunWith(RobolectricTestRunner.class)
 public class ConfigurationTest {
 
-    @Rule
-    public final ExpectedException mThrown = ExpectedException.none();
-
     private static Configuration mConfiguration;
     private static String mJwtToken;
+    @Rule
+    public final ExpectedException mThrown = ExpectedException.none();
 
     @BeforeClass
     public static void setup() {

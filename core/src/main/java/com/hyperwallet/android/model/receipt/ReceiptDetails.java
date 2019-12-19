@@ -60,7 +60,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringDef;
 
-import com.hyperwallet.android.model.HyperwalletJsonModel;
+import com.hyperwallet.android.model.JsonModel;
 import com.hyperwallet.android.util.JsonUtils;
 
 import org.json.JSONException;
@@ -74,7 +74,7 @@ import java.util.Map;
 /**
  * Represents the receipt detail fields
  */
-public final class ReceiptDetails implements HyperwalletJsonModel, Parcelable {
+public final class ReceiptDetails implements JsonModel, Parcelable {
 
     public static final Creator<ReceiptDetails> CREATOR =
             new Creator<ReceiptDetails>() {

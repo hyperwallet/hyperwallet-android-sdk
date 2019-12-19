@@ -11,7 +11,7 @@ import static com.hyperwallet.android.util.JsonUtils.fromJsonString;
 
 import android.os.Parcel;
 
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 
 import org.json.JSONObject;
 import org.junit.BeforeClass;
@@ -23,11 +23,10 @@ import org.robolectric.RobolectricTestRunner;
 @RunWith(RobolectricTestRunner.class)
 public class StatusTransitionTest {
 
-    @Rule
-    public final HyperwalletExternalResourceManager mExternalResourceManager =
-            new HyperwalletExternalResourceManager();
-
     private static StatusTransition expectedStatusTransition;
+    @Rule
+    public final ExternalResourceManager mExternalResourceManager =
+            new ExternalResourceManager();
 
     @BeforeClass
     public static void setup() {
@@ -64,7 +63,7 @@ public class StatusTransitionTest {
     }
 
     @Test
-    public void testHyperwalletStatusTransition_isParcelable() throws Exception {
+    public void testStatusTransition_isParcelable() throws Exception {
         StatusTransition statusTransition = fromJsonString(
                 mExternalResourceManager.getResourceContent("status_transition_response.json"),
                 new TypeReference<StatusTransition>() {

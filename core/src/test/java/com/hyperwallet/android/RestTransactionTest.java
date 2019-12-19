@@ -8,7 +8,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 import static com.hyperwallet.android.util.HttpMethod.PUT;
@@ -20,8 +20,8 @@ import com.hyperwallet.android.exception.HyperwalletGqlException;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.graphql.error.GqlErrors;
-import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.model.transfermethod.BankAccount;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 import com.hyperwallet.android.util.HttpClient;
 import com.hyperwallet.android.util.JsonUtils;
 
@@ -43,10 +43,10 @@ public class RestTransactionTest {
     @Rule
     public final MockitoRule mMockito = MockitoJUnit.rule();
     @Rule
-    public HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
+    public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
 
     @Mock
-    private HyperwalletListener<HyperwalletBankAccount> mListener;
+    private HyperwalletListener<BankAccount> mListener;
     @Mock
     private HttpClient mHttpClient;
 
@@ -62,12 +62,12 @@ public class RestTransactionTest {
     public void testPerformRequest_usingHttpGet() throws Exception {
         final PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
         final String token = "eyJhbGciOiJIUzI1NiJ9.eyJncmFwaHFsLXVyaSI6Imh0dHA6XC9cLzEyNy4wLjAuMTo1MzEyN1wvZ3JhcGhxb";
-        HyperwalletBankAccount.Builder bankAccountBuilder = new HyperwalletBankAccount.Builder("US", "USD",
+        BankAccount.Builder bankAccountBuilder = new BankAccount.Builder("US", "USD",
                 "8017110254");
-        final HyperwalletBankAccount bankAccount = bankAccountBuilder.build();
+        final BankAccount bankAccount = bankAccountBuilder.build();
 
-        RestTransaction.Builder<HyperwalletBankAccount> accountBuilder =
-                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<HyperwalletBankAccount>() {
+        RestTransaction.Builder<BankAccount> accountBuilder =
+                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
                 .jsonModel(bankAccount)
@@ -84,12 +84,12 @@ public class RestTransactionTest {
     public void testPerformRequest_usingHttpPost() throws Exception {
         final PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
         final String token = "eyJhbGciOiJIUzI1NiJ9.eyJncmFwaHFsLXVyaSI6Imh0dHA6XC9cLzEyNy4wLjAuMTo1MzEyN1wvZ3JhcGhxb";
-        HyperwalletBankAccount.Builder bankAccountBuilder = new HyperwalletBankAccount.Builder("US", "USD",
+        BankAccount.Builder bankAccountBuilder = new BankAccount.Builder("US", "USD",
                 "8017110254");
-        final HyperwalletBankAccount bankAccount = bankAccountBuilder.build();
+        final BankAccount bankAccount = bankAccountBuilder.build();
 
-        RestTransaction.Builder<HyperwalletBankAccount> accountBuilder =
-                new RestTransaction.Builder<>(POST, pathFormatter, new TypeReference<HyperwalletBankAccount>() {
+        RestTransaction.Builder<BankAccount> accountBuilder =
+                new RestTransaction.Builder<>(POST, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
                 .jsonModel(bankAccount)
@@ -110,12 +110,12 @@ public class RestTransactionTest {
     public void testPerformRequest_usingHttpPut() throws Exception {
         final PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
         final String token = "eyJhbGciOiJIUzI1NiJ9.eyJncmFwaHFsLXVyaSI6Imh0dHA6XC9cLzEyNy4wLjAuMTo1MzEyN1wvZ3JhcGhxb";
-        HyperwalletBankAccount.Builder bankAccountBuilder = new HyperwalletBankAccount.Builder("US", "USD",
+        BankAccount.Builder bankAccountBuilder = new BankAccount.Builder("US", "USD",
                 "8017110254");
-        final HyperwalletBankAccount bankAccount = bankAccountBuilder.build();
+        final BankAccount bankAccount = bankAccountBuilder.build();
 
-        RestTransaction.Builder<HyperwalletBankAccount> accountBuilder =
-                new RestTransaction.Builder<>(PUT, pathFormatter, new TypeReference<HyperwalletBankAccount>() {
+        RestTransaction.Builder<BankAccount> accountBuilder =
+                new RestTransaction.Builder<>(PUT, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
                 .jsonModel(bankAccount)
@@ -139,8 +139,8 @@ public class RestTransactionTest {
         final PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
         final String token = "eyJhbGciOiJIUzI1NiJ9.eyJncmFwaHFsLXVyaSI6Imh0dHA6XC9cLzEyNy4wLjAuMTo1MzEyN1wvZ3JhcGhxb";
 
-        RestTransaction.Builder<HyperwalletBankAccount> accountBuilder =
-                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<HyperwalletBankAccount>() {
+        RestTransaction.Builder<BankAccount> accountBuilder =
+                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
                 .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
@@ -159,8 +159,8 @@ public class RestTransactionTest {
         final PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
         final String token = "eyJhbGciOiJIUzI1NiJ9.eyJncmFwaHFsLXVyaSI6Imh0dHA6XC9cLzEyNy4wLjAuMTo1MzEyN1wvZ3JhcGhxb";
 
-        RestTransaction.Builder<HyperwalletBankAccount> accountBuilder =
-                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<HyperwalletBankAccount>() {
+        RestTransaction.Builder<BankAccount> accountBuilder =
+                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
                 .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
@@ -181,8 +181,8 @@ public class RestTransactionTest {
         final PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
         final String token = "eyJhbGciOiJIUzI1NiJ9.eyJncmFwaHFsLXVyaSI6Imh0dHA6XC9cLzEyNy4wLjAuMTo1MzEyN1wvZ3JhcGhxb";
 
-        RestTransaction.Builder<HyperwalletBankAccount> accountBuilder =
-                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<HyperwalletBankAccount>() {
+        RestTransaction.Builder<BankAccount> accountBuilder =
+                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
                 .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
@@ -196,8 +196,8 @@ public class RestTransactionTest {
         final PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
         final String token = "eyJhbGciOiJIUzI1NiJ9.eyJncmFwaHFsLXVyaSI6Imh0dHA6XC9cLzEyNy4wLjAuMTo1MzEyN1wvZ3JhcGhxb";
 
-        RestTransaction.Builder<HyperwalletBankAccount> accountBuilder =
-                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<HyperwalletBankAccount>() {
+        RestTransaction.Builder<BankAccount> accountBuilder =
+                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
                 .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
@@ -222,8 +222,8 @@ public class RestTransactionTest {
         final PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
         final String token = "eyJhbGciOiJIUzI1NiJ9.eyJncmFwaHFsLXVyaSI6Imh0dHA6XC9cLzEyNy4wLjAuMTo1MzEyN1wvZ3JhcGhxb";
 
-        RestTransaction.Builder<HyperwalletBankAccount> accountBuilder =
-                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<HyperwalletBankAccount>() {
+        RestTransaction.Builder<BankAccount> accountBuilder =
+                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
                 .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
@@ -244,8 +244,8 @@ public class RestTransactionTest {
         final PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
         final String token = "eyJhbGciOiJIUzI1NiJ9.eyJncmFwaHFsLXVyaSI6Imh0dHA6XC9cLzEyNy4wLjAuMTo1MzEyN1wvZ3JhcGhxb";
 
-        RestTransaction.Builder<HyperwalletBankAccount> accountBuilder =
-                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<HyperwalletBankAccount>() {
+        RestTransaction.Builder<BankAccount> accountBuilder =
+                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
                 .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
@@ -268,8 +268,8 @@ public class RestTransactionTest {
         final String response = mExternalResourceManager.getResourceContent(
                 "tmc_configuration_connection_response.json");
 
-        RestTransaction.Builder<HyperwalletBankAccount> accountBuilder =
-                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<HyperwalletBankAccount>() {
+        RestTransaction.Builder<BankAccount> accountBuilder =
+                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
                 .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
@@ -282,7 +282,7 @@ public class RestTransactionTest {
 
         Runnable r = mRunnableCaptor.getValue();
         r.run();
-        verify(mListener).onSuccess((HyperwalletBankAccount) any());
+        verify(mListener).onSuccess((BankAccount) any());
     }
 
     @Test
@@ -290,8 +290,8 @@ public class RestTransactionTest {
         final PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
         final String token = "eyJhbGciOiJIUzI1NiJ9.eyJncmFwaHFsLXVyaSI6Imh0dHA6XC9cLzEyNy4wLjAuMTo1MzEyN1wvZ3JhcGhxb";
 
-        RestTransaction.Builder<HyperwalletBankAccount> accountBuilder =
-                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<HyperwalletBankAccount>() {
+        RestTransaction.Builder<BankAccount> accountBuilder =
+                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
                 .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
@@ -304,7 +304,7 @@ public class RestTransactionTest {
 
         Runnable r = mRunnableCaptor.getValue();
         r.run();
-        verify(mListener, never()).onSuccess((HyperwalletBankAccount) any());
+        verify(mListener, never()).onSuccess((BankAccount) any());
     }
 
 }

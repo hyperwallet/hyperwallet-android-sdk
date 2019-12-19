@@ -18,24 +18,24 @@ package com.hyperwallet.android.model.graphql;
 
 import androidx.annotation.Nullable;
 
-import com.hyperwallet.android.model.graphql.field.HyperwalletTransferMethodConfiguration;
+import com.hyperwallet.android.model.graphql.field.TransferMethodConfiguration;
 
 import java.util.List;
 
 /**
- * {@code TransferMethodConfigurationField} represents Transfer method configuration set
+ * {@code HyperwalletTransferMethodConfigurationField} represents Transfer method configuration set
  */
 public interface HyperwalletTransferMethodConfigurationField {
 
     /**
      * @return {@code TransferMethodConfiguration} form input field information to create account
      */
-    HyperwalletTransferMethodConfiguration getFields();
+    TransferMethodConfiguration getFields();
 
     /**
-     * @return Set of {@code HyperwalletFee} fee information to create account
+     * @return Set of {@code Fee} fee information to create account
      */
-    List<HyperwalletFee> getFees();
+    List<Fee> getFees();
 
     /**
      * Get {@link ProcessingTime} entry.
