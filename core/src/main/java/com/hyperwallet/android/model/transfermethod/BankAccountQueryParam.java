@@ -41,16 +41,6 @@ public class BankAccountQueryParam extends TransferMethodQueryParam {
         super(builder);
     }
 
-    /**
-     * Construct a {@code BankAccountQueryParam} object
-     * from {@link HyperwalletBankAccountQueryParam.Builder}
-     *
-     * @param builder specified to builder this query param
-     */
-    private HyperwalletBankAccountQueryParam(@NonNull final Builder builder) {
-        super(builder);
-    }
-
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
             BANK_ACCOUNT,
