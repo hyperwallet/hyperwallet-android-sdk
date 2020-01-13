@@ -75,7 +75,7 @@ public class ListBalancesTest {
         assertThat(queryParam, is(notNullValue()));
         Hyperwallet.getDefault().listUserBalances(queryParam, mListener);
 
-        mAwait.await(500, TimeUnit.MILLISECONDS);
+        mAwait.await(100, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         verify(mListener).onSuccess(mListBalanceCaptor.capture());
@@ -110,7 +110,7 @@ public class ListBalancesTest {
         assertThat(queryParam, is(notNullValue()));
         Hyperwallet.getDefault().listUserBalances(queryParam, mListener);
 
-        mAwait.await(500, TimeUnit.MILLISECONDS);
+        mAwait.await(100, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
@@ -138,7 +138,7 @@ public class ListBalancesTest {
                 .build();
 
         Hyperwallet.getDefault().listUserBalances(actualBalanceParam, mListener);
-        mAwait.await(500, TimeUnit.MILLISECONDS);
+        mAwait.await(100, TimeUnit.MILLISECONDS);
 
         verify(mListener, never()).onSuccess(any(PageList.class));
         verify(mListener).onFailure(mExceptionCaptor.capture());
