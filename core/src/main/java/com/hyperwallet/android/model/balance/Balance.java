@@ -25,7 +25,7 @@
  * IN THE SOFTWARE.
  */
 
-package com.hyperwallet.android.model.transfermethod;
+package com.hyperwallet.android.model.balance;
 
 import android.os.Parcel;
 import android.os.Parcelable;

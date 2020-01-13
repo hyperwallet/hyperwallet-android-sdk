@@ -1,0 +1,55 @@
+{
+  "count": 10,
+  "offset": 0,
+  "limit": 10,
+  "data": [
+    {
+      "currency": "CAD",
+      "amount": "988.03"
+    },
+    {
+      "currency": "EUR",
+      "amount": "10000.00"
+    },
+    {
+      "currency": "GBP",
+      "amount": "0.00"
+    },
+    {
+      "currency": "ILS",
+      "amount": "0.00"
+    },
+    {
+      "currency": "KES",
+      "amount": "0.00"
+    },
+    {
+      "currency": "KRW",
+      "amount": "0"
+    },
+    {
+      "currency": "NZD",
+      "amount": "0.00"
+    },
+    {
+      "currency": "SEK",
+      "amount": "0.00"
+    },
+    {
+      "currency": "TWD",
+      "amount": "0"
+    },
+    {
+      "currency": "USD",
+      "amount": "9933.35"
+    }
+  ],
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://localhost:8181/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/balances?offset=0&limit=10"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-package com.hyperwallet.android.model.transfermethod;
+package com.hyperwallet.android.model.balance;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
