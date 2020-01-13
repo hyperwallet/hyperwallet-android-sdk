@@ -101,8 +101,7 @@ public class ListBalancesTest {
 
     @Test
     public void testListBalance_returnsNoBalances() throws InterruptedException {
-        String responseBody = mExternalResourceManager.getResourceContent("balance_no_balance_response.json");
-        mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody(responseBody).mock();
+        mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody("").mock();
 
         BalanceQueryParam queryParam = new BalanceQueryParam.Builder()
                 .currency("GBP")
@@ -167,35 +166,5 @@ public class ListBalancesTest {
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
-    }
-
-    @Test
-    public void testListBalance_returnsEmptyResponse() throws InterruptedException {
-        mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody("").mock();
-
-        BalanceQueryParam queryParam = new BalanceQueryParam.Builder()
-                .currency("GBP")
-                .build();
-
-        assertThat(queryParam, is(notNullValue()));
-        Hyperwallet.getDefault().listUserBalances(queryParam, mListener);
-
-        mAwait.await(500, TimeUnit.MILLISECONDS);
-
-        RecordedRequest recordedRequest = mServer.getRequest();
-        assertThat(recordedRequest.getPath(),
-                containsString(
-                        "/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/balances?limit=10&currency=GBP"
-                                + "&offset=0"));
-        assertThat(recordedRequest.getMethod(), is(GET.name()));
-        assertThat(recordedRequest.getPath(), containsString("currency=GBP"));
-        assertThat(recordedRequest.getPath(), containsString("limit=10"));
-        assertThat(recordedRequest.getPath(), containsString("offset=0"));
-
-        verify(mListener).onSuccess(mListBalanceCaptor.capture());
-        verify(mListener, never()).onFailure(any(HyperwalletException.class));
-
-        PageList<Balance> balanceResponse = mListBalanceCaptor.getValue();
-        assertThat(balanceResponse, is(nullValue()));
     }
 }

@@ -103,7 +103,7 @@ public class Balance implements Parcelable, JsonModel {
     }
 
     /**
-     * @return a {@link String} value that represents the value of a {#CURRENCY}
+     * @return a {@link String} value that represents the value of a {@link #CURRENCY}
      */
     @Nullable
     public String getCurrency() {
