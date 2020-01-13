@@ -94,11 +94,17 @@ public class Balance implements Parcelable, JsonModel {
         return 0;
     }
 
+    /**
+     * @return a {@link String} value that represents the value of a {@link #AMOUNT}
+     */
     @Nullable
     public String getAmount() {
         return mFields.get(AMOUNT) != null ? (String) mFields.get(AMOUNT) : null;
     }
 
+    /**
+     * @return a {@link String} value that represents the value of a {#CURRENCY}
+     */
     @Nullable
     public String getCurrency() {
         return mFields.get(CURRENCY) != null ? (String) mFields.get(CURRENCY) : null;

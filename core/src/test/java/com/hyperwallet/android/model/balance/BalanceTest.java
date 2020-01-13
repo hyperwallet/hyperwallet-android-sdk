@@ -1,6 +1,7 @@
 package com.hyperwallet.android.model.balance;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -50,5 +51,13 @@ public class BalanceTest {
 
         assertThat(bundledBalance.getCurrency(), is("CAD"));
         assertThat(bundledBalance.getAmount(), is("988.03"));
+    }
+
+    @Test
+    public void testBalance_isCheckWithEmptyResponse() throws Exception {
+        Balance balance = fromJsonString("{}", new TypeReference<Balance>() {});
+
+        assertThat(balance.getCurrency(), is(nullValue()));
+        assertThat(balance.getAmount(), is(nullValue()));
     }
 }
