@@ -131,7 +131,7 @@ public class ListBalancesTest {
     }
 
     @Test
-    public void testListPrepaidCards_returnsError() throws InterruptedException {
+    public void testListBalance_returnsError() throws InterruptedException {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 

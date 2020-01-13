@@ -311,7 +311,7 @@ BalanceQueryParam balanceQueryParam = new BalanceQueryParam.Builder()
         .currency("USD")
         .sortByCurrencyAsc()
         .build();
-Hyperwallet.getDefault().listPrepaidCards(balanceQueryParam, listener);
+Hyperwallet.getDefault().listUserBalances(balanceQueryParam, listener);
 // onSuccess: response (PageList<Balance>) will contain a PageList of Balance or null if not exists
 // onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
 ```
