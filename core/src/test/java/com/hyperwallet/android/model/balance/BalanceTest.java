@@ -32,6 +32,9 @@ public class BalanceTest {
         assertThat(balance, is(notNullValue()));
         assertThat(balance.getCurrency(), is("CAD"));
         assertThat(balance.getAmount(), is("988.03"));
+
+        assertThat(balance.getField(Balance.CURRENCY), is("CAD"));
+        assertThat(balance.getField(Balance.AMOUNT), is("988.03"));
     }
 
     @Test
@@ -54,7 +57,7 @@ public class BalanceTest {
     }
 
     @Test
-    public void testBalance_isCheckWithEmptyResponse() throws Exception {
+    public void testBalance_defaultValues() throws Exception {
         Balance balance = fromJsonString("{}", new TypeReference<Balance>() {});
 
         assertThat(balance.getCurrency(), is(nullValue()));

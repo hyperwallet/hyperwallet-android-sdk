@@ -71,7 +71,7 @@ public class Balance implements Parcelable, JsonModel {
      *
      * @param jsonObject raw data information
      */
-    public Balance(@NonNull JSONObject jsonObject) throws JSONException {
+    public Balance(@NonNull final JSONObject jsonObject) throws JSONException {
         toMap(jsonObject);
     }
 
@@ -95,7 +95,7 @@ public class Balance implements Parcelable, JsonModel {
     }
 
     /**
-     * @return a {@link String} value that represents the value of a {@link #AMOUNT}
+     * @return a {@link String} value that represents the value of a {@link Balance}
      */
     @Nullable
     public String getAmount() {
@@ -103,11 +103,22 @@ public class Balance implements Parcelable, JsonModel {
     }
 
     /**
-     * @return a {@link String} value that represents the value of a {@link #CURRENCY}
+     * @return a {@link String} value that represents the value of a {@link Balance}
      */
     @Nullable
     public String getCurrency() {
         return mFields.get(CURRENCY) != null ? (String) mFields.get(CURRENCY) : null;
+    }
+
+    /**
+     * Returns a {@link String} value of a {@code Map<String, String>}
+     *
+     * @param key can only be a {@link String} that represents a {@link Balance} name
+     * @return a {@link String} value that represents the value of a {@link Balance}
+     */
+    @Nullable
+    public String getField(@NonNull final String key) {
+        return mFields.get(key) != null ? (String) mFields.get(key) : null;
     }
 
     /**
@@ -138,7 +149,7 @@ public class Balance implements Parcelable, JsonModel {
      *
      * @param jsonObject is a response from Rest API in {@link String} format
      */
-    private void toMap(@NonNull JSONObject jsonObject) throws JSONException {
+    private void toMap(@NonNull final JSONObject jsonObject) throws JSONException {
         mFields = JsonUtils.jsonObjectToMap(jsonObject);
     }
 }

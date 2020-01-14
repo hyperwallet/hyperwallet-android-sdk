@@ -85,7 +85,7 @@ class RestTransaction extends HttpTransaction {
     /**
      * Builder for {@link RestTransaction}
      */
-    protected final static class Builder<T> {
+    protected static final class Builder<T> {
         //Required Parameters
         private final HttpMethod httpMethod;
         private final PathFormatter pathFormatter;

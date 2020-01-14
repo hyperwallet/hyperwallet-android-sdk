@@ -123,10 +123,14 @@ public class BalanceQueryParam extends QueryParam {
         }
     }
 
-    protected final class BalanceSortable {
-        static final String ASCENDANT_AMOUNT = "+amount";
-        static final String ASCENDANT_CURRENCY = "+currency";
-        static final String DESCENDANT_AMOUNT = "-amount";
-        static final String DESCENDANT_CURRENCY = "-currency";
+    public final class BalanceSortable {
+        public static final String ASCENDANT_AMOUNT = "+amount";
+        public static final String ASCENDANT_CURRENCY = "+currency";
+        public static final String DESCENDANT_AMOUNT = "-amount";
+        public static final String DESCENDANT_CURRENCY = "-currency";
+
+        private BalanceSortable(){
+
+        }
     }
 }

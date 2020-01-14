@@ -23,7 +23,7 @@ import org.json.JSONObject;
  * {@code PageParameter} representation
  */
 public class PageParameter {
-    private final static String REL = "rel";
+    private static final String REL = "rel";
 
     private String mRel;
 

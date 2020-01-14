@@ -16,10 +16,10 @@ import org.junit.Test;
 import java.util.Map;
 
 public class BalanceQueryParamTest {
-    private final static String OFFSET = "offset";
-    private final static String LIMIT = "limit";
-    private final static String SORT_BY = "sortBy";
-    private final static String CURRENCY = "currency";
+    private static final String OFFSET = "offset";
+    private static final String LIMIT = "limit";
+    private static final String SORT_BY = "sortBy";
+    private static final String CURRENCY = "currency";
 
 
     @Test

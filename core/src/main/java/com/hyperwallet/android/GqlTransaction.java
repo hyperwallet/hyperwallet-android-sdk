@@ -79,7 +79,7 @@ class GqlTransaction extends HttpTransaction {
     /**
      * Builder for {@link GqlTransaction}
      */
-    protected final static class Builder<T> {
+    protected static final class Builder<T> {
         private final GqlQuery gqlQuery;
         private final TypeReference<T> typeReference;
         private final HyperwalletListener listener;
