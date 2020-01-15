@@ -226,7 +226,7 @@ final BankCard updatedBankCard = new BankCard.Builder()
         .dateOfExpiry("2023-12")
         .build();
 Hyperwallet.getDefault().updateBankCard(updatedBankCard, listener);
-// onSuccess: response (BankCard) will contain information about the updated Bank Card 
+// onSuccess: response (BankCard) will contain information about the updated Bank Card
 // onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
 
 // Note: the transfer method token must be set as part of the BankCard object passed in
@@ -302,6 +302,17 @@ TransferMethodQueryParam transferMethodQueryParam = new TransferMethodQueryParam
         .build();
 Hyperwallet.getDefault().listTransferMethods(transferMethodQueryParam, listener);
 // onSuccess: response (PageList<TransferMethod>) will contain a PageList of Transfer Methods or null if not exists
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
+```
+
+### List Balances
+```java
+BalanceQueryParam balanceQueryParam = new BalanceQueryParam.Builder()
+        .currency("USD")
+        .sortByCurrencyAsc()
+        .build();
+Hyperwallet.getDefault().listUserBalances(balanceQueryParam, listener);
+// onSuccess: response (PageList<Balance>) will contain a PageList of Balance or null if not exists
 // onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
 ```
 

@@ -39,13 +39,13 @@ public class HyperwalletSdkMock extends TestWatcher {
 
     private class AuthenticationProvider implements HyperwalletAuthenticationTokenProvider {
 
-        private final static String USER_TOKEN = "sub";
-        private final static String ISSUER = "iss";
-        private final static String CREATE_ON = "iat";
-        private final static String EXPIRES_ON = "exp";
-        private final static String CLIENT_TOKEN = "aud";
-        private final static String REST_URL = "rest-uri";
-        private final static String GRAPH_QL_URL = "graphql-uri";
+        private static final String USER_TOKEN = "sub";
+        private static final String ISSUER = "iss";
+        private static final String CREATE_ON = "iat";
+        private static final String EXPIRES_ON = "exp";
+        private static final String CLIENT_TOKEN = "aud";
+        private static final String REST_URL = "rest-uri";
+        private static final String GRAPH_QL_URL = "graphql-uri";
         private static final String INSIGHT_API_URL = "insights-uri";
         private static final String ENVIRONMENT = "environment";
         private HyperwalletMockWebServer server;

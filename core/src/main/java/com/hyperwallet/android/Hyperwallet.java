@@ -43,6 +43,8 @@ import com.hyperwallet.android.model.receipt.Receipt;
 import com.hyperwallet.android.model.receipt.ReceiptQueryParam;
 import com.hyperwallet.android.model.transfer.Transfer;
 import com.hyperwallet.android.model.transfer.TransferQueryParam;
+import com.hyperwallet.android.model.balance.Balance;
+import com.hyperwallet.android.model.balance.BalanceQueryParam;
 import com.hyperwallet.android.model.transfermethod.BankAccount;
 import com.hyperwallet.android.model.transfermethod.BankAccountQueryParam;
 import com.hyperwallet.android.model.transfermethod.BankCard;
@@ -746,6 +748,43 @@ public class Hyperwallet {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/prepaid-cards");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<PageList<PrepaidCard>>() {
+                }, listener).query(urlQuery);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
+     * Returns the {@link Balance} for the User associated with the authentication token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
+     * or an empty {@code List} if non exist.
+     *
+     * <p>The ordering and filtering of {@code Balance} will be based on the criteria specified within
+     * the
+     * {@link BalanceQueryParam} object, if it is not null. Otherwise the default ordering and
+     * filtering will be applied.</p>
+     *
+     * <ul>
+     * <li>Offset: 0</li>
+     * <li>Limit: 10</li>
+     * <li>Currency: N/A</li>
+     * <li>Sort By: Currency</li>
+     * </ul>
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param queryParam the ordering and filtering criteria
+     * @param listener   the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void listUserBalances(@Nullable final BalanceQueryParam queryParam,
+            @NonNull final HyperwalletListener<PageList<Balance>> listener) {
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/balances");
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<PageList<Balance>>() {
                 }, listener).query(urlQuery);
 
         performRestTransaction(builder, listener);

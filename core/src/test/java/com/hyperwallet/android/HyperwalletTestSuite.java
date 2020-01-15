@@ -1,5 +1,6 @@
 package com.hyperwallet.android;
 
+import com.hyperwallet.android.balance.ListBalancesTest;
 import com.hyperwallet.android.model.graphql.RetrieveTransferMethodConfigurationFieldsTest;
 import com.hyperwallet.android.transfer.CreateTransferTest;
 import com.hyperwallet.android.transfermethod.CreateBankAccountTest;
@@ -55,7 +56,8 @@ import org.junit.runners.Suite;
         ListUserReceiptsTest.class,
         ListPrepaidCardReceiptsTest.class,
         ListTransfersTest.class,
-        ListPrepaidCardsTest.class
+        ListPrepaidCardsTest.class,
+        ListBalancesTest.class
 })
 public class HyperwalletTestSuite {
 

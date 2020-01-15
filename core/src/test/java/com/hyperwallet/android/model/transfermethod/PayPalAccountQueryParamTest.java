@@ -19,14 +19,14 @@ import java.util.Calendar;
 import java.util.Map;
 
 public class PayPalAccountQueryParamTest {
-    private final static String OFFSET = "offset";
-    private final static String LIMIT = "limit";
-    private final static String CREATE_BEFORE = "createdBefore";
-    private final static String CREATE_AFTER = "createdAfter";
-    private final static String CREATE_ON = "createdOn";
-    private final static String TRANSFER_METHOD_TYPE = "type";
-    private final static String STATUS = "status";
-    private final static String SORT_BY = "sortBy";
+    private static final String OFFSET = "offset";
+    private static final String LIMIT = "limit";
+    private static final String CREATE_BEFORE = "createdBefore";
+    private static final String CREATE_AFTER = "createdAfter";
+    private static final String CREATE_ON = "createdOn";
+    private static final String TRANSFER_METHOD_TYPE = "type";
+    private static final String STATUS = "status";
+    private static final String SORT_BY = "sortBy";
 
 
     @Test
