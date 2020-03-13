@@ -10,10 +10,13 @@ import static com.hyperwallet.android.model.transfermethod.TransferMethod.Transf
 import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 
+import android.os.Build;
+
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.paging.PageList;
 import com.hyperwallet.android.model.transfermethod.BankAccount;
+import com.hyperwallet.android.sdk.BuildConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,6 +62,8 @@ public class RestTransactionBuilderTest {
         assertThat(headers, is(notNullValue()));
         assertThat(headers.get("Accept"), is("application/json"));
         assertThat(headers.get("Content-Type"), is("application/json"));
+        assertThat(headers.get("User-Agent"), is("HyperwalletSDK/Android/" + BuildConfig.VERSION_NAME +
+                "; App: HyperwalletSDK; Android: " + Build.VERSION.RELEASE));
     }
 
     @Test
@@ -90,6 +95,8 @@ public class RestTransactionBuilderTest {
         assertThat(headers, is(notNullValue()));
         assertThat(headers.get("Accept"), is("application/json"));
         assertThat(headers.get("Content-Type"), is("application/json"));
+        assertThat(headers.get("User-Agent"), is("HyperwalletSDK/Android/" + BuildConfig.VERSION_NAME +
+                "; App: HyperwalletSDK; Android: " + Build.VERSION.RELEASE));
     }
 
     @Test
@@ -120,6 +127,8 @@ public class RestTransactionBuilderTest {
         assertThat(headers, is(notNullValue()));
         assertThat(headers.get("Accept"), is("application/json"));
         assertThat(headers.get("Content-Type"), is("application/json"));
+        assertThat(headers.get("User-Agent"), is("HyperwalletSDK/Android/" + BuildConfig.VERSION_NAME +
+                "; App: HyperwalletSDK; Android: " + Build.VERSION.RELEASE));
     }
 }
 

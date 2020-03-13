@@ -16,11 +16,14 @@
  */
 package com.hyperwallet.android;
 
+import android.os.Build;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.TypeReference;
+import com.hyperwallet.android.sdk.BuildConfig;
 import com.hyperwallet.android.util.HttpClient;
 import com.hyperwallet.android.util.HttpMethod;
 import com.hyperwallet.android.util.JsonUtils;
@@ -43,6 +46,8 @@ public abstract class HttpTransaction implements Runnable {
     private static final String APPLICATION_JSON = "application/json";
     private static final String HTTP_HEADER_ACCEPT_KEY = "Accept";
     private static final String HTTP_HEADER_CONTENT_TYPE_KEY = "Content-Type";
+    private static final String HTTP_HEADER_USER_AGENT_KEY = "User-Agent";
+    private static final String HTTP_HEADER_USER_AGENT = "HyperwalletSDK/Android/%s; App: HyperwalletSDK; Android: %s";
     private Map<String, String> mHeaderMap;
     private HyperwalletListener mListener;
     private HttpMethod mMethod;
@@ -72,6 +77,7 @@ public abstract class HttpTransaction implements Runnable {
 
         addHeader(HTTP_HEADER_ACCEPT_KEY, APPLICATION_JSON);
         addHeader(HTTP_HEADER_CONTENT_TYPE_KEY, APPLICATION_JSON);
+        addHeader(HTTP_HEADER_USER_AGENT_KEY, getUserAgent());
     }
 
     /**
@@ -198,5 +204,9 @@ public abstract class HttpTransaction implements Runnable {
                 }
             });
         }
+    }
+
+    private String getUserAgent() {
+        return String.format(HTTP_HEADER_USER_AGENT, BuildConfig.VERSION_NAME, Build.VERSION.RELEASE);
     }
 }
