@@ -75,9 +75,9 @@ public class HyperwalletSdkMock extends TestWatcher {
                 JSONObject jwtPayload = new JSONObject();
                 jwtPayload.put(GRAPH_QL_URL, server.getServer().url("graphql/"));
                 jwtPayload.put(REST_URL, server.getServer().url("rest/v3/"));
-                jwtPayload.put(CLIENT_TOKEN, "pgu-f2f056b0-5ff0-447b-affb-b9b43a7e2c49");
-                jwtPayload.put(USER_TOKEN, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
-                jwtPayload.put(ISSUER, "prg-040e9b3d-614c-11e5-af23-0faa28ca7c0f");
+                jwtPayload.put(CLIENT_TOKEN, "test-client-token");
+                jwtPayload.put(USER_TOKEN, "test-user-token");
+                jwtPayload.put(ISSUER, "test-program-token");
                 jwtPayload.put(INSIGHT_API_URL, "insights.test.com/track/events");
                 jwtPayload.put(ENVIRONMENT, "TEST-DEV");
                 Calendar cal = Calendar.getInstance();

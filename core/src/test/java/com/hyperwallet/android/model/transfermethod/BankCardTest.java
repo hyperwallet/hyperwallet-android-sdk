@@ -44,7 +44,7 @@ public class BankCardTest {
         assertThat(actualBankCard.getField(CARD_NUMBER), is("************1114"));
         assertThat(actualBankCard.getField(CARD_TYPE), is("DEBIT"));
         assertThat(actualBankCard.getField(DATE_OF_EXPIRY), is("2019-11"));
-        assertThat(actualBankCard.getField(TOKEN), is("trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636"));
+        assertThat(actualBankCard.getField(TOKEN), is("trm-fake-token"));
         assertThat(actualBankCard.getField(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(actualBankCard.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
         assertThat(actualBankCard.getField(TYPE), is(BANK_CARD));
@@ -60,7 +60,7 @@ public class BankCardTest {
                 .cardNumber("4216701111111114")
                 .cardType("DEBIT")
                 .dateOfExpiry("2019-11")
-                .token("trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636")
+                .token("trm-fake-token")
                 .transferMethodCountry("US")
                 .transferMethodCurrency("USD")
                 .build();
@@ -71,7 +71,7 @@ public class BankCardTest {
         assertThat(jsonObject.getString(CARD_NUMBER), is("4216701111111114"));
         assertThat(jsonObject.getString(CARD_TYPE), is("DEBIT"));
         assertThat(jsonObject.getString(DATE_OF_EXPIRY), is("2019-11"));
-        assertThat(jsonObject.getString(TOKEN), is("trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636"));
+        assertThat(jsonObject.getString(TOKEN), is("trm-fake-token"));
         assertThat(jsonObject.getString(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(jsonObject.getString(TRANSFER_METHOD_CURRENCY), is("USD"));
         assertThat(jsonObject.getString(TYPE), is(BANK_CARD));

@@ -71,10 +71,10 @@ public class RestTransactionTest {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
                 .jsonModel(bankAccount)
-                .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
         assertThat(restTransaction.getMethod(), is(GET));
         assertThat(restTransaction.getListener(), CoreMatchers.<HyperwalletListener>is(mListener));
-        assertThat(restTransaction.getPath(), is("users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts"));
+        assertThat(restTransaction.getPath(), is("users/test-user-token/bank-accounts"));
 
         restTransaction.performRequest(mHttpClient);
         verify(mHttpClient).get();
@@ -93,7 +93,7 @@ public class RestTransactionTest {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
                 .jsonModel(bankAccount)
-                .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
         assertThat(restTransaction.getMethod(), is(POST));
 
         restTransaction.performRequest(mHttpClient);
@@ -119,7 +119,7 @@ public class RestTransactionTest {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
                 .jsonModel(bankAccount)
-                .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
         assertThat(restTransaction.getMethod(), is(PUT));
 
         restTransaction.performRequest(mHttpClient);
@@ -143,7 +143,7 @@ public class RestTransactionTest {
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
-                .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
         GqlErrors gqlErrors = JsonUtils.fromJsonString(mExternalResourceManager.getResourceContentError(
                 "gql_error_response.json"), new TypeReference<GqlErrors>() {
@@ -163,7 +163,7 @@ public class RestTransactionTest {
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
-                .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
         GqlErrors gqlErrors = JsonUtils.fromJsonString(mExternalResourceManager.getResourceContentError(
                 "gql_error_response.json"), new TypeReference<GqlErrors>() {
@@ -185,7 +185,7 @@ public class RestTransactionTest {
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
-                .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
         restTransaction.run();
         verify(mListener).onFailure(any(HyperwalletException.class));
@@ -200,7 +200,7 @@ public class RestTransactionTest {
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
-                .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
         Handler handler = mock(Handler.class);
         when(mListener.getHandler()).thenReturn(handler);
@@ -226,7 +226,7 @@ public class RestTransactionTest {
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
-                .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
         Handler handler = mock(Handler.class);
         when(mListener.getHandler()).thenReturn(handler);
@@ -248,7 +248,7 @@ public class RestTransactionTest {
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
-                .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
         Handler handler = mock(Handler.class);
         when(mListener.getHandler()).thenReturn(handler);
@@ -272,7 +272,7 @@ public class RestTransactionTest {
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
-                .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
         Handler handler = mock(Handler.class);
         when(mListener.getHandler()).thenReturn(handler);
@@ -294,7 +294,7 @@ public class RestTransactionTest {
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
-                .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
         Handler handler = mock(Handler.class);
         when(mListener.getHandler()).thenReturn(handler);

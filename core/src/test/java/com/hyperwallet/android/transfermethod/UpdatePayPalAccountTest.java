@@ -71,11 +71,11 @@ public class UpdatePayPalAccountTest {
         final PayPalAccount payPalAccount = new PayPalAccount
                 .Builder()
                 .email("jsmith2@paypal.com")
-                .token("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b")
+                .token("trm-fake-token")
                 .build();
 
         assertThat(payPalAccount.getField(EMAIL), is("jsmith2@paypal.com"));
-        assertThat(payPalAccount.getField(TOKEN), is("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b"));
+        assertThat(payPalAccount.getField(TOKEN), is("trm-fake-token"));
 
         Hyperwallet.getDefault().updatePayPalAccount(payPalAccount, mListener);
         mAwait.await(50, TimeUnit.MILLISECONDS);
@@ -89,10 +89,9 @@ public class UpdatePayPalAccountTest {
         assertThat(payPalAccountResponse, is(notNullValue()));
 
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts/trm-ac5727ac-8fe7-42fb"
-                        + "-b69d-977ebdd7b48b"));
+                is("/rest/v3/users/test-user-token/paypal-accounts/trm-fake-token"));
 
-        assertThat(payPalAccountResponse.getField(TOKEN), is("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b"));
+        assertThat(payPalAccountResponse.getField(TOKEN), is("trm-fake-token"));
         assertThat(payPalAccountResponse.getField(STATUS), is("ACTIVATED"));
         assertThat(payPalAccountResponse.getField(TYPE), is(PAYPAL_ACCOUNT));
         assertThat(payPalAccountResponse.getField(EMAIL), is("jsmith2@paypal.com"));
@@ -111,12 +110,12 @@ public class UpdatePayPalAccountTest {
         final PayPalAccount payPalAccount = new PayPalAccount
                 .Builder()
                 .email("00G0G1ema.com")
-                .token("trm-56b976c5-26b2-42fa-87cf-14b3366673c6")
+                .token("trm-fake-token")
                 .build();
 
         assertThat(payPalAccount.getField(EMAIL), is("00G0G1ema.com"));
         assertThat(payPalAccount.getField(TOKEN),
-                is("trm-56b976c5-26b2-42fa-87cf-14b3366673c6"));
+                is("trm-fake-token"));
 
         Hyperwallet.getDefault().updatePayPalAccount(payPalAccount, mListener);
         mAwait.await(50, TimeUnit.MILLISECONDS);
@@ -132,8 +131,7 @@ public class UpdatePayPalAccountTest {
                 is(HttpURLConnection.HTTP_BAD_REQUEST));
 
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts/trm-56b976c5-26b2-42fa-87cf"
-                        + "-14b3366673c6"));
+                is("/rest/v3/users/test-user-token/paypal-accounts/trm-fake-token"));
 
         Errors errors = hyperwalletException.getErrors();
         assertThat(errors, is(notNullValue()));

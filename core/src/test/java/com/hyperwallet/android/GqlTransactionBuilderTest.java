@@ -41,7 +41,7 @@ public class GqlTransactionBuilderTest {
                 new TypeReference<HyperwalletTransferMethodConfigurationKey>() {
                 }, mListener);
 
-        final GqlTransaction gqlTransaction = builder.build("test", "usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636",
+        final GqlTransaction gqlTransaction = builder.build("test", "test-user-token",
                 "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9");
         assertThat(gqlTransaction, is(notNullValue()));
         assertThat(gqlTransaction.getMethod(), is(POST));
@@ -53,7 +53,7 @@ public class GqlTransactionBuilderTest {
         assertThat(headers.get("Authorization"), is("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9"));
 
         final String QUERY_VALUE = "query {\n"
-                + "\tcountries(idToken: \"usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636\") {\n"
+                + "\tcountries(idToken: \"test-user-token\") {\n"
                 + "\t\tnodes {\n"
                 + "\t\t\tcode\n"
                 + "\t\t\tname\n"

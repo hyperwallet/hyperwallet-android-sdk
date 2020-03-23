@@ -49,7 +49,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://localhost:8181/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/balances?offset=0&limit=10"
+      "href": "https://localhost:8181/rest/v3/users/test-user-token/balances?offset=0&limit=10"
     }
   ]
 }

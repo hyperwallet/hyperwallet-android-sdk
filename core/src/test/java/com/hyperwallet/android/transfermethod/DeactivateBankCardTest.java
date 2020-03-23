@@ -78,13 +78,13 @@ public class DeactivateBankCardTest {
                 is(StatusTransition.StatusDefinition.DE_ACTIVATED));
         assertThat(statusTransitionResponse.getTransition(),
                 is(StatusTransition.StatusDefinition.DE_ACTIVATED));
-        assertThat(statusTransitionResponse.getToken(), is("sts-70ddc78a-0c14-4a72-8390-75d49ff376f2"));
+        assertThat(statusTransitionResponse.getToken(), is("sts-fake-token"));
         assertNotNull(statusTransitionResponse.getCreatedOn());
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
                 endsWith(
-                        "users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards/trm-fake-token/status-transitions"));
+                        "users/test-user-token/bank-cards/trm-fake-token/status-transitions"));
         assertThat(recordedRequest.getMethod(), is(POST.name()));
     }
 
@@ -116,7 +116,7 @@ public class DeactivateBankCardTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
                 endsWith(
-                        "users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards/trm-fake-token/status-transitions"));
+                        "users/test-user-token/bank-cards/trm-fake-token/status-transitions"));
         assertThat(recordedRequest.getMethod(), is(POST.name()));
     }
 

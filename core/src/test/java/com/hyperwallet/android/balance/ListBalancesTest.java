@@ -91,7 +91,7 @@ public class ListBalancesTest {
         assertThat(balanceResponse.getLimit(), is(10));
 
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/balances?offset=0&limit=10"));
+                is("/rest/v3/users/test-user-token/balances?offset=0&limit=10"));
 
         Balance balance = balanceResponse.getDataList().get(0);
         assertThat(balance.getCurrency(), is("CAD"));
@@ -115,8 +115,7 @@ public class ListBalancesTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
                 containsString(
-                        "/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/balances?limit=10&currency=GBP"
-                                + "&offset=0"));
+                        "/rest/v3/users/test-user-token/balances?limit=10&currency=GBP&offset=0"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(), containsString("currency=GBP"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
@@ -162,7 +161,7 @@ public class ListBalancesTest {
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/balances?"));
+                containsString("/rest/v3/users/test-user-token/balances?"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));

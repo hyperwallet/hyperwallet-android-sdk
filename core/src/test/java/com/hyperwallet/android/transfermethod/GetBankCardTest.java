@@ -76,13 +76,12 @@ public class GetBankCardTest {
         String responseBody = mExternalResourceManager.getResourceContent("bank_card_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getBankCard("trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636", mListener);
+        Hyperwallet.getDefault().getBankCard("trm-fake-token", mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards/trm-d8c65e1e-b3e5-460d-8b24"
-                        + "-bee7cdae1636"));
+                is("/rest/v3/users/test-user-token/bank-cards/trm-fake-token"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         verify(mListener).onSuccess(mBankCardArgumentCaptor.capture());
@@ -98,7 +97,7 @@ public class GetBankCardTest {
         assertThat(bankCardResponse.getField(CVV), is(nullValue()));
         assertThat(bankCardResponse.getField(CREATED_ON), is("2019-01-08T00:56:15"));
         assertThat(bankCardResponse.getField(DATE_OF_EXPIRY), is("2019-11"));
-        assertThat(bankCardResponse.getField(TOKEN), is("trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636"));
+        assertThat(bankCardResponse.getField(TOKEN), is("trm-fake-token"));
         assertThat(bankCardResponse.getField(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(bankCardResponse.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
         assertThat(bankCardResponse.getField(STATUS), is(ACTIVATED));
@@ -110,13 +109,12 @@ public class GetBankCardTest {
         String responseBody = "";
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_NO_CONTENT).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getBankCard("trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636", mListener);
+        Hyperwallet.getDefault().getBankCard("trm-fake-token", mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards/trm-d8c65e1e-b3e5-460d-8b24"
-                        + "-bee7cdae1636"));
+                is("/rest/v3/users/test-user-token/bank-cards/trm-fake-token"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         verify(mListener).onSuccess(mBankCardArgumentCaptor.capture());
@@ -132,13 +130,12 @@ public class GetBankCardTest {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getBankCard("trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636", mListener);
+        Hyperwallet.getDefault().getBankCard("trm-fake-token", mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards/trm-d8c65e1e-b3e5-460d-8b24"
-                        + "-bee7cdae1636"));
+                is("/rest/v3/users/test-user-token/bank-cards/trm-fake-token"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         verify(mListener, never()).onSuccess(any(BankCard.class));

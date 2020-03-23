@@ -9,7 +9,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-02d381d3-bf7e-43fe-9d00-02e26b28df57/prepaid-cards?offset=0&limit=10"
+      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/test-user-token/prepaid-cards?offset=0&limit=10"
     }
   ]
 }

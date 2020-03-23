@@ -58,8 +58,8 @@ public class TransferQueryParamTest {
                 .limit(40)
                 .offset(120)
                 .clientTransferId("123000")
-                .sourceToken("usr-246")
-                .destinationToken("trm-345");
+                .sourceToken("test-user-token")
+                .destinationToken("trm-fake-token");
         TransferQueryParam transferQueryParam = builder.build();
 
         assertThat(transferQueryParam.getCreatedAfter(), is(createdAfter));
@@ -67,8 +67,8 @@ public class TransferQueryParamTest {
         assertThat(transferQueryParam.getLimit(), is(40));
         assertThat(transferQueryParam.getOffset(), is(120));
         assertThat(transferQueryParam.getClientTransferId(), is("123000"));
-        assertThat(transferQueryParam.getSourceToken(), is("usr-246"));
-        assertThat(transferQueryParam.getDestinationToken(), is("trm-345"));
+        assertThat(transferQueryParam.getSourceToken(), is("test-user-token"));
+        assertThat(transferQueryParam.getDestinationToken(), is("trm-fake-token"));
 
         Map<String, String> resultDefaultQueryMap = transferQueryParam.buildQuery();
 
@@ -77,7 +77,7 @@ public class TransferQueryParamTest {
         assertThat(resultDefaultQueryMap.get(CREATED_AFTER), is("2019-02-10T00:00:00"));
         assertThat(resultDefaultQueryMap.get(CREATED_BEFORE), is("2019-07-20T00:00:00"));
         assertThat(resultDefaultQueryMap.get(CLIENT_TRANSFER_ID), is("123000"));
-        assertThat(resultDefaultQueryMap.get(SOURCE_TOKEN), is("usr-246"));
-        assertThat(resultDefaultQueryMap.get(DESTINATION_TOKEN), is("trm-345"));
+        assertThat(resultDefaultQueryMap.get(SOURCE_TOKEN), is("test-user-token"));
+        assertThat(resultDefaultQueryMap.get(DESTINATION_TOKEN), is("trm-fake-token"));
     }
 }

@@ -93,7 +93,7 @@ public class ListUserReceiptsTest {
         assertThat(receiptResponse.getLimit(), is(10));
 
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/receipts?"));
+                containsString("/rest/v3/users/test-user-token/receipts?"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
 
@@ -103,7 +103,7 @@ public class ListUserReceiptsTest {
         assertThat(receipt.getCreatedOn(), is("2017-11-01T17:08:58"));
         assertThat(receipt.getEntry(), is(Receipt.Entries.CREDIT));
         assertThat(receipt.getSourceToken(), is("act-12345"));
-        assertThat(receipt.getDestinationToken(), is("usr-fbfd5848-60d0-43c5-8462-099c959b49c7"));
+        assertThat(receipt.getDestinationToken(), is("test-user-token"));
         assertThat(receipt.getAmount(), is("20.00"));
         assertThat(receipt.getFee(), is("0.00"));
         assertThat(receipt.getDetails(), is(notNullValue()));
@@ -140,7 +140,7 @@ public class ListUserReceiptsTest {
         assertThat(receiptResponse.getLimit(), is(10));
 
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/receipts?"));
+                containsString("/rest/v3/users/test-user-token/receipts?"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
 
@@ -163,7 +163,7 @@ public class ListUserReceiptsTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/receipts?"));
+                containsString("/rest/v3/users/test-user-token/receipts?"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
 
@@ -206,7 +206,7 @@ public class ListUserReceiptsTest {
         assertThat(error.getFieldName(), is(nullValue()));
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/receipts?"));
+                containsString("/rest/v3/users/test-user-token/receipts?"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
     }

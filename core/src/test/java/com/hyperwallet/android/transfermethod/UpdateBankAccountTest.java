@@ -80,7 +80,7 @@ public class UpdateBankAccountTest {
                 .phoneNumber("+1 403-452-3115")
                 .postalCode("T2G0G1")
                 .stateProvince("AB")
-                .token("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56")
+                .token("trm-fake-token")
                 .build();
 
         assertThat(bankAccount.getField(ADDRESS_LINE_1), is("618 Confluence Way"));
@@ -90,7 +90,7 @@ public class UpdateBankAccountTest {
         assertThat(bankAccount.getField(POSTAL_CODE), is("T2G0G1"));
         assertThat(bankAccount.getField(STATE_PROVINCE), is("AB"));
         assertThat(bankAccount.getField(TOKEN),
-                is("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56"));
+                is("trm-fake-token"));
 
         Hyperwallet.getDefault().updateBankAccount(bankAccount, mockBankAccountListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
@@ -104,10 +104,9 @@ public class UpdateBankAccountTest {
         assertThat(bankAccountResponse, is(notNullValue()));
 
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts/trm-854c4ec1-9161-49d6-92e2"
-                        + "-b8d15aa4bf56"));
+                is("/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"));
 
-        assertThat(bankAccountResponse.getField(TOKEN), is("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56"));
+        assertThat(bankAccountResponse.getField(TOKEN), is("trm-fake-token"));
         assertThat(bankAccountResponse.getField(STATUS), is("ACTIVATED"));
         assertThat(bankAccountResponse.getField(TYPE), is(BANK_ACCOUNT));
         assertThat(bankAccountResponse.getField(ADDRESS_LINE_1), is("618 Confluence Way"));
@@ -129,13 +128,13 @@ public class UpdateBankAccountTest {
                 .Builder()
                 .postalCode("00G0G1")
                 .stateProvince("WW")
-                .token("trm-56b976c5-26b2-42fa-87cf-14b3366673c6")
+                .token("trm-fake-token")
                 .build();
 
         assertThat(bankAccount.getField(POSTAL_CODE), is("00G0G1"));
         assertThat(bankAccount.getField(STATE_PROVINCE), is("WW"));
         assertThat(bankAccount.getField(TOKEN),
-                is("trm-56b976c5-26b2-42fa-87cf-14b3366673c6"));
+                is("trm-fake-token"));
 
         Hyperwallet.getDefault().updateBankAccount(bankAccount, mockBankAccountListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
@@ -151,8 +150,7 @@ public class UpdateBankAccountTest {
                 is(HttpURLConnection.HTTP_BAD_REQUEST));
 
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts/trm-56b976c5-26b2-42fa-87cf"
-                        + "-14b3366673c6"));
+                is("/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"));
 
         Errors errors = hyperwalletException.getErrors();
         assertThat(errors, is(notNullValue()));

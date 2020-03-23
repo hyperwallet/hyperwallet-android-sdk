@@ -49,7 +49,7 @@ public class ReceiptTest {
         assertThat(receipt.getField(CREATED_ON), is(equalTo("2017-11-01T17:08:58")));
         assertThat(receipt.getField(ENTRY), is(equalTo(Receipt.Entries.CREDIT)));
         assertThat(receipt.getField(SOURCE_TOKEN), is(equalTo("act-123")));
-        assertThat(receipt.getField(DESTINATION_TOKEN), is(equalTo("usr-123")));
+        assertThat(receipt.getField(DESTINATION_TOKEN), is(equalTo("test-user-token")));
         assertThat(receipt.getField(AMOUNT), is(equalTo("20.00")));
         assertThat(receipt.getField(FEE), is(equalTo("0.00")));
         assertThat(receipt.getField(CURRENCY), is(equalTo("USD")));
@@ -66,7 +66,7 @@ public class ReceiptTest {
         assertThat(receipt.getCreatedOn(), is(equalTo("2017-11-01T17:08:58")));
         assertThat(receipt.getEntry(), is(equalTo(Receipt.Entries.CREDIT)));
         assertThat(receipt.getSourceToken(), is(equalTo("act-123")));
-        assertThat(receipt.getDestinationToken(), is(equalTo("usr-123")));
+        assertThat(receipt.getDestinationToken(), is(equalTo("test-user-token")));
         assertThat(receipt.getAmount(), is(equalTo("20.00")));
         assertThat(receipt.getFee(), is(equalTo("0.00")));
         assertThat(receipt.getCurrency(), is(equalTo("USD")));
@@ -105,7 +105,7 @@ public class ReceiptTest {
         assertThat(bundleReceipt.getCreatedOn(), is(equalTo("2017-11-01T17:08:58")));
         assertThat(bundleReceipt.getEntry(), is(equalTo(Receipt.Entries.CREDIT)));
         assertThat(bundleReceipt.getSourceToken(), is(equalTo("act-123")));
-        assertThat(bundleReceipt.getDestinationToken(), is(equalTo("usr-123")));
+        assertThat(bundleReceipt.getDestinationToken(), is(equalTo("test-user-token")));
         assertThat(bundleReceipt.getAmount(), is(equalTo("20.00")));
         assertThat(bundleReceipt.getFee(), is(equalTo("0.00")));
         assertThat(bundleReceipt.getCurrency(), is(equalTo("USD")));

@@ -64,7 +64,7 @@ public class DeactivatePayPalAccountTest {
                 "deactivated_paypal_account_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_CREATED).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().deactivatePayPalAccount("trm-da21954a-3910-4d70-b83d-0c2d96104394", null,
+        Hyperwallet.getDefault().deactivatePayPalAccount("trm-fake-token", null,
                 mListener);
         mAwait.await(50, TimeUnit.MILLISECONDS);
 
@@ -78,12 +78,11 @@ public class DeactivatePayPalAccountTest {
                 is(StatusTransition.StatusDefinition.DE_ACTIVATED));
         assertThat(statusTransitionResponse.getTransition(),
                 is(StatusTransition.StatusDefinition.DE_ACTIVATED));
-        assertThat(statusTransitionResponse.getToken(), is("sts-70ddc78a-0c14-4a72-8390-75d49ff376f2"));
+        assertThat(statusTransitionResponse.getToken(), is("sts-fake-token"));
         assertNotNull(statusTransitionResponse.getCreatedOn());
         final RecordedRequest request = mServer.getRequest();
         assertThat(request.getPath(), endsWith(
-                "users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts/trm-da21954a-3910-4d70-b83d"
-                        + "-0c2d96104394/status-transitions"));
+                "users/test-user-token/paypal-accounts/trm-fake-token/status-transitions"));
         assertThat(request.getMethod(), is(POST.name()));
     }
 
@@ -112,7 +111,7 @@ public class DeactivatePayPalAccountTest {
         assertThat(statusTransitionError.getMessage(), is("transition is invalid"));
         final RecordedRequest request = mServer.getRequest();
         assertThat(request.getPath(), endsWith(
-                "users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts/trm-fake-token/status"
+                "users/test-user-token/paypal-accounts/trm-fake-token/status"
                         + "-transitions"));
         assertThat(request.getMethod(), is(POST.name()));
     }

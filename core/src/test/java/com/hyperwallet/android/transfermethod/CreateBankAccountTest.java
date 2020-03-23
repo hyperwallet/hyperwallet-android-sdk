@@ -126,7 +126,7 @@ public class CreateBankAccountTest {
                 .phoneNumber("+1 604 6666666")
                 .postalCode("V6Z1L2")
                 .stateProvince("BC")
-                .token("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56")
+                .token("trm-fake-token")
                 .build();
 
         Hyperwallet.getDefault().createBankAccount(bankAccount, mockBankAccountListener);
@@ -142,7 +142,7 @@ public class CreateBankAccountTest {
 
         //bank info
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts"));
+                is("/rest/v3/users/test-user-token/bank-accounts"));
         assertThat(bankAccountResponse.getField(BANK_ACCOUNT_ID), is("8017110254"));
         assertThat(bankAccountResponse.getField(BANK_ACCOUNT_PURPOSE), is(BankAccount.Purpose.SAVINGS));
         assertThat(bankAccountResponse.getField(BANK_ACCOUNT_RELATIONSHIP), is("SELF"));
@@ -159,7 +159,7 @@ public class CreateBankAccountTest {
 
         assertThat(bankAccountResponse.getField(IS_DEFAULT_TRANSFER_METHOD), is(nullValue()));
         assertThat(bankAccountResponse.getField(STATUS), is(ACTIVATED));
-        assertThat(bankAccountResponse.getField(TOKEN), is("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56"));
+        assertThat(bankAccountResponse.getField(TOKEN), is("trm-fake-token"));
         assertThat(bankAccountResponse.getField(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(bankAccountResponse.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
         assertThat(bankAccountResponse.getField(TYPE), is(BANK_ACCOUNT));
@@ -209,7 +209,7 @@ public class CreateBankAccountTest {
         assertThat(hyperwalletException, is(notNullValue()));
 
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts"));
+                is("/rest/v3/users/test-user-token/bank-accounts"));
 
         Errors errors = hyperwalletException.getErrors();
         assertThat(errors, is(notNullValue()));

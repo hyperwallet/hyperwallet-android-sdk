@@ -1,5 +1,5 @@
 {
-  "token": "trm-12345",
+  "token": "trm-fake-token",
   "type": "WIRE_ACCOUNT",
   "status": "ACTIVATED",
   "createdOn": "2018-10-31T16:47:15",
@@ -33,7 +33,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://localhost:8181/rest/v3/users/usr-123/bank-accounts/trm-12345"
+      "href": "https://localhost:8181/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"
     }
   ]
 }

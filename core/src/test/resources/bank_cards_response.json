@@ -4,7 +4,7 @@
   "limit": 10,
   "data": [
     {
-      "token": "trm-7e915660-8c97-47bf-8a4f-0c1bc890d46f",
+      "token": "trm-fake-token",
       "type": "BANK_CARD",
       "status": "ACTIVATED",
       "createdOn": "2017-11-09T22:50:14",
@@ -19,12 +19,12 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/bank-cards/trm-7e915660-8c97-47bf-8a4f-0c1bc890d46f"
+          "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/test-user-token/bank-cards/trm-fake-token"
         }
       ]
     },
     {
-      "token": "trm-7742f31d-452c-4bf7-8645-c003fa1511d5",
+      "token": "trm-fake-token",
       "type": "BANK_CARD",
       "status": "ACTIVATED",
       "createdOn": "2017-11-09T23:18:34",
@@ -39,7 +39,7 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/bank-cards/trm-7742f31d-452c-4bf7-8645-c003fa1511d5"
+          "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/test-user-token/bank-cards/trm-fake-token"
         }
       ]
     }
@@ -49,7 +49,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/bank-cards?offset=0&limit=10"
+      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/test-user-token/bank-cards?offset=0&limit=10"
     }
   ]
 }

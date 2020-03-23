@@ -90,10 +90,10 @@ public class CreatePayPalAccountTest {
 
         //paypal account info
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts"));
+                is("/rest/v3/users/test-user-token/paypal-accounts"));
 
         assertThat(paypalAccountResponse.getField(STATUS), is(ACTIVATED));
-        assertThat(paypalAccountResponse.getField(TOKEN), is("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b"));
+        assertThat(paypalAccountResponse.getField(TOKEN), is("trm-fake-token"));
         assertThat(paypalAccountResponse.getField(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(paypalAccountResponse.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
         assertThat(paypalAccountResponse.getField(TYPE), is(PAYPAL_ACCOUNT));
@@ -122,7 +122,7 @@ public class CreatePayPalAccountTest {
         assertThat(hyperwalletException, is(notNullValue()));
 
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts"));
+                is("/rest/v3/users/test-user-token/paypal-accounts"));
 
         Errors errors = hyperwalletException.getErrors();
         assertThat(errors.getErrors(), hasSize(1));

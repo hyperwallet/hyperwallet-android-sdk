@@ -96,11 +96,11 @@ public class ListPrepaidCardsTest {
         assertThat(prepaidCardsResponse.getLimit(), is(10));
 
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards?limit=10&offset=0&type"
+                is("/rest/v3/users/test-user-token/prepaid-cards?limit=10&offset=0&type"
                         + "=PREPAID_CARD&status=ACTIVATED"));
 
         PrepaidCard prepaidCard = prepaidCardsResponse.getDataList().get(0);
-        assertThat(prepaidCard.getField(TOKEN), is("trm-17d10cf0-121d-45df-903c-589fd881a549"));
+        assertThat(prepaidCard.getField(TOKEN), is("trm-fake-token"));
         assertThat(prepaidCard.getType(), is(PREPAID_CARD));
         assertThat(prepaidCard.getStatus(), is(ACTIVATED));
         assertThat(DateUtil.toDateTimeFormat(prepaidCard.getCreatedOn()), is("2019-06-20T22:49:12"));
@@ -130,7 +130,7 @@ public class ListPrepaidCardsTest {
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards?"));
+                containsString("/rest/v3/users/test-user-token/prepaid-cards?"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(), containsString("type=PREPAID_CARD"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
@@ -178,7 +178,7 @@ public class ListPrepaidCardsTest {
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards?"));
+                containsString("/rest/v3/users/test-user-token/prepaid-cards?"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(), containsString("type=PREPAID_CARD"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));

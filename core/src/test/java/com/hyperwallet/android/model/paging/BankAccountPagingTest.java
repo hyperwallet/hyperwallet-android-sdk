@@ -40,7 +40,7 @@ public class BankAccountPagingTest {
         List<PageLink> pageLinks = bankAccountPageList.getPageLinks();
         assertThat(pageLinks, hasSize(1));
         assertThat(pageLinks.get(0).getPageHref(),
-                is("https://localhost:8181/rest/v3/users/usr-e8715a30-3e79-4c4f-a7b7-0f4c42c3a5a5/bank-accounts"
+                is("https://localhost:8181/rest/v3/users/test-user-token/bank-accounts"
                         + "?offset=0&limit=10"));
         assertThat(pageLinks.get(0).getPageParameter(), is(notNullValue()));
         assertThat(pageLinks.get(0).getPageParameter().getRel(), is("self"));
@@ -49,7 +49,7 @@ public class BankAccountPagingTest {
         List<BankAccount> bankAccounts = bankAccountPageList.getDataList();
         assertThat(bankAccounts, hasSize(1));
         assertThat(bankAccounts.get(0).getField(TransferMethod.TransferMethodFields.TOKEN),
-                is("trm-c47aee4e-2b4c-4d0a-b3ee-d8fdb2be0422"));
+                is("trm-fake-token"));
         assertThat(bankAccounts.get(0).getField(TransferMethod.TransferMethodFields.TYPE), is("BANK_ACCOUNT"));
         assertThat(bankAccounts.get(0).getField(TransferMethod.TransferMethodFields.STATUS), is("ACTIVATED"));
         assertThat(bankAccounts.get(0).getField(TransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY), is("US"));
@@ -63,7 +63,7 @@ public class BankAccountPagingTest {
                 "  \"offset\" : 0,\n" +
                 "  \"limit\" : 10,\n" +
                 "  \"data\" : [ {\n" +
-                "    \"token\" : \"trm-c47aee4e-2b4c-4d0a-b3ee-d8fdb2be0422\",\n" +
+                "    \"token\" : \"trm-fake-token\",\n" +
                 "    \"type\" : \"BANK_ACCOUNT\",\n" +
                 "    \"status\" : \"ACTIVATED\",\n" +
                 "    \"createdOn\" : \"2019-01-04T14:53:48\",\n" +
@@ -90,14 +90,14 @@ public class BankAccountPagingTest {
                 "      \"params\" : {\n" +
                 "        \"rel\" : \"self\"\n" +
                 "      },\n" +
-                "      \"href\" : \"https://localhost:8181/rest/v3/users/usr-e8715a30-3e79-4c4f-a7b7-0f4c42c3a5a5/bank-accounts/trm-c47aee4e-2b4c-4d0a-b3ee-d8fdb2be0422\"\n" +
+                "      \"href\" : \"https://localhost:8181/rest/v3/users/test-user-token/bank-accounts/trm-fake-token\"\n" +
                 "    } ]\n" +
                 "  } ],\n" +
                 "  \"links\" : [ {\n" +
                 "    \"params\" : {\n" +
                 "      \"rel\" : \"self\"\n" +
                 "    },\n" +
-                "    \"href\" : \"https://localhost:8181/rest/v3/users/usr-e8715a30-3e79-4c4f-a7b7-0f4c42c3a5a5/bank-accounts?offset=0&limit=10\"\n" +
+                "    \"href\" : \"https://localhost:8181/rest/v3/users/test-user-token/bank-accounts?offset=0&limit=10\"\n" +
                 "  } ]\n" +
                 "}";
     }

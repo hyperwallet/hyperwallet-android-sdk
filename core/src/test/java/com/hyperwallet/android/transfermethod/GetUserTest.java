@@ -67,7 +67,7 @@ public class GetUserTest {
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7"));
+                is("/rest/v3/users/test-user-token"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         verify(mListener).onSuccess(mUserArgumentCaptor.capture());
@@ -75,7 +75,7 @@ public class GetUserTest {
 
         User userResponse = mUserArgumentCaptor.getValue();
         assertThat(userResponse, is(notNullValue()));
-        assertThat(userResponse.getToken(), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
+        assertThat(userResponse.getToken(), is("test-user-token"));
         assertThat(userResponse.getStatus(), is("PRE_ACTIVATED"));
         assertThat(userResponse.getVerificationStatus(), is("NOT_REQUIRED"));
         assertThat(userResponse.getCreatedOn(), is("2017-10-30T22:15:45"));
@@ -91,7 +91,7 @@ public class GetUserTest {
         assertThat(userResponse.getCountry(), is("US"));
         assertThat(userResponse.getPostalCode(), is("94105"));
         assertThat(userResponse.getLanguage(), is("en"));
-        assertThat(userResponse.getProgramToken(), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
+        assertThat(userResponse.getProgramToken(), is("test-program-token"));
     }
 
     @Test
@@ -104,7 +104,7 @@ public class GetUserTest {
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7"));
+                is("/rest/v3/users/test-user-token"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         verify(mListener).onSuccess(mUserArgumentCaptor.capture());
@@ -124,7 +124,7 @@ public class GetUserTest {
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7"));
+                is("/rest/v3/users/test-user-token"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         verify(mListener, never()).onSuccess(any(User.class));

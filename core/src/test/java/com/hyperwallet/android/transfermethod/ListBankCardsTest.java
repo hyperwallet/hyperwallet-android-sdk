@@ -93,7 +93,7 @@ public class ListBankCardsTest {
         assertThat(bankCardsResponse.getLimit(), is(10));
 
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards?limit=10&offset=0&type"
+                is("/rest/v3/users/test-user-token/bank-cards?limit=10&offset=0&type"
                         + "=BANK_CARD&status=ACTIVATED"));
     }
 
@@ -113,7 +113,7 @@ public class ListBankCardsTest {
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards?"));
+                containsString("/rest/v3/users/test-user-token/bank-cards?"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(), containsString("type=BANK_CARD"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
@@ -161,7 +161,7 @@ public class ListBankCardsTest {
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards?"));
+                containsString("/rest/v3/users/test-user-token/bank-cards?"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(), containsString("type=BANK_CARD"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));

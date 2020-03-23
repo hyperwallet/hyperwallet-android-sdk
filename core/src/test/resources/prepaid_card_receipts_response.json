@@ -5,7 +5,7 @@
       "type": "DEPOSIT",
       "createdOn": "2019-06-01T17:12:19",
       "entry": "CREDIT",
-      "destinationToken": "trm-2345",
+      "destinationToken": "trm-fake-token",
       "amount": "18.05",
       "currency": "USD",
       "details": {
@@ -17,7 +17,7 @@
       "type": "DONATION",
       "createdOn": "2019-02-01T17:12:19",
       "entry": "DEBIT",
-      "destinationToken": "trm-2345",
+      "destinationToken": "trm-fake-token",
       "amount": "100.10",
       "currency": "USD",
       "details": {
@@ -30,7 +30,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://localhost:8181/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards/trm-2345/receipts"
+      "href": "https://localhost:8181/rest/v3/users/test-user-token/prepaid-cards/trm-fake-token/receipts"
     }
   ]
 }

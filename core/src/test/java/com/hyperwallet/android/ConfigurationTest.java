@@ -68,7 +68,7 @@ public class ConfigurationTest {
     @Test
     public void testGetProgramToken_returnsProgramToken() {
         String programToken = mConfiguration.getProgramToken();
-        assertThat(programToken, is(equalTo("prg-040e9b3d-614c-11e5-af23-0faa28ca7c0f")));
+        assertThat(programToken, is(equalTo("test-program-token")));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class ConfigurationTest {
     @Test
     public void testGetUserToken_returnsUserToken() {
         String userToken = mConfiguration.getUserToken();
-        assertThat(userToken, is(equalTo("usr-4cd4a839-fdd2-48f1-bd30-7958216e781f")));
+        assertThat(userToken, is(equalTo("test-user-token")));
     }
 
     @Test
@@ -134,7 +134,7 @@ public class ConfigurationTest {
                 "0LmNvbS9yZXN0L3YzLyIsImdyYXBocWwtdXJpIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5oeXBlcndhbGxldC5jb20vZ3JhcGhxbCJ9."
                 + "3GSVpYoqVMx4hXyZrlaj_wjJWAQLCX5ivRqvtybKV76cmnWxWfnoZEr0-4ipMH_aY8GTBCDzsgab3NREGkgjSg"));
 
-        assertThat(configuration.getUserToken(), is("usr-4cd4a839-fdd2-48f1-bd30-7958216e781f"));
+        assertThat(configuration.getUserToken(), is("test-user-token"));
     }
 
     @Test

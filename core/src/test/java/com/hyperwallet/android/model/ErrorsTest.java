@@ -36,7 +36,7 @@ public class ErrorsTest {
                     + "duplications are not allowed.",
             null,
             "DUPLICATE_EXTERNAL_ACCOUNT_CREATION",
-            Arrays.asList("trm-09617f4d-40d8-4225-b1da-24b8bca91e65", "trm-09617f4d-40d8-4225-b1da-24b8bca91e72"));
+            Arrays.asList("trm-fake-token", "trm-fake-token"));
     private static final Error INVALID_BRANCH_ID_ERROR = new Error(
             "Please modify Routing Number to a valid ACH Routing Number of the branch of your bank.", "branchId",
             "CONSTRAINT_VIOLATIONS");

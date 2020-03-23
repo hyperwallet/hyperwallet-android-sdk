@@ -71,14 +71,13 @@ public class GetPayPalTest {
         String responseBody = mExternalResourceManager.getResourceContent("paypal_account_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getPayPalAccount("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b", mListener);
+        Hyperwallet.getDefault().getPayPalAccount("trm-fake-token", mListener);
         mAwait.await(COUNTDOWN_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts/trm-ac5727ac-8fe7-42fb"
-                        + "-b69d-977ebdd7b48b"));
+                is("/rest/v3/users/test-user-token/paypal-accounts/trm-fake-token"));
 
         verify(mListener).onSuccess(mPayPalAccountArgumentCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
@@ -86,7 +85,7 @@ public class GetPayPalTest {
         PayPalAccount payPalAccountResponse = mPayPalAccountArgumentCaptor.getValue();
         assertThat(payPalAccountResponse, is(notNullValue()));
         assertThat(payPalAccountResponse.getField(TYPE), is(PAYPAL_ACCOUNT));
-        assertThat(payPalAccountResponse.getField(TOKEN), is("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b"));
+        assertThat(payPalAccountResponse.getField(TOKEN), is("trm-fake-token"));
         assertThat(payPalAccountResponse.getField(STATUS), is(ACTIVATED));
 
         assertThat(payPalAccountResponse.getField(CREATED_ON), is("2019-01-09T22:50:14"));
@@ -102,14 +101,13 @@ public class GetPayPalTest {
         String responseBody = "";
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_NO_CONTENT).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getPayPalAccount("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b", mListener);
+        Hyperwallet.getDefault().getPayPalAccount("trm-fake-token", mListener);
         mAwait.await(COUNTDOWN_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts/trm-ac5727ac-8fe7-42fb"
-                        + "-b69d-977ebdd7b48b"));
+                is("/rest/v3/users/test-user-token/paypal-accounts/trm-fake-token"));
 
         verify(mListener).onSuccess(mPayPalAccountArgumentCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
@@ -124,14 +122,13 @@ public class GetPayPalTest {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getPayPalAccount("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56", mListener);
+        Hyperwallet.getDefault().getPayPalAccount("trm-fake-token", mListener);
         mAwait.await(COUNTDOWN_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts/trm-854c4ec1-9161-49d6-92e2"
-                        + "-b8d15aa4bf56"));
+                is("/rest/v3/users/test-user-token/paypal-accounts/trm-fake-token"));
 
         verify(mListener, never()).onSuccess(any(PayPalAccount.class));
         verify(mListener).onFailure(mExceptionCaptor.capture());

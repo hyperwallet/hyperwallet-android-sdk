@@ -92,13 +92,12 @@ public class GetBankAccountTest {
         String responseBody = mExternalResourceManager.getResourceContent("bank_account_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getBankAccount("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56", mListener);
+        Hyperwallet.getDefault().getBankAccount("trm-fake-token", mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts/trm-854c4ec1-9161-49d6-92e2"
-                        + "-b8d15aa4bf56"));
+                is("/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         verify(mListener).onSuccess(mBankCardArgumentCaptor.capture());
@@ -107,7 +106,7 @@ public class GetBankAccountTest {
         BankAccount bankAccountResponse = mBankCardArgumentCaptor.getValue();
         assertThat(bankAccountResponse, is(notNullValue()));
         assertThat(bankAccountResponse.getField(TYPE), is(BANK_ACCOUNT));
-        assertThat(bankAccountResponse.getField(TOKEN), is("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56"));
+        assertThat(bankAccountResponse.getField(TOKEN), is("trm-fake-token"));
         assertThat(bankAccountResponse.getField(STATUS), is(ACTIVATED));
 
         assertThat(bankAccountResponse.getField(CREATED_ON), is("2019-01-07T22:03:13"));
@@ -144,13 +143,12 @@ public class GetBankAccountTest {
         String responseBody = "";
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_NO_CONTENT).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getBankAccount("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56", mListener);
+        Hyperwallet.getDefault().getBankAccount("trm-fake-token", mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts/trm-854c4ec1-9161-49d6-92e2"
-                        + "-b8d15aa4bf56"));
+                is("/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         verify(mListener).onSuccess(mBankCardArgumentCaptor.capture());
@@ -166,13 +164,12 @@ public class GetBankAccountTest {
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().getBankAccount("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56", mListener);
+        Hyperwallet.getDefault().getBankAccount("trm-fake-token", mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts/trm-854c4ec1-9161-49d6-92e2"
-                        + "-b8d15aa4bf56"));
+                is("/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         verify(mListener, never()).onSuccess(any(BankAccount.class));

@@ -89,12 +89,12 @@ public class TransferMethodConfigurationFieldQueryTest {
                         + "\t\t}\n"
                         + "\t}\n"
                         + "}",
-                "usr-2ff94da8-f0f6-4d7e-a99a-d13c7de8deaf", "CA", "CAD", "BANK_ACCOUNT", "INDIVIDUAL");
+                "test-user-token", "CA", "CAD", "BANK_ACCOUNT", "INDIVIDUAL");
 
         TransferMethodConfigurationFieldQuery fieldQuery =
                 new TransferMethodConfigurationFieldQuery("CA", "CAD", "BANK_ACCOUNT", "INDIVIDUAL");
 
-        String resultQuery = fieldQuery.toQuery("usr-2ff94da8-f0f6-4d7e-a99a-d13c7de8deaf");
+        String resultQuery = fieldQuery.toQuery("test-user-token");
 
         assertThat(resultQuery, is(sampleFieldQuery));
     }

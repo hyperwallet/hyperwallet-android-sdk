@@ -103,11 +103,11 @@ public class ListPayPalAccountsTest {
         assertThat(payPalAccountsResponse.getLimit(), is(10));
 
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts?limit=10&offset=0&type"
+                is("/rest/v3/users/test-user-token/paypal-accounts?limit=10&offset=0&type"
                         + "=PAYPAL_ACCOUNT&status=ACTIVATED"));
 
         PayPalAccount payPalAccount = payPalAccountsResponse.getDataList().get(0);
-        assertThat(payPalAccount.getField(TOKEN), is("trm-7e915660-8c97-47bf-8a4f-0c1bc890d46f"));
+        assertThat(payPalAccount.getField(TOKEN), is("trm-fake-token"));
         assertThat(payPalAccount.getField(TYPE), is(PAYPAL_ACCOUNT));
         assertThat(payPalAccount.getField(STATUS), is(ACTIVATED));
         assertThat(payPalAccount.getField(CREATED_ON), is("2019-01-09T22:50:14"));
@@ -132,7 +132,7 @@ public class ListPayPalAccountsTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts?"));
+                containsString("/rest/v3/users/test-user-token/paypal-accounts?"));
         assertThat(recordedRequest.getPath(), containsString("type=PAYPAL_ACCOUNT"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
@@ -179,7 +179,7 @@ public class ListPayPalAccountsTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/paypal-accounts?"));
+                containsString("/rest/v3/users/test-user-token/paypal-accounts?"));
         assertThat(recordedRequest.getPath(), containsString("type=PAYPAL_ACCOUNT"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));

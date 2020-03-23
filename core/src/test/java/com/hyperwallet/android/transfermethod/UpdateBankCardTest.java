@@ -81,7 +81,7 @@ public class UpdateBankCardTest {
                 .cardBrand("VISA")
                 .cardType("DEBIT")
                 .dateOfExpiry("2019-11")
-                .token("trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636")
+                .token("trm-fake-token")
                 .build();
         assertThat(bankCard.getField(CARD_BRAND), is("VISA"));
         assertThat(bankCard.getField(CARD_NUMBER), is("************1114"));
@@ -106,15 +106,14 @@ public class UpdateBankCardTest {
         assertThat(bankCardResponse.getField(CVV), is(nullValue()));
         assertThat(bankCardResponse.getField(CREATED_ON), is("2019-01-08T00:56:15"));
         assertThat(bankCardResponse.getField(DATE_OF_EXPIRY), is("2019-11"));
-        assertThat(bankCardResponse.getField(TOKEN), is("trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636"));
+        assertThat(bankCardResponse.getField(TOKEN), is("trm-fake-token"));
         assertThat(bankCardResponse.getField(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(bankCardResponse.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
         assertThat(bankCardResponse.getField(STATUS), is(ACTIVATED));
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards/trm-d8c65e1e-b3e5-460d-8b24"
-                        + "-bee7cdae1636"));
+                is("/rest/v3/users/test-user-token/bank-cards/trm-fake-token"));
         assertThat(recordedRequest.getMethod(), is(PUT.name()));
 
     }
@@ -131,7 +130,7 @@ public class UpdateBankCardTest {
                 .cardType("DEBIT")
                 .cvv("someCvv")
                 .dateOfExpiry("2019-11")
-                .token("trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636")
+                .token("trm-fake-token")
                 .build();
 
         assertThat(bankCard.getField(CARD_BRAND), is("VISA"));
@@ -147,8 +146,7 @@ public class UpdateBankCardTest {
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards/trm-d8c65e1e-b3e5-460d-8b24"
-                        + "-bee7cdae1636"));
+                is("/rest/v3/users/test-user-token/bank-cards/trm-fake-token"));
         assertThat(recordedRequest.getMethod(), is(PUT.name()));
 
         verify(mListener, never()).onSuccess(any(BankCard.class));

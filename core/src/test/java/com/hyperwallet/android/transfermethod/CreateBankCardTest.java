@@ -76,7 +76,7 @@ public class CreateBankCardTest {
                 .cardNumber("4216701111111114")
                 .cardType("DEBIT")
                 .dateOfExpiry("2019-11")
-                .token("trm-7e915660-8c97-47bf-8a4f-0c1bc890d46f")
+                .token("trm-fake-token")
                 .transferMethodCountry("US")
                 .transferMethodCurrency("USD")
                 .build();
@@ -94,14 +94,14 @@ public class CreateBankCardTest {
         BankCard bankCardResponse = mListTransferMethodCaptor.getValue();
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards"));
+                is("/rest/v3/users/test-user-token/bank-cards"));
         assertThat(recordedRequest.getMethod(), is(POST.name()));
 
         assertThat(bankCardResponse.getField(CARD_BRAND), is("VISA"));
         assertThat(bankCardResponse.getField(CARD_NUMBER), is(equalTo("************0114")));
         assertThat(bankCardResponse.getField(CARD_TYPE), is("DEBIT"));
         assertThat(bankCardResponse.getField(DATE_OF_EXPIRY), is("2019-11"));
-        assertThat(bankCardResponse.getField(TOKEN), is("trm-7e915660-8c97-47bf-8a4f-0c1bc890d46f"));
+        assertThat(bankCardResponse.getField(TOKEN), is("trm-fake-token"));
         assertThat(bankCardResponse.getField(TRANSFER_METHOD_COUNTRY), is(equalTo("US")));
         assertThat(bankCardResponse.getField(TRANSFER_METHOD_CURRENCY), is(equalTo("USD")));
         assertThat(bankCardResponse.getField(TYPE), is("BANK_CARD"));
@@ -117,7 +117,7 @@ public class CreateBankCardTest {
                 .cardNumber("1216701111111114")
                 .cardType("DEBIT")
                 .dateOfExpiry("2018-11")
-                .token("trm-7e915660-8c97-47bf-8a4f-0c1bc890d46f")
+                .token("trm-fake-token")
                 .transferMethodCountry("US")
                 .transferMethodCurrency("USD")
                 .build();
@@ -132,7 +132,7 @@ public class CreateBankCardTest {
         verify(mListener).onFailure(mExceptionCaptor.capture());
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-cards"));
+                is("/rest/v3/users/test-user-token/bank-cards"));
         assertThat(recordedRequest.getMethod(), is(POST.name()));
 
         HyperwalletException hyperwalletException = mExceptionCaptor.getValue();

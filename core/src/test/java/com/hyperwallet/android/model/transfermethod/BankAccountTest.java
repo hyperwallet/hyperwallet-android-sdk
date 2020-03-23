@@ -71,7 +71,7 @@ public class BankAccountTest {
         assertThat(actualBankAccount.getField(BANK_NAME), is("GREATER WATERBURY HEALTHCARE FCU"));
         assertThat(actualBankAccount.getField(BRANCH_ID), is("211179539"));
         assertThat(actualBankAccount.getField(BRANCH_NAME), is("TEST BRANCH"));
-        assertThat(actualBankAccount.getField(TOKEN), is("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56"));
+        assertThat(actualBankAccount.getField(TOKEN), is("trm-fake-token"));
         assertThat(actualBankAccount.getField(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(actualBankAccount.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
         assertThat(actualBankAccount.getField(TYPE), is(BANK_ACCOUNT));
@@ -100,7 +100,7 @@ public class BankAccountTest {
                 .bankName("GREATER WATERBURY HEALTHCARE FCU")
                 .branchId("211179539")
                 .branchName("TEST BRANCH")
-                .token("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56")
+                .token("trm-fake-token")
                 .transferMethodCountry("US")
                 .transferMethodCurrency("USD")
                 .countryOfBirth("US")
@@ -122,7 +122,7 @@ public class BankAccountTest {
         assertThat(jsonObject.getString(BANK_ID), is("211179539"));
         assertThat(jsonObject.getString(BANK_NAME), is("GREATER WATERBURY HEALTHCARE FCU"));
         assertThat(jsonObject.getString(BRANCH_NAME), is("TEST BRANCH"));
-        assertThat(jsonObject.getString(TOKEN), is("trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56"));
+        assertThat(jsonObject.getString(TOKEN), is("trm-fake-token"));
         assertThat(jsonObject.getString(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(jsonObject.getString(TRANSFER_METHOD_CURRENCY), is("USD"));
         assertThat(jsonObject.getString(TYPE), is(BANK_ACCOUNT));
@@ -149,7 +149,7 @@ public class BankAccountTest {
         assertThat(actualBankAccount.getField(BANK_ACCOUNT_PURPOSE), is("CHECKING"));
         assertThat(actualBankAccount.getField(BANK_ACCOUNT_RELATIONSHIP), is("SELF"));
         assertThat(actualBankAccount.getField(BRANCH_ID), is("012004567"));
-        assertThat(actualBankAccount.getField(TOKEN), is("trm-12345"));
+        assertThat(actualBankAccount.getField(TOKEN), is("trm-fake-token"));
         assertThat(actualBankAccount.getField(TYPE), is(WIRE_ACCOUNT));
         assertThat(actualBankAccount.getField(DATE_OF_BIRTH), is("1991-01-01"));
         assertThat(actualBankAccount.getField(FIRST_NAME), is("Tommy"));
@@ -175,7 +175,7 @@ public class BankAccountTest {
         final BankAccount expectedBankAccount = new BankAccount.Builder()
                 .bankAccountId("8017110254")
                 .bankAccountPurpose("SAVINGS")
-                .token("trm-123")
+                .token("trm-fake-token")
                 .transferMethodCountry("US")
                 .transferMethodCurrency("USD")
                 .dateOfBirth("1980-01-01")
@@ -199,7 +199,7 @@ public class BankAccountTest {
         assertThat(jsonObject.getString(BANK_ACCOUNT_ID), is("8017110254"));
         assertThat(jsonObject.getString(BANK_ACCOUNT_PURPOSE), is("SAVINGS"));
         assertThat(jsonObject.getString(TYPE), is(WIRE_ACCOUNT));
-        assertThat(jsonObject.getString(TOKEN), is("trm-123"));
+        assertThat(jsonObject.getString(TOKEN), is("trm-fake-token"));
         assertThat(jsonObject.getString(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(jsonObject.getString(TRANSFER_METHOD_CURRENCY), is("USD"));
         assertThat(jsonObject.getString(DATE_OF_BIRTH), is("1980-01-01"));

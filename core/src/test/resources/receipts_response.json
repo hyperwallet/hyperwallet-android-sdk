@@ -9,7 +9,7 @@
       "createdOn": "2017-11-01T17:08:58",
       "entry": "CREDIT",
       "sourceToken": "act-12345",
-      "destinationToken": "usr-fbfd5848-60d0-43c5-8462-099c959b49c7",
+      "destinationToken": "test-user-token",
       "amount": "20.00",
       "fee": "0.00",
       "currency": "USD",
@@ -23,7 +23,7 @@
       "type": "CARD_ACTIVATION_FEE",
       "createdOn": "2017-11-01T17:09:16",
       "entry": "DEBIT",
-      "sourceToken": "usr-12345",
+      "sourceToken": "test-user-token",
       "amount": "1.95",
       "currency": "USD"
     }
@@ -33,7 +33,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-b86ab524-2787-46e2-b536-5a70e37349f7/receipts?offset=0&limit=10"
+      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/test-user-token/receipts?offset=0&limit=10"
     }
   ]
 }
