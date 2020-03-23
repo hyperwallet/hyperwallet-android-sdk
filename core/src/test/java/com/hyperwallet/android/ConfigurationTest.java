@@ -28,13 +28,11 @@ public class ConfigurationTest {
     public static void setup() {
         try {
             mJwtToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9."
-                    + "eyJzdWIiOiJ1c3ItNGNkNGE4MzktZmRkMi00OGYxLWJkMzAtNzk1ODIxNmU3ODFmIiwiaWF0Ijo"
-                    + "yNTQ4MzY4Njg2LCJleHAiOjI1NDgzNjkyODYsImF1ZCI6InBndS1mMmYwNTZiMC01ZmYwLTQ0N2"
-                    + "ItYWZmYi1iOWI0M2E3ZTJjNDkiLCJpc3MiOiJwcmctMDQwZTliM2QtNjE0Yy0xMWU1LWFmMjMtM"
-                    + "GZhYTI4Y2E3YzBmIiwicmVzdC11cmkiOiJodHRwczovL2FwaS5zYW5kYm94Lmh5cGVyd2FsbGV0"
-                    + "LmNvbS9yZXN0L3YzLyIsImdyYXBocWwtdXJpIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5oeXBlcnd"
-                    + "hbGxldC5jb20vZ3JhcGhxbCJ9.3GSVpYoqVMx4hXyZrlaj_wjJWAQLCX5ivRqvtybKV76cmnWxW"
-                    + "fnoZEr0-4ipMH_aY8GTBCDzsgab3NREGkgjSg";
+                    + "eyJzdWIiOiJ0ZXN0LXVzZXItdG9rZW4iLCJpYXQiOjI1NDgzNjg2ODYsImV4cCI6MjU0ODM2OTI4NiwiYX"
+                    + "VkIjoidGVzdC1jbGllbnQtdG9rZW4iLCJpc3MiOiJ0ZXN0LXByb2dyYW0tdG9rZW4iLCJyZXN0LXVyaSI6Im"
+                    + "h0dHBzOi8vYXBpLnNhbmRib3guaHlwZXJ3YWxsZXQuY29tL3Jlc3QvdjMvIiwiZ3JhcGhxbC11cmkiOiJodHR"
+                    + "wczovL2FwaS5zYW5kYm94Lmh5cGVyd2FsbGV0LmNvbS9ncmFwaHFsIn0=.3GSVpYoqVMx4hXyZrlaj_wjJWAQ"
+                    + "LCX5ivRqvtybKV76cmnWxWfnoZEr0-4ipMH_aY8GTBCDzsgab3NREGkgjSg";
             mConfiguration = new Configuration(mJwtToken);
         } catch (JSONException e) {
             fail("Unable to parse json response");
@@ -118,21 +116,18 @@ public class ConfigurationTest {
     @Test
     public void testConfiguration_parseValidToken() throws JSONException {
         Configuration configuration = new Configuration("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9."
-                + "eyJzdWIiOiJ1c3ItNGNkNGE4MzktZmRkMi00OGYxLWJkMzAtNzk1ODIxNmU3ODFmIiwiaWF0Ijo"
-                + "yNTQ4MzY4Njg2LCJleHAiOjI1NDgzNjkyODYsImF1ZCI6InBndS1mMmYwNTZiMC01ZmYwLTQ0N2"
-                + "ItYWZmYi1iOWI0M2E3ZTJjNDkiLCJpc3MiOiJwcmctMDQwZTliM2QtNjE0Yy0xMWU1LWFmMjMtM"
-                + "GZhYTI4Y2E3YzBmIiwicmVzdC11cmkiOiJodHRwczovL2FwaS5zYW5kYm94Lmh5cGVyd2FsbGV0"
-                + "LmNvbS9yZXN0L3YzLyIsImdyYXBocWwtdXJpIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5oeXBlcnd"
-                + "hbGxldC5jb20vZ3JhcGhxbCJ9.3GSVpYoqVMx4hXyZrlaj_wjJWAQLCX5ivRqvtybKV76cmnWxW"
-                + "fnoZEr0-4ipMH_aY8GTBCDzsgab3NREGkgjSg");
+                + "eyJzdWIiOiJ0ZXN0LXVzZXItdG9rZW4iLCJpYXQiOjI1NDgzNjg2ODYsImV4cCI6MjU0ODM2OTI4NiwiYX"
+                + "VkIjoidGVzdC1jbGllbnQtdG9rZW4iLCJpc3MiOiJ0ZXN0LXByb2dyYW0tdG9rZW4iLCJyZXN0LXVyaSI6Im"
+                + "h0dHBzOi8vYXBpLnNhbmRib3guaHlwZXJ3YWxsZXQuY29tL3Jlc3QvdjMvIiwiZ3JhcGhxbC11cmkiOiJodHR"
+                + "wczovL2FwaS5zYW5kYm94Lmh5cGVyd2FsbGV0LmNvbS9ncmFwaHFsIn0=.3GSVpYoqVMx4hXyZrlaj_wjJWAQ"
+                + "LCX5ivRqvtybKV76cmnWxWfnoZEr0-4ipMH_aY8GTBCDzsgab3NREGkgjSg");
 
-        assertThat(configuration.getAuthenticationToken(), is("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.ey"
-                + "JzdWIiOiJ1c3ItNGNkNGE4MzktZmRkMi00OGYxLWJkMzAtNzk1ODIxNmU3ODFmIiwiaWF0IjoyNTQ4MzY4Njg2LCJleHAiOjI1"
-                + "NDgzNjkyODYsImF1ZCI6InBndS1mMmYwNTZiMC01ZmYwLTQ0N2ItYWZmYi1iOWI0M2E3ZTJjNDkiLCJpc3MiOiJwcmctMDQwZTl"
-                + "iM2QtNjE0Yy0xMWU1LWFmMjMtMGZhYTI4Y2E3YzBmIiwicmVzdC11cmkiOiJodHRwczovL2FwaS5zYW5kYm94Lmh5cGVyd2FsbGV"
-                +
-                "0LmNvbS9yZXN0L3YzLyIsImdyYXBocWwtdXJpIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5oeXBlcndhbGxldC5jb20vZ3JhcGhxbCJ9."
-                + "3GSVpYoqVMx4hXyZrlaj_wjJWAQLCX5ivRqvtybKV76cmnWxWfnoZEr0-4ipMH_aY8GTBCDzsgab3NREGkgjSg"));
+        assertThat(configuration.getAuthenticationToken(), is("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9."
+                + "eyJzdWIiOiJ0ZXN0LXVzZXItdG9rZW4iLCJpYXQiOjI1NDgzNjg2ODYsImV4cCI6MjU0ODM2OTI4NiwiYX"
+                + "VkIjoidGVzdC1jbGllbnQtdG9rZW4iLCJpc3MiOiJ0ZXN0LXByb2dyYW0tdG9rZW4iLCJyZXN0LXVyaSI6Im"
+                + "h0dHBzOi8vYXBpLnNhbmRib3guaHlwZXJ3YWxsZXQuY29tL3Jlc3QvdjMvIiwiZ3JhcGhxbC11cmkiOiJodHR"
+                + "wczovL2FwaS5zYW5kYm94Lmh5cGVyd2FsbGV0LmNvbS9ncmFwaHFsIn0=.3GSVpYoqVMx4hXyZrlaj_wjJWAQ"
+                + "LCX5ivRqvtybKV76cmnWxWfnoZEr0-4ipMH_aY8GTBCDzsgab3NREGkgjSg"));
 
         assertThat(configuration.getUserToken(), is("test-user-token"));
     }
