@@ -29,6 +29,6 @@ public class PageLinkTest {
         assertThat(pageLink.getPageParameter(), is(notNullValue()));
         assertThat(pageLink.getPageParameter().getRel(), is("self"));
         assertThat(pageLink.getPageHref(),
-                is("https://api.sandbox.hyperwallet.com/rest/v3/users/test-user-token"));
+                is("https://localhost:8181/rest/v3/users/test-user-token"));
     }
 }

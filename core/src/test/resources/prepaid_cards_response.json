@@ -21,7 +21,7 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/test-user-token/prepaid-cards/trm-fake-token"
+          "href": "https://localhost:8181/rest/v3/users/test-user-token/prepaid-cards/trm-fake-token"
         }
       ]
     },
@@ -43,7 +43,7 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/test-user-token/prepaid-cards/trm-fake-token"
+          "href": "https://localhost:8181/rest/v3/users/test-user-token/prepaid-cards/trm-fake-token"
         }
       ]
     }
@@ -53,7 +53,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/test-user-token/prepaid-cards?offset=0&limit=10"
+      "href": "https://localhost:8181/rest/v3/users/test-user-token/prepaid-cards?offset=0&limit=10"
     }
   ]
 }
