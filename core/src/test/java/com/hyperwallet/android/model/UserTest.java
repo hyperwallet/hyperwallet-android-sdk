@@ -81,7 +81,7 @@ public class UserTest {
                 });
 
         assertThat(actualUser, is(notNullValue()));
-        assertThat(actualUser.getField(TOKEN), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
+        assertThat(actualUser.getField(TOKEN), is("test-user-token"));
         assertThat(actualUser.getField(STATUS), is("PRE_ACTIVATED"));
         assertThat(actualUser.getField(VERIFICATION_STATUS), is("NOT_REQUIRED"));
         assertThat(actualUser.getField(CREATED_ON), is("2017-10-30T22:15:45"));
@@ -122,7 +122,7 @@ public class UserTest {
         assertThat(actualUser.getField(BUSINESS_OPERATING_NAME), is("Hyperwallet"));
         assertThat(actualUser.getField(BUSINESS_TYPE), is("CORPORATION"));
         assertThat(actualUser.getField(LANGUAGE), is("en"));
-        assertThat(actualUser.getField(PROGRAM_TOKEN), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
+        assertThat(actualUser.getField(PROGRAM_TOKEN), is("test-program-token"));
 
     }
 
@@ -130,7 +130,7 @@ public class UserTest {
     public void testToJsonObject_user() throws Exception {
 
         final User expectedUser = new User.Builder()
-                .token("usr-f9154016-94e8-4686-a840-075688ac07b5")
+                .token("test-user-token")
                 .status(LOCKED)
                 .verificationStatus(UNDER_REVIEW)
                 .createdOn("2017-10-30T22:15:45")
@@ -170,13 +170,13 @@ public class UserTest {
                 .phoneNumber("496-7678")
                 .postalCode("94105")
                 .profileType(INDIVIDUAL)
-                .programToken("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c")
+                .programToken("test-program-token")
                 .stateProvince("BC")
                 .build();
 
         JSONObject jsonObject = expectedUser.toJsonObject();
 
-        assertThat(jsonObject.getString(TOKEN), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
+        assertThat(jsonObject.getString(TOKEN), is("test-user-token"));
         assertThat(jsonObject.getString(STATUS), is(LOCKED));
         assertThat(jsonObject.getString(VERIFICATION_STATUS), is(UNDER_REVIEW));
         assertThat(jsonObject.getString(CREATED_ON), is("2017-10-30T22:15:45"));
@@ -216,7 +216,7 @@ public class UserTest {
         assertThat(jsonObject.getString(PHONE_NUMBER), is("496-7678"));
         assertThat(jsonObject.getString(POSTAL_CODE), is("94105"));
         assertThat(jsonObject.getString(PROFILE_TYPE), is(INDIVIDUAL));
-        assertThat(jsonObject.getString(PROGRAM_TOKEN), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
+        assertThat(jsonObject.getString(PROGRAM_TOKEN), is("test-program-token"));
         assertThat(jsonObject.getString(STATE_PROVINCE), is("BC"));
     }
 
@@ -235,7 +235,7 @@ public class UserTest {
         User bundledUser = User.CREATOR.createFromParcel(parcel);
 
         assertThat(bundledUser, is(notNullValue()));
-        assertThat(bundledUser.getToken(), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
+        assertThat(bundledUser.getToken(), is("test-user-token"));
         assertThat(bundledUser.getStatus(), is("PRE_ACTIVATED"));
         assertThat(bundledUser.getVerificationStatus(), is("NOT_REQUIRED"));
         assertThat(bundledUser.getCreatedOn(), is("2017-10-30T22:15:45"));
@@ -251,13 +251,13 @@ public class UserTest {
         assertThat(bundledUser.getCountry(), is("US"));
         assertThat(bundledUser.getPostalCode(), is("94105"));
         assertThat(bundledUser.getLanguage(), is("en"));
-        assertThat(bundledUser.getProgramToken(), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
+        assertThat(bundledUser.getProgramToken(), is("test-program-token"));
     }
 
     @Test
     public void testUser_fieldsAccessors() {
         final User expectedUser = new User.Builder()
-                .token("usr-f9154016-94e8-4686-a840-075688ac07b5")
+                .token("test-user-token")
                 .status(LOCKED)
                 .verificationStatus(UNDER_REVIEW)
                 .createdOn("2017-10-30T22:15:45")
@@ -297,11 +297,11 @@ public class UserTest {
                 .phoneNumber("496-7678")
                 .postalCode("94105")
                 .profileType(INDIVIDUAL)
-                .programToken("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c")
+                .programToken("test-program-token")
                 .stateProvince("BC")
                 .build();
 
-        assertThat(expectedUser.getToken(), is("usr-f9154016-94e8-4686-a840-075688ac07b5"));
+        assertThat(expectedUser.getToken(), is("test-user-token"));
         assertThat(expectedUser.getStatus(), is(LOCKED));
         assertThat(expectedUser.getVerificationStatus(), is(UNDER_REVIEW));
         assertThat(expectedUser.getCreatedOn(), is("2017-10-30T22:15:45"));
@@ -341,7 +341,7 @@ public class UserTest {
         assertThat(expectedUser.getPhoneNumber(), is("496-7678"));
         assertThat(expectedUser.getPostalCode(), is("94105"));
         assertThat(expectedUser.getProfileType(), is(INDIVIDUAL));
-        assertThat(expectedUser.getProgramToken(), is("prg-83836cdf-2ce2-4696-8bc5-f1b86077238c"));
+        assertThat(expectedUser.getProgramToken(), is("test-program-token"));
         assertThat(expectedUser.getStateProvince(), is("BC"));
     }
 }

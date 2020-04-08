@@ -36,7 +36,7 @@ public class PayPalAccountTest {
                 });
 
         assertThat(actualPayPalAccount, is(notNullValue()));
-        assertThat(actualPayPalAccount.getField(TOKEN), is("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b"));
+        assertThat(actualPayPalAccount.getField(TOKEN), is("trm-fake-token"));
         assertThat(actualPayPalAccount.getCountry(), is("US"));
         assertThat(actualPayPalAccount.getCurrency(), is("USD"));
         assertThat(actualPayPalAccount.getField(TYPE), is(PAYPAL_ACCOUNT));
@@ -52,12 +52,12 @@ public class PayPalAccountTest {
                 .transferMethodCountry("US")
                 .transferMethodCurrency("USD")
                 .email("jsmith@paypal.com")
-                .token("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b")
+                .token("trm-fake-token")
                 .build();
 
         JSONObject jsonObject = payPalAccount.toJsonObject();
 
-        assertThat(jsonObject.getString(TOKEN), is("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b"));
+        assertThat(jsonObject.getString(TOKEN), is("trm-fake-token"));
         assertThat(jsonObject.getString(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(jsonObject.getString(TRANSFER_METHOD_CURRENCY), is("USD"));
         assertThat(jsonObject.getString(TYPE), is(PAYPAL_ACCOUNT));

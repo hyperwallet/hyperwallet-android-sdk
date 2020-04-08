@@ -59,7 +59,7 @@ public class GqlTransactionTest {
                 keysQuery,
                 new TypeReference<HyperwalletTransferMethodConfigurationKey>() {
                 }, mListener);
-        final GqlTransaction gqlTransaction = builder.build("test", "usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636",
+        final GqlTransaction gqlTransaction = builder.build("test", "test-user-token",
                 "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9");
         assertThat(gqlTransaction.getMethod(), is(HttpMethod.POST));
 
@@ -68,7 +68,7 @@ public class GqlTransactionTest {
         verify(mHttpClient).post(mPayloadCaptor.capture());
         String payload = mPayloadCaptor.getValue();
         String sampleQuery = "query {\n"
-                + "\tcountries(idToken: \"usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636\") {\n"
+                + "\tcountries(idToken: \"test-user-token\") {\n"
                 + "\t\tnodes {\n"
                 + "\t\t\tcode\n"
                 + "\t\t\tname\n"
@@ -120,7 +120,7 @@ public class GqlTransactionTest {
                 new GqlTransaction.Builder<>(keysQuery,
                         new TypeReference<HyperwalletTransferMethodConfigurationKey>() {
                         }, mListener);
-        final GqlTransaction gqlTransaction = builder.build("test", "usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636",
+        final GqlTransaction gqlTransaction = builder.build("test", "test-user-token",
                 "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9");
 
         gqlTransaction.handleErrors(HttpURLConnection.HTTP_BAD_REQUEST, responseBody);
@@ -144,7 +144,7 @@ public class GqlTransactionTest {
                 keysQuery,
                 new TypeReference<HyperwalletTransferMethodConfigurationKey>() {
                 }, mListener);
-        final GqlTransaction gqlTransaction = builder.build("test", "usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636",
+        final GqlTransaction gqlTransaction = builder.build("test", "test-user-token",
                 "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9");
 
         gqlTransaction.handleErrors(HttpURLConnection.HTTP_BAD_REQUEST, "some non-parcelable error");

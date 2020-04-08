@@ -76,7 +76,7 @@ public class ListPrepaidCardReceiptsTest {
         ReceiptQueryParam receiptQueryParam = builder.build();
 
         assertThat(receiptQueryParam, is(notNullValue()));
-        final String prepaidCardToken = "trm-2345";
+        final String prepaidCardToken = "trm-fake-token";
         Hyperwallet.getDefault().listPrepaidCardReceipts(prepaidCardToken, receiptQueryParam, mListener);
 
         mAwait.await(150, TimeUnit.MILLISECONDS);
@@ -92,7 +92,7 @@ public class ListPrepaidCardReceiptsTest {
 
         assertThat(recordedRequest.getPath(),
                 containsString(
-                        "/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards/trm-2345/receipts?"));
+                        "/rest/v3/users/test-user-token/prepaid-cards/trm-fake-token/receipts?"));
         assertThat(recordedRequest.getPath(), containsString("limit"));
         assertThat(recordedRequest.getPath(), containsString("offset"));
 
@@ -101,7 +101,7 @@ public class ListPrepaidCardReceiptsTest {
         assertThat(receipt.getType(), is("DEPOSIT"));
         assertThat(receipt.getCreatedOn(), is("2019-06-01T17:12:19"));
         assertThat(receipt.getEntry(), is(Receipt.Entries.CREDIT));
-        assertThat(receipt.getDestinationToken(), is("trm-2345"));
+        assertThat(receipt.getDestinationToken(), is("trm-fake-token"));
         assertThat(receipt.getAmount(), is("18.05"));
         assertThat(receipt.getFee(), is(nullValue()));
         assertThat(receipt.getDetails(), is(notNullValue()));
@@ -120,7 +120,7 @@ public class ListPrepaidCardReceiptsTest {
         ReceiptQueryParam receiptQueryParam = builder.build();
 
         assertThat(receiptQueryParam, is(notNullValue()));
-        final String prepaidCardToken = "trm-2345";
+        final String prepaidCardToken = "trm-fake-token";
         Hyperwallet.getDefault().listPrepaidCardReceipts(prepaidCardToken, receiptQueryParam, mListener);
 
         mAwait.await(150, TimeUnit.MILLISECONDS);
@@ -136,7 +136,7 @@ public class ListPrepaidCardReceiptsTest {
 
         assertThat(recordedRequest.getPath(),
                 containsString(
-                        "/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards/trm-2345/receipts?"));
+                        "/rest/v3/users/test-user-token/prepaid-cards/trm-fake-token/receipts?"));
 
         Receipt receipt = receiptResponse.getDataList().get(0);
         assertThat(receipt.getEntry(), is(Receipt.Entries.DEBIT));
@@ -150,7 +150,7 @@ public class ListPrepaidCardReceiptsTest {
         ReceiptQueryParam receiptQueryParam = builder.build();
 
         assertThat(receiptQueryParam, is(notNullValue()));
-        final String prepaidCardToken = "trm-2345";
+        final String prepaidCardToken = "trm-fake-token";
         Hyperwallet.getDefault().listPrepaidCardReceipts(prepaidCardToken, receiptQueryParam, mListener);
 
         mAwait.await(100, TimeUnit.MILLISECONDS);
@@ -159,7 +159,7 @@ public class ListPrepaidCardReceiptsTest {
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(),
                 containsString(
-                        "/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards/trm-2345/receipts?"));
+                        "/rest/v3/users/test-user-token/prepaid-cards/trm-fake-token/receipts?"));
 
         verify(mListener).onSuccess(mCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
@@ -176,7 +176,7 @@ public class ListPrepaidCardReceiptsTest {
         final ReceiptQueryParam.Builder builder = new ReceiptQueryParam.Builder();
         ReceiptQueryParam receiptQueryParam = builder.build();
 
-        final String prepaidCardToken = "trm-2345";
+        final String prepaidCardToken = "trm-fake-token";
         Hyperwallet.getDefault().listPrepaidCardReceipts(prepaidCardToken, receiptQueryParam, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
@@ -202,6 +202,6 @@ public class ListPrepaidCardReceiptsTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
                 containsString(
-                        "/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/prepaid-cards/trm-2345/receipts?"));
+                        "/rest/v3/users/test-user-token/prepaid-cards/trm-fake-token/receipts?"));
     }
 }

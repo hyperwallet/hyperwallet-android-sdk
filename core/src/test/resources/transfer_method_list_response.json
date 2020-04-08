@@ -4,7 +4,7 @@
   "limit": 10,
   "data": [
     {
-      "token": "trm-6a4cb004-e577-45a1-9270-cb0dd5aebced",
+      "token": "trm-fake-token",
       "type": "BANK_ACCOUNT",
       "status": "ACTIVATED",
       "verificationStatus": "NOT_REQUIRED",
@@ -33,12 +33,12 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-6a4cb004-e577-45a1-9270-cb0dd5aebced"
+          "href": "https://localhost:8181/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"
         }
       ]
     },
     {
-      "token": "trm-33e6a84f-7ed1-4c96-8c1a-d4d456478fc7",
+      "token": "trm-fake-token",
       "type": "BANK_ACCOUNT",
       "status": "ACTIVATED",
       "verificationStatus": "NOT_REQUIRED",
@@ -67,12 +67,12 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-33e6a84f-7ed1-4c96-8c1a-d4d456478fc7"
+          "href": "https://localhost:8181/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"
         }
       ]
     },
     {
-      "token": "trm-5b7009a1-b94e-4727-8e15-7c94d529b688",
+      "token": "trm-fake-token",
       "type": "BANK_ACCOUNT",
       "status": "ACTIVATED",
       "verificationStatus": "NOT_REQUIRED",
@@ -101,12 +101,12 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-5b7009a1-b94e-4727-8e15-7c94d529b688"
+          "href": "https://localhost:8181/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"
         }
       ]
     },
     {
-      "token": "trm-92320ebd-c569-4b16-8790-6d22b477ac3c",
+      "token": "trm-fake-token",
       "type": "BANK_ACCOUNT",
       "status": "ACTIVATED",
       "verificationStatus": "NOT_REQUIRED",
@@ -135,12 +135,12 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-92320ebd-c569-4b16-8790-6d22b477ac3c"
+          "href": "https://localhost:8181/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"
         }
       ]
     },
     {
-      "token": "trm-13141cde-56a1-4bde-ab82-534fde4d1cdb",
+      "token": "trm-fake-token",
       "type": "BANK_ACCOUNT",
       "status": "ACTIVATED",
       "verificationStatus": "NOT_REQUIRED",
@@ -169,12 +169,12 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-13141cde-56a1-4bde-ab82-534fde4d1cdb"
+          "href": "https://localhost:8181/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"
         }
       ]
     },
     {
-      "token": "trm-5101d1d4-ba88-41d5-af3e-7d8bfef1f2aa",
+      "token": "trm-fake-token",
       "type": "BANK_ACCOUNT",
       "status": "ACTIVATED",
       "verificationStatus": "NOT_REQUIRED",
@@ -203,12 +203,12 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-5101d1d4-ba88-41d5-af3e-7d8bfef1f2aa"
+          "href": "https://localhost:8181/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"
         }
       ]
     },
     {
-      "token": "trm-76de7e9d-f0e6-41c6-afca-f21b6bc1af94",
+      "token": "trm-fake-token",
       "type": "BANK_ACCOUNT",
       "status": "ACTIVATED",
       "verificationStatus": "NOT_REQUIRED",
@@ -237,12 +237,12 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-76de7e9d-f0e6-41c6-afca-f21b6bc1af94"
+          "href": "https://localhost:8181/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"
         }
       ]
     },
     {
-      "token": "trm-5bddccee-a2c8-4d1c-af2b-23adc9e5320b",
+      "token": "trm-fake-token",
       "type": "BANK_ACCOUNT",
       "status": "ACTIVATED",
       "verificationStatus": "NOT_REQUIRED",
@@ -271,12 +271,12 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-5bddccee-a2c8-4d1c-af2b-23adc9e5320b"
+          "href": "https://localhost:8181/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"
         }
       ]
     },
     {
-      "token": "trm-9756af4f-4d8a-4778-a08f-3c48a672dd18",
+      "token": "trm-fake-token",
       "type": "BANK_ACCOUNT",
       "status": "ACTIVATED",
       "verificationStatus": "NOT_REQUIRED",
@@ -305,12 +305,12 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-9756af4f-4d8a-4778-a08f-3c48a672dd18"
+          "href": "https://localhost:8181/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"
         }
       ]
     },
     {
-      "token": "trm-81b66f57-a1b8-497c-b354-62c27242114c",
+      "token": "trm-fake-token",
       "type": "BANK_ACCOUNT",
       "status": "ACTIVATED",
       "verificationStatus": "NOT_REQUIRED",
@@ -339,7 +339,7 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/bank-accounts/trm-81b66f57-a1b8-497c-b354-62c27242114c"
+          "href": "https://localhost:8181/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"
         }
       ]
     }
@@ -349,19 +349,19 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/transfer-methods?offset=0&limit=10"
+      "href": "https://localhost:8181/rest/v3/users/test-user-token/transfer-methods?offset=0&limit=10"
     },
     {
       "params": {
         "rel": "next"
       },
-      "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/transfer-methods?offset=10&limit=10"
+      "href": "https://localhost:8181/rest/v3/users/test-user-token/transfer-methods?offset=10&limit=10"
     },
     {
       "params": {
         "rel": "last"
       },
-      "href": "https://localhost:8181/rest/v3/users/usr-a51c7522-ccba-4bcf-a6a7-bc59dae8f9b0/transfer-methods?offset=14&limit=10"
+      "href": "https://localhost:8181/rest/v3/users/test-user-token/transfer-methods?offset=14&limit=10"
     }
   ]
 }

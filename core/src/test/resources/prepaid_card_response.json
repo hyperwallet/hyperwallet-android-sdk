@@ -1,5 +1,5 @@
 {
-  "token": "trm-17d10cf0-121d-45df-903c-589fd881a549",
+  "token": "trm-fake-token",
   "type": "PREPAID_CARD",
   "status": "ACTIVATED",
   "verificationStatus": "VERIFIED",
@@ -16,7 +16,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-02d381d3-bf7e-43fe-9d00-02e26b28df57/prepaid-cards/trm-17d10cf0-121d-45df-903c-589fd881a549"
+      "href": "https://localhost:8181/rest/v3/users/test-user-token/prepaid-cards/trm-fake-token"
     }
   ]
 }

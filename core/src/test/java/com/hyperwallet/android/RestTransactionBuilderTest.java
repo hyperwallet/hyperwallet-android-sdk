@@ -51,7 +51,7 @@ public class RestTransactionBuilderTest {
                 new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = builder.build("http://hyperwallet.com/rest/v3/", token,
-                "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                "test-user-token");
 
         assertThat(restTransaction, is(notNullValue()));
         assertThat(restTransaction.getMethod(), is(POST));
@@ -80,7 +80,7 @@ public class RestTransactionBuilderTest {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
                 .jsonModel(bankAccount)
-                .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
         assertThat(restTransaction, is(notNullValue()));
         assertThat(restTransaction.getMethod(), is(POST));
@@ -115,7 +115,7 @@ public class RestTransactionBuilderTest {
                         }, mListener);
         final RestTransaction restTransaction = pageListBuilder
                 .query(query)
-                .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
         assertThat(restTransaction, is(notNullValue()));
         assertThat(restTransaction.getMethod(), is(GET));

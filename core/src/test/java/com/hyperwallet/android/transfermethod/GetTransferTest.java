@@ -82,10 +82,10 @@ public class GetTransferTest {
         assertThat(transferResponse.getStatus(), is(QUOTED));
         assertThat(transferResponse.getCreatedOn(), is(fromDateTimeString("2019-07-01T00:00:00")));
         assertThat(transferResponse.getClientTransferId(), is("1234567890123"));
-        assertThat(transferResponse.getSourceToken(), is("usr-4321"));
+        assertThat(transferResponse.getSourceToken(), is("test-user-token"));
         assertThat(transferResponse.getSourceAmount(), is("80"));
         assertThat(transferResponse.getSourceCurrency(), is("CAD"));
-        assertThat(transferResponse.getDestinationToken(), is("trm-246"));
+        assertThat(transferResponse.getDestinationToken(), is("trm-fake-token"));
         assertThat(transferResponse.getDestinationAmount(), is("62.29"));
         assertThat(transferResponse.getDestinationCurrency(), is("USD"));
         assertThat(transferResponse.getForeignExchanges(), is(notNullValue()));

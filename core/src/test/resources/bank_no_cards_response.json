@@ -9,7 +9,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/bank-cards?offset=0&limit=10"
+      "href": "https://localhost:8181/rest/v3/users/test-user-token/bank-cards?offset=0&limit=10"
     }
   ]
 }

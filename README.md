@@ -40,7 +40,7 @@ Hyperwallet.getDefault().createBankAccount(bankAccount, listener);
 First of all, your server side should be able to send a POST request to Hyperwallet endpoint via Basic Authentication to retrieve an [authentication token](https://jwt.io/). For example:
 
 ```
-curl -X "POST" "https://api.sandbox.hyperwallet.com/rest/v3/users/{user-token}/authentication-token" \
+curl -X "POST" "https://localhost:8181/rest/v3/users/{user-token}/authentication-token" \
 -u userName:password \
 -H "Content-type: application/json" \
 -H "Accept: application/json"

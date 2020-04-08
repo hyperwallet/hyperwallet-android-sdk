@@ -38,7 +38,7 @@ public class TransferMethodTest {
                 });
 
         assertThat(transferMethod, is(notNullValue()));
-        assertThat(transferMethod.getField(TOKEN), is("trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636"));
+        assertThat(transferMethod.getField(TOKEN), is("trm-fake-token"));
         assertThat(transferMethod.getField(TYPE), is("BANK_CARD"));
         assertThat(transferMethod.getField(STATUS), is("ACTIVATED"));
 
@@ -54,7 +54,7 @@ public class TransferMethodTest {
         TransferMethod bundledTransferMethod = TransferMethod.CREATOR.createFromParcel(parcel);
 
         assertThat(bundledTransferMethod, is(notNullValue()));
-        assertThat(bundledTransferMethod.getField(TOKEN), is("trm-d8c65e1e-b3e5-460d-8b24-bee7cdae1636"));
+        assertThat(bundledTransferMethod.getField(TOKEN), is("trm-fake-token"));
         assertThat(bundledTransferMethod.getField(TYPE), is("BANK_CARD"));
         assertThat(bundledTransferMethod.getField(STATUS), is("ACTIVATED"));
 

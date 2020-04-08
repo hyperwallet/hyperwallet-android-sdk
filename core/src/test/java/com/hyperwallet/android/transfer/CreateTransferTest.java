@@ -69,8 +69,8 @@ public class CreateTransferTest {
                 .destinationCurrency("USD")
                 .notes("Partial-Balance Transfer")
                 .memo("TransferClientId321")
-                .sourceToken("usr-4321")
-                .destinationToken("trm-246");
+                .sourceToken("test-user-token")
+                .destinationToken("trm-fake-token");
         final Transfer transfer = transferBuilder.build();
 
         Hyperwallet.getDefault().createTransfer(transfer, mListener);
@@ -90,10 +90,10 @@ public class CreateTransferTest {
         assertThat(transferResponse.getClientTransferId(), is("1234567890123"));
         assertThat(transferResponse.getToken(), is("trf-123"));
         assertThat(transferResponse.getCreatedOn(), is(DateUtil.fromDateTimeString("2019-07-01T00:00:00")));
-        assertThat(transferResponse.getSourceToken(), is("usr-4321"));
+        assertThat(transferResponse.getSourceToken(), is("test-user-token"));
         assertThat(transferResponse.getSourceAmount(), is("80"));
         assertThat(transferResponse.getSourceCurrency(), is("CAD"));
-        assertThat(transferResponse.getDestinationToken(), is("trm-246"));
+        assertThat(transferResponse.getDestinationToken(), is("trm-fake-token"));
         assertThat(transferResponse.getDestinationAmount(), is("62.29"));
         assertThat(transferResponse.getDestinationCurrency(), is("USD"));
         assertThat(transferResponse.getNotes(), is("Partial-Balance Transfer"));

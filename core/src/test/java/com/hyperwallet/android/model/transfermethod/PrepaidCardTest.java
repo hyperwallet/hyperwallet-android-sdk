@@ -30,7 +30,7 @@ public class PrepaidCardTest {
 
         assertThat(actualPrepaidCard, is(notNullValue()));
         assertThat(actualPrepaidCard.getField(TransferMethod.TransferMethodFields.TOKEN),
-                is("trm-17d10cf0-121d-45df-903c-589fd881a549"));
+                is("trm-fake-token"));
         assertThat(actualPrepaidCard.getType(), is("PREPAID_CARD"));
         assertThat(actualPrepaidCard.getStatus(), is("ACTIVATED"));
         assertThat(DateUtil.toDateTimeFormat(actualPrepaidCard.getCreatedOn()), is("2019-06-20T22:49:12"));

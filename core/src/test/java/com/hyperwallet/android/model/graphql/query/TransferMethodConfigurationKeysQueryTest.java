@@ -48,12 +48,12 @@ public class TransferMethodConfigurationKeysQueryTest {
                 + "\t\t\t}\n"
                 + "\t\t}\n"
                 + "\t}\n"
-                + "}", "usr-123");
+                + "}", "test-user-token");
 
         TransferMethodConfigurationKeysQuery keysQuery =
                 new TransferMethodConfigurationKeysQuery();
 
-        String query = keysQuery.toQuery("usr-123");
+        String query = keysQuery.toQuery("test-user-token");
 
         assertThat(query, is(sampleKeyQuery));
     }

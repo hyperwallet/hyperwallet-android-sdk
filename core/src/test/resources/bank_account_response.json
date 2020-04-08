@@ -1,5 +1,5 @@
 {
-  "token": "trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56",
+  "token": "trm-fake-token",
   "type": "BANK_ACCOUNT",
   "status": "ACTIVATED",
   "createdOn": "2019-01-07T22:03:13",
@@ -32,7 +32,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://localhost:8181/rest/v3/users/usr-b4ba189e-0a2a-4ae3-acb8-683a19247197/bank-accounts/trm-854c4ec1-9161-49d6-92e2-b8d15aa4bf56"
+      "href": "https://localhost:8181/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"
     }
   ]
 }

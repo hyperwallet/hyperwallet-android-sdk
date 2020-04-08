@@ -101,7 +101,7 @@ public class ListBankAccountsTest {
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts?limit=10&offset=0&type"
+                is("/rest/v3/users/test-user-token/bank-accounts?limit=10&offset=0&type"
                         + "=BANK_ACCOUNT&status=ACTIVATED"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
@@ -118,7 +118,7 @@ public class ListBankAccountsTest {
         assertThat(listBankAccountResponse.getDataList().size(), is(1));
 
         BankAccount bankAccount = listBankAccountResponse.getDataList().get(0);
-        assertThat(bankAccount.getField(TOKEN), is("usr-fbfd5848-60d0-43c5-8462-099c959b49c7"));
+        assertThat(bankAccount.getField(TOKEN), is("test-user-token"));
         assertThat(bankAccount.getField(TYPE), is(BANK_ACCOUNT));
         assertThat(bankAccount.getField(STATUS), is(ACTIVATED));
         assertThat(bankAccount.getField("verificationStatus"), is("NOT_REQUIRED"));
@@ -148,8 +148,7 @@ public class ListBankAccountsTest {
         assertThat(listBankAccountResponse.getPageLinks().size(), is(1));
         PageLink pageLink = listBankAccountResponse.getPageLinks().get(0);
         assertThat(pageLink.getPageHref(),
-                is("https://localhost:8181/rest/v3/users/usr-fbfd5848-60d0-43c5-8462"
-                        + "-099c959b49c7/bank-accounts?offset=0&limit=10"));
+                is("https://localhost:8181/rest/v3/users/test-user-token/bank-accounts?offset=0&limit=10"));
         assertThat(pageLink.getPageParameter(), is(notNullValue()));
         assertThat(pageLink.getPageParameter().getRel(), is("self"));
     }
@@ -169,7 +168,7 @@ public class ListBankAccountsTest {
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts?"));
+                containsString("/rest/v3/users/test-user-token/bank-accounts?"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         assertThat(recordedRequest.getPath(), containsString("type=BANK_ACCOUNT"));
@@ -215,7 +214,7 @@ public class ListBankAccountsTest {
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/usr-fbfd5848-60d0-43c5-8462-099c959b49c7/bank-accounts?"));
+                containsString("/rest/v3/users/test-user-token/bank-accounts?"));
         assertThat(recordedRequest.getMethod(), is(GET.name()));
 
         assertThat(recordedRequest.getPath(), containsString("limit=10"));

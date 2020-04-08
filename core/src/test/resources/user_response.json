@@ -1,5 +1,5 @@
 {
-  "token": "usr-f9154016-94e8-4686-a840-075688ac07b5",
+  "token": "test-user-token",
   "status": "PRE_ACTIVATED",
   "verificationStatus": "NOT_REQUIRED",
   "createdOn": "2017-10-30T22:15:45",
@@ -15,13 +15,13 @@
   "country": "US",
   "postalCode": "94105",
   "language": "en",
-  "programToken": "prg-83836cdf-2ce2-4696-8bc5-f1b86077238c",
+  "programToken": "test-program-token",
   "links": [
     {
       "params": {
         "rel": "self"
       },
-      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-f9154016-94e8-4686-a840-075688ac07b5"
+      "href": "https://localhost:8181/rest/v3/users/test-user-token"
     }
   ]
 }
