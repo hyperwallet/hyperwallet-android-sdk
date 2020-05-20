@@ -93,7 +93,7 @@ Hyperwallet.getDefault().getUser(mListener);
 // onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
 
 result.getFirstName();
-result.getLastName();  
+result.getLastName();
 ```
 
 ### Create PayPal Account
@@ -216,7 +216,7 @@ Hyperwallet.getDefault().createBankCard(bankCard, listener);
 ```java
 Hyperwallet.getDefault().getBankCard("trm-12345", listener);
 // onSuccess: response (BankCard) will contain information about the inputted bank card or null if not exists
-// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure  
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
 ```
 
 ### Update Bank Card
@@ -355,7 +355,7 @@ TransferQueryParam transferQueryParam = new TransferQueryParam.Builder()
         .build();
 Hyperwallet.getDefault().listTransfers(transferQueryParam, listener);
 // onSuccess: response (PageList<Transfer>) will contain a PageList of Transfers or null if not exists
-// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure  
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
 ```
 
 ## Transfer Method Configurations
