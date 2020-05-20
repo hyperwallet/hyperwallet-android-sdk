@@ -21,7 +21,7 @@ allprojects {
         mavenLocal()
     }
 
-    project.version = "1.0.0-beta05-SNAPSHOT"
+    project.version = "1.0.0-beta05"
 }
 
 task clean(type: Delete) {

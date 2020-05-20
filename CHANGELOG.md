@@ -18,3 +18,12 @@ Changelog
 -------------------
 * Added support to list Users and Prepaid Card receipts
 * Enhancements to GraphQL queries and data structure
+
+[1.0.0-beta04](https://github.com/hyperwallet/hyperwallet-android-sdk/releases/tag/1.0.0-beta04)
+-------------------
+* Added support to create transfers
+
+[1.0.0-beta05](https://github.com/hyperwallet/hyperwallet-android-sdk/releases/tag/1.0.0-beta05)
+-------------------
+* Added support to list User Balance
+* Updated documentation
