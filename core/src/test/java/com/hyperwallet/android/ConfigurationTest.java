@@ -3,6 +3,7 @@ package com.hyperwallet.android;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.fail;
 
 import org.json.JSONException;
@@ -18,23 +19,19 @@ import java.util.Date;
 @RunWith(RobolectricTestRunner.class)
 public class ConfigurationTest {
 
-    @Rule
-    public final ExpectedException mThrown = ExpectedException.none();
-
     private static Configuration mConfiguration;
     private static String mJwtToken;
+    @Rule
+    public final ExpectedException mThrown = ExpectedException.none();
 
     @BeforeClass
     public static void setup() {
         try {
             mJwtToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9."
-                    + "eyJzdWIiOiJ1c3ItNGNkNGE4MzktZmRkMi00OGYxLWJkMzAtNzk1ODIxNmU3ODFmIiwiaWF0Ijo"
-                    + "yNTQ4MzY4Njg2LCJleHAiOjI1NDgzNjkyODYsImF1ZCI6InBndS1mMmYwNTZiMC01ZmYwLTQ0N2"
-                    + "ItYWZmYi1iOWI0M2E3ZTJjNDkiLCJpc3MiOiJwcmctMDQwZTliM2QtNjE0Yy0xMWU1LWFmMjMtM"
-                    + "GZhYTI4Y2E3YzBmIiwicmVzdC11cmkiOiJodHRwczovL2FwaS5zYW5kYm94Lmh5cGVyd2FsbGV0"
-                    + "LmNvbS9yZXN0L3YzLyIsImdyYXBocWwtdXJpIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5oeXBlcnd"
-                    + "hbGxldC5jb20vZ3JhcGhxbCJ9.3GSVpYoqVMx4hXyZrlaj_wjJWAQLCX5ivRqvtybKV76cmnWxW"
-                    + "fnoZEr0-4ipMH_aY8GTBCDzsgab3NREGkgjSg";
+                    + "eyJzdWIiOiJ0ZXN0LXVzZXItdG9rZW4iLCJpYXQiOjI1NDgzNjg2ODYsImV4cCI6MjU0ODM2OTI4NiwiYXVkIjoidGVzdC1"
+                    + "jbGllbnQtdG9rZW4iLCJpc3MiOiJ0ZXN0LXByb2dyYW0tdG9rZW4iLCJyZXN0LXVyaSI6Imh0dHBzOi8vbG9jYWxob3N0Oj"
+                    + "gxODEvcmVzdC92My8iLCJncmFwaHFsLXVyaSI6Imh0dHBzOi8vbG9jYWxob3N0OjgxODEvZ3JhcGhxbCJ9"
+                    + ".3GSVpYoqVMx4hXyZrlaj_wjJWAQLCX5ivRqvtybKV76cmnWxWfnoZEr0-4ipMH_aY8GTBCDzsgab3NREGkgjSg";
             mConfiguration = new Configuration(mJwtToken);
         } catch (JSONException e) {
             fail("Unable to parse json response");
@@ -62,25 +59,25 @@ public class ConfigurationTest {
     @Test
     public void testGetGraphQlUri_returnsGraphQlUri() {
         String graphQlUri = mConfiguration.getGraphQlUri();
-        assertThat(graphQlUri, is(equalTo("https://api.sandbox.hyperwallet.com/graphql")));
+        assertThat(graphQlUri, is(equalTo("https://localhost:8181/graphql")));
     }
 
     @Test
     public void testGetProgramToken_returnsProgramToken() {
         String programToken = mConfiguration.getProgramToken();
-        assertThat(programToken, is(equalTo("prg-040e9b3d-614c-11e5-af23-0faa28ca7c0f")));
+        assertThat(programToken, is(equalTo("test-program-token")));
     }
 
     @Test
     public void testGetRestUri_returnsRestUri() {
         String restUri = mConfiguration.getRestUri();
-        assertThat(restUri, is(equalTo("https://api.sandbox.hyperwallet.com/rest/v3/")));
+        assertThat(restUri, is(equalTo("https://localhost:8181/rest/v3/")));
     }
 
     @Test
     public void testGetUserToken_returnsUserToken() {
         String userToken = mConfiguration.getUserToken();
-        assertThat(userToken, is(equalTo("usr-4cd4a839-fdd2-48f1-bd30-7958216e781f")));
+        assertThat(userToken, is(equalTo("test-user-token")));
     }
 
     @Test
@@ -118,23 +115,18 @@ public class ConfigurationTest {
     @Test
     public void testConfiguration_parseValidToken() throws JSONException {
         Configuration configuration = new Configuration("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9."
-                + "eyJzdWIiOiJ1c3ItNGNkNGE4MzktZmRkMi00OGYxLWJkMzAtNzk1ODIxNmU3ODFmIiwiaWF0Ijo"
-                + "yNTQ4MzY4Njg2LCJleHAiOjI1NDgzNjkyODYsImF1ZCI6InBndS1mMmYwNTZiMC01ZmYwLTQ0N2"
-                + "ItYWZmYi1iOWI0M2E3ZTJjNDkiLCJpc3MiOiJwcmctMDQwZTliM2QtNjE0Yy0xMWU1LWFmMjMtM"
-                + "GZhYTI4Y2E3YzBmIiwicmVzdC11cmkiOiJodHRwczovL2FwaS5zYW5kYm94Lmh5cGVyd2FsbGV0"
-                + "LmNvbS9yZXN0L3YzLyIsImdyYXBocWwtdXJpIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5oeXBlcnd"
-                + "hbGxldC5jb20vZ3JhcGhxbCJ9.3GSVpYoqVMx4hXyZrlaj_wjJWAQLCX5ivRqvtybKV76cmnWxW"
-                + "fnoZEr0-4ipMH_aY8GTBCDzsgab3NREGkgjSg");
+                + "eyJzdWIiOiJ0ZXN0LXVzZXItdG9rZW4iLCJpYXQiOjI1NDgzNjg2ODYsImV4cCI6MjU0ODM2OTI4NiwiYXVkIjoidGVzdC1"
+                + "jbGllbnQtdG9rZW4iLCJpc3MiOiJ0ZXN0LXByb2dyYW0tdG9rZW4iLCJyZXN0LXVyaSI6Imh0dHBzOi8vbG9jYWxob3N0Oj"
+                + "gxODEvcmVzdC92My8iLCJncmFwaHFsLXVyaSI6Imh0dHBzOi8vbG9jYWxob3N0OjgxODEvZ3JhcGhxbCJ9"
+                +".3GSVpYoqVMx4hXyZrlaj_wjJWAQLCX5ivRqvtybKV76cmnWxWfnoZEr0-4ipMH_aY8GTBCDzsgab3NREGkgjSg");
 
-        assertThat(configuration.getAuthenticationToken(), is("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.ey"
-                + "JzdWIiOiJ1c3ItNGNkNGE4MzktZmRkMi00OGYxLWJkMzAtNzk1ODIxNmU3ODFmIiwiaWF0IjoyNTQ4MzY4Njg2LCJleHAiOjI1"
-                + "NDgzNjkyODYsImF1ZCI6InBndS1mMmYwNTZiMC01ZmYwLTQ0N2ItYWZmYi1iOWI0M2E3ZTJjNDkiLCJpc3MiOiJwcmctMDQwZTl"
-                + "iM2QtNjE0Yy0xMWU1LWFmMjMtMGZhYTI4Y2E3YzBmIiwicmVzdC11cmkiOiJodHRwczovL2FwaS5zYW5kYm94Lmh5cGVyd2FsbGV"
-                +
-                "0LmNvbS9yZXN0L3YzLyIsImdyYXBocWwtdXJpIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5oeXBlcndhbGxldC5jb20vZ3JhcGhxbCJ9."
-                + "3GSVpYoqVMx4hXyZrlaj_wjJWAQLCX5ivRqvtybKV76cmnWxWfnoZEr0-4ipMH_aY8GTBCDzsgab3NREGkgjSg"));
+        assertThat(configuration.getAuthenticationToken(), is("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9."
+                + "eyJzdWIiOiJ0ZXN0LXVzZXItdG9rZW4iLCJpYXQiOjI1NDgzNjg2ODYsImV4cCI6MjU0ODM2OTI4NiwiYXVkIjoidGVzdC1"
+                + "jbGllbnQtdG9rZW4iLCJpc3MiOiJ0ZXN0LXByb2dyYW0tdG9rZW4iLCJyZXN0LXVyaSI6Imh0dHBzOi8vbG9jYWxob3N0Oj"
+                + "gxODEvcmVzdC92My8iLCJncmFwaHFsLXVyaSI6Imh0dHBzOi8vbG9jYWxob3N0OjgxODEvZ3JhcGhxbCJ9"
+                +".3GSVpYoqVMx4hXyZrlaj_wjJWAQLCX5ivRqvtybKV76cmnWxWfnoZEr0-4ipMH_aY8GTBCDzsgab3NREGkgjSg"));
 
-        assertThat(configuration.getUserToken(), is("usr-4cd4a839-fdd2-48f1-bd30-7958216e781f"));
+        assertThat(configuration.getUserToken(), is("test-user-token"));
     }
 
     @Test
@@ -170,14 +162,24 @@ public class ConfigurationTest {
     @Test
     public void testConfiguration_checkIsNotStale() throws JSONException {
         Configuration configuration = new Configuration("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9."
-                + "eyJzdWIiOiJ1c3ItNGNkNGE4MzktZmRkMi00OGYxLWJkMzAtNzk1ODIxNmU3ODFmIiwiaWF0Ijo"
-                + "yNTQ4MzY4Njg2LCJleHAiOjI1NDgzNjkyODYsImF1ZCI6InBndS1mMmYwNTZiMC01ZmYwLTQ0N2"
-                + "ItYWZmYi1iOWI0M2E3ZTJjNDkiLCJpc3MiOiJwcmctMDQwZTliM2QtNjE0Yy0xMWU1LWFmMjMtM"
-                + "GZhYTI4Y2E3YzBmIiwicmVzdC11cmkiOiJodHRwczovL2FwaS5zYW5kYm94Lmh5cGVyd2FsbGV0"
-                + "LmNvbS9yZXN0L3YzLyIsImdyYXBocWwtdXJpIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5oeXBlcnd"
-                + "hbGxldC5jb20vZ3JhcGhxbCJ9.3GSVpYoqVMx4hXyZrlaj_wjJWAQLCX5ivRqvtybKV76cmnWxW"
-                + "fnoZEr0-4ipMH_aY8GTBCDzsgab3NREGkgjSg");
+                + "eyJzdWIiOiJ0ZXN0LXVzZXItdG9rZW4iLCJpYXQiOjI1NDgzNjg2ODYsImV4cCI6MjU0ODM2OTI4NiwiYXVkIjoidGVzdC10b2tl"
+                + "biIsImlzcyI6InRlc3QtcHJvZ3JhbS10b2tlbiIsInJlc3QtdXJpIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6ODE4MS9yZXN0L3YzLyIs"
+                + "ImdyYXBocWwtdXJpIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6ODE4MS9ncmFwaHFsIn0=.3GSVpYoqVMx4hXyZrlaj_wjJWAQLCX5ivRq"
+                + "vtybKV76cmnWxWfnoZEr0-4ipMH_aY8GTBCDzsgab3NREGkgjSg");
 
         assertThat(configuration.isStale(), is(false));
+    }
+
+    @Test
+    public void testConfiguration_parseInsightParameters() throws JSONException {
+        Configuration configuration = new Configuration("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzd"
+                + "WIiOiJ1c3ItdG9rZW4iLCJpYXQiOjE1NzI5OTI0MzYsImV4cCI6MTU3Mjk5MjczNiwiYXVkIjoicGd1LXRva2VuIiwia"
+                + "XNzIjoicGdyLXRva2VuIiwicmVzdC11cmkiOiJyZXN0LnRlc3QuY29tIiwiZ3JhcGhxbC11cmkiOiJncmFwaHFsLnRlc3Qu"
+                + "Y29tIiwiaW5zaWdodHMtdXJpIjoiaW5zaWdodHMudGVzdC5jb20vdHJhY2svZXZlbnRzIiwiZW52aXJvbm1lbnQiOi"
+                + "JERVYifQ.7V2fZ9KmcMdRh40RnQmwVQjbanoGGDJcNmNbCiHVVEIII45OgWo0VF7KFpijVoNYFqkkiZEDpct7e44E5MPLgw");
+
+        assertThat(configuration, is(notNullValue()));
+        assertThat(configuration.getEnvironment(), is("DEV"));
+        assertThat(configuration.getInsightApiUri(), is("insights.test.com/track/events"));
     }
 }

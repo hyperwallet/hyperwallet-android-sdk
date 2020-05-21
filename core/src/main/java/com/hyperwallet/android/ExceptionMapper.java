@@ -20,13 +20,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.StringRes;
 
-import com.hyperwallet.android.exception.AuthenticationTokenProviderException;
+import com.hyperwallet.android.exception.HyperwalletAuthenticationTokenProviderException;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.exception.HyperwalletGqlException;
 import com.hyperwallet.android.exception.HyperwalletJsonParseException;
 import com.hyperwallet.android.exception.HyperwalletRestException;
-import com.hyperwallet.android.model.HyperwalletError;
-import com.hyperwallet.android.model.HyperwalletErrors;
+import com.hyperwallet.android.model.Error;
+import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.sdk.R;
 
 import org.json.JSONException;
@@ -53,14 +53,14 @@ public final class ExceptionMapper {
     public static final String EC_UNEXPECTED_EXCEPTION = "EC_UNEXPECTED_EXCEPTION";
 
     /**
-     * Converts a {@code HyperwalletException} containing a {@link HyperwalletErrors} object that is derived from the
+     * Converts a {@code HyperwalletException} containing a {@link Errors} object that is derived from the
      * {@code Exception} parameter or the REST/GraphQL response.
      *
      * <p>If an exception does not have a mapping defined the exception is created with the default error code,
      * {@code "EC_UNEXPECTED_EXCEPTION"}.</p>
      *
      * @param exception the {@code Exception} to be converted
-     * @return a {@code HyperwalletException} containing a {code HyperwalletErrors} object
+     * @return a {@code HyperwalletException} containing a {code Errors} object
      */
     public static HyperwalletException toHyperwalletException(@NonNull final Exception exception) {
         if (exception instanceof HyperwalletGqlException) {
@@ -75,7 +75,7 @@ public final class ExceptionMapper {
             return initHyperwalletException(R.string.json_exception, EC_JSON_EXCEPTION, exception);
         } else if (exception instanceof HyperwalletJsonParseException) {
             return initHyperwalletException(R.string.json_parse_exception, EC_JSON_PARSE_EXCEPTION, exception);
-        } else if (exception instanceof AuthenticationTokenProviderException) {
+        } else if (exception instanceof HyperwalletAuthenticationTokenProviderException) {
             return initHyperwalletException(R.string.authentication_token_provider_exception,
                     EC_AUTHENTICATION_TOKEN_PROVIDER_EXCEPTION, exception);
         } else {
@@ -85,10 +85,10 @@ public final class ExceptionMapper {
 
     private static HyperwalletException initHyperwalletException(@StringRes int stringResourceId,
             @NonNull final String code, @NonNull final Throwable throwable) {
-        HyperwalletError error = new HyperwalletError(stringResourceId, code);
-        List<HyperwalletError> errorList = new ArrayList<>();
+        Error error = new Error(stringResourceId, code);
+        List<Error> errorList = new ArrayList<>();
         errorList.add(error);
-        HyperwalletErrors errors = new HyperwalletErrors(errorList);
+        Errors errors = new Errors(errorList);
         return new HyperwalletException(throwable, errors);
     }
 }

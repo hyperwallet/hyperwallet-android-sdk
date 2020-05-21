@@ -30,7 +30,7 @@ import static com.hyperwallet.android.util.JsonUtils.fromJsonString;
 import android.os.Parcel;
 
 import com.hyperwallet.android.model.TypeReference;
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -47,7 +47,7 @@ import java.util.Map;
 @RunWith(RobolectricTestRunner.class)
 public class TransferTest {
     @Rule
-    public final HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
+    public final ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
 
     @Test
     public void testFromJsonString_transferResponse() throws Exception {
@@ -63,10 +63,10 @@ public class TransferTest {
         assertThat(transfer.getFieldValueToString(CLIENT_TRANSFER_ID), is("1234567890123"));
         assertThat(transfer.getFieldValueToString(SOURCE_AMOUNT), is("80"));
         assertThat(transfer.getFieldValueToString(SOURCE_CURRENCY), is("CAD"));
-        assertThat(transfer.getFieldValueToString(SOURCE_TOKEN), is("usr-4321"));
+        assertThat(transfer.getFieldValueToString(SOURCE_TOKEN), is("test-user-token"));
         assertThat(transfer.getFieldValueToString(DESTINATION_AMOUNT), is("62.29"));
         assertThat(transfer.getFieldValueToString(DESTINATION_CURRENCY), is("USD"));
-        assertThat(transfer.getFieldValueToString(DESTINATION_TOKEN), is("trm-246"));
+        assertThat(transfer.getFieldValueToString(DESTINATION_TOKEN), is("trm-fake-token"));
         assertThat(transfer.getFieldValueToString(DESTINATION_FEE_AMOUNT), is("22.12"));
         assertThat(transfer.getFieldValueToString(NOTES), is("Partial-Balance Transfer"));
         assertThat(transfer.getFieldValueToString(MEMO), is("TransferClientId321"));
@@ -79,10 +79,10 @@ public class TransferTest {
         assertThat(transfer.getClientTransferId(), is("1234567890123"));
         assertThat(transfer.getSourceAmount(), is("80"));
         assertThat(transfer.getSourceCurrency(), is("CAD"));
-        assertThat(transfer.getSourceToken(), is("usr-4321"));
+        assertThat(transfer.getSourceToken(), is("test-user-token"));
         assertThat(transfer.getDestinationAmount(), is("62.29"));
         assertThat(transfer.getDestinationCurrency(), is("USD"));
-        assertThat(transfer.getDestinationToken(), is("trm-246"));
+        assertThat(transfer.getDestinationToken(), is("trm-fake-token"));
         assertThat(transfer.getDestinationFeeAmount(), is("22.12"));
         assertThat(transfer.getNotes(), is("Partial-Balance Transfer"));
         assertThat(transfer.getMemo(), is("TransferClientId321"));
@@ -120,10 +120,10 @@ public class TransferTest {
                 .clientTransferID("1234567890123")
                 .sourceAmount("80")
                 .sourceCurrency("CAD")
-                .sourceToken("usr-4321")
+                .sourceToken("test-user-token")
                 .destinationAmount("62.29")
                 .destinationCurrency("USD")
-                .destinationToken("trm-246")
+                .destinationToken("trm-fake-token")
                 .foreignExchanges(foreignExchanges)
                 .memo("Transfer")
                 .notes("Partial-Balance Transfer");
@@ -138,10 +138,10 @@ public class TransferTest {
         assertThat(jsonObject.getString(CLIENT_TRANSFER_ID), is("1234567890123"));
         assertThat(jsonObject.getString(SOURCE_AMOUNT), is("80"));
         assertThat(jsonObject.getString(SOURCE_CURRENCY), is("CAD"));
-        assertThat(jsonObject.getString(SOURCE_TOKEN), is("usr-4321"));
+        assertThat(jsonObject.getString(SOURCE_TOKEN), is("test-user-token"));
         assertThat(jsonObject.getString(DESTINATION_AMOUNT), is("62.29"));
         assertThat(jsonObject.getString(DESTINATION_CURRENCY), is("USD"));
-        assertThat(jsonObject.getString(DESTINATION_TOKEN), is("trm-246"));
+        assertThat(jsonObject.getString(DESTINATION_TOKEN), is("trm-fake-token"));
         assertThat(jsonObject.has(EXPIRES_ON), is(false));
         assertThat(jsonObject.getString(MEMO), is("Transfer"));
         assertThat(jsonObject.getString(NOTES), is("Partial-Balance Transfer"));
@@ -186,10 +186,10 @@ public class TransferTest {
         assertThat(transfer.getClientTransferId(), is("1234567890123"));
         assertThat(transfer.getSourceAmount(), is("80"));
         assertThat(transfer.getSourceCurrency(), is("CAD"));
-        assertThat(transfer.getSourceToken(), is("usr-4321"));
+        assertThat(transfer.getSourceToken(), is("test-user-token"));
         assertThat(transfer.getDestinationAmount(), is("62.29"));
         assertThat(transfer.getDestinationCurrency(), is("USD"));
-        assertThat(transfer.getDestinationToken(), is("trm-246"));
+        assertThat(transfer.getDestinationToken(), is("trm-fake-token"));
         assertThat(transfer.getDestinationFeeAmount(), is("22.12"));
         assertThat(transfer.getNotes(), is("Partial-Balance Transfer"));
         assertThat(transfer.getMemo(), is("TransferClientId321"));
@@ -207,11 +207,11 @@ public class TransferTest {
         assertThat(bundledTransfer.getClientTransferId(), is("1234567890123"));
         assertThat(bundledTransfer.getSourceAmount(), is("80"));
         assertThat(bundledTransfer.getSourceCurrency(), is("CAD"));
-        assertThat(bundledTransfer.getSourceToken(), is("usr-4321"));
+        assertThat(bundledTransfer.getSourceToken(), is("test-user-token"));
         assertThat(bundledTransfer.getDestinationAmount(), is("62.29"));
         assertThat(bundledTransfer.getDestinationCurrency(), is("USD"));
         assertThat(bundledTransfer.getDestinationFeeAmount(), is("22.12"));
-        assertThat(bundledTransfer.getDestinationToken(), is("trm-246"));
+        assertThat(bundledTransfer.getDestinationToken(), is("trm-fake-token"));
         assertThat(bundledTransfer.getNotes(), is("Partial-Balance Transfer"));
         assertThat(bundledTransfer.getMemo(), is("TransferClientId321"));
         assertThat(bundledTransfer.getExpiresOn(), is(fromDateTimeString("2019-07-01T00:02:00")));

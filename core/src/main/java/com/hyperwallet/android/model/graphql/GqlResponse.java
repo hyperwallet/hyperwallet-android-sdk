@@ -38,7 +38,7 @@ public class GqlResponse<T> {
     private final GqlErrors mGqlErrors;
 
     /**
-     * Constructor to build GqlResponse based on json and class type
+     * Constructor to build GqlResponse based on {@link JSONObject} representation and class type
      *
      * @param response JSON object that represents data
      * @param clazz    Class name

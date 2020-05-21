@@ -5,10 +5,10 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import static com.hyperwallet.android.model.StatusTransition.StatusDefinition.ACTIVATED;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.ASCENDANT_CREATE_ON;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.ASCENDANT_STATUS;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethodQueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.TransferMethodQueryParam.TransferMethodSortable.ASCENDANT_CREATE_ON;
+import static com.hyperwallet.android.model.transfermethod.TransferMethodQueryParam.TransferMethodSortable.ASCENDANT_STATUS;
+import static com.hyperwallet.android.model.transfermethod.TransferMethodQueryParam.TransferMethodSortable.DESCENDANT_CREATE_ON;
 
 import com.hyperwallet.android.model.QueryParam;
 
@@ -19,18 +19,18 @@ import java.util.Calendar;
 import java.util.Map;
 
 public class PayPalAccountQueryParamTest {
-    private final static String OFFSET = "offset";
-    private final static String LIMIT = "limit";
-    private final static String CREATE_BEFORE = "createdBefore";
-    private final static String CREATE_AFTER = "createdAfter";
-    private final static String CREATE_ON = "createdOn";
-    private final static String TRANSFER_METHOD_TYPE = "type";
-    private final static String STATUS = "status";
-    private final static String SORT_BY = "sortBy";
+    private static final String OFFSET = "offset";
+    private static final String LIMIT = "limit";
+    private static final String CREATE_BEFORE = "createdBefore";
+    private static final String CREATE_AFTER = "createdAfter";
+    private static final String CREATE_ON = "createdOn";
+    private static final String TRANSFER_METHOD_TYPE = "type";
+    private static final String STATUS = "status";
+    private static final String SORT_BY = "sortBy";
 
 
     @Test
-    public void testHyperwalletPayPalAccountQueryParam_withUrlQueryMap() {
+    public void testPayPalAccountQueryParam_withUrlQueryMap() {
         Calendar createdBefore = Calendar.getInstance();
         createdBefore.set(2017, 0, 1, 10, 12, 22);
         Calendar createdAfter = Calendar.getInstance();
@@ -83,7 +83,7 @@ public class PayPalAccountQueryParamTest {
     }
 
     @Test
-    public void testHyperwalletPayPalAccountQueryParam_verifyDefaultValues() {
+    public void testPayPalAccountQueryParam_verifyDefaultValues() {
         PayPalAccountQueryParam queryParam = new PayPalAccountQueryParam.Builder().build();
         assertThat(queryParam.getLimit(), is(10));
         assertThat(queryParam.getOffset(), is(0));

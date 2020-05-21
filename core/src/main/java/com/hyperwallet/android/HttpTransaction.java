@@ -16,11 +16,14 @@
  */
 package com.hyperwallet.android;
 
+import android.os.Build;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.TypeReference;
+import com.hyperwallet.android.sdk.BuildConfig;
 import com.hyperwallet.android.util.HttpClient;
 import com.hyperwallet.android.util.HttpMethod;
 import com.hyperwallet.android.util.JsonUtils;
@@ -32,6 +35,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * {@code HttpTransaction} HTTP transaction service that sends request
+ * to Hyperwallet API platforms
+ */
 public abstract class HttpTransaction implements Runnable {
 
     protected static final String AUTHENTICATION_STRATEGY = "Bearer ";
@@ -39,6 +46,8 @@ public abstract class HttpTransaction implements Runnable {
     private static final String APPLICATION_JSON = "application/json";
     private static final String HTTP_HEADER_ACCEPT_KEY = "Accept";
     private static final String HTTP_HEADER_CONTENT_TYPE_KEY = "Content-Type";
+    private static final String HTTP_HEADER_USER_AGENT_KEY = "User-Agent";
+    private static final String HTTP_HEADER_USER_AGENT = "HyperwalletSDK/Android/%s; App: HyperwalletSDK; Android: %s";
     private Map<String, String> mHeaderMap;
     private HyperwalletListener mListener;
     private HttpMethod mMethod;
@@ -48,6 +57,14 @@ public abstract class HttpTransaction implements Runnable {
     private String mUri;
     private TypeReference mTypeReference;
 
+    /**
+     * Construct a {@code HttpTransaction} object based from specified required parameters
+     *
+     * @param httpMethod    Http method to use; refer to {@link HttpMethod}
+     * @param uri           location of api
+     * @param typeReference Response type generator result
+     * @param httpListener  callback object; refer to {@link HyperwalletListener}
+     */
     public HttpTransaction(@NonNull final HttpMethod httpMethod, @NonNull final String uri,
             @NonNull final TypeReference typeReference,
             @NonNull final HyperwalletListener httpListener) {
@@ -60,8 +77,12 @@ public abstract class HttpTransaction implements Runnable {
 
         addHeader(HTTP_HEADER_ACCEPT_KEY, APPLICATION_JSON);
         addHeader(HTTP_HEADER_CONTENT_TYPE_KEY, APPLICATION_JSON);
+        addHeader(HTTP_HEADER_USER_AGENT_KEY, getUserAgent());
     }
 
+    /**
+     * Background execution
+     */
     public void run() {
         try {
             HttpClient client = new HttpClient.Builder(mUri).path(mPath).putHeaders(getHeaders()).putQueries(
@@ -80,9 +101,27 @@ public abstract class HttpTransaction implements Runnable {
         }
     }
 
+    /**
+     * Process errors, if available, from the resulting HTTP request
+     *
+     * @param responseCode HTTP response code
+     * @param response Serialized HTTP response
+     * @throws JSONException
+     * @throws InvocationTargetException
+     * @throws NoSuchMethodException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
     protected abstract void handleErrors(int responseCode, String response) throws JSONException,
             InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
 
+    /**
+     * Perform HTTP request
+     *
+     * @param client Http client to use for this operation {@link HttpClient}
+     * @return HTTP response code
+     * @throws IOException
+     */
     protected abstract int performRequest(HttpClient client) throws IOException;
 
     public HyperwalletListener getListener() {
@@ -165,5 +204,9 @@ public abstract class HttpTransaction implements Runnable {
                 }
             });
         }
+    }
+
+    private String getUserAgent() {
+        return String.format(HTTP_HEADER_USER_AGENT, BuildConfig.VERSION_NAME, Build.VERSION.RELEASE);
     }
 }

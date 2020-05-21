@@ -19,6 +19,9 @@ package com.hyperwallet.android.util;
 
 import androidx.annotation.RestrictTo;
 
+/**
+ * {@code HttpMethod} supported
+ */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public enum HttpMethod {
     POST, PUT, GET

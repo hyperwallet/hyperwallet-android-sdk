@@ -14,14 +14,14 @@ import java.util.Map;
 public class QueryParamTest {
 
     @Test
-    public void testHyperwalletQueryParam_verifyDefaultValues() {
+    public void testQueryParam_verifyDefaultValues() {
         QueryParam queryParam = new QueryParam.Builder().build();
         assertThat(queryParam.getLimit(), is(10));
         assertThat(queryParam.getOffset(), is(0));
     }
 
     @Test
-    public void testHyperwalletQueryParam_verifyQueryValues() {
+    public void testQueryParam_verifyQueryValues() {
         QueryParam queryParam = new QueryParam.Builder().limit(23).offset(11).build();
         assertThat(queryParam.getLimit(), is(23));
         assertThat(queryParam.getOffset(), is(11));

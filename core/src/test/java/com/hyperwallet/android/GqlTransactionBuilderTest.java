@@ -9,8 +9,8 @@ import static com.hyperwallet.android.util.HttpMethod.POST;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
-import com.hyperwallet.android.model.graphql.query.HyperwalletTransferMethodConfigurationKeysQuery;
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationKeysQuery;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,24 +25,24 @@ public class GqlTransactionBuilderTest {
     @Rule
     public final MockitoRule mMockito = MockitoJUnit.rule();
     @Rule
-    public final HyperwalletExternalResourceManager mExternalResourceManager =
-            new HyperwalletExternalResourceManager();
+    public final ExternalResourceManager mExternalResourceManager =
+            new ExternalResourceManager();
 
     @Mock
     private HyperwalletListener<HyperwalletTransferMethodConfigurationKey> mListener;
 
     @Test
     public void testBuild_withRequiredParametersOnly() {
-        HyperwalletTransferMethodConfigurationKeysQuery keysQuery =
-                new HyperwalletTransferMethodConfigurationKeysQuery();
+        TransferMethodConfigurationKeysQuery keysQuery =
+                new TransferMethodConfigurationKeysQuery();
 
         GqlTransaction.Builder<HyperwalletTransferMethodConfigurationKey> builder = new GqlTransaction.Builder<>(
                 keysQuery,
                 new TypeReference<HyperwalletTransferMethodConfigurationKey>() {
                 }, mListener);
 
-        final GqlTransaction gqlTransaction = builder.build("test", "usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636");
-
+        final GqlTransaction gqlTransaction = builder.build("test", "test-user-token",
+                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9");
         assertThat(gqlTransaction, is(notNullValue()));
         assertThat(gqlTransaction.getMethod(), is(POST));
 
@@ -50,9 +50,10 @@ public class GqlTransactionBuilderTest {
         assertThat(headers, is(notNullValue()));
         assertThat(headers.get("Accept"), is("application/json"));
         assertThat(headers.get("Content-Type"), is("application/json"));
+        assertThat(headers.get("Authorization"), is("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9"));
 
         final String QUERY_VALUE = "query {\n"
-                + "\tcountries(idToken: \"usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636\") {\n"
+                + "\tcountries(idToken: \"test-user-token\") {\n"
                 + "\t\tnodes {\n"
                 + "\t\t\tcode\n"
                 + "\t\t\tname\n"

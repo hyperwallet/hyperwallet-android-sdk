@@ -1,5 +1,7 @@
 package com.hyperwallet.android.rule;
 
+import com.hyperwallet.android.Hyperwallet;
+
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
@@ -16,6 +18,14 @@ public final class HyperwalletMockWebServer extends TestWatcher {
     private MockWebServer mServer;
     private int port;
 
+    public HyperwalletMockWebServer() {
+        this.port = 0;
+    }
+
+    public HyperwalletMockWebServer(int port) {
+        this.port = port;
+    }
+
     @Override
     protected void starting(Description description) {
         super.starting(description);
@@ -30,20 +40,13 @@ public final class HyperwalletMockWebServer extends TestWatcher {
     @Override
     protected void finished(Description description) {
         super.finished(description);
+        Hyperwallet.clearInstance();
         try {
             mServer.shutdown();
             mServer.close();
         } catch (IOException e) {
             throw new IllegalStateException("Un error occurred when shutting down mock mServer", e);
         }
-    }
-
-    public HyperwalletMockWebServer() {
-        this.port = 0;
-    }
-
-    public HyperwalletMockWebServer(int port) {
-        this.port = port;
     }
 
     public HyperwalletMockResponse mockResponse() {

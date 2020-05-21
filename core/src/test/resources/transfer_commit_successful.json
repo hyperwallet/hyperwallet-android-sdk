@@ -1,5 +1,5 @@
 {
-  "token": "sts-token",
+  "token": "sts-fake-token",
   "createdOn": "2019-07-08T08:08:39",
   "transition": "SCHEDULED",
   "fromStatus": "QUOTED",
@@ -10,7 +10,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://localhost:8181/rest/v3/transfers/trf-token/status-transitions/sts-token"
+      "href": "https://localhost:8181/rest/v3/transfers/trf-token/status-transitions/sts-fake-token"
     }
   ]
 }

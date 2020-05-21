@@ -47,10 +47,10 @@ public class MappedConnection<T extends KeyedNode> extends Connection<T> {
     private final Map<String, T> mNodes;
 
     /**
-     * Constructor to build MappedConnection based on json and class type
+     * Constructor to build MappedConnection based on {@link JSONObject} representation and class type
      *
      * @param data  JSON object that represents data
-     * @param clazz Class name
+     * @param clazz Target class name to construct
      */
     public MappedConnection(@NonNull final JSONObject data, @NonNull Class clazz) throws NoSuchMethodException,
             JSONException, IllegalAccessException, InstantiationException, InvocationTargetException {

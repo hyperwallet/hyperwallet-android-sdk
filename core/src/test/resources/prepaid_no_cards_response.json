@@ -1,0 +1,15 @@
+{
+  "count": 0,
+  "offset": 0,
+  "limit": 10,
+  "data": [
+  ],
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://localhost:8181/rest/v3/users/test-user-token/prepaid-cards?offset=0&limit=10"
+    }
+  ]
+}

@@ -19,7 +19,6 @@ package com.hyperwallet.android.model.graphql.error;
 
 import androidx.annotation.NonNull;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -36,7 +35,10 @@ public class Extension {
     private final String mCode;
     private final String mTimestamp;
 
-    Extension(@NonNull JSONObject jsonObject) throws JSONException {
+    /**
+     * Default constructor to create instance of {@code Extension} from {@link JSONObject} representation
+     */
+    Extension(@NonNull JSONObject jsonObject) {
         mCode = jsonObject.optString(CODE);
         mTimestamp = jsonObject.optString(TIMESTAMP);
     }

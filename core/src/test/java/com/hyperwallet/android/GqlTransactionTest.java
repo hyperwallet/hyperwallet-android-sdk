@@ -7,11 +7,11 @@ import static org.mockito.Mockito.verify;
 
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
-import com.hyperwallet.android.model.HyperwalletError;
+import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.TypeReference;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
-import com.hyperwallet.android.model.graphql.query.HyperwalletTransferMethodConfigurationKeysQuery;
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationKeysQuery;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 import com.hyperwallet.android.util.HttpClient;
 import com.hyperwallet.android.util.HttpMethod;
 
@@ -38,7 +38,7 @@ public class GqlTransactionTest {
     @Rule
     public final ExpectedException mThrown = ExpectedException.none();
     @Rule
-    public HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
+    public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
 
     @Mock
     private HyperwalletListener<HyperwalletTransferMethodConfigurationKey> mListener;
@@ -53,14 +53,14 @@ public class GqlTransactionTest {
 
     @Test
     public void testPerformRequest_usingHttpPost() throws IOException {
-        HyperwalletTransferMethodConfigurationKeysQuery keysQuery =
-                new HyperwalletTransferMethodConfigurationKeysQuery();
+        TransferMethodConfigurationKeysQuery keysQuery = new TransferMethodConfigurationKeysQuery();
 
         GqlTransaction.Builder<HyperwalletTransferMethodConfigurationKey> builder = new GqlTransaction.Builder<>(
                 keysQuery,
                 new TypeReference<HyperwalletTransferMethodConfigurationKey>() {
                 }, mListener);
-        final GqlTransaction gqlTransaction = builder.build("test", "usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636");
+        final GqlTransaction gqlTransaction = builder.build("test", "test-user-token",
+                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9");
         assertThat(gqlTransaction.getMethod(), is(HttpMethod.POST));
 
         gqlTransaction.performRequest(mHttpClient);
@@ -68,7 +68,7 @@ public class GqlTransactionTest {
         verify(mHttpClient).post(mPayloadCaptor.capture());
         String payload = mPayloadCaptor.getValue();
         String sampleQuery = "query {\n"
-                + "\tcountries(idToken: \"usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636\") {\n"
+                + "\tcountries(idToken: \"test-user-token\") {\n"
                 + "\t\tnodes {\n"
                 + "\t\t\tcode\n"
                 + "\t\t\tname\n"
@@ -114,21 +114,21 @@ public class GqlTransactionTest {
     public void testHandleErrors_responseParsedSuccessfully() throws Exception {
         String responseBody = mExternalResourceManager.getResourceContentError("tmc_gql_error_response.json");
 
-        HyperwalletTransferMethodConfigurationKeysQuery keysQuery =
-                new HyperwalletTransferMethodConfigurationKeysQuery();
+        TransferMethodConfigurationKeysQuery keysQuery = new TransferMethodConfigurationKeysQuery();
 
         GqlTransaction.Builder<HyperwalletTransferMethodConfigurationKey> builder =
                 new GqlTransaction.Builder<>(keysQuery,
                         new TypeReference<HyperwalletTransferMethodConfigurationKey>() {
                         }, mListener);
-        final GqlTransaction gqlTransaction = builder.build("test", "usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636");
+        final GqlTransaction gqlTransaction = builder.build("test", "test-user-token",
+                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9");
 
         gqlTransaction.handleErrors(HttpURLConnection.HTTP_BAD_REQUEST, responseBody);
         verify(mListener).onFailure(mExceptionArgumentCaptor.capture());
 
         HyperwalletException exception = mExceptionArgumentCaptor.getValue();
-        assertThat(exception.getHyperwalletErrors().getErrors().size(), is(1));
-        HyperwalletError error = exception.getHyperwalletErrors().getErrors().get(0);
+        assertThat(exception.getErrors().getErrors().size(), is(1));
+        Error error = exception.getErrors().getErrors().get(0);
         assertThat(error.getCode(), is("DataFetchingException"));
         assertThat(error.getMessage(), is("Could not find any currency."));
     }
@@ -138,14 +138,14 @@ public class GqlTransactionTest {
         mThrown.expect(JSONException.class);
         mThrown.expectMessage("Value some of type java.lang.String cannot be converted to JSONObject");
 
-        HyperwalletTransferMethodConfigurationKeysQuery keysQuery =
-                new HyperwalletTransferMethodConfigurationKeysQuery();
+        TransferMethodConfigurationKeysQuery keysQuery = new TransferMethodConfigurationKeysQuery();
 
         GqlTransaction.Builder<HyperwalletTransferMethodConfigurationKey> builder = new GqlTransaction.Builder<>(
                 keysQuery,
                 new TypeReference<HyperwalletTransferMethodConfigurationKey>() {
                 }, mListener);
-        final GqlTransaction gqlTransaction = builder.build("test", "usr-d8c65e1e-b3e5-460d-8b24-bee7cdae1636");
+        final GqlTransaction gqlTransaction = builder.build("test", "test-user-token",
+                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9");
 
         gqlTransaction.handleErrors(HttpURLConnection.HTTP_BAD_REQUEST, "some non-parcelable error");
     }

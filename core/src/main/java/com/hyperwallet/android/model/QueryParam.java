@@ -35,12 +35,12 @@ import java.util.Map;
  */
 public class QueryParam {
 
-    private static final String TAG = QueryParam.class.getName();
     public static final String CREATED_BEFORE = "createdBefore";
     public static final String CREATED_AFTER = "createdAfter";
     public static final String SORT_BY = "sortBy";
     public static final String PAGINATION_OFFSET = "offset";
     public static final String PAGINATION_LIMIT = "limit";
+    private static final String TAG = QueryParam.class.getName();
     private static final int DEFAULT_LIMIT = 10;
     private static final int DEFAULT_OFFSET = 0;
     private final Date mCreatedAfter;
@@ -50,7 +50,7 @@ public class QueryParam {
     private final int mLimit;
 
     /**
-     * Constructors the QueryParam
+     * Construct a {@code QueryParam} object from {@link QueryParam.Builder}
      */
     protected QueryParam(@NonNull final Builder builder) {
         mOffset = builder.mOffset;

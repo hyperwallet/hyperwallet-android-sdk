@@ -14,8 +14,8 @@ public class PathFormatterTest {
 
         String arguments = null;
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards", arguments);
-        String formattedPath = pathFormatter.format("usr-fake-token");
-        assertThat(formattedPath, is("users/usr-fake-token/bank-cards"));
+        String formattedPath = pathFormatter.format("test-user-token");
+        assertThat(formattedPath, is("users/test-user-token/bank-cards"));
     }
 
 
@@ -24,8 +24,8 @@ public class PathFormatterTest {
 
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts/{1}/status-transitions", "trm-fake" +
                 "-token");
-        String formattedPath = pathFormatter.format("usr-fake-token");
-        assertThat(formattedPath, is("users/usr-fake-token/bank-accounts/trm-fake-token/status-transitions"));
+        String formattedPath = pathFormatter.format("test-user-token");
+        assertThat(formattedPath, is("users/test-user-token/bank-accounts/trm-fake-token/status-transitions"));
     }
 
 }

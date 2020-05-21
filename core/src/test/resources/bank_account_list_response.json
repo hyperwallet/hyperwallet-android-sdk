@@ -4,7 +4,7 @@
   "limit": 10,
   "data": [
     {
-      "token": "trm-56b976c5-26b2-42fa-87cf-14b3366673c6",
+      "token": "trm-fake-token",
       "type": "BANK_ACCOUNT",
       "status": "ACTIVATED",
       "createdOn": "2017-10-31T16:47:15",
@@ -28,12 +28,12 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/bank-accounts/trm-56b976c5-26b2-42fa-87cf-14b3366673c6"
+          "href": "https://localhost:8181/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"
         }
       ]
     },
     {
-      "token": "trm-56b976c5-26b2-42fa-87cf-14b3366673c7",
+      "token": "trm-fake-token",
       "type": "BANK_ACCOUNT",
       "status": "ACTIVATED",
       "createdOn": "2017-10-31T16:47:15",
@@ -57,7 +57,7 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/bank-accounts/trm-56b976c5-26b2-42fa-87cf-14b3366673c6"
+          "href": "https://localhost:8181/rest/v3/users/test-user-token/bank-accounts/trm-fake-token"
         }
       ]
     }
@@ -67,7 +67,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://localhost:8181/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/bank-accounts?offset=0&limit=10"
+      "href": "https://localhost:8181/rest/v3/users/test-user-token/bank-accounts?offset=0&limit=10"
     }
   ]
 }

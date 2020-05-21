@@ -13,16 +13,22 @@ import org.junit.runner.Description;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class HyperwalletSdkMock extends TestWatcher {
 
     private HyperwalletMockWebServer server;
+    private boolean failAuthentication;
 
     public HyperwalletSdkMock(HyperwalletMockWebServer server) {
         this.server = server;
+        failAuthentication = false;
     }
 
+    public void setFailAuthentication(final boolean failAuthentication) {
+        this.failAuthentication = failAuthentication;
+    }
 
     @Override
     protected void starting(Description description) {
@@ -33,13 +39,15 @@ public class HyperwalletSdkMock extends TestWatcher {
 
     private class AuthenticationProvider implements HyperwalletAuthenticationTokenProvider {
 
-        private final static String USER_TOKEN = "sub";
-        private final static String ISSUER = "iss";
-        private final static String CREATE_ON = "iat";
-        private final static String EXPIRES_ON = "exp";
-        private final static String CLIENT_TOKEN = "aud";
-        private final static String REST_URL = "rest-uri";
-        private final static String GRAPH_QL_URL = "graphql-uri";
+        private static final String USER_TOKEN = "sub";
+        private static final String ISSUER = "iss";
+        private static final String CREATE_ON = "iat";
+        private static final String EXPIRES_ON = "exp";
+        private static final String CLIENT_TOKEN = "aud";
+        private static final String REST_URL = "rest-uri";
+        private static final String GRAPH_QL_URL = "graphql-uri";
+        private static final String INSIGHT_API_URL = "insights-uri";
+        private static final String ENVIRONMENT = "environment";
         private HyperwalletMockWebServer server;
 
         private AuthenticationProvider(HyperwalletMockWebServer server) {
@@ -51,8 +59,12 @@ public class HyperwalletSdkMock extends TestWatcher {
         public void retrieveAuthenticationToken(
                 HyperwalletAuthenticationTokenListener authenticationTokenListener) {
             String authToken = buildJwtToken();
-            if (authenticationTokenListener != null) {
-                authenticationTokenListener.onSuccess(authToken);
+            if (failAuthentication) {
+                authenticationTokenListener.onFailure(UUID.randomUUID(), "Error in authentication");
+            } else {
+                if (authenticationTokenListener != null) {
+                    authenticationTokenListener.onSuccess(authToken);
+                }
             }
         }
 
@@ -63,9 +75,11 @@ public class HyperwalletSdkMock extends TestWatcher {
                 JSONObject jwtPayload = new JSONObject();
                 jwtPayload.put(GRAPH_QL_URL, server.getServer().url("graphql/"));
                 jwtPayload.put(REST_URL, server.getServer().url("rest/v3/"));
-                jwtPayload.put(CLIENT_TOKEN, "pgu-f2f056b0-5ff0-447b-affb-b9b43a7e2c49");
-                jwtPayload.put(USER_TOKEN, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
-                jwtPayload.put(ISSUER, "prg-040e9b3d-614c-11e5-af23-0faa28ca7c0f");
+                jwtPayload.put(CLIENT_TOKEN, "test-client-token");
+                jwtPayload.put(USER_TOKEN, "test-user-token");
+                jwtPayload.put(ISSUER, "test-program-token");
+                jwtPayload.put(INSIGHT_API_URL, "insights.test.com/track/events");
+                jwtPayload.put(ENVIRONMENT, "TEST-DEV");
                 Calendar cal = Calendar.getInstance();
                 long createOn = TimeUnit.SECONDS.toMillis(cal.getTimeInMillis());
                 jwtPayload.put(CREATE_ON, createOn);
@@ -91,6 +105,4 @@ public class HyperwalletSdkMock extends TestWatcher {
         }
 
     }
-
-
 }

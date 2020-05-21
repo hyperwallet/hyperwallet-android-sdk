@@ -19,7 +19,7 @@ package com.hyperwallet.android.model.graphql.keyed;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod;
+import com.hyperwallet.android.model.transfermethod.TransferMethod;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,13 +38,13 @@ public class Currency implements KeyedNode {
     private static final String CURRENCY_NAME = NODE_NAME;
     private static final String TRANSFER_METHOD_TYPES = "transferMethodTypes";
 
-    private final Set<HyperwalletTransferMethodType> mHyperwalletTransferMethodTypes;
+    private final Set<TransferMethodType> mTransferMethodTypes;
     private final String mCode;
-    private final MappedConnection<HyperwalletTransferMethodType> mHyperwalletTransferMethodTypeMappedConnection;
+    private final MappedConnection<TransferMethodType> mTransferMethodTypeMappedConnection;
     private final String mName;
 
     /**
-     * Constructor to build Currency based on json
+     * Constructor to build Currency based on {@link JSONObject} representation
      *
      * @param currency JSON object that represents currency data
      */
@@ -52,13 +52,13 @@ public class Currency implements KeyedNode {
             IllegalAccessException, InstantiationException, InvocationTargetException {
         mCode = currency.optString(CURRENCY_CODE);
         mName = currency.optString(CURRENCY_NAME);
-        mHyperwalletTransferMethodTypes = new LinkedHashSet<>(1);
+        mTransferMethodTypes = new LinkedHashSet<>(1);
         JSONObject transferMethodTypes = currency.optJSONObject(TRANSFER_METHOD_TYPES);
         if (transferMethodTypes != null && transferMethodTypes.length() != 0) {
-            mHyperwalletTransferMethodTypeMappedConnection =
-                    new MappedConnection<>(transferMethodTypes, HyperwalletTransferMethodType.class);
+            mTransferMethodTypeMappedConnection =
+                    new MappedConnection<>(transferMethodTypes, TransferMethodType.class);
         } else {
-            mHyperwalletTransferMethodTypeMappedConnection = null;
+            mTransferMethodTypeMappedConnection = null;
         }
     }
 
@@ -81,27 +81,27 @@ public class Currency implements KeyedNode {
     }
 
     /**
-     * @return set of {@code HyperwalletTransferMethodType} represented by this {@link Currency} instance
+     * @return set of {@code TransferMethodType} represented by this {@link Currency} instance
      */
     @NonNull
-    public Set<HyperwalletTransferMethodType> getTransferMethodTypes() {
-        if (mHyperwalletTransferMethodTypeMappedConnection != null && mHyperwalletTransferMethodTypes.isEmpty()) {
-            mHyperwalletTransferMethodTypes.addAll(mHyperwalletTransferMethodTypeMappedConnection.getNodes());
-            return mHyperwalletTransferMethodTypes;
+    public Set<TransferMethodType> getTransferMethodTypes() {
+        if (mTransferMethodTypeMappedConnection != null && mTransferMethodTypes.isEmpty()) {
+            mTransferMethodTypes.addAll(mTransferMethodTypeMappedConnection.getNodes());
+            return mTransferMethodTypes;
         }
-        return mHyperwalletTransferMethodTypes;
+        return mTransferMethodTypes;
     }
 
     /**
      * Get specific Transfer Method Type
      *
-     * @param transferMethodType transfer method type {@link HyperwalletTransferMethod.TransferMethodTypes}
+     * @param transferMethodType transfer method type {@link TransferMethod.TransferMethodTypes}
      * @return Transfer method type representation based from parameter passed, if exists
      */
     @Nullable
-    public HyperwalletTransferMethodType getTransferMethodType(@NonNull final String transferMethodType) {
-        if (mHyperwalletTransferMethodTypeMappedConnection != null) {
-            return mHyperwalletTransferMethodTypeMappedConnection.getNode(transferMethodType);
+    public TransferMethodType getTransferMethodType(@NonNull final String transferMethodType) {
+        if (mTransferMethodTypeMappedConnection != null) {
+            return mTransferMethodTypeMappedConnection.getNode(transferMethodType);
         }
         return null;
     }

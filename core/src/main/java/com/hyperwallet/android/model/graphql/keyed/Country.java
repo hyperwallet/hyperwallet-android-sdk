@@ -43,7 +43,7 @@ public class Country implements KeyedNode {
     private final String mName;
 
     /**
-     * Constructor to build Country based on json
+     * Constructor to build Country based on {@link JSONObject} representation
      *
      * @param country JSON object that represents country data
      */

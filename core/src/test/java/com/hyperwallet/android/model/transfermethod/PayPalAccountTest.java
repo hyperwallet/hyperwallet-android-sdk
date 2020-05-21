@@ -4,18 +4,18 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.CREATED_ON;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.EMAIL;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.STATUS;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TOKEN;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TYPE;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.CREATED_ON;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.EMAIL;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.STATUS;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.TOKEN;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.TYPE;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
 import static com.hyperwallet.android.util.JsonUtils.fromJsonString;
 
 import com.hyperwallet.android.model.TypeReference;
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 
 import org.json.JSONObject;
 import org.junit.Rule;
@@ -26,7 +26,7 @@ import org.robolectric.RobolectricTestRunner;
 @RunWith(RobolectricTestRunner.class)
 public class PayPalAccountTest {
     @Rule
-    public HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
+    public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
 
     @Test
     public void testFromJsonString_payPalAccountResponse() throws Exception {
@@ -36,7 +36,7 @@ public class PayPalAccountTest {
                 });
 
         assertThat(actualPayPalAccount, is(notNullValue()));
-        assertThat(actualPayPalAccount.getField(TOKEN), is("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b"));
+        assertThat(actualPayPalAccount.getField(TOKEN), is("trm-fake-token"));
         assertThat(actualPayPalAccount.getCountry(), is("US"));
         assertThat(actualPayPalAccount.getCurrency(), is("USD"));
         assertThat(actualPayPalAccount.getField(TYPE), is(PAYPAL_ACCOUNT));
@@ -52,12 +52,12 @@ public class PayPalAccountTest {
                 .transferMethodCountry("US")
                 .transferMethodCurrency("USD")
                 .email("jsmith@paypal.com")
-                .token("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b")
+                .token("trm-fake-token")
                 .build();
 
         JSONObject jsonObject = payPalAccount.toJsonObject();
 
-        assertThat(jsonObject.getString(TOKEN), is("trm-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b"));
+        assertThat(jsonObject.getString(TOKEN), is("trm-fake-token"));
         assertThat(jsonObject.getString(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(jsonObject.getString(TRANSFER_METHOD_CURRENCY), is("USD"));
         assertThat(jsonObject.getString(TYPE), is(PAYPAL_ACCOUNT));

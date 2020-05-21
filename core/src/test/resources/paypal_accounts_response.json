@@ -4,7 +4,7 @@
   "limit": 10,
   "data": [
     {
-      "token": "trm-7e915660-8c97-47bf-8a4f-0c1bc890d46f",
+      "token": "trm-fake-token",
       "type": "PAYPAL_ACCOUNT",
       "status": "ACTIVATED",
       "createdOn": "2019-01-09T22:50:14",
@@ -16,12 +16,12 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/paypal-accounts/trm-7e915660-8c97-47bf-8a4f-0c1bc890d46f"
+          "href": "https://localhost:8181/rest/v3/users/test-user-token/paypal-accounts/trm-fake-token"
         }
       ]
     },
     {
-      "token": "trm-7742f31d-452c-4bf7-8645-c003fa1511d5",
+      "token": "trm-fake-token",
       "type": "PAYPAL_ACCOUNT",
       "status": "VERIFIED",
       "createdOn": "2019-04-09T10:00:00",
@@ -33,7 +33,7 @@
           "params": {
             "rel": "self"
           },
-          "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/paypal-accounts/trm-7742f31d-452c-4bf7-8645-c003fa1511d5"
+          "href": "https://localhost:8181/rest/v3/users/test-user-token/paypal-accounts/trm-fake-token"
         }
       ]
     }
@@ -43,7 +43,7 @@
       "params": {
         "rel": "self"
       },
-      "href": "https://api.sandbox.hyperwallet.com/rest/v3/users/usr-c4292f1a-866f-4310-a289-b916853939de/paypal-accounts?offset=0&limit=10"
+      "href": "https://localhost:8181/rest/v3/users/test-user-token/paypal-accounts?offset=0&limit=10"
     }
   ]
 }

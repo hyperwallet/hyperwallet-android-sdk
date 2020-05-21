@@ -1,0 +1,22 @@
+{
+  "token": "trm-fake-token",
+  "type": "PREPAID_CARD",
+  "status": "ACTIVATED",
+  "verificationStatus": "VERIFIED",
+  "createdOn": "2019-06-20T22:49:12",
+  "transferMethodCountry": "US",
+  "transferMethodCurrency": "USD",
+  "cardType": "VIRTUAL",
+  "cardPackage": "L1",
+  "cardNumber": "************8766",
+  "cardBrand": "VISA",
+  "dateOfExpiry": "2023-06",
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://localhost:8181/rest/v3/users/test-user-token/prepaid-cards/trm-fake-token"
+    }
+  ]
+}

@@ -19,55 +19,55 @@ package com.hyperwallet.android.exception;
 
 import androidx.annotation.NonNull;
 
-import com.hyperwallet.android.model.HyperwalletErrors;
+import com.hyperwallet.android.model.Errors;
 
 /**
  * This exception is thrown when an issue is detected during the processing of a request to the Hyperwallet Core SDK.
  *
  * <p>The underlying details and reason for the exception being thrown can be derived by inspecting the
- * {@code HyperwalletErrors} value returned from {@link #getHyperwalletErrors()}.</p>
+ * {@code Errors} value returned from {@link #getErrors()}.</p>
  */
 public class HyperwalletException extends Exception {
 
     @NonNull
-    HyperwalletErrors mErrors;
+    Errors mErrors;
 
     HyperwalletException() {
-        mErrors = HyperwalletErrors.getEmptyInstance();
+        mErrors = Errors.getEmptyInstance();
     }
 
     public HyperwalletException(Throwable throwable) {
         super(throwable);
-        mErrors = HyperwalletErrors.getEmptyInstance();
+        mErrors = Errors.getEmptyInstance();
     }
 
     /**
-     * Constructs a HyperwalletException with the specified throwable and {@link HyperwalletErrors} cause.
+     * Constructs a HyperwalletException with the specified throwable and {@link Errors} cause.
      *
      * @param throwable the exception cause
-     * @param errors    the HyperwalletErrors cause of the exception, must not be null
+     * @param errors    the Errors cause of the exception, must not be null
      */
-    public HyperwalletException(Throwable throwable, @NonNull HyperwalletErrors errors) {
+    public HyperwalletException(Throwable throwable, @NonNull Errors errors) {
         super(throwable);
         mErrors = errors;
     }
 
     /**
-     * Constructs a HyperwalletException with the specified {@link HyperwalletErrors} cause.
+     * Constructs a HyperwalletException with the specified {@link Errors} cause.
      *
-     * @param errors the HyperwalletErrors cause of the exception, must not be null
+     * @param errors the Errors cause of the exception, must not be null
      */
-    public HyperwalletException(@NonNull HyperwalletErrors errors) {
+    public HyperwalletException(@NonNull Errors errors) {
         mErrors = errors;
     }
 
     /**
-     * Returns the specified {@link HyperwalletErrors} cause of the HyperwalletException.
+     * Returns the specified {@link Errors} cause of the HyperwalletException.
      *
-     * @return the specified HyperwalletErrors cause of the HyperwalletException
+     * @return the specified Errors cause of the HyperwalletException
      */
     @NonNull
-    public HyperwalletErrors getHyperwalletErrors() {
+    public Errors getErrors() {
         return mErrors;
     }
 }

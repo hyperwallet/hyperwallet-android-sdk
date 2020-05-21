@@ -18,9 +18,9 @@
 
 package com.hyperwallet.android.model.transfermethod;
 
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.EMAIL;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.EMAIL;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,15 +35,22 @@ import java.util.Map;
  * Represents the PayPal Account fields.
  */
 
-public class PayPalAccount extends HyperwalletTransferMethod {
+public class PayPalAccount extends TransferMethod {
 
     /**
-     * Constructor to build PayPal Account, based on json object
+     * Construct a {@code PayPalAccount} object from {@link JSONObject} representation
+     *
+     * @param jsonObject raw data information
      */
     public PayPalAccount(@NonNull JSONObject jsonObject) throws JSONException {
         super(jsonObject);
     }
 
+    /**
+     * Construct a {@code PayPalAccount} object from Map of key-value pair representation
+     *
+     * @param fields map of key-value raw data information
+     */
     private PayPalAccount(@NonNull Map<String, Object> fields) {
         super();
         setFields(fields);
@@ -64,14 +71,27 @@ public class PayPalAccount extends HyperwalletTransferMethod {
         return getField(EMAIL);
     }
 
+    /**
+     * Builder for {@link PayPalAccount}
+     */
     public static class Builder {
         private Map<String, Object> mFields;
 
+        /**
+         * Constructs a {@code Builder}
+         */
         public Builder() {
             mFields = new HashMap<>();
             mFields.put(TransferMethodFields.TYPE, TransferMethodTypes.PAYPAL_ACCOUNT);
         }
 
+        /**
+         * Constructs a {@code Builder} with predefined attributes
+         *
+         * @param transferMethodCountry  Transfer method country of account
+         * @param transferMethodCurrency Transfer method currency of account
+         * @param email                  email to bind to {@link PayPalAccount}
+         */
         public Builder(@NonNull String transferMethodCountry,
                 @NonNull String transferMethodCurrency,
                 @NonNull String email) {

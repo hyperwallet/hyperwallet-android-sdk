@@ -51,6 +51,10 @@ task javadocs(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     failOnError false
+    options.addStringOption 'Xdoclint:none', '-quiet'
+    options.addStringOption 'Xmaxwarns', '1'
+    options.addStringOption 'Xmaxerrs', '1'
+    options.links "https://docs.oracle.com/javase/8/docs/api"
 }
 
 task javadocsJar(type: Jar, dependsOn: javadocs) {

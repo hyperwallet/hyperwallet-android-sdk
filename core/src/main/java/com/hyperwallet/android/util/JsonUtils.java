@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 
-import com.hyperwallet.android.model.HyperwalletJsonModel;
+import com.hyperwallet.android.model.JsonModel;
 import com.hyperwallet.android.model.TypeReference;
 
 import org.json.JSONArray;
@@ -37,9 +37,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/*
- *  This Utility is hidden on SDK integration, it is for internal use only.
- * */
+/**
+ * Internal SDK use only. This class represents Parsing JSON string object to equivalent
+ * model and converting {@link JSONObject} into a Mapped key-value pair data and vice-versa
+ */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public final class JsonUtils {
 
@@ -115,8 +116,8 @@ public final class JsonUtils {
                 jsonArray.put(i, mapToJsonObject((Map<String, Object>) element));
             } else if (element instanceof List) {
                 getJSONArray((List) element);
-            } else if (element instanceof HyperwalletJsonModel) {
-                jsonArray.put(i, ((HyperwalletJsonModel)element).toJsonObject());
+            } else if (element instanceof JsonModel) {
+                jsonArray.put(i, ((JsonModel) element).toJsonObject());
             }
         }
         return jsonArray;
@@ -147,8 +148,28 @@ public final class JsonUtils {
         return Collections.unmodifiableList(objectList);
     }
 
+    /**
+     * TypeReference deserialization implementation that derives the {@code T} of {@link TypeReference} based
+     * from passed JSON string data
+     *
+     * &nbsp;<p>
+     * Moreover this approach preserves the intended Type in the {@code n}th Generic form; for example
+     * List&lt;T&gt; where {@code T} is Class&lt;T&gt;
+     * </p>&nbsp;
+     *
+     * For this formal generator to work all types should follow constructor signature contract of the following:
+     * <ul>
+     * <li>Type Constructor({@link JSONObject})</li>
+     * <li>Type Constructor({@link JSONObject}, {@link Class})</li>
+     * </ul>
+     *
+     * @param data          JSON serialized data
+     * @param typeReference Type of class specified by {@code T} that, we want to derive based from JSON response
+     *                      context
+     * @return the T representation equivalent from JSON data
+     */
     @Nullable
-    public static <T> T fromJsonString(@NonNull String data, @NonNull TypeReference<T> typeReference)
+    public static <T> T fromJsonString(@NonNull final String data, @NonNull final TypeReference<T> typeReference)
             throws JSONException, InvocationTargetException, NoSuchMethodException, InstantiationException,
             IllegalAccessException {
         if (typeReference.getType() instanceof Class<?>) {
@@ -162,8 +183,16 @@ public final class JsonUtils {
         return rawTypeConstructor.newInstance(jsonObject, parameterType);
     }
 
+    /**
+     * Class type reference deserialization implementation that derives a simplest generic form from {@code Class<T>}
+     * format
+     *
+     * @param jsonString JSON serialized data
+     * @param fromClass  class type specified in {@code T}
+     * @return the T representation equivalent from JSON data
+     */
     @Nullable
-    private static <T> T fromJsonString(@Nullable String jsonString, @NonNull Class<T> fromClass)
+    private static <T> T fromJsonString(@Nullable final String jsonString, @NonNull final Class<T> fromClass)
             throws JSONException, InvocationTargetException, NoSuchMethodException, InstantiationException,
             IllegalAccessException {
         JSONObject jsonObject = new JSONObject(jsonString);

@@ -4,7 +4,7 @@
   "createdOn": "2017-11-01T17:08:58",
   "entry": "CREDIT",
   "sourceToken": "act-123",
-  "destinationToken": "usr-123",
+  "destinationToken": "test-user-token",
   "amount": "20.00",
   "fee": "0.00",
   "currency": "USD",

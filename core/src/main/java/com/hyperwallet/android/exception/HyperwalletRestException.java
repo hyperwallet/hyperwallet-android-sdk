@@ -19,12 +19,12 @@ package com.hyperwallet.android.exception;
 
 import androidx.annotation.Nullable;
 
-import com.hyperwallet.android.model.HyperwalletErrors;
+import com.hyperwallet.android.model.Errors;
 
 /**
  * Indicates an exceptional condition that occurred while executing a REST transaction with the Hyperwallet platform.
  *
- * <p>A {@code HyperwalletRestException} contains the {@link HyperwalletErrors} cause and the HTTP response code from
+ * <p>A {@code HyperwalletRestException} contains the {@link Errors} cause and the HTTP response code from
  * the associated REST transaction.</p>
  */
 public class HyperwalletRestException extends HyperwalletException {
@@ -32,13 +32,13 @@ public class HyperwalletRestException extends HyperwalletException {
     private final int mHttpCode;
 
     /**
-     * Constructs a {@code HyperwalletRestException} with the specified {@link HyperwalletErrors} cause and HTTP
+     * Constructs a {@code HyperwalletRestException} with the specified {@link Errors} cause and HTTP
      * response code.
      *
      * @param httpCode the HTTP response code of the corresponding REST transaction
-     * @param errors   the {@code HyperwalletErrors} cause of the exception, must be non null
+     * @param errors   the {@code Errors} cause of the exception, must be non null
      */
-    public HyperwalletRestException(int httpCode, @Nullable HyperwalletErrors errors) {
+    public HyperwalletRestException(int httpCode, @Nullable Errors errors) {
         super(errors);
         mHttpCode = httpCode;
     }

@@ -6,14 +6,17 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import static com.hyperwallet.android.model.transfermethod.HyperwalletTransferMethod.TransferMethodTypes.BANK_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 import static com.hyperwallet.android.util.HttpMethod.GET;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 
+import android.os.Build;
+
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.TypeReference;
-import com.hyperwallet.android.model.paging.HyperwalletPageList;
-import com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount;
+import com.hyperwallet.android.model.paging.PageList;
+import com.hyperwallet.android.model.transfermethod.BankAccount;
+import com.hyperwallet.android.sdk.BuildConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +38,7 @@ public class RestTransactionBuilderTest {
     public final MockitoRule mMockito = MockitoJUnit.rule();
 
     @Mock
-    private HyperwalletListener<HyperwalletBankAccount> mListener;
+    private HyperwalletListener<BankAccount> mListener;
 
     @Test
     public void testBuild_withRequiredParametersOnly() throws JSONException {
@@ -43,12 +46,12 @@ public class RestTransactionBuilderTest {
         final PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
         final String token = "eyJhbGciOiJIUzI1NiJ9.eyJncmFwaHFsLXVyaSI6Imh0dHA6XC9cLzEyNy4wLjAuMTo1MzEyN1wvZ3JhcGhxb";
 
-        RestTransaction.Builder<HyperwalletBankAccount> builder = new RestTransaction.Builder<>(
+        RestTransaction.Builder<BankAccount> builder = new RestTransaction.Builder<>(
                 POST, pathFormatter,
-                new TypeReference<HyperwalletBankAccount>() {
+                new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = builder.build("http://hyperwallet.com/rest/v3/", token,
-                "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                "test-user-token");
 
         assertThat(restTransaction, is(notNullValue()));
         assertThat(restTransaction.getMethod(), is(POST));
@@ -59,23 +62,25 @@ public class RestTransactionBuilderTest {
         assertThat(headers, is(notNullValue()));
         assertThat(headers.get("Accept"), is("application/json"));
         assertThat(headers.get("Content-Type"), is("application/json"));
+        assertThat(headers.get("User-Agent"), is("HyperwalletSDK/Android/" + BuildConfig.VERSION_NAME +
+                "; App: HyperwalletSDK; Android: " + Build.VERSION.RELEASE));
     }
 
     @Test
     public void testBuild_withJsonModelOptionalParameter() throws JSONException {
         final PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
         final String token = "eyJhbGciOiJIUzI1NiJ9.eyJncmFwaHFsLXVyaSI6Imh0dHA6XC9cLzEyNy4wLjAuMTo1MzEyN1wvZ3JhcGhxb";
-        HyperwalletBankAccount.Builder builder = new HyperwalletBankAccount
+        BankAccount.Builder builder = new BankAccount
                 .Builder("US", "USD", "8017110254");
-        final HyperwalletBankAccount bankAccount = builder.build();
+        final BankAccount bankAccount = builder.build();
 
-        RestTransaction.Builder<HyperwalletBankAccount> accountBuilder = new RestTransaction.Builder<>(
+        RestTransaction.Builder<BankAccount> accountBuilder = new RestTransaction.Builder<>(
                 POST, pathFormatter,
-                new TypeReference<HyperwalletBankAccount>() {
+                new TypeReference<BankAccount>() {
                 }, mListener);
         final RestTransaction restTransaction = accountBuilder
                 .jsonModel(bankAccount)
-                .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
         assertThat(restTransaction, is(notNullValue()));
         assertThat(restTransaction.getMethod(), is(POST));
@@ -90,6 +95,8 @@ public class RestTransactionBuilderTest {
         assertThat(headers, is(notNullValue()));
         assertThat(headers.get("Accept"), is("application/json"));
         assertThat(headers.get("Content-Type"), is("application/json"));
+        assertThat(headers.get("User-Agent"), is("HyperwalletSDK/Android/" + BuildConfig.VERSION_NAME +
+                "; App: HyperwalletSDK; Android: " + Build.VERSION.RELEASE));
     }
 
     @Test
@@ -102,13 +109,13 @@ public class RestTransactionBuilderTest {
 
         final String token = "eyJhbGciOiJIUzI1NiJ9.eyJncmFwaHFsLXVyaSI6Imh0dHA6XC9cLzEyNy4wLjAuMTo1MzEyN1wvZ3JhcGhxb";
 
-        RestTransaction.Builder<HyperwalletPageList<HyperwalletBankAccount>> pageListBuilder =
+        RestTransaction.Builder<PageList<BankAccount>> pageListBuilder =
                 new RestTransaction.Builder<>(GET, pathFormatter,
-                        new TypeReference<HyperwalletPageList<HyperwalletBankAccount>>() {
+                        new TypeReference<PageList<BankAccount>>() {
                         }, mListener);
         final RestTransaction restTransaction = pageListBuilder
                 .query(query)
-                .build("http://hyperwallet.com/rest/v3/", token, "usr-fbfd5848-60d0-43c5-8462-099c959b49c7");
+                .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
         assertThat(restTransaction, is(notNullValue()));
         assertThat(restTransaction.getMethod(), is(GET));
@@ -120,6 +127,8 @@ public class RestTransactionBuilderTest {
         assertThat(headers, is(notNullValue()));
         assertThat(headers.get("Accept"), is("application/json"));
         assertThat(headers.get("Content-Type"), is("application/json"));
+        assertThat(headers.get("User-Agent"), is("HyperwalletSDK/Android/" + BuildConfig.VERSION_NAME +
+                "; App: HyperwalletSDK; Android: " + Build.VERSION.RELEASE));
     }
 }
 

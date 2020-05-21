@@ -32,19 +32,37 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * {@code PathFormatter} utility that creates api postfix uri for REST
+ * based on postfix uri pattern and arguments
+ */
 class PathFormatter {
     private final String pattern;
     private Object[] arguments;
 
+    /**
+     * Construct a {@code PathFormatter} object from pattern provided
+     */
     private PathFormatter(String pattern) {
         this.pattern = pattern;
     }
 
+    /**
+     * Construct a {@code PathFormatter} object from pattern and list of arguments provided
+     *
+     * @param pattern postfix uri pattern
+     * @param args
+     */
     PathFormatter(@NonNull String pattern, Object... args) {
         this(pattern);
         arguments = args;
     }
 
+    /**
+     * Create postfix uri path
+     * @param token
+     * @return String of formatted path
+     */
     String format(String token) {
         arguments = prependArgument(token, arguments);
         return MessageFormat.format(pattern, arguments);

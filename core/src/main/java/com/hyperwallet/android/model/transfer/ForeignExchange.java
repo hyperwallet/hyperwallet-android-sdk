@@ -30,7 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringDef;
 
-import com.hyperwallet.android.model.HyperwalletJsonModel;
+import com.hyperwallet.android.model.JsonModel;
 import com.hyperwallet.android.util.JsonUtils;
 
 import org.json.JSONException;
@@ -44,36 +44,38 @@ import java.util.Map;
 /**
  * Represents the object to hold foreign exchange data fields, is used in transfer object see:{@link Transfer}
  */
-public final class ForeignExchange implements HyperwalletJsonModel, Parcelable {
+public final class ForeignExchange implements JsonModel, Parcelable {
 
-    public static final class ForeignExchangeFields {
-        private ForeignExchangeFields() {
-        }
+    public static final Creator<ForeignExchange> CREATOR =
+            new Creator<ForeignExchange>() {
+                @Override
+                public ForeignExchange createFromParcel(Parcel source) {
+                    final Map<String, Object> fields = new HashMap<>();
+                    source.readMap(fields, this.getClass().getClassLoader());
+                    return new ForeignExchange(fields);
+                }
 
-        public static final String SOURCE_AMOUNT = "sourceAmount";
-        public static final String SOURCE_CURRENCY = "sourceCurrency";
-        public static final String DESTINATION_AMOUNT = "destinationAmount";
-        public static final String DESTINATION_CURRENCY = "destinationCurrency";
-        public static final String RATE = "rate";
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            SOURCE_AMOUNT,
-            SOURCE_CURRENCY,
-            DESTINATION_AMOUNT,
-            DESTINATION_CURRENCY,
-            RATE
-    })
-    public @interface ForeignExchangeField {
-    }
-
+                @Override
+                public ForeignExchange[] newArray(int size) {
+                    return new ForeignExchange[0];
+                }
+            };
     private Map<String, Object> mFields;
 
+    /**
+     * Construct a {@code ForeignExchange} object from {@link JSONObject} representation
+     *
+     * @param jsonObject raw data information
+     */
     public ForeignExchange(@NonNull final JSONObject jsonObject) throws JSONException {
         toMap(jsonObject);
     }
 
+    /**
+     * Construct a {@code ForeignExchange} object from Map key-value data representation
+     *
+     * @param fields map of key-value pair raw data information
+     */
     public ForeignExchange(@NonNull final Map<String, Object> fields) {
         super();
         setFields(fields);
@@ -106,6 +108,10 @@ public final class ForeignExchange implements HyperwalletJsonModel, Parcelable {
 
     public Map<String, Object> getFields() {
         return mFields;
+    }
+
+    protected void setFields(@NonNull Map<String, Object> fields) {
+        mFields = new HashMap<>(fields);
     }
 
     /* Converts a {@code Map<String, Object>} to a {@link JSONObject}
@@ -165,23 +171,29 @@ public final class ForeignExchange implements HyperwalletJsonModel, Parcelable {
         dest.writeMap(mFields);
     }
 
-    public static final Creator<ForeignExchange> CREATOR =
-            new Creator<ForeignExchange>() {
-                @Override
-                public ForeignExchange createFromParcel(Parcel source) {
-                    final Map<String, Object> fields = new HashMap<>();
-                    source.readMap(fields, this.getClass().getClassLoader());
-                    return new ForeignExchange(fields);
-                }
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            SOURCE_AMOUNT,
+            SOURCE_CURRENCY,
+            DESTINATION_AMOUNT,
+            DESTINATION_CURRENCY,
+            RATE
+    })
+    public @interface ForeignExchangeField {
+    }
 
-                @Override
-                public ForeignExchange[] newArray(int size) {
-                    return new ForeignExchange[0];
-                }
-            };
+    /**
+     * {@code ForeignExchange} field information
+     */
+    public static final class ForeignExchangeFields {
+        public static final String SOURCE_AMOUNT = "sourceAmount";
+        public static final String SOURCE_CURRENCY = "sourceCurrency";
+        public static final String DESTINATION_AMOUNT = "destinationAmount";
+        public static final String DESTINATION_CURRENCY = "destinationCurrency";
+        public static final String RATE = "rate";
 
-    protected void setFields(@NonNull Map<String, Object> fields) {
-        mFields = new HashMap<>(fields);
+        private ForeignExchangeFields() {
+        }
     }
 
 }

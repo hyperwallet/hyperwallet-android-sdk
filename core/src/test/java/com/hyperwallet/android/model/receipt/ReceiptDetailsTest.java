@@ -40,13 +40,13 @@ import static com.hyperwallet.android.model.receipt.ReceiptDetails.ReceiptDetail
 import static com.hyperwallet.android.model.receipt.ReceiptDetails.ReceiptDetailsFields.SECURITY_ANSWER;
 import static com.hyperwallet.android.model.receipt.ReceiptDetails.ReceiptDetailsFields.SECURITY_QUESTION;
 import static com.hyperwallet.android.model.receipt.ReceiptDetails.ReceiptDetailsFields.WEBSITE;
-import static com.hyperwallet.android.model.transfermethod.HyperwalletBankAccount.Purpose.CHECKING;
+import static com.hyperwallet.android.model.transfermethod.BankAccount.Purpose.CHECKING;
 import static com.hyperwallet.android.util.JsonUtils.fromJsonString;
 
 import android.os.Parcel;
 
 import com.hyperwallet.android.model.TypeReference;
-import com.hyperwallet.android.rule.HyperwalletExternalResourceManager;
+import com.hyperwallet.android.rule.ExternalResourceManager;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -56,7 +56,7 @@ import org.robolectric.RobolectricTestRunner;
 @RunWith(RobolectricTestRunner.class)
 public class ReceiptDetailsTest {
     @Rule
-    public final HyperwalletExternalResourceManager mExternalResourceManager = new HyperwalletExternalResourceManager();
+    public final ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
 
     @Test
     public void testFromJsonString_receiptDetailsResponse() throws Exception {
