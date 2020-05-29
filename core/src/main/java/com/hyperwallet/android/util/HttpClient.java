@@ -69,6 +69,7 @@ public final class HttpClient {
 
     /**
      * @return Serialized string JSON response
+     * @throws IOException
      */
     public String getResponse() throws IOException {
         InputStream in = isSuccess(getResponseCode()) ? mHttpUrlConnection.getInputStream()
@@ -111,8 +112,8 @@ public final class HttpClient {
 
     /**
      * Executes {@link HttpMethod#GET} operation
-     *
      * @return HTTP response code
+     * @throws IOException
      */
     public int get() throws IOException {
         return getResponseCode();
@@ -120,6 +121,10 @@ public final class HttpClient {
 
     /**
      * Executes {@link HttpMethod#POST} operation
+     *
+     * @param data
+     * @return
+     * @throws IOException
      */
     public int post(String data) throws IOException {
         return submit(HttpMethod.POST.name(), data);
@@ -174,6 +179,7 @@ public final class HttpClient {
 
         /**
          * Construct a builder with base URL
+         * @param baseUrl
          */
         public Builder(final String baseUrl) {
             mBaseUrl = baseUrl;
