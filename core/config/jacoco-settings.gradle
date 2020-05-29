@@ -27,7 +27,8 @@ def fileFilter = ['**/R.class',
                   '**/Manifest*.*',
                   'android/**/*.*',
                   '**/com/hyperwallet/android/Hyperwallet.class',
-                  '**/com/hyperwallet/android/Hyperwallet$*.class']
+                  '**/com/hyperwallet/android/Hyperwallet$*.class',
+                  '**/com/hyperwallet/android/util/Tls12SocketFactory*']
 def debugClassPaths = [
         '**/intermediates/javac/debug/*/classes/**'
 ]
