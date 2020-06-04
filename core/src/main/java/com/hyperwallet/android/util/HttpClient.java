@@ -34,6 +34,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.net.ssl.HttpsURLConnection;
+
 /**
  * {@code HttpClient} object represents routine on making HTTP calls to Hyperwallet Platforms' API
  */
@@ -241,6 +243,12 @@ public final class HttpClient {
             }
 
             url.append(buildQuery());
+
+            try {
+                HttpsURLConnection.setDefaultSSLSocketFactory(new Tls12SocketFactory());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             URI uri = new URI(url.toString());
             mHttpUrlConnection = (HttpURLConnection) uri.toURL().openConnection();
