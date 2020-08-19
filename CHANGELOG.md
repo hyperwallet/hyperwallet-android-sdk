@@ -1,6 +1,10 @@
 Changelog
 =========
 
+[1.0.0-beta06](https://github.com/hyperwallet/hyperwallet-android-sdk/releases/tag/1.0.0-beta06)
+-------------------
+* Security updates
+
 [1.0.0-beta05](https://github.com/hyperwallet/hyperwallet-android-sdk/releases/tag/1.0.0-beta05)
 -------------------
 * Added support to list User Balance
