@@ -316,6 +316,16 @@ Hyperwallet.getDefault().listUserBalances(balanceQueryParam, listener);
 // onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
 ```
 
+### List Prepaid Card Balances
+```java
+PrepaidCardBalanceQueryParam prepaidCardBalanceQueryParam = new PrepaidCardBalanceQueryParam.Builder()
+        .sortByCurrencyAsc()
+        .build();
+Hyperwallet.getDefault().listPrepaidCardBalances("trm-12345", prepaidCardBalanceQueryParam, listener);
+// onSuccess: response (PageList<Balance>) will contain a PageList of Balance or null if not exists
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
+```
+
 ### Create Transfer
 ```java
 final Transfer transfer = new Transfer.Builder()

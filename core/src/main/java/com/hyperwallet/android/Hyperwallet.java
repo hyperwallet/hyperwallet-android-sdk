@@ -32,6 +32,7 @@ import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.QueryParam;
 import com.hyperwallet.android.model.StatusTransition;
 import com.hyperwallet.android.model.TypeReference;
+import com.hyperwallet.android.model.balance.PrepaidCardBalanceQueryParam;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationField;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
 import com.hyperwallet.android.model.graphql.field.TransferMethodConfigurationFieldResult;
@@ -780,9 +781,41 @@ public class Hyperwallet {
      * @param listener   the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listUserBalances(@Nullable final BalanceQueryParam queryParam,
-            @NonNull final HyperwalletListener<PageList<Balance>> listener) {
+                                 @NonNull final HyperwalletListener<PageList<Balance>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/balances");
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<PageList<Balance>>() {
+                }, listener).query(urlQuery);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
+     * Returns the list of prepaid card {@link Balance}s for the User associated with the authentication token
+     * returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
+     * or an empty {@code List} if non exist.
+     *
+     * <p>The ordering of {@code Balance}s will be based on the criteria specified within
+     * the {@link PrepaidCardBalanceQueryParam} object, if it is not null.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param prepaidCardToken             the token for prepaid card
+     * @param prepaidCardBalanceQueryParam the ordering criteria
+     * @param listener                     the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void listPrepaidCardBalances(@NonNull final String prepaidCardToken,
+                                        @Nullable final PrepaidCardBalanceQueryParam prepaidCardBalanceQueryParam,
+                                        @NonNull final HyperwalletListener<PageList<Balance>> listener) {
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(prepaidCardBalanceQueryParam);
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/prepaid-cards/{1}/balances", prepaidCardToken);
+
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<PageList<Balance>>() {
                 }, listener).query(urlQuery);
