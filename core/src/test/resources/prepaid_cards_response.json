@@ -26,7 +26,7 @@
       ]
     },
     {
-      "token": "trm-fake-token",
+      "token": "trm-fake-token2",
       "type": "PREPAID_CARD",
       "status": "ACTIVATED",
       "verificationStatus": "VERIFIED",
@@ -38,6 +38,7 @@
       "cardNumber": "************8767",
       "cardBrand": "VISA",
       "dateOfExpiry": "2023-06",
+      "primaryCardToken": "trm-fake-token",
       "links": [
         {
           "params": {
