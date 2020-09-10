@@ -112,6 +112,20 @@ public class ListPrepaidCardsTest {
         assertThat(prepaidCard.getCardBrand(), is("VISA"));
         assertThat(prepaidCard.getDateOfExpiry(), is("2023-06"));
         assertThat(prepaidCard.getField("verificationStatus"), is("VERIFIED"));
+
+        PrepaidCard secondaryPrepaidCard = prepaidCardsResponse.getDataList().get(1);
+        assertThat(secondaryPrepaidCard.getField(TOKEN), is("trm-fake-token2"));
+        assertThat(secondaryPrepaidCard.getType(), is(PREPAID_CARD));
+        assertThat(secondaryPrepaidCard.getStatus(), is(ACTIVATED));
+        assertThat(DateUtil.toDateTimeFormat(secondaryPrepaidCard.getCreatedOn()), is("2019-06-20T22:59:12"));
+        assertThat(secondaryPrepaidCard.getTransferMethodCountry(), is("US"));
+        assertThat(secondaryPrepaidCard.getTransferMethodCurrency(), is("USD"));
+        assertThat(secondaryPrepaidCard.getCardType(), is("VIRTUAL"));
+        assertThat(secondaryPrepaidCard.getCardPackage(), is("L1"));
+        assertThat(secondaryPrepaidCard.getCardNumber(), is("************8767"));
+        assertThat(secondaryPrepaidCard.getCardBrand(), is("VISA"));
+        assertThat(secondaryPrepaidCard.getDateOfExpiry(), is("2023-06"));
+        assertThat(secondaryPrepaidCard.getPrimaryCardToken(), is("trm-fake-token"));
     }
 
     @Test

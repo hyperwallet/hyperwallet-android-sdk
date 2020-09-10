@@ -232,6 +232,7 @@ public class TransferMethod implements JsonModel, Parcelable {
             TransferMethodFields.DATE_OF_EXPIRY,
             TransferMethodFields.CVV,
             TransferMethodFields.CARD_PACKAGE,
+            TransferMethodFields.PRIMARY_CARD_TOKEN,
             TransferMethodFields.EMAIL
     })
     public @interface TransferMethodFieldKey {
@@ -278,6 +279,7 @@ public class TransferMethod implements JsonModel, Parcelable {
         public static final String DATE_OF_EXPIRY = "dateOfExpiry";
         public static final String CVV = "cvv";
         public static final String CARD_PACKAGE = "cardPackage";
+        public static final String PRIMARY_CARD_TOKEN = "primaryCardToken";
 
         // profile information
         public static final String PROFILE_TYPE = "profileType";
