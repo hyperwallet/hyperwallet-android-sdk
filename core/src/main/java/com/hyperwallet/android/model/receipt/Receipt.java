@@ -60,6 +60,7 @@ import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.DONATIO
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.DORMANT_USER_FEE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.DORMANT_USER_FEE_REFUND;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.EXPEDITED_SHIPPING_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.FISPC;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.FOREIGN_EXCHANGE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.GENERIC_FEE_REFUND;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.MANUAL_ADJUSTMENT;
@@ -485,7 +486,8 @@ public final class Receipt implements JsonModel, Parcelable {
             PREPAID_CARD_MONTHLY_MAINTENANCE_FEE,
             PREPAID_CARD_TRANSACTION_FEE,
             PREPAID_CARD_SMS_FEE,
-            PREPAID_CARD_DECLINED_AUTHORIZATION_FEE
+            PREPAID_CARD_DECLINED_AUTHORIZATION_FEE,
+            FISPC
     })
     public @interface ReceiptType {
     }
@@ -646,6 +648,7 @@ public final class Receipt implements JsonModel, Parcelable {
         public static final String PREPAID_CARD_TRANSACTION_FEE = "PREPAID_CARD_TRANSACTION_FEE";
         public static final String PREPAID_CARD_SMS_FEE = "PREPAID_CARD_SMS_FEE";
         public static final String PREPAID_CARD_DECLINED_AUTHORIZATION_FEE = "PREPAID_CARD_DECLINED_AUTHORIZATION_FEE";
+        public static final String FISPC = "FISPC";
 
         private ReceiptTypes() {
         }
