@@ -1,0 +1,16 @@
+{
+  "token": "sts-fake-token",
+  "createdOn": "2017-10-30T18:50:20",
+  "transition": "DE_ACTIVATED",
+  "fromStatus": "ACTIVATED",
+  "toStatus": "DE_ACTIVATED",
+  "notes": "Closing this account.",
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://localhost:8181/rest/v3/users/test-user-token/venmo-accounts/trm-fake-token/status-transitions/sts-fake-token"
+    }
+  ]
+}

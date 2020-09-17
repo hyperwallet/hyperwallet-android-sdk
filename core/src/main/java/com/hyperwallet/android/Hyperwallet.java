@@ -56,6 +56,8 @@ import com.hyperwallet.android.model.transfermethod.PrepaidCard;
 import com.hyperwallet.android.model.transfermethod.PrepaidCardQueryParam;
 import com.hyperwallet.android.model.transfermethod.TransferMethod;
 import com.hyperwallet.android.model.transfermethod.TransferMethodQueryParam;
+import com.hyperwallet.android.model.transfermethod.VenmoAccount;
+import com.hyperwallet.android.model.transfermethod.VenmoAccountQueryParam;
 import com.hyperwallet.android.model.user.User;
 
 import org.json.JSONException;
@@ -335,6 +337,30 @@ public class Hyperwallet {
     }
 
     /**
+     * Creates a {@link VenmoAccount} for the User associated with the authentication token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param venmoAccount the {@code VenmoAccount} to be created; must not be null
+     * @param listener      the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void createVenmoAccount(@NonNull final VenmoAccount venmoAccount,
+                                    @NonNull final HyperwalletListener<VenmoAccount> listener) {
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/venmo-accounts");
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
+                new TypeReference<VenmoAccount>() {
+                }, listener).jsonModel(venmoAccount);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
      * Creates a {@link Transfer} for the User associated with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
@@ -536,6 +562,34 @@ public class Hyperwallet {
     }
 
     /**
+     * Updates the {@link VenmoAccount} for the User associated with the authentication token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
+     *
+     * <p>To identify the {@code VenmoAccount} that is going to be updated, the transfer method token must be
+     * set as part of the {@code VenmoAccount} object passed in.</p>
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param venmoAccount the {@code VenmoAccount} to be created; must not be null
+     * @param listener      the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void updateVenmoAccount(@NonNull final VenmoAccount venmoAccount,
+                                    @NonNull final HyperwalletListener<VenmoAccount> listener) {
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/venmo-accounts/{1}",
+                venmoAccount.getField(TransferMethod.TransferMethodFields.TOKEN));
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(PUT, pathFormatter,
+                new TypeReference<VenmoAccount>() {
+                }, listener).jsonModel(venmoAccount);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
      * Deactivates the {@link BankAccount} linked to the transfer method token specified. The
      * {@code BankAccount} being deactivated must belong to the User that is associated with the
      * authentication token returned from
@@ -621,6 +675,39 @@ public class Hyperwallet {
     public void deactivatePayPalAccount(@NonNull final String transferMethodToken, @Nullable final String notes,
             @NonNull final HyperwalletListener<StatusTransition> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts/{1}/status-transitions",
+                transferMethodToken);
+
+        final StatusTransition deactivatedStatusTransition = new StatusTransition.Builder()
+                .transition(DE_ACTIVATED)
+                .notes(notes)
+                .build();
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
+                new TypeReference<StatusTransition>() {
+                }, listener).jsonModel(deactivatedStatusTransition);
+
+        performRestTransaction(builder, listener);
+    }
+
+    /**
+     * Deactivates the {@link VenmoAccount} linked to the transfer method token specified. The
+     * {@code VenmoAccount} being deactivated must belong to the User that is associated with the
+     * authentication token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code VenmoAccount}
+     *                            being deactivated; must not be null
+     * @param notes               a note regarding the status change
+     * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void deactivateVenmoAccount(@NonNull final String transferMethodToken, @Nullable final String notes,
+                                        @NonNull final HyperwalletListener<StatusTransition> listener) {
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/venmo-accounts/{1}/status-transitions",
                 transferMethodToken);
 
         final StatusTransition deactivatedStatusTransition = new StatusTransition.Builder()
@@ -865,6 +952,48 @@ public class Hyperwallet {
     }
 
     /**
+     * Returns the {@link VenmoAccount} for the User associated with the authentication token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)},
+     * or an empty {@code List} if non exist.
+     *
+     * <p>The ordering and filtering of {@code VenmoAccounts} will be based on the criteria specified within the
+     * {@link VenmoAccountQueryParam} object, if it is not null. Otherwise the default ordering and
+     * filtering will be applied.</p>
+     *
+     * <ul>
+     * <li>Offset: 0</li>
+     * <li>Limit: 10</li>
+     * <li>Created Before: N/A</li>
+     * <li>Created After: N/A</li>
+     * <li>Type: VENMO_ACCOUNT</li>
+     * <li>Status: All</li>
+     * <li>Sort By: Created On</li>
+     * </ul>
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param queryParam the ordering and filtering criteria
+     * @param listener   the callback handler of responses from the Hyperwallet platform; must
+     *                   not be null
+     */
+    public void listVenmoAccounts(
+            @Nullable final VenmoAccountQueryParam queryParam,
+            @NonNull final HyperwalletListener<PageList<VenmoAccount>> listener) {
+        Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/venmo-accounts");
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<PageList<VenmoAccount>>() {
+                }, listener).query(urlQuery);
+
+        performRestTransaction(builder, listener);
+    }
+
+
+    /**
      * Returns the {@link PayPalAccount} linked to the transfer method token specified, or null if none exists.
      *
      * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
@@ -888,6 +1017,30 @@ public class Hyperwallet {
         performRestTransaction(builder, listener);
     }
 
+    /**
+     * Returns the {@link VenmoAccount} linked to the transfer method token specified, or null if none exists.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param transferMethodToken the Hyperwallet specific unique identifier for the {@code VenmoAccount}
+     *                            being requested; must not be null
+     * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+
+    public void getVenmoAccount(@NonNull final String transferMethodToken,
+                                 @NonNull final HyperwalletListener<VenmoAccount> listener) {
+        PathFormatter pathFormatter = new PathFormatter("users/{0}/venmo-accounts/{1}", transferMethodToken);
+
+        RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
+                new TypeReference<VenmoAccount>() {
+                }, listener);
+
+        performRestTransaction(builder, listener);
+    }
     /**
      * Returns the transfer method configuration key set, processing times, and fees for the User that is associated
      * with the authentication token returned from
