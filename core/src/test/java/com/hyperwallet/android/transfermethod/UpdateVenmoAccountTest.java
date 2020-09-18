@@ -104,7 +104,7 @@ public class UpdateVenmoAccountTest {
     public void testUpdateVenmoAccount_withValidationError() throws InterruptedException {
 
         String responseBody = mExternalResourceManager.getResourceContentError(
-                "paypal_account_update_error_response.json");
+                "venmo_account_update_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
 
         final VenmoAccount venmoAccount = new VenmoAccount
@@ -139,7 +139,6 @@ public class UpdateVenmoAccountTest {
 
         Error error1 = errors.getErrors().get(0);
         assertThat(error1.getCode(), is("CONSTRAINT_VIOLATIONS"));
-        assertThat(error1.getFieldName(), is("email"));
-        assertThat(error1.getMessage(), is("Invalid Email"));
+        assertThat(error1.getMessage(), is("Mobile Number is invalid. The maximum length of this field is 10."));
     }
 }

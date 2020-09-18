@@ -1,5 +1,5 @@
 {
-  "count": 2,
+  "count": 1,
   "offset": 0,
   "limit": 10,
   "data": [
@@ -11,23 +11,6 @@
       "transferMethodCountry": "US",
       "transferMethodCurrency": "USD",
       "accountId": "9876543210",
-      "links": [
-        {
-          "params": {
-            "rel": "self"
-          },
-          "href": "https://localhost:8181/rest/v3/users/test-user-token/venmo-accounts/trm-fake-token"
-        }
-      ]
-    },
-    {
-      "token": "trm-fake-token",
-      "type": "VENMO_ACCOUNT",
-      "status": "VERIFIED",
-      "createdOn": "2019-04-09T10:00:00",
-      "transferMethodCountry": "CA",
-      "transferMethodCurrency": "CAD",
-      "accountId": "9123456780",
       "links": [
         {
           "params": {

@@ -100,8 +100,8 @@ public class ListVenmoAccountsTest {
 
         PageList<VenmoAccount> venmoAccountsResponse = mListVenmoCaptor.getValue();
 
-        assertThat(venmoAccountsResponse.getCount(), is(2));
-        assertThat(venmoAccountsResponse.getDataList(), hasSize(2));
+        assertThat(venmoAccountsResponse.getCount(), is(1));
+        assertThat(venmoAccountsResponse.getDataList(), hasSize(1));
         assertThat(venmoAccountsResponse.getOffset(), is(0));
         assertThat(venmoAccountsResponse.getLimit(), is(10));
 
