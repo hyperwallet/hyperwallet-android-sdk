@@ -60,6 +60,7 @@ import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.DONATIO
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.DORMANT_USER_FEE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.DORMANT_USER_FEE_REFUND;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.EXPEDITED_SHIPPING_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.FISPC;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.FOREIGN_EXCHANGE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.GENERIC_FEE_REFUND;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.MANUAL_ADJUSTMENT;
@@ -81,19 +82,60 @@ import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PAYMENT
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PAYMENT_RETURN;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PAYMENT_REVERSAL;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PAYMENT_REVERSAL_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PAYPAL_ACCOUNT_TRANSFER_RETURN;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_ACCOUNT_DEPOSIT;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_ACCOUNT_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_ANNUAL_FEE_DISCOUNT;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_ATM_OR_CASH_ADVANCE_FEE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_BALANCE_INQUIRY_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_BANK_WITHDRAWAL_CHARGEBACK;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_BANK_WITHDRAWAL_REVERSAL;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_BILL_REPRINT_FEE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_CASH_ADVANCE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_CASH_ADVANCE_CHARGEBACK;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_CASH_ADVANCE_CHARGEBACK_REVERSAL;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_CASH_ADVANCE_REPRESS;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_CASH_ADVANCE_REPRESS_REVERSAL;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_CHARGEBACK;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_CHARGEBACK_REFUND;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_CHARGEBACK_REFUND_REVERSAL;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_CHARGEBACK_REVERSAL;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_COMMISSION_OR_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_DEBIT_TRANSFER;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_DECLINED_AUTHORIZATION_FEE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_DISPUTED_CHARGE_REFUND;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_DISPUTE_DEPOSIT;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_DOCUMENT_REQUEST_FEE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_DOMESTIC_CASH_WITHDRAWAL_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_EMERGENCY_CARD;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_EMERGENCY_CASH;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_EXCHANGE_RATE_DIFFERENCE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_INCOME;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_LOAD_FEE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_MANUAL_UNLOAD;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_MONTHLY_MAINTENANCE_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_OVERDUE_PAYMENT_INTEREST;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_OVERSEAS_CASH_WITHDRAWAL_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_PAYMENT;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_PIN_CHANGE_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_PIN_REPRINT_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_PRIORITY_PASS_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_PRIORITY_PASS_RENEWAL;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_RECURRING_INTEREST;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_REFUND;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_REFUND_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_REFUND_REPRESS;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_REFUND_REPRESS_REVERSAL;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_REPLACEMENT_FEE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_SALE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_SALE_REPRESS;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_SALE_REVERSAL;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_SMS_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_STATEMENT_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_TELEPHONE_SUPPORT_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_TRANSACTION_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_TRANSFER_FEE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_TRANSFER_RETURN;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PREPAID_CARD_UNLOAD;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.PROCESSING_FEE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.STANDARD_SHIPPING_FEE;
@@ -107,6 +149,7 @@ import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFE
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_TO_WESTERN_UNION;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_TO_WIRE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_TO_WUBS_WIRE;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.VENMO_ACCOUNT_TRANSFER_RETURN;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.VIRTUAL_INCENTIVE_CANCELLATION;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.VIRTUAL_INCENTIVE_ISSUANCE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.VIRTUAL_INCENTIVE_PURCHASE;
@@ -402,6 +445,49 @@ public final class Receipt implements JsonModel, Parcelable {
             TRANSFER_TO_WIRE,
             WIRE_TRANSFER_FEE,
             WIRE_TRANSFER_RETURN,
+            PAYPAL_ACCOUNT_TRANSFER_RETURN,
+            VENMO_ACCOUNT_TRANSFER_RETURN,
+            PREPAID_CARD_ACCOUNT_DEPOSIT,
+            PREPAID_CARD_ACCOUNT_FEE,
+            PREPAID_CARD_ANNUAL_FEE_DISCOUNT,
+            PREPAID_CARD_BILL_REPRINT_FEE,
+            PREPAID_CARD_ATM_OR_CASH_ADVANCE_FEE,
+            PREPAID_CARD_CASH_ADVANCE_CHARGEBACK,
+            PREPAID_CARD_CASH_ADVANCE_CHARGEBACK_REVERSAL,
+            PREPAID_CARD_CASH_ADVANCE_REPRESS,
+            PREPAID_CARD_CASH_ADVANCE_REPRESS_REVERSAL,
+            PREPAID_CARD_CHARGEBACK,
+            PREPAID_CARD_CHARGEBACK_REFUND,
+            PREPAID_CARD_CHARGEBACK_REFUND_REVERSAL,
+            PREPAID_CARD_CHARGEBACK_REVERSAL,
+            PREPAID_CARD_COMMISSION_OR_FEE,
+            PREPAID_CARD_DEBIT_TRANSFER,
+            PREPAID_CARD_DOCUMENT_REQUEST_FEE,
+            PREPAID_CARD_EMERGENCY_CASH,
+            PREPAID_CARD_EMERGENCY_CARD,
+            PREPAID_CARD_INCOME,
+            PREPAID_CARD_LOAD_FEE,
+            PREPAID_CARD_OVERDUE_PAYMENT_INTEREST,
+            PREPAID_CARD_PAYMENT,
+            PREPAID_CARD_PIN_REPRINT_FEE,
+            PREPAID_CARD_PRIORITY_PASS_FEE,
+            PREPAID_CARD_PRIORITY_PASS_RENEWAL,
+            PREPAID_CARD_RECURRING_INTEREST,
+            PREPAID_CARD_REFUND_REPRESS,
+            PREPAID_CARD_REFUND_REPRESS_REVERSAL,
+            PREPAID_CARD_SALE_REPRESS,
+            PREPAID_CARD_STATEMENT_FEE,
+            PREPAID_CARD_TELEPHONE_SUPPORT_FEE,
+            PREPAID_CARD_TRANSFER_FEE,
+            PREPAID_CARD_TRANSFER_RETURN,
+            PREPAID_CARD_BANK_WITHDRAWAL_REVERSAL,
+            PREPAID_CARD_BANK_WITHDRAWAL_CHARGEBACK,
+            PREPAID_CARD_REFUND_FEE,
+            PREPAID_CARD_MONTHLY_MAINTENANCE_FEE,
+            PREPAID_CARD_TRANSACTION_FEE,
+            PREPAID_CARD_SMS_FEE,
+            PREPAID_CARD_DECLINED_AUTHORIZATION_FEE,
+            FISPC
     })
     public @interface ReceiptType {
     }
@@ -518,6 +604,51 @@ public final class Receipt implements JsonModel, Parcelable {
         public static final String TRANSFER_TO_WIRE = "TRANSFER_TO_WIRE";
         public static final String WIRE_TRANSFER_FEE = "WIRE_TRANSFER_FEE";
         public static final String WIRE_TRANSFER_RETURN = "WIRE_TRANSFER_RETURN";
+        public static final String PAYPAL_ACCOUNT_TRANSFER_RETURN = "PAYPAL_ACCOUNT_TRANSFER_RETURN";
+        public static final String VENMO_ACCOUNT_TRANSFER_RETURN = "VENMO_ACCOUNT_TRANSFER_RETURN";
+        public static final String PREPAID_CARD_ACCOUNT_DEPOSIT = "PREPAID_CARD_ACCOUNT_DEPOSIT";
+        public static final String PREPAID_CARD_ACCOUNT_FEE = "PREPAID_CARD_ACCOUNT_FEE";
+        public static final String PREPAID_CARD_ANNUAL_FEE_DISCOUNT = "PREPAID_CARD_ANNUAL_FEE_DISCOUNT";
+        public static final String PREPAID_CARD_BILL_REPRINT_FEE = "PREPAID_CARD_BILL_REPRINT_FEE";
+        public static final String PREPAID_CARD_ATM_OR_CASH_ADVANCE_FEE = "PREPAID_CARD_ATM_OR_CASH_ADVANCE_FEE";
+        public static final String PREPAID_CARD_CASH_ADVANCE_CHARGEBACK = "PREPAID_CARD_CASH_ADVANCE_CHARGEBACK";
+        public static final String PREPAID_CARD_CASH_ADVANCE_CHARGEBACK_REVERSAL =
+                "PREPAID_CARD_CASH_ADVANCE_CHARGEBACK_REVERSAL";
+        public static final String PREPAID_CARD_CASH_ADVANCE_REPRESS = "PREPAID_CARD_CASH_ADVANCE_REPRESS";
+        public static final String PREPAID_CARD_CASH_ADVANCE_REPRESS_REVERSAL =
+                "PREPAID_CARD_CASH_ADVANCE_REPRESS_REVERSAL";
+        public static final String PREPAID_CARD_CHARGEBACK = "PREPAID_CARD_CHARGEBACK";
+        public static final String PREPAID_CARD_CHARGEBACK_REFUND = "PREPAID_CARD_CHARGEBACK_REFUND";
+        public static final String PREPAID_CARD_CHARGEBACK_REFUND_REVERSAL = "PREPAID_CARD_CHARGEBACK_REFUND_REVERSAL";
+        public static final String PREPAID_CARD_CHARGEBACK_REVERSAL = "PREPAID_CARD_CHARGEBACK_REVERSAL";
+        public static final String PREPAID_CARD_COMMISSION_OR_FEE = "PREPAID_CARD_COMMISSION_OR_FEE";
+        public static final String PREPAID_CARD_DEBIT_TRANSFER = "PREPAID_CARD_DEBIT_TRANSFER";
+        public static final String PREPAID_CARD_DOCUMENT_REQUEST_FEE = "PREPAID_CARD_DOCUMENT_REQUEST_FEE";
+        public static final String PREPAID_CARD_EMERGENCY_CASH = "PREPAID_CARD_EMERGENCY_CASH";
+        public static final String PREPAID_CARD_EMERGENCY_CARD = "PREPAID_CARD_EMERGENCY_CARD";
+        public static final String PREPAID_CARD_INCOME = "PREPAID_CARD_INCOME";
+        public static final String PREPAID_CARD_LOAD_FEE = "PREPAID_CARD_LOAD_FEE";
+        public static final String PREPAID_CARD_OVERDUE_PAYMENT_INTEREST = "PREPAID_CARD_OVERDUE_PAYMENT_INTEREST";
+        public static final String PREPAID_CARD_PAYMENT = "PREPAID_CARD_PAYMENT";
+        public static final String PREPAID_CARD_PIN_REPRINT_FEE = "PREPAID_CARD_PIN_REPRINT_FEE";
+        public static final String PREPAID_CARD_PRIORITY_PASS_FEE = "PREPAID_CARD_PRIORITY_PASS_FEE";
+        public static final String PREPAID_CARD_PRIORITY_PASS_RENEWAL = "PREPAID_CARD_PRIORITY_PASS_RENEWAL";
+        public static final String PREPAID_CARD_RECURRING_INTEREST = "PREPAID_CARD_RECURRING_INTEREST";
+        public static final String PREPAID_CARD_REFUND_REPRESS = "PREPAID_CARD_REFUND_REPRESS";
+        public static final String PREPAID_CARD_REFUND_REPRESS_REVERSAL = "PREPAID_CARD_REFUND_REPRESS_REVERSAL";
+        public static final String PREPAID_CARD_SALE_REPRESS = "PREPAID_CARD_SALE_REPRESS";
+        public static final String PREPAID_CARD_STATEMENT_FEE = "PREPAID_CARD_STATEMENT_FEE";
+        public static final String PREPAID_CARD_TELEPHONE_SUPPORT_FEE = "PREPAID_CARD_TELEPHONE_SUPPORT_FEE";
+        public static final String PREPAID_CARD_TRANSFER_FEE = "PREPAID_CARD_TRANSFER_FEE";
+        public static final String PREPAID_CARD_TRANSFER_RETURN = "PREPAID_CARD_TRANSFER_RETURN";
+        public static final String PREPAID_CARD_BANK_WITHDRAWAL_REVERSAL = "PREPAID_CARD_BANK_WITHDRAWAL_REVERSAL";
+        public static final String PREPAID_CARD_BANK_WITHDRAWAL_CHARGEBACK = "PREPAID_CARD_BANK_WITHDRAWAL_CHARGEBACK";
+        public static final String PREPAID_CARD_REFUND_FEE = "PREPAID_CARD_REFUND_FEE";
+        public static final String PREPAID_CARD_MONTHLY_MAINTENANCE_FEE = "PREPAID_CARD_MONTHLY_MAINTENANCE_FEE";
+        public static final String PREPAID_CARD_TRANSACTION_FEE = "PREPAID_CARD_TRANSACTION_FEE";
+        public static final String PREPAID_CARD_SMS_FEE = "PREPAID_CARD_SMS_FEE";
+        public static final String PREPAID_CARD_DECLINED_AUTHORIZATION_FEE = "PREPAID_CARD_DECLINED_AUTHORIZATION_FEE";
+        public static final String FISPC = "FISPC";
 
         private ReceiptTypes() {
         }
