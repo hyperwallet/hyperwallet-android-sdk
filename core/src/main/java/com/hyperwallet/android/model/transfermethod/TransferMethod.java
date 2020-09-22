@@ -246,7 +246,7 @@ public class TransferMethod implements JsonModel, Parcelable {
         public static final String PREPAID_CARD = "PREPAID_CARD";
         public static final String WIRE_ACCOUNT = "WIRE_ACCOUNT";
         public static final String PAYPAL_ACCOUNT = "PAYPAL_ACCOUNT";
-        public static final String VENMO_ACCOUNT="VENMO_ACCOUNT";
+        public static final String VENMO_ACCOUNT= "VENMO_ACCOUNT";
     }
 
     public final class TransferMethodFields {
@@ -324,6 +324,6 @@ public class TransferMethod implements JsonModel, Parcelable {
         public static final String INTERMEDIARY_BANK_STATE_PROVINCE = "intermediaryBankStateProvince";
         public static final String WIRE_INSTRUCTIONS = "wireInstructions";
         //venmo account fields
-        public static final String VENMO_ACCOUNT_ID ="accountId";
+        public static final String VENMO_ACCOUNT_ID = "accountId";
     }
 }

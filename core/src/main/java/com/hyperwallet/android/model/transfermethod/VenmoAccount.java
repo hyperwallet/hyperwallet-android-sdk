@@ -43,7 +43,7 @@ public class VenmoAccount extends TransferMethod {
      *
      * @param jsonObject raw data information
      */
-    public VenmoAccount(@NonNull JSONObject jsonObject) throws JSONException {
+    public VenmoAccount(@NonNull final JSONObject jsonObject) throws JSONException {
         super(jsonObject);
     }
 
@@ -52,7 +52,7 @@ public class VenmoAccount extends TransferMethod {
      *
      * @param fields map of key-value raw data information
      */
-    private VenmoAccount(@NonNull Map<String, Object> fields) {
+    private VenmoAccount(@NonNull final Map<String, Object> fields) {
         super();
         setFields(fields);
     }
@@ -93,9 +93,9 @@ public class VenmoAccount extends TransferMethod {
          * @param transferMethodCurrency Transfer method currency of account
          * @param accountId              accountId to bind to {@link VenmoAccount}
          */
-        public Builder(@NonNull String transferMethodCountry,
-                @NonNull String transferMethodCurrency,
-                @NonNull String accountId) {
+        public Builder(@NonNull final String transferMethodCountry,
+                @NonNull final String transferMethodCurrency,
+                @NonNull final String accountId) {
 
             mFields = new HashMap<>();
             mFields.put(TransferMethodFields.TYPE, TransferMethodTypes.VENMO_ACCOUNT);
