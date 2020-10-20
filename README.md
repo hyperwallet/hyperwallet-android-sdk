@@ -29,7 +29,7 @@ api 'com.hyperwallet.android:core-sdk:1.0.0-beta06'
 When enabling Proguard, please add a rule in `proguard-rules.pro` file in your main app
 
 ```properties
--keep public class com.hyperwallet.android.model.** { *; }
+-keep public class com.hyperwallet.android.** { *; }
 ```
 
 ## Initialization
