@@ -33,6 +33,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -48,6 +49,7 @@ public abstract class HttpTransaction implements Runnable {
     private static final String HTTP_HEADER_CONTENT_TYPE_KEY = "Content-Type";
     private static final String HTTP_HEADER_USER_AGENT_KEY = "User-Agent";
     private static final String HTTP_HEADER_USER_AGENT = "HyperwalletSDK/Android/%s; App: HyperwalletSDK; Android: %s";
+    private static final String HTTP_HEADER_ACCEPT_LANGUAGE_KEY = "Accept-Language";
     private Map<String, String> mHeaderMap;
     private HyperwalletListener mListener;
     private HttpMethod mMethod;
@@ -78,6 +80,7 @@ public abstract class HttpTransaction implements Runnable {
         addHeader(HTTP_HEADER_ACCEPT_KEY, APPLICATION_JSON);
         addHeader(HTTP_HEADER_CONTENT_TYPE_KEY, APPLICATION_JSON);
         addHeader(HTTP_HEADER_USER_AGENT_KEY, getUserAgent());
+        addHeader(HTTP_HEADER_ACCEPT_LANGUAGE_KEY, Locale.getDefault().toLanguageTag());
     }
 
     /**
