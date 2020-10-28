@@ -158,6 +158,9 @@ import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.WESTERN
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.WIRE_TRANSFER_FEE;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.WIRE_TRANSFER_RETURN;
 import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.WUBS_WIRE_TRANSFER_RETURN;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_TO_BANK_CARD;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_TO_DEBIT_CARD;
+import static com.hyperwallet.android.model.receipt.Receipt.ReceiptTypes.TRANSFER_TO_VENMO_ACCOUNT;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -487,7 +490,11 @@ public final class Receipt implements JsonModel, Parcelable {
             PREPAID_CARD_TRANSACTION_FEE,
             PREPAID_CARD_SMS_FEE,
             PREPAID_CARD_DECLINED_AUTHORIZATION_FEE,
-            FISPC
+            FISPC,
+            TRANSFER_TO_BANK_CARD,
+            TRANSFER_TO_DEBIT_CARD,
+            TRANSFER_TO_VENMO_ACCOUNT
+
     })
     public @interface ReceiptType {
     }
@@ -649,6 +656,9 @@ public final class Receipt implements JsonModel, Parcelable {
         public static final String PREPAID_CARD_SMS_FEE = "PREPAID_CARD_SMS_FEE";
         public static final String PREPAID_CARD_DECLINED_AUTHORIZATION_FEE = "PREPAID_CARD_DECLINED_AUTHORIZATION_FEE";
         public static final String FISPC = "FISPC";
+        public static final String TRANSFER_TO_BANK_CARD = "TRANSFER_TO_BANK_CARD";
+        public static final String TRANSFER_TO_DEBIT_CARD = "TRANSFER_TO_DEBIT_CARD";
+        public static final String TRANSFER_TO_VENMO_ACCOUNT = "TRANSFER_TO_VENMO_ACCOUNT";
 
         private ReceiptTypes() {
         }
