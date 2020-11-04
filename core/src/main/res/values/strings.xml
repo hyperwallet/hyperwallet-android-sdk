@@ -8,5 +8,5 @@
     </string>
     <string name="json_exception">Processing the JSON document resulted in an error</string>
     <string name="json_parse_exception">A document (JSON) parsing error occurred</string>
-    <string name="unexpected_exception">Oops… Something went wrong, please try again.</string>
+    <string name="unexpected_exception">Something went wrong, please try again.</string>
 </resources>
