@@ -43,9 +43,10 @@ class RestTransaction extends HttpTransaction {
 
     private RestTransaction(@NonNull final HttpMethod httpMethod, @NonNull final String uri,
             @NonNull final String authenticationToken, @NonNull final HyperwalletListener hyperwalletListener,
-            @NonNull final TypeReference typeReference) {
+            @NonNull final TypeReference typeReference, @NonNull String contextId) {
         super(httpMethod, uri, typeReference, hyperwalletListener);
         addHeader(HTTP_HEADER_AUTHORIZATION, AUTHENTICATION_STRATEGY + authenticationToken);
+        addHeader(HTTP_HEADER_X_SDK_CONTEXTID_KEY, contextId);
     }
 
     /**
@@ -91,6 +92,7 @@ class RestTransaction extends HttpTransaction {
         private final PathFormatter pathFormatter;
         private final TypeReference<T> typeReference;
         private final HyperwalletListener listener;
+        private final String contextId;
 
         //Optional Parameters
         private JsonModel jsonModel = null;
@@ -105,11 +107,12 @@ class RestTransaction extends HttpTransaction {
          * @param listener      callback object; refer to {@link HyperwalletListener}
          */
         protected Builder(@NonNull final HttpMethod httpMethod, @NonNull final PathFormatter pathFormatter,
-                @NonNull final TypeReference<T> typeReference, @NonNull final HyperwalletListener listener) {
+                @NonNull final TypeReference<T> typeReference, @NonNull final HyperwalletListener listener, @NonNull final String contextId) {
             this.httpMethod = httpMethod;
             this.pathFormatter = pathFormatter;
             this.listener = listener;
             this.typeReference = typeReference;
+            this.contextId = contextId;
         }
 
         protected Builder jsonModel(@NonNull final JsonModel jsonModel) {
@@ -125,7 +128,7 @@ class RestTransaction extends HttpTransaction {
         protected RestTransaction build(@NonNull final String uri, @NonNull final String authenticationToken,
                 @NonNull final String userToken) throws JSONException {
             RestTransaction restTransaction = new RestTransaction(httpMethod, uri, authenticationToken, listener,
-                    typeReference);
+                    typeReference, contextId);
 
             String path = pathFormatter.format(userToken);
             restTransaction.setPath(path);

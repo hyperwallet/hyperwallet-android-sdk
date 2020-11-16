@@ -50,6 +50,11 @@ public abstract class HttpTransaction implements Runnable {
     private static final String HTTP_HEADER_USER_AGENT_KEY = "User-Agent";
     private static final String HTTP_HEADER_USER_AGENT = "HyperwalletSDK/Android/%s; App: HyperwalletSDK; Android: %s";
     private static final String HTTP_HEADER_ACCEPT_LANGUAGE_KEY = "Accept-Language";
+    private static final String HTTP_HEADER_X_SDK_VERSION_KEY = "x-sdk-version";
+    private static final String HTTP_HEADER_X_SDK_TYPE_KEY = "x-sdk-type";
+    protected static final String HTTP_HEADER_X_SDK_CONTEXTID_KEY = "x-sdk-contextId";
+    private static final String HTTP_HEADER_X_SDK_TYPE = "android";
+
     private Map<String, String> mHeaderMap;
     private HyperwalletListener mListener;
     private HttpMethod mMethod;
@@ -81,6 +86,8 @@ public abstract class HttpTransaction implements Runnable {
         addHeader(HTTP_HEADER_CONTENT_TYPE_KEY, APPLICATION_JSON);
         addHeader(HTTP_HEADER_USER_AGENT_KEY, getUserAgent());
         addHeader(HTTP_HEADER_ACCEPT_LANGUAGE_KEY, Locale.getDefault().toLanguageTag());
+        addHeader(HTTP_HEADER_X_SDK_VERSION_KEY, BuildConfig.VERSION_NAME);
+        addHeader(HTTP_HEADER_X_SDK_TYPE_KEY, HTTP_HEADER_X_SDK_TYPE);
     }
 
     /**
