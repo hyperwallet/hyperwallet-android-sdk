@@ -43,7 +43,7 @@ class RestTransaction extends HttpTransaction {
 
     private RestTransaction(@NonNull final HttpMethod httpMethod, @NonNull final String uri,
             @NonNull final String authenticationToken, @NonNull final HyperwalletListener hyperwalletListener,
-            @NonNull final TypeReference typeReference, @NonNull String contextId) {
+            @NonNull final TypeReference typeReference, @NonNull final String contextId) {
         super(httpMethod, uri, typeReference, hyperwalletListener);
         addHeader(HTTP_HEADER_AUTHORIZATION, AUTHENTICATION_STRATEGY + authenticationToken);
         addHeader(HTTP_HEADER_X_SDK_CONTEXTID_KEY, contextId);
