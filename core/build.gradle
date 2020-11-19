@@ -5,11 +5,11 @@ apply plugin: 'org.sonarqube'
 apply from: "$projectDir/config/jacoco-settings.gradle"
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     testOptions.unitTests.includeAndroidResources = true
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 3
         versionName version
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
