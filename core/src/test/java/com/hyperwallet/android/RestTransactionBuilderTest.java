@@ -30,6 +30,7 @@ import org.robolectric.RobolectricTestRunner;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @RunWith(RobolectricTestRunner.class)
 public class RestTransactionBuilderTest {
@@ -40,6 +41,8 @@ public class RestTransactionBuilderTest {
     @Mock
     private HyperwalletListener<BankAccount> mListener;
 
+    private final String contextId = UUID.randomUUID().toString();
+
     @Test
     public void testBuild_withRequiredParametersOnly() throws JSONException {
 
@@ -49,7 +52,7 @@ public class RestTransactionBuilderTest {
         RestTransaction.Builder<BankAccount> builder = new RestTransaction.Builder<>(
                 POST, pathFormatter,
                 new TypeReference<BankAccount>() {
-                }, mListener);
+                }, mListener, contextId);
         final RestTransaction restTransaction = builder.build("http://hyperwallet.com/rest/v3/", token,
                 "test-user-token");
 
@@ -64,6 +67,10 @@ public class RestTransactionBuilderTest {
         assertThat(headers.get("Content-Type"), is("application/json"));
         assertThat(headers.get("User-Agent"), is("HyperwalletSDK/Android/" + BuildConfig.VERSION_NAME +
                 "; App: HyperwalletSDK; Android: " + Build.VERSION.RELEASE));
+        assertThat(headers.get("X-Sdk-Version"), is("1.0.0-beta07-SNAPSHOT"));
+        assertThat(headers.get("X-Sdk-Type"), is("android"));
+        assertThat(headers.get("X-Sdk-ContextId"), is(notNullValue()));
+        assertThat(headers.get("X-Sdk-ContextId"), is(contextId));
     }
 
     @Test
@@ -77,7 +84,7 @@ public class RestTransactionBuilderTest {
         RestTransaction.Builder<BankAccount> accountBuilder = new RestTransaction.Builder<>(
                 POST, pathFormatter,
                 new TypeReference<BankAccount>() {
-                }, mListener);
+                }, mListener, contextId);
         final RestTransaction restTransaction = accountBuilder
                 .jsonModel(bankAccount)
                 .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
@@ -97,6 +104,10 @@ public class RestTransactionBuilderTest {
         assertThat(headers.get("Content-Type"), is("application/json"));
         assertThat(headers.get("User-Agent"), is("HyperwalletSDK/Android/" + BuildConfig.VERSION_NAME +
                 "; App: HyperwalletSDK; Android: " + Build.VERSION.RELEASE));
+        assertThat(headers.get("X-Sdk-Version"), is("1.0.0-beta07-SNAPSHOT"));
+        assertThat(headers.get("X-Sdk-Type"), is("android"));
+        assertThat(headers.get("X-Sdk-ContextId"), is(notNullValue()));
+        assertThat(headers.get("X-Sdk-ContextId"), is(contextId));
     }
 
     @Test
@@ -112,7 +123,7 @@ public class RestTransactionBuilderTest {
         RestTransaction.Builder<PageList<BankAccount>> pageListBuilder =
                 new RestTransaction.Builder<>(GET, pathFormatter,
                         new TypeReference<PageList<BankAccount>>() {
-                        }, mListener);
+                        }, mListener, contextId);
         final RestTransaction restTransaction = pageListBuilder
                 .query(query)
                 .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
@@ -129,6 +140,10 @@ public class RestTransactionBuilderTest {
         assertThat(headers.get("Content-Type"), is("application/json"));
         assertThat(headers.get("User-Agent"), is("HyperwalletSDK/Android/" + BuildConfig.VERSION_NAME +
                 "; App: HyperwalletSDK; Android: " + Build.VERSION.RELEASE));
+        assertThat(headers.get("X-Sdk-Version"), is("1.0.0-beta07-SNAPSHOT"));
+        assertThat(headers.get("X-Sdk-Type"), is("android"));
+        assertThat(headers.get("X-Sdk-ContextId"), is(notNullValue()));
+        assertThat(headers.get("X-Sdk-ContextId"), is(contextId));
     }
 }
 

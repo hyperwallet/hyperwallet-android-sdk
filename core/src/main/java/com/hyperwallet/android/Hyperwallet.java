@@ -98,9 +98,14 @@ public class Hyperwallet {
 
     private Configuration mConfiguration;
 
+    private String contextId;
+
     private Hyperwallet(@NonNull final HyperwalletAuthenticationTokenProvider hyperwalletAuthenticationTokenProvider) {
         mExecutor = Executors.newFixedThreadPool(EXECUTOR_POOL_SIZE);
         mHyperwalletAuthenticationTokenProvider = hyperwalletAuthenticationTokenProvider;
+        if (contextId == null) {
+            contextId = UUID.randomUUID().toString();
+        }
     }
 
     /**
@@ -242,7 +247,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
                 new TypeReference<BankAccount>() {
-                }, listener).jsonModel(bankAccount);
+                }, listener, contextId).jsonModel(bankAccount);
 
         performRestTransaction(builder, listener);
     }
@@ -283,7 +288,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<PageList<BankAccount>>() {
-                }, listener).query(urlQuery);
+                }, listener, contextId).query(urlQuery);
 
         performRestTransaction(builder, listener);
     }
@@ -307,7 +312,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
                 new TypeReference<BankCard>() {
-                }, listener).jsonModel(bankCard);
+                }, listener, contextId).jsonModel(bankCard);
 
         performRestTransaction(builder, listener);
     }
@@ -331,7 +336,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
                 new TypeReference<PayPalAccount>() {
-                }, listener).jsonModel(payPalAccount);
+                }, listener, contextId).jsonModel(payPalAccount);
 
         performRestTransaction(builder, listener);
     }
@@ -355,7 +360,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
                 new TypeReference<VenmoAccount>() {
-                }, listener).jsonModel(venmoAccount);
+                }, listener, contextId).jsonModel(venmoAccount);
 
         performRestTransaction(builder, listener);
     }
@@ -379,7 +384,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
                 new TypeReference<Transfer>() {
-                }, listener).jsonModel(transfer);
+                }, listener, contextId).jsonModel(transfer);
 
         performRestTransaction(builder, listener);
     }
@@ -403,7 +408,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<BankAccount>() {
-                }, listener);
+                }, listener, contextId);
 
         performRestTransaction(builder, listener);
     }
@@ -427,7 +432,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<BankCard>() {
-                }, listener);
+                }, listener, contextId);
         performRestTransaction(builder, listener);
     }
 
@@ -447,7 +452,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<User>() {
-                }, listener);
+                }, listener, contextId);
 
         performRestTransaction(builder, listener);
     }
@@ -471,7 +476,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<Transfer>() {
-                }, listener);
+                }, listener, contextId);
 
         performRestTransaction(builder, listener);
     }
@@ -499,7 +504,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(PUT, pathFormatter,
                 new TypeReference<BankAccount>() {
-                }, listener).jsonModel(bankAccount);
+                }, listener, contextId).jsonModel(bankAccount);
 
         performRestTransaction(builder, listener);
     }
@@ -528,7 +533,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(PUT, pathFormatter,
                 new TypeReference<BankCard>() {
-                }, listener).jsonModel(bankCard);
+                }, listener, contextId).jsonModel(bankCard);
 
         performRestTransaction(builder, listener);
     }
@@ -556,7 +561,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(PUT, pathFormatter,
                 new TypeReference<PayPalAccount>() {
-                }, listener).jsonModel(payPalAccount);
+                }, listener, contextId).jsonModel(payPalAccount);
 
         performRestTransaction(builder, listener);
     }
@@ -584,7 +589,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(PUT, pathFormatter,
                 new TypeReference<VenmoAccount>() {
-                }, listener).jsonModel(venmoAccount);
+                }, listener, contextId).jsonModel(venmoAccount);
 
         performRestTransaction(builder, listener);
     }
@@ -617,7 +622,7 @@ public class Hyperwallet {
                 .build();
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
                 new TypeReference<StatusTransition>() {
-                }, listener).jsonModel(deactivatedStatusTransition);
+                }, listener, contextId).jsonModel(deactivatedStatusTransition);
 
         performRestTransaction(builder, listener);
     }
@@ -650,7 +655,7 @@ public class Hyperwallet {
                 .build();
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
                 new TypeReference<StatusTransition>() {
-                }, listener).jsonModel(deactivatedStatusTransition);
+                }, listener, contextId).jsonModel(deactivatedStatusTransition);
 
         performRestTransaction(builder, listener);
     }
@@ -683,7 +688,7 @@ public class Hyperwallet {
                 .build();
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
                 new TypeReference<StatusTransition>() {
-                }, listener).jsonModel(deactivatedStatusTransition);
+                }, listener, contextId).jsonModel(deactivatedStatusTransition);
 
         performRestTransaction(builder, listener);
     }
@@ -716,7 +721,7 @@ public class Hyperwallet {
                 .build();
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
                 new TypeReference<StatusTransition>() {
-                }, listener).jsonModel(deactivatedStatusTransition);
+                }, listener, contextId).jsonModel(deactivatedStatusTransition);
 
         performRestTransaction(builder, listener);
     }
@@ -757,7 +762,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<PageList<TransferMethod>>() {
-                }, listener).query(urlQuery);
+                }, listener, contextId).query(urlQuery);
 
         performRestTransaction(builder, listener);
     }
@@ -796,7 +801,7 @@ public class Hyperwallet {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<PageList<BankCard>>() {
-                }, listener).query(urlQuery);
+                }, listener, contextId).query(urlQuery);
 
         performRestTransaction(builder, listener);
     }
@@ -836,7 +841,7 @@ public class Hyperwallet {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/prepaid-cards");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<PageList<PrepaidCard>>() {
-                }, listener).query(urlQuery);
+                }, listener, contextId).query(urlQuery);
 
         performRestTransaction(builder, listener);
     }
@@ -873,7 +878,7 @@ public class Hyperwallet {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/balances");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<PageList<Balance>>() {
-                }, listener).query(urlQuery);
+                }, listener, contextId).query(urlQuery);
 
         performRestTransaction(builder, listener);
     }
@@ -906,7 +911,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<PageList<Balance>>() {
-                }, listener).query(urlQuery);
+                }, listener, contextId).query(urlQuery);
 
         performRestTransaction(builder, listener);
     }
@@ -947,7 +952,7 @@ public class Hyperwallet {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<PageList<PayPalAccount>>() {
-                }, listener).query(urlQuery);
+                }, listener, contextId).query(urlQuery);
 
         performRestTransaction(builder, listener);
     }
@@ -988,7 +993,7 @@ public class Hyperwallet {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/venmo-accounts");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<PageList<VenmoAccount>>() {
-                }, listener).query(urlQuery);
+                }, listener, contextId).query(urlQuery);
 
         performRestTransaction(builder, listener);
     }
@@ -1012,7 +1017,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<PrepaidCard>() {
-                }, listener);
+                }, listener, contextId);
 
         performRestTransaction(builder, listener);
     }
@@ -1036,7 +1041,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<PayPalAccount>() {
-                }, listener);
+                }, listener, contextId);
 
         performRestTransaction(builder, listener);
     }
@@ -1061,7 +1066,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<VenmoAccount>() {
-                }, listener);
+                }, listener, contextId);
 
         performRestTransaction(builder, listener);
     }
@@ -1153,7 +1158,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<PageList<Receipt>>() {
-                }, listener).query(urlQuery);
+                }, listener, contextId).query(urlQuery);
 
         performRestTransaction(builder, listener);
     }
@@ -1191,7 +1196,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<PageList<Receipt>>() {
-                }, listener).query(urlQuery);
+                }, listener, contextId).query(urlQuery);
 
         performRestTransaction(builder, listener);
     }
@@ -1232,7 +1237,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
                 new TypeReference<PageList<Transfer>>() {
-                }, listener).query(urlQuery);
+                }, listener, contextId).query(urlQuery);
 
         performRestTransaction(builder, listener);
     }
@@ -1256,7 +1261,7 @@ public class Hyperwallet {
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
                 new TypeReference<StatusTransition>() {
-                }, listener).jsonModel(statusTransition);
+                }, listener, contextId).jsonModel(statusTransition);
 
         performRestTransaction(builder, listener);
     }
