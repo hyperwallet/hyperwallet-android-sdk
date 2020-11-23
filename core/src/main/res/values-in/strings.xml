@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Percobaan pengambilan token autentikasi mengakibatkan kesalahan
+    </string>
+<string name="io_exception">Kami mengalami masalah saat memproses permintaan. Periksa koneksi Anda.
+    </string>
+<string name="json_exception">Pemrosesan dokumen JSON mengakibatkan kesalahan</string>
+<string name="json_parse_exception">Terjadi kesalahan penguraian dokumen (JSON)</string>
+<string name="unexpected_exception">Terjadi kesalahan, coba lagi.</string>
+</resources>

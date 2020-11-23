@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Der versuchte Abruf des Authentifizierungs-Tokens hat zu einem Fehler geführt.
+    </string>
+<string name="io_exception">Bei der Verarbeitung der Anfrage ist ein Problem aufgetreten. Bitte überprüfen Sie Ihre Internetverbindung.
+    </string>
+<string name="json_exception">Bei der Verarbeitung des JSON-Dokuments ist ein Fehler aufgetreten.</string>
+<string name="json_parse_exception">Es ist ein Fehler beim Auslesen des Dokuments (JSON) aufgetreten.</string>
+<string name="unexpected_exception">Etwas ist schiefgelaufen, versuchen Sie es erneut.</string>
+</resources>

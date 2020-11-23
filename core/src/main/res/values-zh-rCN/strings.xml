@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">身份验证令牌尝试检索出现错误
+    </string>
+<string name="io_exception">我们在处理请求时遇到了问题。请检查您的连接性。
+    </string>
+<string name="json_exception">处理 JSON 文档出现错误</string>
+<string name="json_parse_exception">发生文档 (JSON) 解析错误</string>
+<string name="unexpected_exception">出现问题，请重试。</string>
+</resources>

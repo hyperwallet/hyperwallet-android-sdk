@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Опитът за получаване на токен за удостоверяване доведе до грешка
+    </string>
+<string name="io_exception">Възникна проблем при обработка на заявката. Моля, проверете връзката си.
+    </string>
+<string name="json_exception">Обработката на JSON документа доведе до грешка</string>
+<string name="json_parse_exception">Възникна грешка при синтактичния анализ на документ (JSON)</string>
+<string name="unexpected_exception">Нещо се обърка. Моля, опитайте отново.</string>
+</resources>

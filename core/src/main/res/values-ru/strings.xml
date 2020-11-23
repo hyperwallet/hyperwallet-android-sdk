@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Попытка получения токена аутентификации привела к ошибке
+    </string>
+<string name="io_exception">Возникла проблема при обработке запроса. Проверьте ваше соединение.
+    </string>
+<string name="json_exception">Обработка документа JSON привела к ошибке</string>
+<string name="json_parse_exception">Произошла ошибка анализа документа (JSON)</string>
+<string name="unexpected_exception">Что-то пошло не так. Попытайтесь еще раз.</string>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">인증 토큰 검색 시도 오류 발생
+    </string>
+<string name="io_exception">요청을 처리하는 데 문제가 발생했습니다. 연결을 확인해 주십시오.
+    </string>
+<string name="json_exception">JSON 문서 처리 중에 오류 발생</string>
+<string name="json_parse_exception">문서(JSON) 구문 분석 오류 발생</string>
+<string name="unexpected_exception">문제가 발생했습니다. 다시 시도하십시오.</string>
+</resources>

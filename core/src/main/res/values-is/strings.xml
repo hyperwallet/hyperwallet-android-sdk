@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Tilraun til að sækja sannvottunartóka leiddi til villu
+    </string>
+<string name="io_exception">Vandamál kom upp við afgreiðslu beiðninnar. Vinsamlegast athugaðu tenginguna þína.
+    </string>
+<string name="json_exception">Vinnsla JSON skjalsins leiddi til villu</string>
+<string name="json_parse_exception">Villa kom upp við greiningu skjals (JSON)</string>
+<string name="unexpected_exception">Eitthvað fór úrskeiðis, vinsamlegast reyndu aftur.</string>
+</resources>

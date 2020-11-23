@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">A hitelesítési token lehívási kísérlete hibát eredményezett
+    </string>
+<string name="io_exception">Problémába ütköztünk a kérelem feldolgozása során. Kérjük, ellenőrizze a kapcsolatot.
+    </string>
+<string name="json_exception">A JSON-dokumentum feldolgozása hibát eredményezett</string>
+<string name="json_parse_exception">A dokumentumlekérés (JSON) hibát eredményezett</string>
+<string name="unexpected_exception">Valamilyen hiba történt. Kérjük, próbálja újra</string>
+</resources>

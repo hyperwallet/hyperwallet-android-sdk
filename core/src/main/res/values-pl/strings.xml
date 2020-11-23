@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Próba odzyskania tokena uwierzytelniania zakończyła się błędem
+    </string>
+<string name="io_exception">Mamy problem z przetworzeniem prośby. Sprawdź swoją łączność.
+    </string>
+<string name="json_exception">Przetwarzanie dokumentu JSON zakończyło się błędem</string>
+<string name="json_parse_exception">Wystąpił błąd podczas analizy dokumentu (JSON)</string>
+<string name="unexpected_exception">Coś poszło nie tak, spróbuj ponownie.</string>
+</resources>

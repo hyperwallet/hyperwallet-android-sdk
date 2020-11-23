@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HyperWallet SDK</string>
+    <string name="app_name" translatable="false">HyperWallet SDK</string>
     <string name="authentication_token_provider_exception">Authentication token retrieval attempt
         resulted in an error
     </string>
