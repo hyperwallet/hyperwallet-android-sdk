@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Помилка спроби отримання маркера автентифікації
+    </string>
+<string name="io_exception">Під час обробки цього запиту виникла проблема. Перевірте, будь ласка, своє з’єднання.
+    </string>
+<string name="json_exception">Під час обробки документу JSON виникла помилка</string>
+<string name="json_parse_exception">Виникла помилка аналізу документа (JSON)</string>
+<string name="unexpected_exception">Щось пішло не так, спробуйте ще раз.</string>
+</resources>

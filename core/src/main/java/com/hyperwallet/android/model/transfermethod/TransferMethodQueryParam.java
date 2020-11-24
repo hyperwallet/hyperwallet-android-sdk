@@ -25,6 +25,7 @@ import static com.hyperwallet.android.model.transfermethod.TransferMethod.Transf
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.BANK_CARD;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.PREPAID_CARD;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.VENMO_ACCOUNT;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.WIRE_ACCOUNT;
 
 import androidx.annotation.NonNull;
@@ -104,7 +105,8 @@ public class TransferMethodQueryParam extends QueryParam {
             WIRE_ACCOUNT,
             BANK_CARD,
             PAYPAL_ACCOUNT,
-            PREPAID_CARD
+            PREPAID_CARD,
+            VENMO_ACCOUNT
     })
     public @interface TransferMethodTypeQuery {
     }

@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Обидот за повикување на ознака за автентикација резултираше во грешка
+    </string>
+<string name="io_exception">Наидовме на проблем при процесирање на барањето. Проверете ја вашата врска.
+    </string>
+<string name="json_exception">Процесирањето на JSON документ резултираше во грешка</string>
+<string name="json_parse_exception">Настана грешка при анализирање на документ (JSON)</string>
+<string name="unexpected_exception">Нешто не е во ред, обидете се повторно.</string>
+</resources>

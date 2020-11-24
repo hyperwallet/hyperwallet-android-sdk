@@ -1,0 +1,17 @@
+{
+  "token": "trm-fake-token",
+  "type": "VENMO_ACCOUNT",
+  "status": "ACTIVATED",
+  "createdOn": "2019-01-09T22:50:14",
+  "transferMethodCountry": "US",
+  "transferMethodCurrency": "USD",
+  "accountId": "9876543210",
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://localhost:8181/rest/v3/users/test-user-token/venmo-accounts/trm-fake-token"
+    }
+  ]
+}

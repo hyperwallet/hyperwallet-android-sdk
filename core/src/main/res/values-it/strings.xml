@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Il tentativo di recupero del token di autenticazione ha generato un errore
+    </string>
+<string name="io_exception">Stiamo rilevando un problema nell’elaborazione della richiesta. Controlla la tua connessione.
+    </string>
+<string name="json_exception">L’elaborazione del documento JSON ha generato un errore</string>
+<string name="json_parse_exception">Si è verificato un errore nell’analisi di un documento (JSON)</string>
+<string name="unexpected_exception">Qualcosa non ha funzionato, riprova.</string>
+</resources>

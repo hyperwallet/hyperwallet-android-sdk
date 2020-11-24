@@ -134,4 +134,9 @@ public class PrepaidCard extends TransferMethod {
     public String getDateOfExpiry() {
         return getField(TransferMethodFields.DATE_OF_EXPIRY);
     }
+
+    @Nullable
+    public String getPrimaryCardToken() {
+        return getField(TransferMethodFields.PRIMARY_CARD_TOKEN);
+    }
 }

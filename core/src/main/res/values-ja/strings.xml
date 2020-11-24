@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">認証トークンの取得の試みがエラーになりました
+    </string>
+<string name="io_exception">リクエストの処理中に問題が発生しています。接続を確認してください。
+    </string>
+<string name="json_exception">JSONドキュメントの処理中にエラーが発生しました</string>
+<string name="json_parse_exception">ドキュメント（JSON）の解析エラーが発生しました</string>
+<string name="unexpected_exception">問題が発生したため、もう一度お試しください。</string>
+</resources>

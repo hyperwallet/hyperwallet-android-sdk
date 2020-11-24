@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Pri pokuse o získanie overovacieho kódu sa vyskytla chyba
+    </string>
+<string name="io_exception">Vyskytol sa problém so spracovaním požiadavky. Skontrolujte svoje pripojenie.
+    </string>
+<string name="json_exception">Vyskytla sa chyba pri spracovaní dokumentu JSON</string>
+<string name="json_parse_exception">Vyskytla sa chyba pri analyzovaní dokumentu (JSON)</string>
+<string name="unexpected_exception">Niekde sa stala chyba, skúste to znova.</string>
+</resources>

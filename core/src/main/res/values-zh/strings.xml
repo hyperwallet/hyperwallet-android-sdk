@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">嘗試擷取驗證權杖時導致錯誤
+    </string>
+<string name="io_exception">處理要求時發生問題。請檢查您的連線。
+    </string>
+<string name="json_exception">處理 JSON 文檔時導致錯誤</string>
+<string name="json_parse_exception">發生文檔 (JSON) 解析錯誤</string>
+<string name="unexpected_exception">發生錯誤，請重試。</string>
+</resources>

@@ -232,7 +232,9 @@ public class TransferMethod implements JsonModel, Parcelable {
             TransferMethodFields.DATE_OF_EXPIRY,
             TransferMethodFields.CVV,
             TransferMethodFields.CARD_PACKAGE,
-            TransferMethodFields.EMAIL
+            TransferMethodFields.PRIMARY_CARD_TOKEN,
+            TransferMethodFields.EMAIL,
+            TransferMethodFields.VENMO_ACCOUNT_ID
     })
     public @interface TransferMethodFieldKey {
     }
@@ -244,6 +246,7 @@ public class TransferMethod implements JsonModel, Parcelable {
         public static final String PREPAID_CARD = "PREPAID_CARD";
         public static final String WIRE_ACCOUNT = "WIRE_ACCOUNT";
         public static final String PAYPAL_ACCOUNT = "PAYPAL_ACCOUNT";
+        public static final String VENMO_ACCOUNT= "VENMO_ACCOUNT";
     }
 
     public final class TransferMethodFields {
@@ -278,6 +281,7 @@ public class TransferMethod implements JsonModel, Parcelable {
         public static final String DATE_OF_EXPIRY = "dateOfExpiry";
         public static final String CVV = "cvv";
         public static final String CARD_PACKAGE = "cardPackage";
+        public static final String PRIMARY_CARD_TOKEN = "primaryCardToken";
 
         // profile information
         public static final String PROFILE_TYPE = "profileType";
@@ -319,5 +323,7 @@ public class TransferMethod implements JsonModel, Parcelable {
         public static final String INTERMEDIARY_BANK_POSTAL_CODE = "intermediaryBankPostalCode";
         public static final String INTERMEDIARY_BANK_STATE_PROVINCE = "intermediaryBankStateProvince";
         public static final String WIRE_INSTRUCTIONS = "wireInstructions";
+        //venmo account fields
+        public static final String VENMO_ACCOUNT_ID = "accountId";
     }
 }

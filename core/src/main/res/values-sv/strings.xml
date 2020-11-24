@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Autentiseringstokens hämtningsförsök resulterade i ett fel
+    </string>
+<string name="io_exception">Vi har problem med att behandla din begäran. Kontrollera din anslutning.
+    </string>
+<string name="json_exception">Behandlingen av JSON-dokumentet resulterade i ett fel</string>
+<string name="json_parse_exception">Parsningsfel i ett dokument (JSON) inträffade</string>
+<string name="unexpected_exception">Något gick fel, försök igen.</string>
+</resources>

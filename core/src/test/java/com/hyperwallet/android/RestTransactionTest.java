@@ -1,18 +1,5 @@
 package com.hyperwallet.android;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.BANK_ACCOUNT;
-import static com.hyperwallet.android.util.HttpMethod.GET;
-import static com.hyperwallet.android.util.HttpMethod.POST;
-import static com.hyperwallet.android.util.HttpMethod.PUT;
-
 import android.os.Handler;
 
 import com.hyperwallet.android.exception.HyperwalletException;
@@ -37,6 +24,20 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.robolectric.RobolectricTestRunner;
 
+import java.util.UUID;
+
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.BANK_ACCOUNT;
+import static com.hyperwallet.android.util.HttpMethod.GET;
+import static com.hyperwallet.android.util.HttpMethod.POST;
+import static com.hyperwallet.android.util.HttpMethod.PUT;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @RunWith(RobolectricTestRunner.class)
 public class RestTransactionTest {
 
@@ -58,6 +59,8 @@ public class RestTransactionTest {
     @Captor
     private ArgumentCaptor<Runnable> mErrorRunnableCaptor;
 
+    private final String contextId = UUID.randomUUID().toString();
+
     @Test
     public void testPerformRequest_usingHttpGet() throws Exception {
         final PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
@@ -68,7 +71,7 @@ public class RestTransactionTest {
 
         RestTransaction.Builder<BankAccount> accountBuilder =
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
-                }, mListener);
+                }, mListener, contextId);
         final RestTransaction restTransaction = accountBuilder
                 .jsonModel(bankAccount)
                 .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
@@ -90,7 +93,7 @@ public class RestTransactionTest {
 
         RestTransaction.Builder<BankAccount> accountBuilder =
                 new RestTransaction.Builder<>(POST, pathFormatter, new TypeReference<BankAccount>() {
-                }, mListener);
+                }, mListener, contextId);
         final RestTransaction restTransaction = accountBuilder
                 .jsonModel(bankAccount)
                 .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
@@ -116,7 +119,7 @@ public class RestTransactionTest {
 
         RestTransaction.Builder<BankAccount> accountBuilder =
                 new RestTransaction.Builder<>(PUT, pathFormatter, new TypeReference<BankAccount>() {
-                }, mListener);
+                }, mListener, contextId);
         final RestTransaction restTransaction = accountBuilder
                 .jsonModel(bankAccount)
                 .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
@@ -141,7 +144,7 @@ public class RestTransactionTest {
 
         RestTransaction.Builder<BankAccount> accountBuilder =
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
-                }, mListener);
+                }, mListener, contextId);
         final RestTransaction restTransaction = accountBuilder
                 .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
@@ -161,7 +164,7 @@ public class RestTransactionTest {
 
         RestTransaction.Builder<BankAccount> accountBuilder =
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
-                }, mListener);
+                }, mListener, contextId);
         final RestTransaction restTransaction = accountBuilder
                 .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
@@ -183,7 +186,7 @@ public class RestTransactionTest {
 
         RestTransaction.Builder<BankAccount> accountBuilder =
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
-                }, mListener);
+                }, mListener, contextId);
         final RestTransaction restTransaction = accountBuilder
                 .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
@@ -198,7 +201,7 @@ public class RestTransactionTest {
 
         RestTransaction.Builder<BankAccount> accountBuilder =
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
-                }, mListener);
+                }, mListener, contextId);
         final RestTransaction restTransaction = accountBuilder
                 .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
@@ -224,7 +227,7 @@ public class RestTransactionTest {
 
         RestTransaction.Builder<BankAccount> accountBuilder =
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
-                }, mListener);
+                }, mListener, contextId);
         final RestTransaction restTransaction = accountBuilder
                 .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
@@ -246,7 +249,7 @@ public class RestTransactionTest {
 
         RestTransaction.Builder<BankAccount> accountBuilder =
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
-                }, mListener);
+                }, mListener, contextId);
         final RestTransaction restTransaction = accountBuilder
                 .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
@@ -270,7 +273,7 @@ public class RestTransactionTest {
 
         RestTransaction.Builder<BankAccount> accountBuilder =
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
-                }, mListener);
+                }, mListener, contextId);
         final RestTransaction restTransaction = accountBuilder
                 .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 
@@ -292,7 +295,7 @@ public class RestTransactionTest {
 
         RestTransaction.Builder<BankAccount> accountBuilder =
                 new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
-                }, mListener);
+                }, mListener, contextId);
         final RestTransaction restTransaction = accountBuilder
                 .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
 

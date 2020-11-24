@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Kimlik doğrulama girişimi bir hatayla sonuçlandı
+    </string>
+<string name="io_exception">Talebi işleme alırken bir sorun oluştu. Lütfen bağlantınızı kontrol edin.
+    </string>
+<string name="json_exception">JSON belgesinin işleme alınmasında bir hata oluştu.</string>
+<string name="json_parse_exception">Bir belge (JSON) çözümleme hatası oluştu</string>
+<string name="unexpected_exception">Bir hata oluştu; lütfen tekrar deneyin.</string>
+</resources>

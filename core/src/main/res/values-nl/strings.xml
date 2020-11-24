@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Ophaalpoging verificatietoken resulteerde in een fout
+    </string>
+<string name="io_exception">Er is een probleem opgetreden bij het verwerken van de aanvraag. Controleer uw connectiviteit.
+    </string>
+<string name="json_exception">Verwerken van het JSON-document resulteerde in een fout</string>
+<string name="json_parse_exception">Er is een document (JSON) parseerfout opgetreden</string>
+<string name="unexpected_exception">Er is iets mis gegaan, probeer het opnieuw.</string>
+</resources>

@@ -21,7 +21,7 @@ We also provide an out-of-the-box  [Hyperwallet Android UI SDK](https://github.c
 To install Hyperwallet Core SDK, you just need to add the dependency into your build.gradle file in Android Studio (or Gradle). For example:
 
 ```bash
-api 'com.hyperwallet.android:core-sdk:1.0.0-beta06'
+api 'com.hyperwallet.android:core-sdk:1.0.0-beta07'
 ```
 
 ### Proguard
@@ -151,6 +151,56 @@ PayPalAccountQueryParam payPalAccountQueryParam = new PayPalAccountQueryParam.Bu
         .build();
 Hyperwallet.getDefault().listPayPalAccounts(payPalAccountQueryParam, listener);
 // onSuccess: response (PageList<PayPalAccount>) will contain a PageList of PayPalAccount or null if not exists
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
+```
+
+### Create Venmo Account
+```java
+final VenmoAccount venmoAccount = new VenmoAccount.Builder()
+         .transferMethodCountry("US")
+         .transferMethodCurrency("USD")
+         .accountId("9876543210")
+         .build();
+
+Hyperwallet.getDefault().createVenmoAccount(venmoAccount, listener);
+// onSuccess: response (VenmoAccount in this case) will contain information about the user’s Venmo account
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
+```
+
+### Get Venmo Account
+```java
+Hyperwallet.getDefault().getVenmoAccount("trm-fake-token", listener);
+// onSuccess: response (VenmoAccount in this case) will contain information about the user’s Venmo account or null if not exist.
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
+```
+
+### Update Venmo Account
+```java
+final VenmoAccount venmoAccount = new VenmoAccount
+         .Builder()
+         .accountId("9876543211")
+         .token("trm-fake-token")
+         .build();
+
+Hyperwallet.getDefault().updateVenmoAccount(venmoAccount, mListener);
+// Code to handle successful response or error
+// onSuccess: response (VenmoAccount in this case) will contain information about the user’s Venmo account
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure of Venmo account updating
+```
+
+### Deactivate Venmo Account
+```java
+Hyperwallet.getDefault().deactivateVenmoAccount("trm-fake-token", "deactivate Venmo account", mListener);
+// Code to handle successful response or error
+// onSuccess: response (StatusTransition in this case) will contain information about the status transition
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure of Venmo account deactivation
+```
+
+### List Venmo Account
+```java
+VenmoAccountQueryParam queryParam = new VenmoAccountQueryParam.Builder().status(ACTIVATED).build();
+Hyperwallet.getDefault().listVenmoAccounts(queryParam, mListener);
+// onSuccess: response (PageList<VenmoAccount>) will contain a PageList of VenmoAccount or null if not exists
 // onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
 ```
 
@@ -320,6 +370,16 @@ BalanceQueryParam balanceQueryParam = new BalanceQueryParam.Builder()
         .sortByCurrencyAsc()
         .build();
 Hyperwallet.getDefault().listUserBalances(balanceQueryParam, listener);
+// onSuccess: response (PageList<Balance>) will contain a PageList of Balance or null if not exists
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
+```
+
+### List Prepaid Card Balances
+```java
+PrepaidCardBalanceQueryParam prepaidCardBalanceQueryParam = new PrepaidCardBalanceQueryParam.Builder()
+        .sortByCurrencyAsc()
+        .build();
+Hyperwallet.getDefault().listPrepaidCardBalances("trm-12345", prepaidCardBalanceQueryParam, listener);
 // onSuccess: response (PageList<Balance>) will contain a PageList of Balance or null if not exists
 // onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
 ```

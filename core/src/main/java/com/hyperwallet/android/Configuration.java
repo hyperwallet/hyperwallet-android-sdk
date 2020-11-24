@@ -53,6 +53,7 @@ public class Configuration {
     private static final String JWT_SEPARATOR = "\\.";
     private static final String JWT_SUB = "sub";
     private static final Long STALE_PERIOD = 30000L;
+    private static final String PROGRAM_MODEL = "program-model";
 
     private final String mAuthenticationToken;
     private long mCreatedOn;
@@ -64,6 +65,7 @@ public class Configuration {
     private long mExpireOnBootTime;
     private String mInsightApiUri;
     private String mEnvironment;
+    private String mProgramModel;
 
     /**
      * Construct {@Configuration} with Authentication token specified
@@ -148,6 +150,13 @@ public class Configuration {
         return SystemClock.elapsedRealtime() >= mExpireOnBootTime - STALE_PERIOD;
     }
 
+    /**
+     * @return program model
+     */
+    public String getProgramModel() {
+        return mProgramModel;
+    }
+
     private void parseAuthenticationToken() throws JSONException {
         String[] authenticationTokenParts = mAuthenticationToken.split(JWT_SEPARATOR);
         if (authenticationTokenParts.length != 3) {
@@ -181,5 +190,6 @@ public class Configuration {
         mExpireOnBootTime = SystemClock.elapsedRealtime() + tokenLifespan;
         mEnvironment = jsonObject.optString(ENVIRONMENT);
         mInsightApiUri = jsonObject.optString(INSIGHT_API_URI);
+        mProgramModel = jsonObject.optString(PROGRAM_MODEL);
     }
 }
