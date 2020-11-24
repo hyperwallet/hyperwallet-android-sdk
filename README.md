@@ -146,6 +146,56 @@ Hyperwallet.getDefault().listPayPalAccounts(payPalAccountQueryParam, listener);
 // onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
 ```
 
+### Create Venmo Account
+```java
+final VenmoAccount venmoAccount = new VenmoAccount.Builder()
+         .transferMethodCountry("US")
+         .transferMethodCurrency("USD")
+         .accountId("9876543210")
+         .build();
+
+Hyperwallet.getDefault().createVenmoAccount(venmoAccount, listener);
+// onSuccess: response (VenmoAccount in this case) will contain information about the user’s Venmo account
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
+```
+
+### Get Venmo Account
+```java
+Hyperwallet.getDefault().getVenmoAccount("trm-fake-token", listener);
+// onSuccess: response (VenmoAccount in this case) will contain information about the user’s Venmo account or null if not exist.
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
+```
+
+### Update Venmo Account
+```java
+final VenmoAccount venmoAccount = new VenmoAccount
+         .Builder()
+         .accountId("9876543211")
+         .token("trm-fake-token")
+         .build();
+
+Hyperwallet.getDefault().updateVenmoAccount(venmoAccount, mListener);
+// Code to handle successful response or error
+// onSuccess: response (VenmoAccount in this case) will contain information about the user’s Venmo account
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure of Venmo account updating
+```
+
+### Deactivate Venmo Account
+```java
+Hyperwallet.getDefault().deactivateVenmoAccount("trm-fake-token", "deactivate Venmo account", mListener);
+// Code to handle successful response or error
+// onSuccess: response (StatusTransition in this case) will contain information about the status transition
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure of Venmo account deactivation
+```
+
+### List Venmo Account
+```java
+VenmoAccountQueryParam queryParam = new VenmoAccountQueryParam.Builder().status(ACTIVATED).build();
+Hyperwallet.getDefault().listVenmoAccounts(queryParam, mListener);
+// onSuccess: response (PageList<VenmoAccount>) will contain a PageList of VenmoAccount or null if not exists
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
+```
+
 ### Create Bank Account
 ```java
 final BankAccount bankAccount = new BankAccount.Builder()
