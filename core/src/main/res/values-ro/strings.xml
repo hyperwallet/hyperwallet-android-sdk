@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Încercare de recuperare a token-ului de autentificare a dus la o eroare
+    </string>
+<string name="io_exception">Ne confruntăm cu o problemă la procesarea cererii. Vă rugăm să vă verificați conexiunea.
+    </string>
+<string name="json_exception">Prelucrarea documentului JSON a condus la o eroare</string>
+<string name="json_parse_exception">A apărut o eroare de analiză a unui document (JSON)</string>
+<string name="unexpected_exception">Ceva nu a funcționat corespunzător; vă rugăm să încercați din nou.</string>
+</resources>

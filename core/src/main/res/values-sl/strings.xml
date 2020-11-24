@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Pri prevzemu žetona za avtentifikacijo je prišlo do napake
+    </string>
+<string name="io_exception">Pri obdelavi zahteve smo naleteli na težavo. Prosimo, preverite povezljivost.
+    </string>
+<string name="json_exception">Pri obdelavi dokumenta JSON je prišlo do napake</string>
+<string name="json_parse_exception">Prišlo je do napake pri razčlenjevanju dokumenta (JSON)</string>
+<string name="unexpected_exception">Nekaj je šlo narobe, prosimo, poskusite znova.</string>
+</resources>

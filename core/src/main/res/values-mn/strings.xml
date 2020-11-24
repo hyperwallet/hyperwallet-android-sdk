@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Баталгаажуулах код авах оролдлого алдаа гарахад хүргэв
+    </string>
+<string name="io_exception">Хүсэлтийг биелүүлэхэд бидэнд асуудал гарлаа. Холболтоо шалгана уу.
+    </string>
+<string name="json_exception">JSON баримт бичгийг боловсруулахад алдаа гарав</string>
+<string name="json_parse_exception">Баримт бичиг (JSON) шинжлэхэд алдаа гарав</string>
+<string name="unexpected_exception">Алдаа гарсан тул дахин оролдоно уу.</string>
+</resources>

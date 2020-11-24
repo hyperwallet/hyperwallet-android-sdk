@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">La tentative de récupération du jeton d’authentification a donné lieu à une erreur
+    </string>
+<string name="io_exception">Nous rencontrons un problème lors du traitement de votre demande. Veuillez vérifier votre connectivité.
+    </string>
+<string name="json_exception">Le traitement du document JSON a donné lieu à une erreur</string>
+<string name="json_parse_exception">Une erreur d’analyse de document (JSON) s’est produite</string>
+<string name="unexpected_exception">Une erreur s’est produite, veuillez réessayer.</string>
+</resources>

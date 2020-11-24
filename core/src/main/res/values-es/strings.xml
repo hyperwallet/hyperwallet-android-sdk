@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Se ha producido un error en el intento de recuperación de la ficha de autenticación.
+    </string>
+<string name="io_exception">Hemos encontrado un problema al procesar la solicitud. Por favor, compruebe su conectividad.
+    </string>
+<string name="json_exception">Se ha producido un error al procesar el documento JSON</string>
+<string name="json_parse_exception">Se ha producido un error al analizar el documento (JSON)</string>
+<string name="unexpected_exception">Se ha producido un error, por favor, inténtelo de nuevo.</string>
+</resources>

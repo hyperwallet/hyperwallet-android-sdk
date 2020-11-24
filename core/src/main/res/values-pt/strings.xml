@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">A tentativa de autenticação do token resultou em erro
+    </string>
+<string name="io_exception">Estamos enfrentando um problema ao processar sua solicitação. Confira a sua conexão.
+    </string>
+<string name="json_exception">Erro ao processar o documento JSON</string>
+<string name="json_parse_exception">Ocorreu um erro de análise de documento (JSON)</string>
+<string name="unexpected_exception">Ocorreu um erro, tente novamente.</string>
+</resources>

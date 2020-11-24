@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Truy xuất và xác thực bằng chuỗi mã hóa có lỗi
+    </string>
+<string name="io_exception">Chúng tôi đang gặp sự cố khi xử lý yêu cầu. Vui lòng kiểm tra kết nối của bạn.
+    </string>
+<string name="json_exception">Xử lý tài liệu JSON dẫn đến lỗi</string>
+<string name="json_parse_exception">Đã xảy ra lỗi phân tích cú pháp tài liệu (JSON)</string>
+<string name="unexpected_exception">Đã xảy ra lỗi, vui lòng thử lại.</string>
+</resources>

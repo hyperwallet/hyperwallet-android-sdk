@@ -1,0 +1,9 @@
+<resources>
+<string name="authentication_token_provider_exception">Tunnistautumismerkin hakuyrityksessä tapahtui virhe
+    </string>
+<string name="io_exception">Pyynnön käsittelyssä on ongelma. Tarkista yhteytesi.
+    </string>
+<string name="json_exception">JSON-asiakirjan käsittelyssä tapahtui virhe</string>
+<string name="json_parse_exception">Tapahtui asiakirjan (JSON) jäsentelyvirhe</string>
+<string name="unexpected_exception">Jokin meni vikaan, yritä uudelleen.</string>
+</resources>
