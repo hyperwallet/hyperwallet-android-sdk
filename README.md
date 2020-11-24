@@ -24,6 +24,14 @@ To install Hyperwallet Core SDK, you just need to add the dependency into your b
 api 'com.hyperwallet.android:core-sdk:1.0.0-beta07'
 ```
 
+### Proguard
+
+When enabling Proguard, please add a rule in `proguard-rules.pro` file in your main app
+
+```properties
+-keep public class com.hyperwallet.android.** { *; }
+```
+
 ## Initialization
 
 After you're done installing the SDK, you need to initialize an instance in order to utilize core SDK functions. Also you need to provide a [HyperwalletAuthenticationTokenProvider](#Authentication) object to retrieve an authentication token.
