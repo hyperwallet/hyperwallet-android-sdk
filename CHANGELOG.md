@@ -1,6 +1,12 @@
 Changelog
 =========
 
+[1.0.0-beta07](https://github.com/hyperwallet/hyperwallet-android-sdk/releases/tag/1.0.0-beta07)
+-------------------
+* Added Venmo as a Transfer method
+* Added support for List Prepaid Card Balances
+* Enhancements
+
 [1.0.0-beta06](https://github.com/hyperwallet/hyperwallet-android-sdk/releases/tag/1.0.0-beta06)
 -------------------
 * Security updates
