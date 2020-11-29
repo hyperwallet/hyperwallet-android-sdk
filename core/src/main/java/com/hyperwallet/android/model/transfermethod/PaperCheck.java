@@ -86,6 +86,11 @@ public class PaperCheck extends TransferMethod {
             mFields.put(TRANSFER_METHOD_COUNTRY, transferMethodCountry);
         }
 
+        public PaperCheck.Builder token(@NonNull String token) {
+            mFields.put(TransferMethodFields.TOKEN, token);
+            return this;
+        }
+
         public PaperCheck.Builder addressLine1(@NonNull String addressLine1) {
             mFields.put(TransferMethodFields.ADDRESS_LINE_1, addressLine1);
             return this;
