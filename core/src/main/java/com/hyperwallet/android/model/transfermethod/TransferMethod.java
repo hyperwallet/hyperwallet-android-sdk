@@ -325,5 +325,7 @@ public class TransferMethod implements JsonModel, Parcelable {
         public static final String WIRE_INSTRUCTIONS = "wireInstructions";
         //venmo account fields
         public static final String VENMO_ACCOUNT_ID = "accountId";
+        //paper check fields
+        public static final String SHIPPING_METHOD = "shippingMethod";
     }
 }

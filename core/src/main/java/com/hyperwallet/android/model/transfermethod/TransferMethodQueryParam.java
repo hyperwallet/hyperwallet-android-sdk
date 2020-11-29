@@ -23,6 +23,7 @@ import static com.hyperwallet.android.model.StatusTransition.StatusDefinition.IN
 import static com.hyperwallet.android.model.StatusTransition.StatusDefinition.VERIFIED;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.BANK_CARD;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.PAPER_CHECK;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.PREPAID_CARD;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.VENMO_ACCOUNT;
@@ -106,7 +107,8 @@ public class TransferMethodQueryParam extends QueryParam {
             BANK_CARD,
             PAYPAL_ACCOUNT,
             PREPAID_CARD,
-            VENMO_ACCOUNT
+            VENMO_ACCOUNT,
+            PAPER_CHECK
     })
     public @interface TransferMethodTypeQuery {
     }
