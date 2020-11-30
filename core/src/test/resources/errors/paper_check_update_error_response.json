@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "message": "The number you provided is not valid!",
+      "fieldName": "phoneNumber",
+      "code": "CONSTRAINT_VIOLATIONS"
+    }
+  ]
+}
