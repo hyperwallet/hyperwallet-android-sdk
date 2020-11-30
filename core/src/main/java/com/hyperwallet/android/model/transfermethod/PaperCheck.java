@@ -91,43 +91,13 @@ public class PaperCheck extends TransferMethod {
             return this;
         }
 
-        public PaperCheck.Builder addressLine1(@NonNull String addressLine1) {
-            mFields.put(TransferMethodFields.ADDRESS_LINE_1, addressLine1);
+        public PaperCheck.Builder transferMethodCountry(@NonNull String transferMethodCountry) {
+            mFields.put(TRANSFER_METHOD_COUNTRY, transferMethodCountry);
             return this;
         }
 
-        public PaperCheck.Builder addressLine2(@NonNull String addressLine2) {
-            mFields.put(TransferMethodFields.ADDRESS_LINE_2, addressLine2);
-            return this;
-        }
-
-        public PaperCheck.Builder bankAccountRelationship(@NonNull String bankAccountRelationship) {
-            mFields.put(TransferMethodFields.BANK_ACCOUNT_RELATIONSHIP, bankAccountRelationship);
-            return this;
-        }
-
-        public PaperCheck.Builder city(@NonNull String city) {
-            mFields.put(TransferMethodFields.CITY, city);
-            return this;
-        }
-
-        public PaperCheck.Builder country(@NonNull String country) {
-            mFields.put(TransferMethodFields.COUNTRY, country);
-            return this;
-        }
-
-        public PaperCheck.Builder postalCode(@NonNull String postalCode) {
-            mFields.put(TransferMethodFields.POSTAL_CODE, postalCode);
-            return this;
-        }
-
-        public PaperCheck.Builder shippingMethod(@NonNull @ShippingMethod String shippingMethod) {
-            mFields.put(TransferMethodFields.SHIPPING_METHOD, shippingMethod);
-            return this;
-        }
-
-        public PaperCheck.Builder stateProvince(@NonNull String stateProvince) {
-            mFields.put(TransferMethodFields.STATE_PROVINCE, stateProvince);
+        public PaperCheck.Builder transferMethodCurrency(@NonNull String transferMethodCurrency) {
+            mFields.put(TRANSFER_METHOD_CURRENCY, transferMethodCurrency);
             return this;
         }
 
