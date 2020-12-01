@@ -1,15 +1,11 @@
 package com.hyperwallet.android.model.transfermethod;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringDef;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,14 +43,6 @@ public class PaperCheck extends TransferMethod {
     @Nullable
     public String getCurrency() {
         return getField(TRANSFER_METHOD_CURRENCY);
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({
-            Method.STANDARD,
-            Method.EXPEDITED
-    })
-    public @interface ShippingMethod {
     }
 
     /**
@@ -104,10 +92,5 @@ public class PaperCheck extends TransferMethod {
         public PaperCheck build() {
             return new PaperCheck(mFields);
         }
-    }
-
-    public final class Method {
-        public static final String STANDARD = "STANDARD";
-        public static final String EXPEDITED = "EXPEDITED";
     }
 }

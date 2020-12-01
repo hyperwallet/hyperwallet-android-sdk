@@ -99,7 +99,7 @@ public class CreatePaperCheckTest {
         assertThat(paperCheckResponse.getField(TYPE), is(PAPER_CHECK));
         assertThat(paperCheckResponse.getField(CREATED_ON), is(notNullValue()));
         assertThat(paperCheckResponse.getField(ADDRESS_LINE_1), is("1234 IndividualAddress St"));
-        assertThat(paperCheckResponse.getField(SHIPPING_METHOD), is(PaperCheck.Method.STANDARD));
+        assertThat(paperCheckResponse.getField(SHIPPING_METHOD), is("STANDARD"));
     }
 
     @Test

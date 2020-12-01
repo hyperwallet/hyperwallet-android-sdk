@@ -27,7 +27,6 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.mockwebserver.RecordedRequest;
 
-import static com.hyperwallet.android.model.transfermethod.PaperCheck.Method.EXPEDITED;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.CREATED_ON;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.SHIPPING_METHOD;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.STATUS;
@@ -95,7 +94,7 @@ public class UpdatePaperCheckTest {
         assertThat(paperCheckResponse.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
         assertThat(paperCheckResponse.getField(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(paperCheckResponse.getField(CREATED_ON), is("2020-11-29T15:13:55"));
-        assertThat(paperCheckResponse.getField(SHIPPING_METHOD), is(EXPEDITED));
+        assertThat(paperCheckResponse.getField(SHIPPING_METHOD), is("EXPEDITED"));
     }
 
     @Test

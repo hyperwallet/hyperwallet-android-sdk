@@ -113,7 +113,7 @@ public class ListPaperCheckTest {
         assertThat(paperCheck.getField(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(paperCheck.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
         assertThat(paperCheck.getField(PROFILE_TYPE), is("PUBLIC_COMPANY"));
-        assertThat(paperCheck.getField(SHIPPING_METHOD), is(PaperCheck.Method.EXPEDITED));
+        assertThat(paperCheck.getField(SHIPPING_METHOD), is("EXPEDITED"));
     }
 
     @Test

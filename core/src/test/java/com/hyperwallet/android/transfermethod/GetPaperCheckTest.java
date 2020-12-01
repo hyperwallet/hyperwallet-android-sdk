@@ -92,7 +92,7 @@ public class GetPaperCheckTest {
         assertThat(paperCheckResponse.getField(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(paperCheckResponse.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
         assertThat(paperCheckResponse.getField(ADDRESS_LINE_2), is("1234 AddressLineTwo St"));
-        assertThat(paperCheckResponse.getField(SHIPPING_METHOD), is(PaperCheck.Method.STANDARD));
+        assertThat(paperCheckResponse.getField(SHIPPING_METHOD), is("STANDARD"));
     }
 
     @Test
