@@ -32,7 +32,7 @@ public class TransferMethodUpdateConfigurationFieldQuery implements GqlQuery {
     private static final String GRAPH_QL_REQUEST =
             "query {\n" +
                     "\ttransferMethodUpdateUIConfigurations (\n" +
-                    "\t\ttrmToken: \"trm-307362d1-2032-4db5-8527-a018fa33e097\"\n" +
+                    "\t\ttrmToken: \"trm-e1c38917-a50d-43ed-b2e2-5ae30def3e22\"\n" +
                     "\t) {\n" +
                     "\t\tnodes {\n" +
                     "\t\t\tcountry\n" +
@@ -113,7 +113,7 @@ public class TransferMethodUpdateConfigurationFieldQuery implements GqlQuery {
      */
     @Override
     public String toQuery(@NonNull final String userToken) {
-        return String.format(GRAPH_QL_REQUEST, userToken, mTrmToken);
+        return String.format(GRAPH_QL_REQUEST, mTrmToken);
     }
 }
 

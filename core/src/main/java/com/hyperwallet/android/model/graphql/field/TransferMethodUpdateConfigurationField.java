@@ -31,11 +31,10 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * Represents Users' program context Transfer Method Configuration information with Fees
  */
-public class TransferMethodConfigurationField {
+public class TransferMethodUpdateConfigurationField {
 
     private static final String TRANSFER_FEE = "fees";
-    private static final String TRANSFER_METHOD_CONFIGURATION = "transferMethodUIConfigurations";
-    //    private static final String TRANSFER_METHOD_CONFIGURATION = "transferMethodUpdateUIConfigurations"; // Temp
+    private static final String TRANSFER_METHOD_CONFIGURATION = "transferMethodUpdateUIConfigurations";
     private static final String PROCESSING_TIMES = "processingTimes";
 
     private final Connection<Fee> mFeeConnection;
@@ -47,7 +46,7 @@ public class TransferMethodConfigurationField {
      *
      * @param configuration JSON object that represents transfer method configuration data with fees
      */
-    public TransferMethodConfigurationField(@NonNull final JSONObject configuration) throws JSONException,
+    public TransferMethodUpdateConfigurationField(@NonNull final JSONObject configuration) throws JSONException,
             NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         JSONObject fees = configuration.optJSONObject(TRANSFER_FEE);
         if (fees != null && fees.length() != 0) {

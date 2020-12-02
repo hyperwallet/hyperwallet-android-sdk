@@ -36,6 +36,8 @@ import com.hyperwallet.android.model.balance.PrepaidCardBalanceQueryParam;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationField;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
 import com.hyperwallet.android.model.graphql.field.TransferMethodConfigurationFieldResult;
+import com.hyperwallet.android.model.graphql.field.TransferMethodUpdateConfigurationField;
+import com.hyperwallet.android.model.graphql.field.TransferMethodUpdateConfigurationFieldResult;
 import com.hyperwallet.android.model.graphql.keyed.TransferMethodConfigurationKeyResult;
 import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationFieldQuery;
 import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationKeysQuery;
@@ -1127,9 +1129,9 @@ public class Hyperwallet {
             @NonNull final TransferMethodUpdateConfigurationFieldQuery query,
             @NonNull final HyperwalletListener<HyperwalletTransferMethodConfigurationField> listener) {
 
-        GqlTransaction.Builder<TransferMethodConfigurationFieldResult> builder =
+        GqlTransaction.Builder<TransferMethodUpdateConfigurationFieldResult> builder =
                 new GqlTransaction.Builder<>(query,
-                        new TypeReference<TransferMethodConfigurationFieldResult>() {
+                        new TypeReference<TransferMethodUpdateConfigurationFieldResult>() {
                         }, listener);
         performGqlTransaction(builder, listener);
     }
