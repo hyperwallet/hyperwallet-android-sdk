@@ -75,8 +75,8 @@ public class Field {
     public Field(@NonNull final JSONObject field) {
         mCategory = field.optString(CATEGORY);
         mDataType = DataType.getDataType(field.optString(DATA_TYPE));
-        mIsEditable = field.optBoolean(FIELD_VALUE_MASKED);
-        mIsFieldValueMasked = field.optBoolean(IS_EDITABLE);
+        mIsEditable = field.optBoolean(IS_EDITABLE);
+        mIsFieldValueMasked = field.optBoolean(FIELD_VALUE_MASKED);
         mIsRequired = field.optBoolean(IS_REQUIRED);
         mLabel = field.optString(LABEL);
         mMaxLength = field.optInt(MAX_LENGTH, Integer.MAX_VALUE);
