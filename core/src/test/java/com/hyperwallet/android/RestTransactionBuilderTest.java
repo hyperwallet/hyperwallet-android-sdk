@@ -67,7 +67,7 @@ public class RestTransactionBuilderTest {
         assertThat(headers.get("Content-Type"), is("application/json"));
         assertThat(headers.get("User-Agent"), is("HyperwalletSDK/Android/" + BuildConfig.VERSION_NAME +
                 "; App: HyperwalletSDK; Android: " + Build.VERSION.RELEASE));
-        assertThat(headers.get("X-Sdk-Version"), is("1.0.0-beta07"));
+        assertThat(headers.get("X-Sdk-Version"), is("1.0.0-beta07-SNAPSHOT"));
         assertThat(headers.get("X-Sdk-Type"), is("android"));
         assertThat(headers.get("X-Sdk-ContextId"), is(notNullValue()));
         assertThat(headers.get("X-Sdk-ContextId"), is(contextId));
@@ -104,7 +104,7 @@ public class RestTransactionBuilderTest {
         assertThat(headers.get("Content-Type"), is("application/json"));
         assertThat(headers.get("User-Agent"), is("HyperwalletSDK/Android/" + BuildConfig.VERSION_NAME +
                 "; App: HyperwalletSDK; Android: " + Build.VERSION.RELEASE));
-        assertThat(headers.get("X-Sdk-Version"), is("1.0.0-beta07"));
+        assertThat(headers.get("X-Sdk-Version"), is("1.0.0-beta07-SNAPSHOT"));
         assertThat(headers.get("X-Sdk-Type"), is("android"));
         assertThat(headers.get("X-Sdk-ContextId"), is(notNullValue()));
         assertThat(headers.get("X-Sdk-ContextId"), is(contextId));
@@ -140,7 +140,7 @@ public class RestTransactionBuilderTest {
         assertThat(headers.get("Content-Type"), is("application/json"));
         assertThat(headers.get("User-Agent"), is("HyperwalletSDK/Android/" + BuildConfig.VERSION_NAME +
                 "; App: HyperwalletSDK; Android: " + Build.VERSION.RELEASE));
-        assertThat(headers.get("X-Sdk-Version"), is("1.0.0-beta07"));
+        assertThat(headers.get("X-Sdk-Version"), is("1.0.0-beta07-SNAPSHOT"));
         assertThat(headers.get("X-Sdk-Type"), is("android"));
         assertThat(headers.get("X-Sdk-ContextId"), is(notNullValue()));
         assertThat(headers.get("X-Sdk-ContextId"), is(contextId));

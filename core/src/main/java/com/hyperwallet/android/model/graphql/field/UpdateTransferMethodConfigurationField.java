@@ -31,61 +31,29 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * Represents Users' program context Transfer Method Configuration information with Fees
  */
-public class TransferMethodConfigurationField {
+public class UpdateTransferMethodConfigurationField {
 
-    private static final String TRANSFER_FEE = "fees";
-    private static final String TRANSFER_METHOD_CONFIGURATION = "transferMethodUpdateUIConfigurations"; // Temp
-    private static final String PROCESSING_TIMES = "processingTimes";
+    private static final String TRANSFER_METHOD_CONFIGURATION = "transferMethodUpdateUIConfigurations";
 
-    private final Connection<Fee> mFeeConnection;
-    private final Connection<TransferMethodConfiguration> mTransferMethodConfigurationConnection;
-    private final Connection<ProcessingTime> mProcessingTimeConnection;
+    private final Connection<UpdateTransferMethodConfiguration> mTransferMethodConfigurationConnection;
 
     /**
      * Constructor to build transfer method configuration based on {@link JSONObject} representation
      *
      * @param configuration JSON object that represents transfer method configuration data with fees
      */
-    public TransferMethodConfigurationField(@NonNull final JSONObject configuration) throws JSONException,
+    public UpdateTransferMethodConfigurationField(@NonNull final JSONObject configuration) throws JSONException,
             NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        JSONObject fees = configuration.optJSONObject(TRANSFER_FEE);
-        if (fees != null && fees.length() != 0) {
-            mFeeConnection = new Connection<>(fees, Fee.class);
-        } else {
-            mFeeConnection = null;
-        }
+
         mTransferMethodConfigurationConnection = new Connection<>
                 (configuration.getJSONObject(TRANSFER_METHOD_CONFIGURATION),
-                        TransferMethodConfiguration.class);
-
-        JSONObject processingTime = configuration.optJSONObject(PROCESSING_TIMES);
-        if (processingTime != null && processingTime.length() != 0) {
-            mProcessingTimeConnection = new Connection<>(processingTime, ProcessingTime.class);
-        } else {
-            mProcessingTimeConnection = null;
-        }
+                        UpdateTransferMethodConfiguration.class);
     }
 
     /**
-     * @return {@link Connection} of {@link Fee}
+     * @return {@link Connection} of {@link UpdateTransferMethodConfiguration}
      */
-    @Nullable
-    public Connection<Fee> getFeeConnection() {
-        return mFeeConnection;
-    }
-
-    /**
-     * @return {@link Connection} of {@link TransferMethodConfiguration}
-     */
-    public Connection<TransferMethodConfiguration> getTransferMethodConfigurationConnection() {
+    public Connection<UpdateTransferMethodConfiguration> getTransferMethodConfigurationConnection() {
         return mTransferMethodConfigurationConnection;
-    }
-
-    /**
-     * @return {@link Connection} of {@link ProcessingTime}
-     */
-    @Nullable
-    public Connection<ProcessingTime> getProcessingTimeConnection() {
-        return mProcessingTimeConnection;
     }
 }

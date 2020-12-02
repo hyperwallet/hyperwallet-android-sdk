@@ -49,6 +49,7 @@ public class Field {
     private static final String VALIDATION_MESSAGE = "validationMessage";
     private static final String VALUE = "value";
     private static final String MASK = "mask";
+    private static final String FIELD_VALUE_MASKED = "fieldValueMasked";
 
     private final String mCategory;
     private final String mDataType;
@@ -66,6 +67,7 @@ public class Field {
     private final ValidationMessage mValidationMessage;
     private final String mValue;
     private final Mask mMask;
+    private final boolean mIsFieldValueMasked;
 
     /**
      * Constructs a {@code Field} object from {@link JSONObject} representation
@@ -73,7 +75,8 @@ public class Field {
     public Field(@NonNull final JSONObject field) {
         mCategory = field.optString(CATEGORY);
         mDataType = DataType.getDataType(field.optString(DATA_TYPE));
-        mIsEditable = field.optBoolean(IS_EDITABLE);
+        mIsEditable = field.optBoolean(FIELD_VALUE_MASKED);
+        mIsFieldValueMasked = field.optBoolean(IS_EDITABLE);
         mIsRequired = field.optBoolean(IS_REQUIRED);
         mLabel = field.optString(LABEL);
         mMaxLength = field.optInt(MAX_LENGTH, Integer.MAX_VALUE);
@@ -135,6 +138,10 @@ public class Field {
      */
     public boolean isEditable() {
         return mIsEditable;
+    }
+
+    public boolean isFieldValueMasked() {
+        return mIsFieldValueMasked;
     }
 
     /**
