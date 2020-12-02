@@ -204,6 +204,56 @@ Hyperwallet.getDefault().listVenmoAccounts(queryParam, mListener);
 // onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
 ```
 
+### Create Paper Check
+```java
+final PaperCheck paperCheck = new PaperCheck.Builder()
+         .transferMethodCountry("US")
+         .transferMethodCurrency("USD")
+         .build();
+
+Hyperwallet.getDefault().createPaperCheck(paperCheck, listener);
+// onSuccess: response (PaperCheck in this case) will contain information about the Paper Check created
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
+```
+
+### Get Paper Check
+```java
+Hyperwallet.getDefault().getPaperCheck("trm-fake-token", listener);
+// onSuccess: response (PaperCheck in this case) will contain information about the user’s Paper Check or null if not exist.
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
+```
+
+### Update Paper Check
+```java
+final PaperCheck paperCheck = new PaperCheck
+          .Builder()
+          .token("trm-fake-token")
+          .build();
+
+Hyperwallet.getDefault().updatePaperCheck(paperCheck, listener);
+// Code to handle successful response or error
+// onSuccess: response (PaperCheck in this case) will contain information about the user’s PaperCheck
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure of PaperCheck updating
+```
+
+### Deactivate Paper Check
+```java
+Hyperwallet.getDefault().deactivatePaperCheck("trm-fake-token", "deactivate Paper Check", listener);
+// Code to handle successful response or error
+// onSuccess: response (StatusTransition in this case) will contain information about the status transition
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure of Paper Check deactivation
+```
+
+### List Paper Check
+```java
+PaperCheckQueryParam queryParam = new PaperCheckQueryParam.Builder()
+                .status(ACTIVATED)
+                .build();
+Hyperwallet.getDefault().listPaperChecks(queryParam, listener);
+// onSuccess: response (PageList<PaperCheck>) will contain a PageList of PaperCheck or null if not exists
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
+```
+
 ### Create Bank Account
 ```java
 final BankAccount bankAccount = new BankAccount.Builder()
