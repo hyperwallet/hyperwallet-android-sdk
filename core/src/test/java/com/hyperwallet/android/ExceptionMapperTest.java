@@ -15,6 +15,7 @@ import com.hyperwallet.android.exception.HyperwalletAuthenticationTokenProviderE
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.exception.HyperwalletGqlException;
 import com.hyperwallet.android.exception.HyperwalletJsonParseException;
+import com.hyperwallet.android.exception.HyperwalletRestException;
 import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.TypeReference;
@@ -175,5 +176,45 @@ public class ExceptionMapperTest {
         Error error = list.get(0);
         assertThat(error.getCode(), is(equalTo("DataFetchingException")));
         assertThat(error.getMessage(), is(equalTo("Could not find any currency.")));
+    }
+
+    @Test
+    public void testToHyperwalletRestException_convertHyperwalletRestException() throws Exception {
+
+        Errors errorsFromJson = JsonUtils.fromJsonString(mResourceManager.getResourceContentError(
+                "forbidden_error_response.json"),
+                new TypeReference<Errors>() {
+                });
+        HyperwalletRestException hyperwalletRestException = new HyperwalletRestException(400, errorsFromJson);
+        HyperwalletException hyperwalletExceptionResult = toHyperwalletException(hyperwalletRestException);
+        assertNotNull(hyperwalletExceptionResult);
+
+        final Errors errors = hyperwalletExceptionResult.getErrors();
+        assertNotNull(errors);
+        final List<Error> list = errors.getErrors();
+        assertThat(list, hasSize(1));
+
+        Error error = list.get(0);
+        assertThat(error.getCode(), is(equalTo("FORBIDDEN")));
+        assertThat(error.getMessage(), is(equalTo("The caller does not have access to the requested resource")));
+    }
+
+    @Test
+    public void testToHyperwalletRestException_convertUnmappedException() throws Exception{
+        when(mResources.getString(R.string.unexpected_exception)).thenReturn(
+                "An unexpected error has occurred, please try again");
+        HyperwalletRestException hyperwalletRestException = new HyperwalletRestException(403, null);
+        HyperwalletException hyperwalletException = toHyperwalletException(new IllegalAccessException());
+        assertNotNull(hyperwalletException);
+
+        final Errors errors = hyperwalletException.getErrors();
+        assertNotNull(errors);
+        final List<Error> list = errors.getErrors();
+        assertThat(list, hasSize(1));
+
+        Error error = list.get(0);
+        assertThat(error.getCode(), is(equalTo("EC_UNEXPECTED_EXCEPTION")));
+        assertThat(error.getMessageFromResourceWhenAvailable(mResources),
+                is(equalTo("An unexpected error has occurred, please try again")));
     }
 }

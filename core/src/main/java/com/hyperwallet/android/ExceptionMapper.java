@@ -32,6 +32,7 @@ import com.hyperwallet.android.sdk.R;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +67,12 @@ public final class ExceptionMapper {
         if (exception instanceof HyperwalletGqlException) {
             return (HyperwalletGqlException) exception;
         } else if (exception instanceof HyperwalletRestException) {
-            return (HyperwalletRestException) exception;
+            HyperwalletRestException hyperwalletRestException = (HyperwalletRestException) exception;
+            if (hyperwalletRestException.getHttpCode() == HttpURLConnection.HTTP_BAD_REQUEST) {
+                return hyperwalletRestException;
+            } else {
+                return initHyperwalletException(R.string.unexpected_exception, EC_UNEXPECTED_EXCEPTION, exception);
+            }
         } else if (exception instanceof HyperwalletException) {
             return (HyperwalletException) exception;
         } else if (exception instanceof IOException) {
