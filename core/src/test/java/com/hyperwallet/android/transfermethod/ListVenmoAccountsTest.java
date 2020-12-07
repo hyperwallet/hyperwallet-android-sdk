@@ -1,5 +1,7 @@
 package com.hyperwallet.android.transfermethod;
 
+import android.content.res.Resources;
+
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.exception.HyperwalletRestException;
@@ -15,6 +17,7 @@ import com.hyperwallet.android.model.transfermethod.VenmoAccountQueryParam;
 import com.hyperwallet.android.rule.ExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
+import com.hyperwallet.android.sdk.R;
 
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -57,6 +60,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
 public class ListVenmoAccountsTest {
@@ -76,6 +80,8 @@ public class ListVenmoAccountsTest {
     private ArgumentCaptor<HyperwalletException> mExceptionCaptor;
 
     private CountDownLatch mAwait = new CountDownLatch(1);
+    @Mock
+    private Resources mResources;
 
 
     @Test
@@ -150,6 +156,8 @@ public class ListVenmoAccountsTest {
 
     @Test
     public void testListVenmoAccounts_returnsError() throws InterruptedException {
+        when(mResources.getString(R.string.unexpected_exception)).thenReturn(
+                "An unexpected error has occurred, please try again");
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
@@ -165,8 +173,6 @@ public class ListVenmoAccountsTest {
 
         HyperwalletException hyperwalletException = mExceptionCaptor.getValue();
         assertThat(hyperwalletException, is(notNullValue()));
-        assertThat(((HyperwalletRestException) hyperwalletException).getHttpCode(),
-                is(HTTP_INTERNAL_ERROR));
 
         Errors errors = hyperwalletException.getErrors();
         assertThat(errors, is(notNullValue()));
@@ -174,10 +180,9 @@ public class ListVenmoAccountsTest {
         assertThat(errors.getErrors(), Matchers.<Error>hasSize(1));
 
         Error error = errors.getErrors().get(0);
-        assertThat(error.getCode(), is("SYSTEM_ERROR"));
-        assertThat(error.getMessage(),
-                is("A system error has occurred. Please try again. If you continue to receive this error, please "
-                        + "contact customer support for assistance (Ref ID: 99b4ad5c-4aac-4cc2-aa9b-4b4f4844ac9b)."));
+        assertThat(error.getCode(), is("EC_UNEXPECTED_EXCEPTION"));
+        assertThat(error.getMessageFromResourceWhenAvailable(mResources),
+                is("An unexpected error has occurred, please try again"));
         assertThat(error.getFieldName(), is(nullValue()));
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getMethod(), is(GET.name()));

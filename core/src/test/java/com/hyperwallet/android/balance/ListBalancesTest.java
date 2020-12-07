@@ -1,5 +1,7 @@
 package com.hyperwallet.android.balance;
 
+import android.content.res.Resources;
+
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -15,6 +17,7 @@ import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
 
 import static com.hyperwallet.android.util.HttpMethod.GET;
+import static org.mockito.Mockito.when;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
@@ -28,6 +31,7 @@ import com.hyperwallet.android.model.paging.PageList;
 import com.hyperwallet.android.rule.ExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
+import com.hyperwallet.android.sdk.R;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -60,6 +64,8 @@ public class ListBalancesTest {
     private ArgumentCaptor<PageList<Balance>> mListBalanceCaptor;
     @Captor
     private ArgumentCaptor<HyperwalletException> mExceptionCaptor;
+    @Mock
+    private Resources mResources;
 
     private CountDownLatch mAwait = new CountDownLatch(1);
 
@@ -130,6 +136,8 @@ public class ListBalancesTest {
 
     @Test
     public void testListBalance_returnsError() throws InterruptedException {
+        when(mResources.getString(R.string.unexpected_exception)).thenReturn(
+                "An unexpected error has occurred, please try again");
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
@@ -144,8 +152,6 @@ public class ListBalancesTest {
 
         HyperwalletException hyperwalletException = mExceptionCaptor.getValue();
         assertThat(hyperwalletException, is(notNullValue()));
-        assertThat(((HyperwalletRestException) hyperwalletException).getHttpCode(),
-                is(HTTP_INTERNAL_ERROR));
 
         Errors errors = hyperwalletException.getErrors();
         assertThat(errors, is(notNullValue()));
@@ -153,10 +159,9 @@ public class ListBalancesTest {
         assertThat(errors.getErrors().size(), is(1));
 
         Error error = errors.getErrors().get(0);
-        assertThat(error.getCode(), is("SYSTEM_ERROR"));
-        assertThat(error.getMessage(),
-                is("A system error has occurred. Please try again. If you continue to receive this error, please "
-                        + "contact customer support for assistance (Ref ID: 99b4ad5c-4aac-4cc2-aa9b-4b4f4844ac9b)."));
+        assertThat(error.getCode(), is("EC_UNEXPECTED_EXCEPTION"));
+        assertThat(error.getMessageFromResourceWhenAvailable(mResources),
+                is("An unexpected error has occurred, please try again"));
         assertThat(error.getFieldName(), is(nullValue()));
 
         RecordedRequest recordedRequest = mServer.getRequest();
