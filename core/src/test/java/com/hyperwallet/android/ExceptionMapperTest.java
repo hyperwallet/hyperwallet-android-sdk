@@ -4,6 +4,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
@@ -34,6 +36,7 @@ import org.mockito.junit.MockitoRule;
 import org.robolectric.RobolectricTestRunner;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.List;
 
 @RunWith(RobolectricTestRunner.class)
@@ -182,12 +185,14 @@ public class ExceptionMapperTest {
     public void testToHyperwalletRestException_convertHyperwalletRestException() throws Exception {
 
         Errors errorsFromJson = JsonUtils.fromJsonString(mResourceManager.getResourceContentError(
-                "forbidden_error_response.json"),
+                "system_error_response.json"),
                 new TypeReference<Errors>() {
                 });
-        HyperwalletRestException hyperwalletRestException = new HyperwalletRestException(400, errorsFromJson);
+        HyperwalletRestException hyperwalletRestException = new HyperwalletRestException(HttpURLConnection.HTTP_BAD_REQUEST, errorsFromJson);
         HyperwalletException hyperwalletExceptionResult = toHyperwalletException(hyperwalletRestException);
         assertNotNull(hyperwalletExceptionResult);
+        assertThat(hyperwalletExceptionResult, instanceOf(HyperwalletRestException.class));
+        assertEquals(HttpURLConnection.HTTP_BAD_REQUEST, ((HyperwalletRestException)hyperwalletExceptionResult).getHttpCode());
 
         final Errors errors = hyperwalletExceptionResult.getErrors();
         assertNotNull(errors);
@@ -195,8 +200,8 @@ public class ExceptionMapperTest {
         assertThat(list, hasSize(1));
 
         Error error = list.get(0);
-        assertThat(error.getCode(), is(equalTo("FORBIDDEN")));
-        assertThat(error.getMessage(), is(equalTo("The caller does not have access to the requested resource")));
+        assertThat(error.getCode(), is(equalTo("SYSTEM_ERROR")));
+        assertThat(error.getMessage(), is(equalTo("A system error has occurred. Please try again. If you continue to receive this error, please contact customer support for assistance (Ref ID: 99b4ad5c-4aac-4cc2-aa9b-4b4f4844ac9b).")));
     }
 
     @Test
@@ -204,8 +209,9 @@ public class ExceptionMapperTest {
         when(mResources.getString(R.string.unexpected_exception)).thenReturn(
                 "An unexpected error has occurred, please try again");
         HyperwalletRestException hyperwalletRestException = new HyperwalletRestException(403, null);
-        HyperwalletException hyperwalletException = toHyperwalletException(new IllegalAccessException());
+        HyperwalletException hyperwalletException = toHyperwalletException(hyperwalletRestException);
         assertNotNull(hyperwalletException);
+        assertThat(hyperwalletException, instanceOf(HyperwalletException.class));
 
         final Errors errors = hyperwalletException.getErrors();
         assertNotNull(errors);
