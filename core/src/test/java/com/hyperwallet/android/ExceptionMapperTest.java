@@ -1,16 +1,5 @@
 package com.hyperwallet.android;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.when;
-
-import static com.hyperwallet.android.ExceptionMapper.toHyperwalletException;
-
 import android.content.res.Resources;
 
 import com.hyperwallet.android.exception.HyperwalletAuthenticationTokenProviderException;
@@ -38,6 +27,16 @@ import org.robolectric.RobolectricTestRunner;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.List;
+
+import static com.hyperwallet.android.ExceptionMapper.toHyperwalletException;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
 public class ExceptionMapperTest {
@@ -205,10 +204,30 @@ public class ExceptionMapperTest {
     }
 
     @Test
-    public void testToHyperwalletRestException_convertUnmappedException() throws Exception{
+    public void testToHyperwalletRestException_convertUnmappedExceptionUnauthorized() throws Exception {
         when(mResources.getString(R.string.unexpected_exception)).thenReturn(
                 "An unexpected error has occurred, please try again");
-        HyperwalletRestException hyperwalletRestException = new HyperwalletRestException(403, null);
+        HyperwalletRestException hyperwalletRestException = new HyperwalletRestException(HttpURLConnection.HTTP_UNAUTHORIZED, null);
+        HyperwalletException hyperwalletException = toHyperwalletException(hyperwalletRestException);
+        assertNotNull(hyperwalletException);
+        assertThat(hyperwalletException, instanceOf(HyperwalletException.class));
+
+        final Errors errors = hyperwalletException.getErrors();
+        assertNotNull(errors);
+        final List<Error> list = errors.getErrors();
+        assertThat(list, hasSize(1));
+
+        Error error = list.get(0);
+        assertThat(error.getCode(), is(equalTo("EC_UNEXPECTED_EXCEPTION")));
+        assertThat(error.getMessageFromResourceWhenAvailable(mResources),
+                is(equalTo("An unexpected error has occurred, please try again")));
+    }
+
+    @Test
+    public void testToHyperwalletRestException_convertUnmappedExceptionForbidden() throws Exception {
+        when(mResources.getString(R.string.unexpected_exception)).thenReturn(
+                "An unexpected error has occurred, please try again");
+        HyperwalletRestException hyperwalletRestException = new HyperwalletRestException(HttpURLConnection.HTTP_FORBIDDEN, null);
         HyperwalletException hyperwalletException = toHyperwalletException(hyperwalletRestException);
         assertNotNull(hyperwalletException);
         assertThat(hyperwalletException, instanceOf(HyperwalletException.class));
