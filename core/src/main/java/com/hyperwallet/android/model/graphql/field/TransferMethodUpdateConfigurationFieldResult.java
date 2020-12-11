@@ -22,11 +22,6 @@ public class TransferMethodUpdateConfigurationFieldResult extends GqlResponse<Tr
     /**
      * @return {@link TransferMethodConfiguration} representation
      */
-//    @Nullable
-//    public TransferMethodConfiguration getFields(String userToken) {
-//        return !getData().getTransferMethodFieldGroupConnection().getNodes().isEmpty()
-//                ? getData().getTransferMethodFieldGroupConnection().getNodes().get(0) : null;
-//    }
     @Nullable
     public TransferMethodConfiguration getFields() {
         return !getData().getTransferMethodFieldGroupConnection().getNodes().isEmpty()

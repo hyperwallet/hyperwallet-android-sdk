@@ -65,10 +65,7 @@ public class TransferMethodUpdateConfigurationFieldQuery implements GqlQuery {
                     "\t}\n" +
                     "}";
 
-
     private final String mTransferMethodToken;
-    // FOR TESTING ONLY
-    // private String mTransferMethodToken = "trm-59b2f69d-bcbb-4caf-83ba-9ff6df446dfa";
 
     /**
      * Create a new {@code TransferMethodConfigurationQuery} from the country, currency, transferMethodType
@@ -83,11 +80,11 @@ public class TransferMethodUpdateConfigurationFieldQuery implements GqlQuery {
     /**
      * {@inheritDoc}
      *
-     * @param trmToken {@inheritDoc}
+     * @param userToken {@inheritDoc}
      * @return {@inheritDoc}
      */
     @Override
-    public String toQuery(String trmToken) {
-        return String.format(GRAPH_QL_REQUEST, trmToken);
+    public String toQuery(String userToken) {
+        return String.format(GRAPH_QL_REQUEST, mTransferMethodToken);
     }
 }
