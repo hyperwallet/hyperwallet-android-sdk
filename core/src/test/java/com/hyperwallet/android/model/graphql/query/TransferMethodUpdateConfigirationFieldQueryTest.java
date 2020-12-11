@@ -7,11 +7,9 @@ import static org.hamcrest.Matchers.is;
 
 public class TransferMethodUpdateConfigirationFieldQueryTest {
 
-    private String sampleFieldQuery = String.format("query QueryTransferMethodUpdateUIConfiguration(\n" +
-            "\t$trmToken:String = \"%s\"\n" +
-            ") {\n" +
+    private String sampleFieldQuery = String.format( "query {\n" +
             "\ttransferMethodUpdateUIConfigurations (\n" +
-            "\t\ttrmToken: $trmToken\n" +
+            "\t\ttrmToken: \"%s\"\n" +
             "\t) {\n" +
             "\t\tnodes {\n" +
             "\t\t\tcountry\n" +
@@ -23,7 +21,7 @@ public class TransferMethodUpdateConfigirationFieldQueryTest {
             "\t\t\t\t\tgroup\n" +
             "\t\t\t\t\tisEditable\n" +
             "\t\t\t\t\tinstruction {\n" +
-            "\t\t\t\t\t\ttextTop \n" +
+            "\t\t\t\t\t\ttextTop\n" +
             "\t\t\t\t\t\ttextBottom\n" +
             "\t\t\t\t\t}\n" +
             "\t\t\t\t\tfields {\n" +
@@ -59,7 +57,6 @@ public class TransferMethodUpdateConfigirationFieldQueryTest {
             "\t\t\t\t\t}\n" +
             "\t\t\t\t}\n" +
             "\t\t\t}\n" +
-            "\t\t}\n" +
             "\t}\n" +
             "}", "trmToken");
 
