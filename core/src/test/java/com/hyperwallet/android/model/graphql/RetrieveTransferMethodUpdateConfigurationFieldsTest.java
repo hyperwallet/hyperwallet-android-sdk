@@ -51,9 +51,10 @@ public class RetrieveTransferMethodUpdateConfigurationFieldsTest {
     @Mock
     private TransferMethodUpdateConfigurationFieldQuery mMockedQuery;
     @Mock
-    private HyperwalletListener<TransferMethodUpdateConfigurationField> mListener;
+    private HyperwalletListener<HyperwalletTransferMethodConfigurationField> mListener;
     @Captor
     private ArgumentCaptor<HyperwalletException> mExceptionCaptor;
+
     @Captor
     private ArgumentCaptor<TransferMethodUpdateConfigurationFieldResult> mResultArgumentCaptor;
 
@@ -64,20 +65,19 @@ public class RetrieveTransferMethodUpdateConfigurationFieldsTest {
 
         String responseBody = mExternalResourceManager.getResourceContent("tmc_update_field_bankaccount_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
-        Hyperwallet.getDefault().retrieveTransferMethodUpdateConfigurationFields(mMockedQuery, mListener);
+        Hyperwallet.getDefault().retrieveUpdateTransferMethodConfigurationFields(mMockedQuery, mListener);
 
         mAwait.await(100, TimeUnit.MILLISECONDS);
-
-        /*
+/*
         // retrieve response
-        verify(mListener).onSuccess(mResultArgumentCaptor.capture());
+        verify(mListener).onSuccess(mResultArgumentCaptor.getValue());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
         TransferMethodUpdateConfigurationFieldResult resultFields = mResultArgumentCaptor.getValue();
 
         // assert fields
         assertThat(resultFields.getFields(), is(notNullValue()));
+*/
 
-         */
     }
 
 }
