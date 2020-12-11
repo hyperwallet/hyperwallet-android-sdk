@@ -84,7 +84,7 @@ public class TransferMethodUpdateConfigurationFieldQuery implements GqlQuery {
      * @return {@inheritDoc}
      */
     @Override
-    public String toQuery(String userToken) {
+    public String toQuery(@NonNull final String userToken) {
         return String.format(GRAPH_QL_REQUEST, mTransferMethodToken);
     }
 }
