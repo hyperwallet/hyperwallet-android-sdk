@@ -1,17 +1,13 @@
 package com.hyperwallet.android.model.graphql.query;
 
-import androidx.annotation.NonNull;
+import org.junit.Test;
 
-import com.hyperwallet.android.model.transfermethod.TransferMethod;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
-/**
- * The {@code TransferMethodConfigurationFieldQuery} class defines and builds a query to retrieve the fields
- * required to update transfer method (Bank Account, Bank Card, PayPay Account, Prepaid Card, Paper Check, Venmo)
- * with the Hyperwallet platform.
- */
-public class TransferMethodUpdateConfigurationFieldQuery implements GqlQuery {
+public class TransferMethodUpdateConfigirationFieldQueryTest {
 
-    private static final String GRAPH_QL_REQUEST = "query QueryTransferMethodUpdateUIConfiguration(\n" +
+    private String sampleFieldQuery = String.format("query QueryTransferMethodUpdateUIConfiguration(\n" +
             "\t$trmToken:String = \"%s\"\n" +
             ") {\n" +
             "\ttransferMethodUpdateUIConfigurations (\n" +
@@ -65,30 +61,15 @@ public class TransferMethodUpdateConfigurationFieldQuery implements GqlQuery {
             "\t\t\t}\n" +
             "\t\t}\n" +
             "\t}\n" +
-            "}";
+            "}", "trmToken");
 
-     private final String mTransferMethodToken;
-    // FOR TESTING ONLY
-    // private String mTransferMethodToken = "trm-59b2f69d-bcbb-4caf-83ba-9ff6df446dfa";
+    @Test
+    public void testToQuery_returnsQuery() {
 
-    /**
-     * Create a new {@code TransferMethodConfigurationQuery} from the country, currency, transferMethodType
-     * and profile.
-     *
-     * @param transferMethodToken
-     */
-    public TransferMethodUpdateConfigurationFieldQuery(@NonNull final String transferMethodToken) {
-        mTransferMethodToken = transferMethodToken;
+        TransferMethodUpdateConfigurationFieldQuery query = new TransferMethodUpdateConfigurationFieldQuery("trmToken");
+        String resultQuery = query.toQuery("trmToken");
+
+        assertThat(resultQuery, is(sampleFieldQuery));
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @param trmToken {@inheritDoc}
-     * @return {@inheritDoc}
-     */
-    @Override
-    public String toQuery(String trmToken) {
-        return String.format(GRAPH_QL_REQUEST, trmToken);
-    }
 }

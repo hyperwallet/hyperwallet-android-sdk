@@ -9,7 +9,7 @@ import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurat
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class TransferMethodUpdateConfigurationFieldResult  extends GqlResponse<TransferMethodUpdateConfigurationField> {
+public class TransferMethodUpdateConfigurationFieldResult extends GqlResponse<TransferMethodUpdateConfigurationField> {
     /**
      * Constructor to build GqlResponse based on {@link JSONObject} representation and class type
      *
@@ -22,8 +22,13 @@ public class TransferMethodUpdateConfigurationFieldResult  extends GqlResponse<T
     /**
      * @return {@link TransferMethodConfiguration} representation
      */
+//    @Nullable
+//    public TransferMethodConfiguration getFields(String userToken) {
+//        return !getData().getTransferMethodFieldGroupConnection().getNodes().isEmpty()
+//                ? getData().getTransferMethodFieldGroupConnection().getNodes().get(0) : null;
+//    }
     @Nullable
-    public TransferMethodConfiguration getFields(String userToken) {
+    public TransferMethodConfiguration getFields() {
         return !getData().getTransferMethodFieldGroupConnection().getNodes().isEmpty()
                 ? getData().getTransferMethodFieldGroupConnection().getNodes().get(0) : null;
     }

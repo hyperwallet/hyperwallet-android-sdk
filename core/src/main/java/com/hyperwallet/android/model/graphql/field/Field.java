@@ -203,5 +203,11 @@ public class Field {
         return mMask != null;
     }
 
+    /**
+     * @return if Field Value is masked
+     */
+    public boolean isFieldValueMasked() {
+        return mIsFieldValueMasked;
+    }
 }
 
