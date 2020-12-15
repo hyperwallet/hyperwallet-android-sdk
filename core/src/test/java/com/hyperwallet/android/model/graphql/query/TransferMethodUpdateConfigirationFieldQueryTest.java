@@ -9,7 +9,7 @@ public class TransferMethodUpdateConfigirationFieldQueryTest {
 
     private String sampleFieldQuery = String.format( "query {\n" +
             "\ttransferMethodUpdateUIConfigurations (\n" +
-            "\t\ttrmToken: \"trm-717534f9-02b6-4b3e-b5cb-7707bbb9b791\"\n" +
+            "\t\ttrmToken: \"%s\"\n" +
             "\t) {\n" +
             "\t\tnodes {\n" +
             "\t\t\tcountry\n" +
