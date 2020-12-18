@@ -36,9 +36,12 @@ import com.hyperwallet.android.model.balance.PrepaidCardBalanceQueryParam;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationField;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
 import com.hyperwallet.android.model.graphql.field.TransferMethodConfigurationFieldResult;
+import com.hyperwallet.android.model.graphql.field.TransferMethodUpdateConfigurationField;
+import com.hyperwallet.android.model.graphql.field.TransferMethodUpdateConfigurationFieldResult;
 import com.hyperwallet.android.model.graphql.keyed.TransferMethodConfigurationKeyResult;
 import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationFieldQuery;
 import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationKeysQuery;
+import com.hyperwallet.android.model.graphql.query.TransferMethodUpdateConfigurationFieldQuery;
 import com.hyperwallet.android.model.paging.PageList;
 import com.hyperwallet.android.model.receipt.Receipt;
 import com.hyperwallet.android.model.receipt.ReceiptQueryParam;
@@ -131,7 +134,7 @@ public class Hyperwallet {
      * is a listener object {@link HyperwalletListener<Configuration>} this means that this method will eagerly
      * authenticate.
      * if it does not fit your use case please use the former.
-     *
+     * <p>
      * Moreover a callback is provided to listen if authentication is successful or not,
      * if successful, a {@link Configuration} object is passed over the listener through
      * {@link HyperwalletListener#onSuccess(Object)};
@@ -244,7 +247,7 @@ public class Hyperwallet {
      * @param listener    the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void createBankAccount(@NonNull final BankAccount bankAccount,
-            @NonNull final HyperwalletListener<BankAccount> listener) {
+                                  @NonNull final HyperwalletListener<BankAccount> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
@@ -284,7 +287,7 @@ public class Hyperwallet {
      * @param listener   the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listBankAccounts(@Nullable final BankAccountQueryParam queryParam,
-            @NonNull final HyperwalletListener<PageList<BankAccount>> listener) {
+                                 @NonNull final HyperwalletListener<PageList<BankAccount>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
 
@@ -309,7 +312,7 @@ public class Hyperwallet {
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void createBankCard(@NonNull final BankCard bankCard,
-            @NonNull final HyperwalletListener<BankCard> listener) {
+                               @NonNull final HyperwalletListener<BankCard> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
@@ -333,7 +336,7 @@ public class Hyperwallet {
      * @param listener      the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void createPayPalAccount(@NonNull final PayPalAccount payPalAccount,
-            @NonNull final HyperwalletListener<PayPalAccount> listener) {
+                                    @NonNull final HyperwalletListener<PayPalAccount> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
@@ -357,7 +360,7 @@ public class Hyperwallet {
      * @param listener     the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void createVenmoAccount(@NonNull final VenmoAccount venmoAccount,
-            @NonNull final HyperwalletListener<VenmoAccount> listener) {
+                                   @NonNull final HyperwalletListener<VenmoAccount> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/venmo-accounts");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
@@ -378,10 +381,10 @@ public class Hyperwallet {
      * if the current one is expired or about to expire.</p>
      *
      * @param paperCheck the {@code PaperCheck} to be created; must not be null
-     * @param listener     the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener   the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void createPaperCheck(@NonNull final PaperCheck paperCheck,
-                                   @NonNull final HyperwalletListener<PaperCheck> listener) {
+                                 @NonNull final HyperwalletListener<PaperCheck> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paper-checks");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
@@ -405,7 +408,7 @@ public class Hyperwallet {
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void createTransfer(@NonNull final Transfer transfer,
-            @NonNull final HyperwalletListener<Transfer> listener) {
+                               @NonNull final HyperwalletListener<Transfer> listener) {
         PathFormatter pathFormatter = new PathFormatter("transfers");
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(POST, pathFormatter,
@@ -429,7 +432,7 @@ public class Hyperwallet {
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void getBankAccount(@NonNull final String transferMethodToken,
-            @NonNull final HyperwalletListener<BankAccount> listener) {
+                               @NonNull final HyperwalletListener<BankAccount> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts/{1}", transferMethodToken);
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -453,7 +456,7 @@ public class Hyperwallet {
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void getBankCard(@NonNull final String transferMethodToken,
-            @NonNull final HyperwalletListener<BankCard> listener) {
+                            @NonNull final HyperwalletListener<BankCard> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards/{1}", transferMethodToken);
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -497,7 +500,7 @@ public class Hyperwallet {
      * @param listener      the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void getTransfer(@NonNull final String transferToken,
-            @NonNull final HyperwalletListener<Transfer> listener) {
+                            @NonNull final HyperwalletListener<Transfer> listener) {
         PathFormatter pathFormatter = new PathFormatter("transfers/{1}", transferToken);
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -524,7 +527,7 @@ public class Hyperwallet {
      * @param listener    the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void updateBankAccount(@NonNull final BankAccount bankAccount,
-            @NonNull final HyperwalletListener<BankAccount> listener) {
+                                  @NonNull final HyperwalletListener<BankAccount> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts/{1}",
                 bankAccount.getField(TransferMethod.TransferMethodFields.TOKEN));
 
@@ -553,7 +556,7 @@ public class Hyperwallet {
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void updateBankCard(@NonNull final BankCard bankCard,
-            @NonNull final HyperwalletListener<BankCard> listener) {
+                               @NonNull final HyperwalletListener<BankCard> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards/{1}",
                 bankCard.getField(TransferMethod.TransferMethodFields.TOKEN));
 
@@ -581,7 +584,7 @@ public class Hyperwallet {
      * @param listener      the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void updatePayPalAccount(@NonNull final PayPalAccount payPalAccount,
-            @NonNull final HyperwalletListener<PayPalAccount> listener) {
+                                    @NonNull final HyperwalletListener<PayPalAccount> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts/{1}",
                 payPalAccount.getField(TransferMethod.TransferMethodFields.TOKEN));
 
@@ -609,7 +612,7 @@ public class Hyperwallet {
      * @param listener     the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void updateVenmoAccount(@NonNull final VenmoAccount venmoAccount,
-            @NonNull final HyperwalletListener<VenmoAccount> listener) {
+                                   @NonNull final HyperwalletListener<VenmoAccount> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/venmo-accounts/{1}",
                 venmoAccount.getField(TransferMethod.TransferMethodFields.TOKEN));
 
@@ -634,10 +637,10 @@ public class Hyperwallet {
      * if the current one is expired or about to expire.</p>
      *
      * @param paperCheck the {@code PaperCheck} to be created; must not be null
-     * @param listener     the callback handler of responses from the Hyperwallet platform; must not be null
+     * @param listener   the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void updatePaperCheck(@NonNull final PaperCheck paperCheck,
-                                   @NonNull final HyperwalletListener<PaperCheck> listener) {
+                                 @NonNull final HyperwalletListener<PaperCheck> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paper-checks/{1}",
                 paperCheck.getField(TransferMethod.TransferMethodFields.TOKEN));
 
@@ -666,7 +669,7 @@ public class Hyperwallet {
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void deactivateBankAccount(@NonNull final String transferMethodToken, @Nullable final String notes,
-            @NonNull final HyperwalletListener<StatusTransition> listener) {
+                                      @NonNull final HyperwalletListener<StatusTransition> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts/{1}/status-transitions",
                 transferMethodToken);
 
@@ -699,7 +702,7 @@ public class Hyperwallet {
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void deactivateBankCard(@NonNull final String transferMethodToken, @Nullable final String notes,
-            @NonNull final HyperwalletListener<StatusTransition> listener) {
+                                   @NonNull final HyperwalletListener<StatusTransition> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards/{1}/status-transitions",
                 transferMethodToken);
 
@@ -732,7 +735,7 @@ public class Hyperwallet {
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void deactivatePayPalAccount(@NonNull final String transferMethodToken, @Nullable final String notes,
-            @NonNull final HyperwalletListener<StatusTransition> listener) {
+                                        @NonNull final HyperwalletListener<StatusTransition> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts/{1}/status-transitions",
                 transferMethodToken);
 
@@ -765,7 +768,7 @@ public class Hyperwallet {
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void deactivateVenmoAccount(@NonNull final String transferMethodToken, @Nullable final String notes,
-            @NonNull final HyperwalletListener<StatusTransition> listener) {
+                                       @NonNull final HyperwalletListener<StatusTransition> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/venmo-accounts/{1}/status-transitions",
                 transferMethodToken);
 
@@ -798,7 +801,7 @@ public class Hyperwallet {
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void deactivatePaperCheck(@NonNull final String transferMethodToken, @Nullable final String notes,
-                                       @NonNull final HyperwalletListener<StatusTransition> listener) {
+                                     @NonNull final HyperwalletListener<StatusTransition> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paper-checks/{1}/status-transitions",
                 transferMethodToken);
 
@@ -843,7 +846,7 @@ public class Hyperwallet {
      * @param listener   the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listTransferMethods(@Nullable final TransferMethodQueryParam queryParam,
-            @NonNull final HyperwalletListener<PageList<TransferMethod>> listener) {
+                                    @NonNull final HyperwalletListener<PageList<TransferMethod>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/transfer-methods");
 
@@ -883,7 +886,7 @@ public class Hyperwallet {
      * @param listener   the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listBankCards(@Nullable final BankCardQueryParam queryParam,
-            @NonNull final HyperwalletListener<PageList<BankCard>> listener) {
+                              @NonNull final HyperwalletListener<PageList<BankCard>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-cards");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -923,7 +926,7 @@ public class Hyperwallet {
      * @param listener   the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listPrepaidCards(@Nullable final PrepaidCardQueryParam queryParam,
-            @NonNull final HyperwalletListener<PageList<PrepaidCard>> listener) {
+                                 @NonNull final HyperwalletListener<PageList<PrepaidCard>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/prepaid-cards");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -960,7 +963,7 @@ public class Hyperwallet {
      * @param listener   the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listUserBalances(@Nullable final BalanceQueryParam queryParam,
-            @NonNull final HyperwalletListener<PageList<Balance>> listener) {
+                                 @NonNull final HyperwalletListener<PageList<Balance>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(queryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/balances");
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -991,8 +994,8 @@ public class Hyperwallet {
      *                                     null
      */
     public void listPrepaidCardBalances(@NonNull final String prepaidCardToken,
-            @Nullable final PrepaidCardBalanceQueryParam prepaidCardBalanceQueryParam,
-            @NonNull final HyperwalletListener<PageList<Balance>> listener) {
+                                        @Nullable final PrepaidCardBalanceQueryParam prepaidCardBalanceQueryParam,
+                                        @NonNull final HyperwalletListener<PageList<Balance>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(prepaidCardBalanceQueryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/prepaid-cards/{1}/balances", prepaidCardToken);
 
@@ -1140,7 +1143,7 @@ public class Hyperwallet {
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void getPrepaidCard(@NonNull final String transferMethodToken,
-            @NonNull final HyperwalletListener<PrepaidCard> listener) {
+                               @NonNull final HyperwalletListener<PrepaidCard> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/prepaid-cards/{1}", transferMethodToken);
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -1164,7 +1167,7 @@ public class Hyperwallet {
      * @param listener            the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void getPayPalAccount(@NonNull final String transferMethodToken,
-            @NonNull final HyperwalletListener<PayPalAccount> listener) {
+                                 @NonNull final HyperwalletListener<PayPalAccount> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paypal-accounts/{1}", transferMethodToken);
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -1189,7 +1192,7 @@ public class Hyperwallet {
      */
 
     public void getVenmoAccount(@NonNull final String transferMethodToken,
-            @NonNull final HyperwalletListener<VenmoAccount> listener) {
+                                @NonNull final HyperwalletListener<VenmoAccount> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/venmo-accounts/{1}", transferMethodToken);
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -1214,7 +1217,7 @@ public class Hyperwallet {
      */
 
     public void getPaperCheck(@NonNull final String transferMethodToken,
-                                @NonNull final HyperwalletListener<PaperCheck> listener) {
+                              @NonNull final HyperwalletListener<PaperCheck> listener) {
         PathFormatter pathFormatter = new PathFormatter("users/{0}/paper-checks/{1}", transferMethodToken);
 
         RestTransaction.Builder builder = new RestTransaction.Builder<>(GET, pathFormatter,
@@ -1275,6 +1278,31 @@ public class Hyperwallet {
         performGqlTransaction(builder, listener);
     }
 
+    /**
+     * Returns the transfer method update configuration field set for the User that is associated with the authentication
+     * token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param query    containing a transfer method configuration key tuple of
+     *                 transfer method token,
+     *                 must not be null
+     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void retrieveUpdateTransferMethodConfigurationFields(
+            @NonNull final TransferMethodUpdateConfigurationFieldQuery query,
+            @NonNull final HyperwalletListener<HyperwalletTransferMethodConfigurationField> listener) {
+
+        GqlTransaction.Builder<TransferMethodUpdateConfigurationFieldResult> builder =
+                new GqlTransaction.Builder<>(query, new TypeReference<TransferMethodUpdateConfigurationFieldResult>() {
+                }, listener);
+        performGqlTransaction(builder, listener);
+    }
 
     /**
      * Returns the list of {@link Receipt}s for the User associated with the authentication token
@@ -1305,7 +1333,7 @@ public class Hyperwallet {
      * @param listener          the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listUserReceipts(@Nullable final ReceiptQueryParam receiptQueryParam,
-            @NonNull final HyperwalletListener<PageList<Receipt>> listener) {
+                                 @NonNull final HyperwalletListener<PageList<Receipt>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(receiptQueryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/receipts");
 
@@ -1342,8 +1370,8 @@ public class Hyperwallet {
      * @param listener          the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listPrepaidCardReceipts(@NonNull final String prepaidCardToken,
-            @Nullable final ReceiptQueryParam receiptQueryParam,
-            @NonNull final HyperwalletListener<PageList<Receipt>> listener) {
+                                        @Nullable final ReceiptQueryParam receiptQueryParam,
+                                        @NonNull final HyperwalletListener<PageList<Receipt>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(receiptQueryParam);
         PathFormatter pathFormatter = new PathFormatter("users/{0}/prepaid-cards/{1}/receipts", prepaidCardToken);
 
@@ -1384,7 +1412,7 @@ public class Hyperwallet {
      * @param listener           the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void listTransfers(@Nullable final TransferQueryParam transferQueryParam,
-            @NonNull final HyperwalletListener<PageList<Transfer>> listener) {
+                              @NonNull final HyperwalletListener<PageList<Transfer>> listener) {
         Map<String, String> urlQuery = buildUrlQueryIfRequired(transferQueryParam);
         PathFormatter pathFormatter = new PathFormatter("transfers");
 
@@ -1403,7 +1431,7 @@ public class Hyperwallet {
      * @param listener      the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void scheduleTransfer(@NonNull final String transferToken, @Nullable final String notes,
-            @NonNull final HyperwalletListener<StatusTransition> listener) {
+                                 @NonNull final HyperwalletListener<StatusTransition> listener) {
         PathFormatter pathFormatter = new PathFormatter("transfers/{1}/status-transitions",
                 transferToken);
 
@@ -1420,7 +1448,7 @@ public class Hyperwallet {
     }
 
     private void performGqlTransaction(@NonNull final GqlTransaction.Builder builder,
-            @NonNull final HyperwalletListener listener) {
+                                       @NonNull final HyperwalletListener listener) {
         if (mConfiguration == null || mConfiguration.isStale()) {
             mHyperwalletAuthenticationTokenProvider.retrieveAuthenticationToken(
                     new HyperwalletAuthenticationTokenListener() {
@@ -1478,7 +1506,7 @@ public class Hyperwallet {
     }
 
     private void performRestTransaction(@NonNull final RestTransaction.Builder builder,
-            @NonNull final HyperwalletListener listener) {
+                                        @NonNull final HyperwalletListener listener) {
 
         if (mConfiguration == null || mConfiguration.isStale()) {
             mHyperwalletAuthenticationTokenProvider.retrieveAuthenticationToken(

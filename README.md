@@ -513,6 +513,16 @@ result.getProcessingTime();
 result.getFields();
 result.getFields().getTransferMethodType();
 ```
+### Update fields for a transfer method type
+```java
+TransferMethodUpdateConfigurationFieldQuery fieldQuery = new TransferMethodUpdateConfigurationFieldQuery(
+        "trmToken");
+Hyperwallet.getDefault().retrieveTransferMethodUpdateConfigurationFields(fieldQuery, listener);
+// onSuccess: response (TransferMethodUpdateConfigurationFieldResult)
+//         will contain a dataset of available Transfer Method Configuration Fields for the specified query
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
 
+result.getFields();
+```
 ## License
 The Hyperwallet Android Core SDK is open source and available under the [MIT](https://github.com/hyperwallet/hyperwallet-android-sdk/blob/master/LICENSE) license.

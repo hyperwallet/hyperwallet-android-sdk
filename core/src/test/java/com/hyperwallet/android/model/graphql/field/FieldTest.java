@@ -3,6 +3,7 @@ package com.hyperwallet.android.model.graphql.field;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.isOneOf;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -84,5 +85,15 @@ public class FieldTest {
 
         assertTrue(field.containsMask());
         assertThat(field.getMask(), is(notNullValue()));
+    }
+
+    @Test
+    public void testField_convertJsonObjectWithFieldValueMasked() throws JSONException {
+        String jsonResponse = mExternalResourceManager.getResourceContent(
+                "mask_with_fieldvaluemasked_response.json");
+        JSONObject jsonResponseObject = new JSONObject(jsonResponse);
+        Field field = new Field(jsonResponseObject);
+
+        assertTrue(field.isFieldValueMasked());
     }
 }
