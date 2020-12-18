@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class TransferMethodUpdateConfigirationFieldQueryTest {
+public class TransferMethodUpdateConfigurationFieldQueryTest {
 
     private String sampleFieldQuery = String.format( "query {\n" +
             "\ttransferMethodUpdateUIConfigurations (\n" +
