@@ -1,0 +1,16 @@
+{
+  "token": "sts-fake-token",
+  "createdOn": "2020-11-30T11:17:11",
+  "transition": "DE_ACTIVATED",
+  "fromStatus": "ACTIVATED",
+  "toStatus": "DE_ACTIVATED",
+  "notes": "Closing PaperCheck.",
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://qamaster-hyperwallet.aws.paylution.net/rest/v3/users/usr-49686404-c8a3-4af4-b31c-878149a986d6/paper-checks/trm-b707b8cc-9e1d-41ec-9035-561d38d638fd/status-transitions/sts-924cd4fc-0c10-46fa-816f-061763a30f6a"
+    }
+  ]
+}

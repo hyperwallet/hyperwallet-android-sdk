@@ -4,16 +4,12 @@ import android.content.res.Resources;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
-import com.hyperwallet.android.exception.HyperwalletRestException;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.paging.PageList;
-import com.hyperwallet.android.model.transfermethod.PayPalAccount;
-import com.hyperwallet.android.model.transfermethod.PayPalAccountQueryParam;
-import com.hyperwallet.android.model.transfermethod.TransferMethod;
-import com.hyperwallet.android.model.transfermethod.VenmoAccount;
-import com.hyperwallet.android.model.transfermethod.VenmoAccountQueryParam;
+import com.hyperwallet.android.model.transfermethod.PaperCheck;
+import com.hyperwallet.android.model.transfermethod.PaperCheckQueryParam;
 import com.hyperwallet.android.rule.ExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
@@ -38,15 +34,14 @@ import okhttp3.mockwebserver.RecordedRequest;
 
 import static com.hyperwallet.android.model.StatusTransition.StatusDefinition.ACTIVATED;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.CREATED_ON;
-import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.EMAIL;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.PROFILE_TYPE;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.SHIPPING_METHOD;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.STATUS;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.TOKEN;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.TRANSFER_METHOD_CURRENCY;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.TYPE;
-import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.VENMO_ACCOUNT_ID;
-import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
-import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.VENMO_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.PAPER_CHECK;
 import static com.hyperwallet.android.util.HttpMethod.GET;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
@@ -63,7 +58,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-public class ListVenmoAccountsTest {
+public class ListPaperCheckTest {
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
     @Rule
@@ -73,102 +68,103 @@ public class ListVenmoAccountsTest {
     @Rule
     public MockitoRule mMockito = MockitoJUnit.rule();
     @Mock
-    private HyperwalletListener<PageList<VenmoAccount>> mListener;
+    private HyperwalletListener<PageList<PaperCheck>> mListener;
     @Captor
-    private ArgumentCaptor<PageList<VenmoAccount>> mListVenmoCaptor;
+    private ArgumentCaptor<PageList<PaperCheck>> mListPaperCheckCaptor;
     @Captor
     private ArgumentCaptor<HyperwalletException> mExceptionCaptor;
-
-    private CountDownLatch mAwait = new CountDownLatch(1);
     @Mock
     private Resources mResources;
 
+    private CountDownLatch mAwait = new CountDownLatch(1);
+
 
     @Test
-    public void testListVenmoAccounts_returnsActivatedAccounts() throws InterruptedException {
+    public void testListPaperCheck_returnsActivatedAccounts() throws InterruptedException {
 
-        String responseBody = mExternalResourceManager.getResourceContent("venmo_accounts_response.json");
+        String responseBody = mExternalResourceManager.getResourceContent("paper_checks_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_OK).withBody(responseBody).mock();
 
-        VenmoAccountQueryParam queryParam = new VenmoAccountQueryParam.Builder()
+        PaperCheckQueryParam queryParam = new PaperCheckQueryParam.Builder()
                 .status(ACTIVATED)
                 .build();
 
         assertThat(queryParam, is(notNullValue()));
-        Hyperwallet.getDefault().listVenmoAccounts(queryParam, mListener);
+        Hyperwallet.getDefault().listPaperChecks(queryParam, mListener);
 
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getMethod(), is(GET.name()));
-        verify(mListener).onSuccess(mListVenmoCaptor.capture());
+        verify(mListener).onSuccess(mListPaperCheckCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
 
-        PageList<VenmoAccount> venmoAccountsResponse = mListVenmoCaptor.getValue();
+        PageList<PaperCheck> paperCheckResponse = mListPaperCheckCaptor.getValue();
 
-        assertThat(venmoAccountsResponse.getCount(), is(1));
-        assertThat(venmoAccountsResponse.getDataList(), hasSize(1));
-        assertThat(venmoAccountsResponse.getOffset(), is(0));
-        assertThat(venmoAccountsResponse.getLimit(), is(10));
+        assertThat(paperCheckResponse.getCount(), is(1));
+        assertThat(paperCheckResponse.getDataList(), hasSize(1));
+        assertThat(paperCheckResponse.getOffset(), is(0));
+        assertThat(paperCheckResponse.getLimit(), is(10));
 
         assertThat(recordedRequest.getPath(),
-                is("/rest/v3/users/test-user-token/venmo-accounts?limit=10&offset=0&type"
-                        + "=VENMO_ACCOUNT&status=ACTIVATED"));
+                is("/rest/v3/users/test-user-token/paper-checks?limit=10&offset=0&type"
+                        + "=PAPER_CHECK&status=ACTIVATED"));
 
-        VenmoAccount venmoAccount = venmoAccountsResponse.getDataList().get(0);
-        assertThat(venmoAccount.getField(TOKEN), is("trm-fake-token"));
-        assertThat(venmoAccount.getField(TYPE), is(VENMO_ACCOUNT));
-        assertThat(venmoAccount.getField(STATUS), is(ACTIVATED));
-        assertThat(venmoAccount.getField(CREATED_ON), is("2019-01-09T22:50:14"));
-        assertThat(venmoAccount.getField(TRANSFER_METHOD_COUNTRY), is("US"));
-        assertThat(venmoAccount.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
-        assertThat(venmoAccount.getField(VENMO_ACCOUNT_ID), is("9876543210"));
+        PaperCheck paperCheck = paperCheckResponse.getDataList().get(0);
+        assertThat(paperCheck.getField(TOKEN), is("trm-fake-token"));
+        assertThat(paperCheck.getField(TYPE), is(PAPER_CHECK));
+        assertThat(paperCheck.getField(STATUS), is(ACTIVATED));
+        assertThat(paperCheck.getField(CREATED_ON), is("2020-11-29T13:41:56"));
+        assertThat(paperCheck.getField(TRANSFER_METHOD_COUNTRY), is("US"));
+        assertThat(paperCheck.getField(TRANSFER_METHOD_CURRENCY), is("USD"));
+        assertThat(paperCheck.getField(PROFILE_TYPE), is("PUBLIC_COMPANY"));
+        assertThat(paperCheck.getField(SHIPPING_METHOD), is("EXPEDITED"));
     }
 
     @Test
-    public void testListVenmoAccounts_returnsNoAccounts() throws InterruptedException {
+    public void testListPaperCheck_returnsNoAccounts() throws InterruptedException {
         mServer.mockResponse().withHttpResponseCode(HTTP_NO_CONTENT).withBody("").mock();
 
-        VenmoAccountQueryParam queryParam = new VenmoAccountQueryParam.Builder()
+        PaperCheckQueryParam queryParam = new PaperCheckQueryParam.Builder()
                 .status(ACTIVATED)
                 .build();
 
         assertThat(queryParam, is(notNullValue()));
-        Hyperwallet.getDefault().listVenmoAccounts(queryParam, mListener);
+        Hyperwallet.getDefault().listPaperChecks(queryParam, mListener);
 
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/test-user-token/venmo-accounts?"));
-        assertThat(recordedRequest.getPath(), containsString("type=VENMO_ACCOUNT"));
+                containsString("/rest/v3/users/test-user-token/paper-checks?"));
+        assertThat(recordedRequest.getPath(), containsString("type=PAPER_CHECK"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
         assertThat(recordedRequest.getPath(), containsString("status=ACTIVATED"));
 
-        verify(mListener).onSuccess(mListVenmoCaptor.capture());
+        verify(mListener).onSuccess(mListPaperCheckCaptor.capture());
         verify(mListener, never()).onFailure(any(HyperwalletException.class));
 
-        PageList<VenmoAccount> venmoAccountsResponse = mListVenmoCaptor.getValue();
-        assertThat(venmoAccountsResponse, is(nullValue()));
+        PageList<PaperCheck> paperCheckResponse = mListPaperCheckCaptor.getValue();
+        assertThat(paperCheckResponse, is(nullValue()));
     }
 
     @Test
-    public void testListVenmoAccounts_returnsError() throws InterruptedException {
+    public void testListPaperCheck_returnsError() throws InterruptedException {
         when(mResources.getString(R.string.unexpected_exception)).thenReturn(
                 "An unexpected error has occurred, please try again");
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HTTP_INTERNAL_ERROR).withBody(responseBody).mock();
 
-        VenmoAccountQueryParam queryParam = new VenmoAccountQueryParam.Builder()
+        PaperCheckQueryParam queryParam = new PaperCheckQueryParam.Builder()
                 .status(ACTIVATED)
                 .build();
 
-        Hyperwallet.getDefault().listVenmoAccounts(queryParam, mListener);
+        Hyperwallet.getDefault().listPaperChecks(queryParam, mListener);
         mAwait.await(500, TimeUnit.MILLISECONDS);
 
-        verify(mListener, never()).onSuccess(ArgumentMatchers.<PageList<VenmoAccount>>any());
+        verify(mListener, never()).onSuccess(ArgumentMatchers.<PageList<PaperCheck>>any());
         verify(mListener).onFailure(mExceptionCaptor.capture());
 
         HyperwalletException hyperwalletException = mExceptionCaptor.getValue();
@@ -187,8 +183,8 @@ public class ListVenmoAccountsTest {
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getMethod(), is(GET.name()));
         assertThat(recordedRequest.getPath(),
-                containsString("/rest/v3/users/test-user-token/venmo-accounts?"));
-        assertThat(recordedRequest.getPath(), containsString("type=VENMO_ACCOUNT"));
+                containsString("/rest/v3/users/test-user-token/paper-checks?"));
+        assertThat(recordedRequest.getPath(), containsString("type=PAPER_CHECK"));
         assertThat(recordedRequest.getPath(), containsString("limit=10"));
         assertThat(recordedRequest.getPath(), containsString("offset=0"));
         assertThat(recordedRequest.getPath(), containsString("status=ACTIVATED"));

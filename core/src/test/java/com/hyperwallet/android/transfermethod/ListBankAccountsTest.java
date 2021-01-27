@@ -1,5 +1,7 @@
 package com.hyperwallet.android.transfermethod;
 
+import android.content.res.Resources;
+
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -35,6 +37,7 @@ import static com.hyperwallet.android.model.transfermethod.TransferMethod.Transf
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.TYPE;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 import static com.hyperwallet.android.util.HttpMethod.GET;
+import static org.mockito.Mockito.when;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
@@ -48,6 +51,7 @@ import com.hyperwallet.android.model.transfermethod.BankAccountQueryParam;
 import com.hyperwallet.android.rule.ExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
+import com.hyperwallet.android.sdk.R;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -82,6 +86,8 @@ public class ListBankAccountsTest {
     private ArgumentCaptor<PageList<BankAccount>> mListBankAccountCaptor;
     @Captor
     private ArgumentCaptor<HyperwalletException> mExceptionCaptor;
+    @Mock
+    private Resources mResources;
 
     private CountDownLatch mAwait = new CountDownLatch(1);
 
@@ -186,6 +192,8 @@ public class ListBankAccountsTest {
 
     @Test
     public void testListBankAccounts_returnsError() throws InterruptedException {
+        when(mResources.getString(R.string.unexpected_exception)).thenReturn(
+                "An unexpected error has occurred, please try again");
         String responseBody = mExternalResourceManager.getResourceContentError("system_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_INTERNAL_ERROR).withBody(
                 responseBody).mock();
@@ -207,10 +215,9 @@ public class ListBankAccountsTest {
         assertThat(errors.getErrors().size(), is(1));
 
         Error error = errors.getErrors().get(0);
-        assertThat(error.getCode(), is("SYSTEM_ERROR"));
-        assertThat(error.getMessage(),
-                is("A system error has occurred. Please try again. If you continue to receive this error, please "
-                        + "contact customer support for assistance (Ref ID: 99b4ad5c-4aac-4cc2-aa9b-4b4f4844ac9b)."));
+        assertThat(error.getCode(), is("EC_UNEXPECTED_EXCEPTION"));
+        assertThat(error.getMessageFromResourceWhenAvailable(mResources),
+                is("An unexpected error has occurred, please try again"));
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getPath(),

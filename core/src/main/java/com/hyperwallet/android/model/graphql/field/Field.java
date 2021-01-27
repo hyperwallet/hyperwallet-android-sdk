@@ -49,6 +49,7 @@ public class Field {
     private static final String VALIDATION_MESSAGE = "validationMessage";
     private static final String VALUE = "value";
     private static final String MASK = "mask";
+    private static final String FIELD_VALUE_MASKED = "fieldValueMasked";
 
     private final String mCategory;
     private final String mDataType;
@@ -66,6 +67,7 @@ public class Field {
     private final ValidationMessage mValidationMessage;
     private final String mValue;
     private final Mask mMask;
+    private final boolean mIsFieldValueMasked;
 
     /**
      * Constructs a {@code Field} object from {@link JSONObject} representation
@@ -83,6 +85,7 @@ public class Field {
         mRegularExpression = field.optString(REGULAR_EXPRESSION);
         mValue = field.optString(VALUE);
         mFileType = field.optString(FILE_TYPE);
+        mIsFieldValueMasked = field.optBoolean(FIELD_VALUE_MASKED);
 
         JSONObject fileSize = field.optJSONObject(FILE_SIZE);
         if (fileSize != null) {
@@ -200,5 +203,11 @@ public class Field {
         return mMask != null;
     }
 
+    /**
+     * @return if Field Value is masked
+     */
+    public boolean isFieldValueMasked() {
+        return mIsFieldValueMasked;
+    }
 }
 

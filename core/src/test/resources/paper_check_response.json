@@ -1,0 +1,33 @@
+{
+  "token": "trm-fake-token",
+  "type": "PAPER_CHECK",
+  "status": "ACTIVATED",
+  "verificationStatus": "NOT_REQUIRED",
+  "createdOn": "2020-11-29T13:41:56",
+  "transferMethodCountry": "US",
+  "transferMethodCurrency": "USD",
+  "userToken": "usr-49686404-c8a3-4af4-b31c-878149a986d6",
+  "profileType": "INDIVIDUAL",
+  "firstName": "Change",
+  "lastName": "ChangLastname",
+  "dateOfBirth": "2000-01-01",
+  "gender": "MALE",
+  "phoneNumber": "605-555-1323",
+  "mobileNumber": "605-555-1323",
+  "governmentId": "444444444",
+  "addressLine1": "1234 IndividualAddress St",
+  "addressLine2": "1234 AddressLineTwo St",
+  "city": "Test",
+  "stateProvince": "CA",
+  "country": "US",
+  "postalCode": "12345",
+  "shippingMethod": "STANDARD",
+  "links": [
+    {
+      "params": {
+        "rel": "self"
+      },
+      "href": "https://qamaster-hyperwallet.aws.paylution.net/rest/v3/users/usr-49686404-c8a3-4af4-b31c-878149a986d6/paper-checks/trm-b707b8cc-9e1d-41ec-9035-561d38d638fd"
+    }
+  ]
+}

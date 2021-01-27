@@ -1,6 +1,12 @@
 Changelog
 =========
 
+[1.0.0-beta08](https://github.com/hyperwallet/hyperwallet-android-sdk/releases/tag/1.0.0-beta08)
+-------------------
+* Added Paper Check as a Transfer method
+* Added support for update Transfer method
+* Enhancements
+
 [1.0.0-beta07](https://github.com/hyperwallet/hyperwallet-android-sdk/releases/tag/1.0.0-beta07)
 -------------------
 * Added Venmo as a Transfer method
