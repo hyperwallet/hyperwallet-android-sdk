@@ -225,13 +225,14 @@ Hyperwallet.getDefault().getPaperCheck("trm-fake-token", listener);
 
 ### Update Paper Check
 ```java
-final PaperCheck paperCheck = new PaperCheck
-          .Builder()
-          .token("trm-fake-token")
-          .build();
+ final PaperCheck paperCheck = new PaperCheck
+                .Builder()
+                .token("trm-fake-token")
+                .shippingMethod("EXPEDITED")
+                .city("Victoria")
+                .build();
 
 Hyperwallet.getDefault().updatePaperCheck(paperCheck, listener);
-// Code to handle successful response or error
 // onSuccess: response (PaperCheck in this case) will contain information about the user’s PaperCheck
 // onFailure: error (ErrorType) will contain Errors containing information about what caused the failure of PaperCheck updating
 ```
@@ -239,7 +240,6 @@ Hyperwallet.getDefault().updatePaperCheck(paperCheck, listener);
 ### Deactivate Paper Check
 ```java
 Hyperwallet.getDefault().deactivatePaperCheck("trm-fake-token", "deactivate Paper Check", listener);
-// Code to handle successful response or error
 // onSuccess: response (StatusTransition in this case) will contain information about the status transition
 // onFailure: error (ErrorType) will contain Errors containing information about what caused the failure of Paper Check deactivation
 ```

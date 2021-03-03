@@ -27,6 +27,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.mockwebserver.RecordedRequest;
 
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.CITY;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.CREATED_ON;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.SHIPPING_METHOD;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.STATUS;
@@ -70,6 +71,8 @@ public class UpdatePaperCheckTest {
         final PaperCheck paperCheck = new PaperCheck
                 .Builder()
                 .token("trm-fake-token")
+                .shippingMethod("EXPEDITED")
+                .city("Victoria")
                 .build();
 
         assertThat(paperCheck.getField(TOKEN), is("trm-fake-token"));
@@ -95,6 +98,7 @@ public class UpdatePaperCheckTest {
         assertThat(paperCheckResponse.getField(TRANSFER_METHOD_COUNTRY), is("US"));
         assertThat(paperCheckResponse.getField(CREATED_ON), is("2020-11-29T15:13:55"));
         assertThat(paperCheckResponse.getField(SHIPPING_METHOD), is("EXPEDITED"));
+        assertThat(paperCheckResponse.getField(CITY), is("Victoria"));
     }
 
     @Test
@@ -107,6 +111,7 @@ public class UpdatePaperCheckTest {
         final PaperCheck paperCheck = new PaperCheck
                 .Builder()
                 .token("trm-fake-token")
+                .postalCode("1234")
                 .build();
 
         assertThat(paperCheck.getField(TOKEN),
@@ -134,7 +139,7 @@ public class UpdatePaperCheckTest {
 
         Error error1 = errors.getErrors().get(0);
         assertThat(error1.getCode(), is("CONSTRAINT_VIOLATIONS"));
-        assertThat(error1.getFieldName(), is("phoneNumber"));
-        assertThat(error1.getMessage(), is("The number you provided is not valid!"));
+        assertThat(error1.getFieldName(), is("postalCode"));
+        assertThat(error1.getMessage(), is("Invalid Postal Code"));
     }
 }
