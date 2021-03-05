@@ -229,7 +229,6 @@ Hyperwallet.getDefault().getPaperCheck("trm-fake-token", listener);
                 .Builder()
                 .token("trm-fake-token")
                 .shippingMethod("EXPEDITED")
-                .city("Victoria")
                 .build();
 
 Hyperwallet.getDefault().updatePaperCheck(paperCheck, listener);

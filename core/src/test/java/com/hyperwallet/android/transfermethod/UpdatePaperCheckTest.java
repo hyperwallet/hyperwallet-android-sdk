@@ -27,9 +27,14 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.mockwebserver.RecordedRequest;
 
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.ADDRESS_LINE_1;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.ADDRESS_LINE_2;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.CITY;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.COUNTRY;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.CREATED_ON;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.POSTAL_CODE;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.SHIPPING_METHOD;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.STATE_PROVINCE;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.STATUS;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.TOKEN;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodFields.TRANSFER_METHOD_COUNTRY;
@@ -73,9 +78,21 @@ public class UpdatePaperCheckTest {
                 .token("trm-fake-token")
                 .shippingMethod("EXPEDITED")
                 .city("Victoria")
+                .postalCode("12345")
+                .addressLine1("123 Other Street")
+                .addressLine2("1234 AddressLineTwo St")
+                .stateProvince("CA")
+                .country("US")
                 .build();
 
         assertThat(paperCheck.getField(TOKEN), is("trm-fake-token"));
+        assertThat(paperCheck.getField(SHIPPING_METHOD), is("EXPEDITED"));
+        assertThat(paperCheck.getField(CITY), is("Victoria"));
+        assertThat(paperCheck.getField(POSTAL_CODE), is("12345"));
+        assertThat(paperCheck.getField(ADDRESS_LINE_1),is("123 Other Street"));
+        assertThat(paperCheck.getField(ADDRESS_LINE_2),is("1234 AddressLineTwo St"));
+        assertThat(paperCheck.getField(STATE_PROVINCE),is("CA"));
+        assertThat(paperCheck.getField(COUNTRY),is("US"));
 
         Hyperwallet.getDefault().updatePaperCheck(paperCheck, mListener);
         mAwait.await(50, TimeUnit.MILLISECONDS);
@@ -99,6 +116,11 @@ public class UpdatePaperCheckTest {
         assertThat(paperCheckResponse.getField(CREATED_ON), is("2020-11-29T15:13:55"));
         assertThat(paperCheckResponse.getField(SHIPPING_METHOD), is("EXPEDITED"));
         assertThat(paperCheckResponse.getField(CITY), is("Victoria"));
+        assertThat(paperCheckResponse.getField(POSTAL_CODE), is("12345"));
+        assertThat(paperCheckResponse.getField(ADDRESS_LINE_1),is("123 Other Street"));
+        assertThat(paperCheckResponse.getField(ADDRESS_LINE_2),is("1234 AddressLineTwo St"));
+        assertThat(paperCheckResponse.getField(STATE_PROVINCE),is("CA"));
+        assertThat(paperCheckResponse.getField(COUNTRY),is("US"));
     }
 
     @Test

@@ -89,13 +89,13 @@ public class PaperCheck extends TransferMethod {
             return this;
         }
 
-        public PaperCheck.Builder shippingMethod(@NonNull final String addressLine1) {
-            mFields.put(TransferMethodFields.SHIPPING_METHOD, addressLine1);
+        public PaperCheck.Builder shippingMethod(@NonNull final String shippingMethod) {
+            mFields.put(TransferMethodFields.SHIPPING_METHOD, shippingMethod);
             return this;
         }
 
-        public PaperCheck.Builder addressLine1(@NonNull final String addressLine2) {
-            mFields.put(TransferMethodFields.ADDRESS_LINE_1, addressLine2);
+        public PaperCheck.Builder addressLine1(@NonNull final String addressLine1) {
+            mFields.put(TransferMethodFields.ADDRESS_LINE_1, addressLine1);
             return this;
         }
 
