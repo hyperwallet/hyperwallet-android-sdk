@@ -183,7 +183,6 @@ final VenmoAccount venmoAccount = new VenmoAccount
          .build();
 
 Hyperwallet.getDefault().updateVenmoAccount(venmoAccount, mListener);
-// Code to handle successful response or error
 // onSuccess: response (VenmoAccount in this case) will contain information about the user’s Venmo account
 // onFailure: error (ErrorType) will contain Errors containing information about what caused the failure of Venmo account updating
 ```
@@ -191,7 +190,6 @@ Hyperwallet.getDefault().updateVenmoAccount(venmoAccount, mListener);
 ### Deactivate Venmo Account
 ```java
 Hyperwallet.getDefault().deactivateVenmoAccount("trm-fake-token", "deactivate Venmo account", mListener);
-// Code to handle successful response or error
 // onSuccess: response (StatusTransition in this case) will contain information about the status transition
 // onFailure: error (ErrorType) will contain Errors containing information about what caused the failure of Venmo account deactivation
 ```
