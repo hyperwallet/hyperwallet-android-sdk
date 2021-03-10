@@ -1,9 +1,10 @@
 {
   "errors": [
     {
-      "message": "The number you provided is not valid!",
-      "fieldName": "phoneNumber",
+      "message": "Invalid Postal Code",
+      "fieldName": "postalCode",
       "code": "CONSTRAINT_VIOLATIONS"
     }
+
   ]
 }
