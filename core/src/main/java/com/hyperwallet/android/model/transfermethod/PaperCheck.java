@@ -89,6 +89,39 @@ public class PaperCheck extends TransferMethod {
             return this;
         }
 
+        public PaperCheck.Builder shippingMethod(@NonNull final String shippingMethod) {
+            mFields.put(TransferMethodFields.SHIPPING_METHOD, shippingMethod);
+            return this;
+        }
+
+        public PaperCheck.Builder addressLine1(@NonNull final String addressLine1) {
+            mFields.put(TransferMethodFields.ADDRESS_LINE_1, addressLine1);
+            return this;
+        }
+
+        public PaperCheck.Builder addressLine2(@NonNull final String addressLine2) {
+            mFields.put(TransferMethodFields.ADDRESS_LINE_2, addressLine2);
+            return this;
+        }
+
+        public PaperCheck.Builder city(@NonNull final String city) {
+            mFields.put(TransferMethodFields.CITY, city);
+            return this;
+        }
+        public PaperCheck.Builder postalCode(@NonNull final String postalCode) {
+            mFields.put(TransferMethodFields.POSTAL_CODE, postalCode);
+            return this;
+        }
+
+        public PaperCheck.Builder stateProvince(@NonNull final String stateProvince) {
+            mFields.put(TransferMethodFields.STATE_PROVINCE, stateProvince);
+            return this;
+        }
+        public PaperCheck.Builder country(@NonNull final String country) {
+            mFields.put(TransferMethodFields.COUNTRY, country);
+            return this;
+        }
+
         public PaperCheck build() {
             return new PaperCheck(mFields);
         }
