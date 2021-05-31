@@ -34,7 +34,7 @@ import java.lang.reflect.InvocationTargetException;
 public class TransferMethodConfigurationField {
 
     private static final String TRANSFER_FEE = "fees";
-    private static final String TRANSFER_METHOD_CONFIGURATION = "transferMethodUIConfigurations";
+    private static final String TRANSFER_METHOD_CONFIGURATION = "transferMethodCreateUIConfigurations";
     private static final String PROCESSING_TIMES = "processingTimes";
 
     private final Connection<Fee> mFeeConnection;
