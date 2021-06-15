@@ -1,0 +1,173 @@
+{
+  "errors": [
+    {
+      "message": "Validation error of type WrongType: argument 'orderBy' with value 'StringValue{value='ASC'}' must be an object type @ 'countries'",
+      "locations": [
+        {
+          "line": 2,
+          "column": 66
+        }
+      ]
+    }
+  ],
+  "data": {
+    "countries": {
+      "nodes": [
+        {
+          "code": "US",
+          "name": "United States",
+          "currencies": {
+            "nodes": [
+              {
+                "code": "USD",
+                "name": "United States Dollar",
+                "transferMethodTypes": {
+                  "nodes": [
+                    {
+                      "code": "BANK_ACCOUNT",
+                      "name": "Bank Account",
+                      "processingTimes": {
+                        "nodes": [
+                          {
+                            "country": "US",
+                            "currency": "USD",
+                            "transferMethodType": "BANK_ACCOUNT",
+                            "value": "1 - 2 Business days"
+                          }
+                        ]
+                      },
+                      "fees": {
+                        "nodes": [
+                          {
+                            "currency": "USD",
+                            "feeRateType": "FLAT",
+                            "value": "2.00"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "code": "BANK_CARD",
+                      "name": "Debit Card",
+                      "processingTimes": {
+                        "nodes": [
+                          {
+                            "country": "US",
+                            "currency": "USD",
+                            "transferMethodType": "BANK_CARD",
+                            "value": "Typically within 1 hour"
+                          }
+                        ]
+                      },
+                      "fees": {
+                        "nodes": [
+                          {
+                            "currency": "USD",
+                            "feeRateType": "FLAT",
+                            "value": "1.75"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "code": "PAPER_CHECK",
+                      "name": "Paper Check",
+                      "processingTimes": {
+                        "nodes": [
+                          {
+                            "country": "US",
+                            "currency": "USD",
+                            "transferMethodType": "PAPER_CHECK",
+                            "value": "5 - 7 Business days"
+                          }
+                        ]
+                      },
+                      "fees": {
+                        "nodes": [
+                          {
+                            "currency": "USD",
+                            "feeRateType": "FLAT",
+                            "value": "0.25"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "code": "PAYPAL_ACCOUNT",
+                      "name": "PayPal",
+                      "processingTimes": {
+                        "nodes": [
+                          {
+                            "country": "US",
+                            "currency": "USD",
+                            "transferMethodType": "PAYPAL_ACCOUNT",
+                            "value": "IMMEDIATE"
+                          }
+                        ]
+                      },
+                      "fees": {
+                        "nodes": [
+                          {
+                            "currency": "USD",
+                            "feeRateType": "FLAT",
+                            "value": "0.25"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "code": "VENMO_ACCOUNT",
+                      "name": "Venmo",
+                      "processingTimes": {
+                        "nodes": [
+                          {
+                            "country": "US",
+                            "currency": "USD",
+                            "transferMethodType": "VENMO_ACCOUNT",
+                            "value": "IMMEDIATE"
+                          }
+                        ]
+                      },
+                      "fees": {
+                        "nodes": [
+                          {
+                            "currency": "USD",
+                            "feeRateType": "FLAT",
+                            "value": "0.95"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "code": "WIRE_ACCOUNT",
+                      "name": "Wire Transfer",
+                      "processingTimes": {
+                        "nodes": [
+                          {
+                            "country": "US",
+                            "currency": "USD",
+                            "transferMethodType": "WIRE_ACCOUNT",
+                            "value": "1 Business day(s)"
+                          }
+                        ]
+                      },
+                      "fees": {
+                        "nodes": [
+                          {
+                            "currency": "USD",
+                            "feeRateType": "FLAT",
+                            "value": "20.00"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -14,7 +14,10 @@ import static org.mockito.Mockito.verify;
 
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.BANK_ACCOUNT;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.BANK_CARD;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.PAPER_CHECK;
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.PAYPAL_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.VENMO_ACCOUNT;
+import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.WIRE_ACCOUNT;
 import static com.hyperwallet.android.util.HttpMethod.POST;
 
 import com.hyperwallet.android.Hyperwallet;
@@ -22,8 +25,10 @@ import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.Errors;
+import com.hyperwallet.android.model.graphql.Fee;
 import com.hyperwallet.android.model.graphql.GqlResponse;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
+import com.hyperwallet.android.model.graphql.ProcessingTime;
 import com.hyperwallet.android.model.graphql.TransferMethodConfigurationKey;
 import com.hyperwallet.android.model.graphql.error.GqlError;
 import com.hyperwallet.android.model.graphql.error.GqlErrors;
@@ -31,6 +36,7 @@ import com.hyperwallet.android.model.graphql.keyed.Country;
 import com.hyperwallet.android.model.graphql.keyed.Currency;
 import com.hyperwallet.android.model.graphql.keyed.TransferMethodConfigurationKeyResult;
 import com.hyperwallet.android.model.graphql.keyed.TransferMethodType;
+import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationFeeAndProcessingTimeQuery;
 import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationKeysQuery;
 import com.hyperwallet.android.rule.ExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
@@ -57,7 +63,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
-public class RetrieveTransferMethodConfigurationKeysTest {
+public class RetrieveTransferMethodConfigurationKeysFeeAndProcessingTimeTest {
 
     @Rule
     public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
@@ -78,11 +84,11 @@ public class RetrieveTransferMethodConfigurationKeysTest {
 
     @Test
     public void testRetrieveTransferMethodConfigurationKeys_returnsFields() throws InterruptedException {
-        String responseBody = mExternalResourceManager.getResourceContent("tmc_get_keys_response.json");
+        String responseBody = mExternalResourceManager.getResourceContent("tmc_get_keys_fee_processing_time_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 
-        Hyperwallet.getDefault().retrieveTransferMethodConfigurationKeys(
-                new TransferMethodConfigurationKeysQuery(), mListener);
+        Hyperwallet.getDefault().retrieveTransferMethodConfigurationKeysForFeeAndProcessingTime(
+                new TransferMethodConfigurationFeeAndProcessingTimeQuery("US","USD"), mListener);
         mAwait.await(100, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
@@ -97,72 +103,94 @@ public class RetrieveTransferMethodConfigurationKeysTest {
         assertThat(keyResultCaptorValue, is(notNullValue()));
 
         assertThat(keyResultCaptorValue.getCountries(), is(not(empty())));
-        assertThat(keyResultCaptorValue.getCountries(), hasSize(2));
+        assertThat(keyResultCaptorValue.getCountries(), hasSize(1));
 
         List<Country> countryList = new ArrayList<>(keyResultCaptorValue.getCountries());
 
-        // CA transfer method data
-        Country countryCA = countryList.get(0);
-        assertThat(countryCA.getCode(), is("CA"));
-        assertThat(countryCA.getName(), is("Canada"));
-        assertThat(countryCA.getCurrencies(), Matchers.<Currency>hasSize(2));
+        // US transfer method data
+        Country countryUS = countryList.get(0);
+        assertThat(countryUS.getCode(), is("US"));
+        assertThat(countryUS.getName(), is("United States"));
+        assertThat(countryUS.getCurrencies(), Matchers.<Currency>hasSize(1));
 
-        // assert chaining CA
-        TransferMethodType transferMethodType = keyResultCaptorValue.getCountry("CA")
-                .getCurrency("CAD")
+        // assert chaining US
+        TransferMethodType transferMethodType = keyResultCaptorValue.getCountry("US")
+                .getCurrency("USD")
                 .getTransferMethodType(BANK_ACCOUNT);
         assertThat(transferMethodType, is(notNullValue()));
         assertThat(transferMethodType.getCode(), is(BANK_ACCOUNT));
         assertThat(transferMethodType.getName(), is("Bank Account"));
 
-        assertThat(countryCA.getCurrency("USD").getTransferMethodType(BANK_ACCOUNT), is(notNullValue()));
-        assertThat(countryCA.getCurrency("USD").getTransferMethodType(BANK_CARD), is(notNullValue()));
-        assertThat(countryCA.getCurrency("USD").getTransferMethodType(PAYPAL_ACCOUNT), is(notNullValue()));
+        assertThat(countryUS.getCurrency("USD").getTransferMethodType(BANK_ACCOUNT), is(notNullValue()));
+        assertThat(countryUS.getCurrency("USD").getTransferMethodType(BANK_CARD), is(notNullValue()));
+        assertThat(countryUS.getCurrency("USD").getTransferMethodType(PAYPAL_ACCOUNT), is(notNullValue()));
 
         // assert elements are filled and in order
-        List<Currency> canadianCurrencies = new ArrayList<>(keyResultCaptorValue.getCurrencies(countryCA.getCode()));
-        assertThat(canadianCurrencies, Matchers.<Currency>hasSize(2));
-        assertThat(canadianCurrencies.get(0).getCode(), is("CAD"));
-        assertThat(canadianCurrencies.get(0).getName(), is("Canadian Dollar"));
-        assertThat(canadianCurrencies.get(1).getCode(), is("USD"));
-        assertThat(canadianCurrencies.get(1).getName(), is("United States Dollar"));
-        assertThat(countryCA.getCurrencies(), hasItem(canadianCurrencies.get(0)));
-        assertThat(countryCA.getCurrencies(), hasItem(canadianCurrencies.get(1)));
+        List<Currency> currencies = new ArrayList<>(keyResultCaptorValue.getCurrencies(countryUS.getCode()));
+        assertThat(currencies, Matchers.<Currency>hasSize(1));
+        assertThat(currencies.get(0).getCode(), is("USD"));
+        assertThat(currencies.get(0).getName(), is("United States Dollar"));
+        assertThat(countryUS.getCurrencies(), hasItem(currencies.get(0)));
         assertThat(keyResultCaptorValue.getCurrencies("PH"), is(nullValue()));
 
-        List<TransferMethodType> transferMethodTypesCAD = new ArrayList<>(
-                keyResultCaptorValue.getTransferMethodType(countryCA.getCode(), canadianCurrencies.get(0).getCode()));
-        assertThat(transferMethodTypesCAD, Matchers.<TransferMethodType>hasSize(1));
-        assertThat(transferMethodTypesCAD.get(0).getCode(), is(BANK_ACCOUNT));
-        assertThat(transferMethodTypesCAD.get(0).getName(), is("Bank Account"));
+        List<TransferMethodType> transferMethodTypes = new ArrayList<>(
+                keyResultCaptorValue.getTransferMethodType(countryUS.getCode(), currencies.get(0).getCode()));
+        assertThat(transferMethodTypes, Matchers.<TransferMethodType>hasSize(6));
+        assertThat(transferMethodTypes.get(0).getCode(), is(BANK_ACCOUNT));
+        assertThat(transferMethodTypes.get(0).getName(), is("Bank Account"));
         assertThat(keyResultCaptorValue.getTransferMethodType("PH", "PHP"), is(nullValue()));
         assertThat(keyResultCaptorValue.getTransferMethodType("PH", "PHP"), is(nullValue()));
 
+        List<Fee> fees = new ArrayList<>(transferMethodTypes.get(0).getFees());
+        assertThat(fees, Matchers.<Fee>hasSize(1));
+        assertThat(fees.get(0).getFeeRateType(), is("FLAT"));
+        assertThat(fees.get(0).getValue(), is("2.00"));
+
+        ProcessingTime processingTime = transferMethodTypes.get(0).getProcessingTime();
+        assertThat(processingTime.getValue(), is("1 - 2 Business days"));
+        assertThat(processingTime.getCountry(), is("US"));
+        assertThat(processingTime.getCurrency(), is("USD"));
+        assertThat(processingTime.getTransferMethodType(), is(BANK_ACCOUNT));
+
         List<TransferMethodType> transferMethodTypesUSD = new ArrayList<>(
-                keyResultCaptorValue.getTransferMethodType(countryCA.getCode(), canadianCurrencies.get(1).getCode()));
-        assertThat(transferMethodTypesUSD, Matchers.<TransferMethodType>hasSize(3));
+                keyResultCaptorValue.getTransferMethodType(countryUS.getCode(), currencies.get(0).getCode()));
+        assertThat(transferMethodTypesUSD, Matchers.<TransferMethodType>hasSize(6));
         assertThat(transferMethodTypesUSD.get(0).getCode(), is(BANK_ACCOUNT));
         assertThat(transferMethodTypesUSD.get(0).getName(), is("Bank Account"));
         assertThat(transferMethodTypesUSD.get(1).getCode(), is(BANK_CARD));
         assertThat(transferMethodTypesUSD.get(1).getName(), is("Debit Card"));
-        assertThat(transferMethodTypesUSD.get(2).getCode(), is(PAYPAL_ACCOUNT));
-        assertThat(transferMethodTypesUSD.get(2).getName(), is("PayPal Account"));
+        assertThat(transferMethodTypesUSD.get(2).getCode(), is(PAPER_CHECK));
+        assertThat(transferMethodTypesUSD.get(2).getName(), is("Paper Check"));
+        assertThat(transferMethodTypesUSD.get(3).getCode(), is(PAYPAL_ACCOUNT));
+        assertThat(transferMethodTypesUSD.get(3).getName(), is("PayPal"));
+        assertThat(transferMethodTypesUSD.get(4).getCode(), is(VENMO_ACCOUNT));
+        assertThat(transferMethodTypesUSD.get(4).getName(), is("Venmo"));
+        assertThat(transferMethodTypesUSD.get(5).getCode(), is(WIRE_ACCOUNT));
+        assertThat(transferMethodTypesUSD.get(5).getName(), is("Wire Transfer"));
 
-        // US transfer method data
-        Country countryUS = countryList.get(1);
-        assertThat(countryUS.getCode(), is("US"));
-        assertThat(countryUS.getName(), is("The United States of America"));
-        assertThat(countryUS.getCurrencies(), Matchers.<Currency>hasSize(2));
+        List<Fee> feesBankCard = new ArrayList<>(transferMethodTypesUSD.get(1).getFees()); //BANK_CARD
+        assertThat(feesBankCard, Matchers.<Fee>hasSize(1));
+        assertThat(feesBankCard.get(0).getFeeRateType(), is("FLAT"));
+        assertThat(feesBankCard.get(0).getValue(), is("1.75"));
 
-        List<Currency> currenciesUS = new ArrayList<>(keyResultCaptorValue.getCurrencies(countryUS.getCode()));
-        assertThat(currenciesUS, Matchers.<Currency>hasSize(2));
+        ProcessingTime processingTimeBankCard = transferMethodTypes.get(1).getProcessingTime();
+        assertThat(processingTimeBankCard.getValue(), is("Typically within 1 hour"));
+        assertThat(processingTimeBankCard.getCountry(), is("US"));
+        assertThat(processingTimeBankCard.getCurrency(), is("USD"));
+        assertThat(processingTimeBankCard.getTransferMethodType(), is(BANK_CARD));
 
-        List<TransferMethodType> transferMethodTypesUS_USD =
-                new ArrayList<>(keyResultCaptorValue.getTransferMethodType(countryUS.getCode(),
-                        currenciesUS.get(1).getCode()));
-        assertThat(transferMethodTypesUS_USD, Matchers.<TransferMethodType>hasSize(1));
-        assertThat(transferMethodTypesUS_USD.get(0).getCode(), is(BANK_ACCOUNT));
-        assertThat(transferMethodTypesUS_USD.get(0).getName(), is("Bank Account"));
+
+        List<Fee> feesPaperCheck = new ArrayList<>(transferMethodTypesUSD.get(2).getFees()); //PAPER_CHECK
+        assertThat(feesPaperCheck, Matchers.<Fee>hasSize(1));
+        assertThat(feesPaperCheck.get(0).getFeeRateType(), is("FLAT"));
+        assertThat(feesPaperCheck.get(0).getValue(), is("0.25"));
+
+        ProcessingTime processingTimePaperCheck = transferMethodTypes.get(2).getProcessingTime();
+        assertThat(processingTimePaperCheck.getValue(), is("5 - 7 Business days"));
+        assertThat(processingTimePaperCheck.getCountry(), is("US"));
+        assertThat(processingTimePaperCheck.getCurrency(), is("USD"));
+        assertThat(processingTimePaperCheck.getTransferMethodType(), is(PAPER_CHECK));
+
     }
 
     @Test

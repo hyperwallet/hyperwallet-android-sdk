@@ -32,13 +32,15 @@ import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.QueryParam;
 import com.hyperwallet.android.model.StatusTransition;
 import com.hyperwallet.android.model.TypeReference;
+import com.hyperwallet.android.model.balance.Balance;
+import com.hyperwallet.android.model.balance.BalanceQueryParam;
 import com.hyperwallet.android.model.balance.PrepaidCardBalanceQueryParam;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationField;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
 import com.hyperwallet.android.model.graphql.field.TransferMethodConfigurationFieldResult;
-import com.hyperwallet.android.model.graphql.field.TransferMethodUpdateConfigurationField;
 import com.hyperwallet.android.model.graphql.field.TransferMethodUpdateConfigurationFieldResult;
 import com.hyperwallet.android.model.graphql.keyed.TransferMethodConfigurationKeyResult;
+import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationFeeAndProcessingTimeQuery;
 import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationFieldQuery;
 import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationKeysQuery;
 import com.hyperwallet.android.model.graphql.query.TransferMethodUpdateConfigurationFieldQuery;
@@ -47,13 +49,12 @@ import com.hyperwallet.android.model.receipt.Receipt;
 import com.hyperwallet.android.model.receipt.ReceiptQueryParam;
 import com.hyperwallet.android.model.transfer.Transfer;
 import com.hyperwallet.android.model.transfer.TransferQueryParam;
-import com.hyperwallet.android.model.balance.Balance;
-import com.hyperwallet.android.model.balance.BalanceQueryParam;
 import com.hyperwallet.android.model.transfermethod.BankAccount;
 import com.hyperwallet.android.model.transfermethod.BankAccountQueryParam;
 import com.hyperwallet.android.model.transfermethod.BankCard;
 import com.hyperwallet.android.model.transfermethod.BankCardQueryParam;
 import com.hyperwallet.android.model.transfermethod.PaperCheck;
+import com.hyperwallet.android.model.transfermethod.PaperCheckQueryParam;
 import com.hyperwallet.android.model.transfermethod.PayPalAccount;
 import com.hyperwallet.android.model.transfermethod.PayPalAccountQueryParam;
 import com.hyperwallet.android.model.transfermethod.PrepaidCard;
@@ -62,7 +63,6 @@ import com.hyperwallet.android.model.transfermethod.TransferMethod;
 import com.hyperwallet.android.model.transfermethod.TransferMethodQueryParam;
 import com.hyperwallet.android.model.transfermethod.VenmoAccount;
 import com.hyperwallet.android.model.transfermethod.VenmoAccountQueryParam;
-import com.hyperwallet.android.model.transfermethod.PaperCheckQueryParam;
 import com.hyperwallet.android.model.user.User;
 
 import org.json.JSONException;
@@ -1228,7 +1228,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Returns the transfer method configuration key set, processing times, and fees for the User that is associated
+     * Returns the transfer method configuration key set for the User that is associated
      * with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
@@ -1248,6 +1248,29 @@ public class Hyperwallet {
                 query, new TypeReference<TransferMethodConfigurationKeyResult>() {
         }, listener);
 
+        performGqlTransaction(builder, listener);
+    }
+
+    /**
+     * Returns the transfer method configuration key, processing times, and fees set for the User that is associated
+     * with the authentication token returned from
+     * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
+     *
+     * <p>The {@link HyperwalletListener} that is passed in to this method invocation will receive the responses from
+     * processing the request.</p>
+     *
+     * <p>This function will request a new authentication token via {@link HyperwalletAuthenticationTokenProvider}
+     * if the current one is expired or about to expire.</p>
+     *
+     * @param query    containing the transfer method configuration key query, must not be null
+     * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
+     */
+    public void retrieveTransferMethodConfigurationKeysForFeeAndProcessingTime(
+            @NonNull final TransferMethodConfigurationFeeAndProcessingTimeQuery query,
+            @NonNull final HyperwalletListener<HyperwalletTransferMethodConfigurationKey> listener) {
+        GqlTransaction.Builder<TransferMethodConfigurationKeyResult> builder = new GqlTransaction.Builder<>(
+                query, new TypeReference<TransferMethodConfigurationKeyResult>() {
+        }, listener);
         performGqlTransaction(builder, listener);
     }
 
