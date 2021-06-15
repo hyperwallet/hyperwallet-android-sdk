@@ -22,8 +22,10 @@ import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.Errors;
+import com.hyperwallet.android.model.graphql.Fee;
 import com.hyperwallet.android.model.graphql.GqlResponse;
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
+import com.hyperwallet.android.model.graphql.ProcessingTime;
 import com.hyperwallet.android.model.graphql.TransferMethodConfigurationKey;
 import com.hyperwallet.android.model.graphql.error.GqlError;
 import com.hyperwallet.android.model.graphql.error.GqlErrors;
@@ -138,6 +140,17 @@ public class RetrieveTransferMethodConfigurationKeysTest {
         assertThat(keyResultCaptorValue.getTransferMethodType("PH", "PHP"), is(nullValue()));
         assertThat(keyResultCaptorValue.getTransferMethodType("PH", "PHP"), is(nullValue()));
 
+        List<Fee> feesCAD = new ArrayList<>(transferMethodTypesCAD.get(0).getFees());
+        assertThat(feesCAD, Matchers.<Fee>hasSize(1));
+        assertThat(feesCAD.get(0).getFeeRateType(), is("FLAT"));
+        assertThat(feesCAD.get(0).getValue(), is("5.00"));
+
+        ProcessingTime processingTimeCAD = transferMethodTypesCAD.get(0).getProcessingTime();
+        assertThat(processingTimeCAD.getValue(), is("1-3 Business days"));
+        assertThat(processingTimeCAD.getCountry(), is("CA"));
+        assertThat(processingTimeCAD.getCurrency(), is("CAD"));
+        assertThat(processingTimeCAD.getTransferMethodType(), is(BANK_ACCOUNT));
+
         List<TransferMethodType> transferMethodTypesUSD = new ArrayList<>(
                 keyResultCaptorValue.getTransferMethodType(countryCA.getCode(), canadianCurrencies.get(1).getCode()));
         assertThat(transferMethodTypesUSD, Matchers.<TransferMethodType>hasSize(3));
@@ -147,6 +160,15 @@ public class RetrieveTransferMethodConfigurationKeysTest {
         assertThat(transferMethodTypesUSD.get(1).getName(), is("Debit Card"));
         assertThat(transferMethodTypesUSD.get(2).getCode(), is(PAYPAL_ACCOUNT));
         assertThat(transferMethodTypesUSD.get(2).getName(), is("PayPal Account"));
+
+        List<Fee> feesUSD = new ArrayList<>(transferMethodTypesUSD.get(0).getFees()); //BANK_ACCOUNT
+        assertThat(feesUSD, Matchers.<Fee>hasSize(3));
+        assertThat(feesUSD.get(0).getFeeRateType(), is("FLAT"));
+        assertThat(feesUSD.get(0).getValue(), is("2.00"));
+        assertThat(feesUSD.get(1).getFeeRateType(), is("FLAT"));
+        assertThat(feesUSD.get(1).getValue(), is("5.00"));
+        assertThat(feesUSD.get(2).getFeeRateType(), is("FLAT"));
+        assertThat(feesUSD.get(2).getValue(), is("0.25"));
 
         // US transfer method data
         Country countryUS = countryList.get(1);
@@ -163,6 +185,12 @@ public class RetrieveTransferMethodConfigurationKeysTest {
         assertThat(transferMethodTypesUS_USD, Matchers.<TransferMethodType>hasSize(1));
         assertThat(transferMethodTypesUS_USD.get(0).getCode(), is(BANK_ACCOUNT));
         assertThat(transferMethodTypesUS_USD.get(0).getName(), is("Bank Account"));
+
+        ProcessingTime processingTimeUSD = transferMethodTypesUS_USD.get(0).getProcessingTime();
+        assertThat(processingTimeUSD.getValue(), is("2-4 Business days"));
+        assertThat(processingTimeUSD.getCountry(), is("US"));
+        assertThat(processingTimeUSD.getCurrency(), is("USD"));
+        assertThat(processingTimeUSD.getTransferMethodType(), is(BANK_ACCOUNT));
     }
 
     @Test
