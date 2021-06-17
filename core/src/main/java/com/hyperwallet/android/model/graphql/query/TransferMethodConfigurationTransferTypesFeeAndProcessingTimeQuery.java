@@ -2,7 +2,14 @@ package com.hyperwallet.android.model.graphql.query;
 
 import androidx.annotation.NonNull;
 
-public class TransferMethodConfigurationFeeAndProcessingTimeQuery implements GqlQuery {
+/**
+ * The {@code TransferMethodConfigurationTransferTypesFeeAndProcessingTimeQuery} class defines and builds a query to retrieve the key set
+ * that is required to construct a {@code TransferMethodConfigurationTransferTypesFeeAndProcessingTimeQuery}.
+ *
+ * <p>The query will retrieve the transfer method types, processing time and fees associated for given
+ *   country, currency, and profile tuple.</p>
+ */
+public class TransferMethodConfigurationTransferTypesFeeAndProcessingTimeQuery implements GqlQuery {
 
     private static final String GRAPH_QL_REQUEST ="query QueryFeeAndProcessing(\n"
             + "    $idToken: String = \"%s\"\n,"
@@ -50,13 +57,13 @@ public class TransferMethodConfigurationFeeAndProcessingTimeQuery implements Gql
     private final String mCurrency;
 
     /**
-     * Create a new {@code TransferMethodConfigurationQuery} from the country, currency, transferMethodType
+     * Create a new {@code TransferMethodConfigurationTransferTypesFeeAndProcessingTimeQuery} from the country, currency,
      * and profile.
      *
      * @param country            the 2 letter ISO 3166-1 country code
      * @param currency           the 3 letter ISO 4217-1 currency code
      */
-    public TransferMethodConfigurationFeeAndProcessingTimeQuery(@NonNull String country, @NonNull String currency) {
+    public TransferMethodConfigurationTransferTypesFeeAndProcessingTimeQuery(@NonNull String country, @NonNull String currency) {
         mCountry = country;
         mCurrency = currency;
     }

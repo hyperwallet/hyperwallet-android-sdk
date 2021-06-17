@@ -40,7 +40,7 @@ import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurat
 import com.hyperwallet.android.model.graphql.field.TransferMethodConfigurationFieldResult;
 import com.hyperwallet.android.model.graphql.field.TransferMethodUpdateConfigurationFieldResult;
 import com.hyperwallet.android.model.graphql.keyed.TransferMethodConfigurationKeyResult;
-import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationFeeAndProcessingTimeQuery;
+import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationTransferTypesFeeAndProcessingTimeQuery;
 import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationFieldQuery;
 import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationKeysQuery;
 import com.hyperwallet.android.model.graphql.query.TransferMethodUpdateConfigurationFieldQuery;
@@ -1252,7 +1252,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Returns the transfer method configuration key, processing times, and fees set for the User that is associated
+     * Returns the transfer method configuration key,TransferMethods, processing times, and fees set for the User that is associated
      * with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
@@ -1265,8 +1265,8 @@ public class Hyperwallet {
      * @param query    containing the transfer method configuration key query, must not be null
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
-    public void retrieveTransferMethodConfigurationKeysForFeeAndProcessingTime(
-            @NonNull final TransferMethodConfigurationFeeAndProcessingTimeQuery query,
+    public void retrieveTransferMethodTypesFeesAndProcessingTimes(
+            @NonNull final TransferMethodConfigurationTransferTypesFeeAndProcessingTimeQuery query,
             @NonNull final HyperwalletListener<HyperwalletTransferMethodConfigurationKey> listener) {
         GqlTransaction.Builder<TransferMethodConfigurationKeyResult> builder = new GqlTransaction.Builder<>(
                 query, new TypeReference<TransferMethodConfigurationKeyResult>() {

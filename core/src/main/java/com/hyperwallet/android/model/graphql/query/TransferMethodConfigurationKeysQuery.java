@@ -24,8 +24,7 @@ import androidx.annotation.VisibleForTesting;
  * The {@code TransferMethodConfigurationKeysQuery} class defines and builds a query to retrieve the key set
  * that is required to construct a {@code TransferMethodConfigurationFieldQuery}.
  *
- * <p>In addition to the key set, the query will also retrieve the processing time and fees associated with each
- * country, currency, transfer method type, and profile tuple.</p>
+ * <p>In addition to the key set, the query will retrieve the country, currency.</p>
  */
 public class TransferMethodConfigurationKeysQuery implements GqlQuery {
 
@@ -40,12 +39,6 @@ public class TransferMethodConfigurationKeysQuery implements GqlQuery {
                     + "\t\t\t\tnodes {\n"
                     + "\t\t\t\t\tcode\n"
                     + "\t\t\t\t\tname\n"
-                    + "\t\t\t\t\ttransferMethodTypes {\n"
-                    + "\t\t\t\t\t\tnodes {\n"
-                    + "\t\t\t\t\t\t\tcode\n"
-                    + "\t\t\t\t\t\t\tname\n"
-                    + "\t\t\t\t\t\t}\n"
-                    + "\t\t\t\t\t}\n"
                     + "\t\t\t\t}\n"
                     + "\t\t\t}\n"
                     + "\t\t}\n"
