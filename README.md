@@ -494,7 +494,7 @@ Currency firstCurrency = currencySet.iterator().next();
 ```
 ### Get transfer method types, fees and processing times for Country and Currency
 ```java
-TransferMethodConfigurationTransferTypesFeeAndProcessingTimeQuery query = new TransferMethodConfigurationTransferTypesFeeAndProcessingTimeQuery("US", "USD");
+TransferMethodTypesFeeAndProcessingTimesQuery query = new TransferMethodTypesFeeAndProcessingTimesQuery("US", "USD");
 Hyperwallet.getDefault().retrieveTransferMethodTypesFeesAndProcessingTimes(query, listener);
 // onSuccess: response (TransferMethodConfigurationKey)
 //         will contain a dataset of available Transfer Method Configurations for the program

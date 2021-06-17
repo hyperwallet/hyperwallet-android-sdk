@@ -36,7 +36,7 @@ import com.hyperwallet.android.model.graphql.keyed.Country;
 import com.hyperwallet.android.model.graphql.keyed.Currency;
 import com.hyperwallet.android.model.graphql.keyed.TransferMethodConfigurationKeyResult;
 import com.hyperwallet.android.model.graphql.keyed.TransferMethodType;
-import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationTransferTypesFeeAndProcessingTimeQuery;
+import com.hyperwallet.android.model.graphql.query.TransferMethodTypesFeeAndProcessingTimesQuery;
 import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationKeysQuery;
 import com.hyperwallet.android.rule.ExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
@@ -88,7 +88,7 @@ public class RetrieveTransferMethodTypesFeeAndProcessingTimeConfigurationKeysTes
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 
         Hyperwallet.getDefault().retrieveTransferMethodTypesFeesAndProcessingTimes(
-                new TransferMethodConfigurationTransferTypesFeeAndProcessingTimeQuery("US","USD"), mListener);
+                new TransferMethodTypesFeeAndProcessingTimesQuery("US","USD"), mListener);
         mAwait.await(100, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();

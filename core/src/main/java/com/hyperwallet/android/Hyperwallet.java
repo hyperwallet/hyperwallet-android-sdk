@@ -40,7 +40,7 @@ import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurat
 import com.hyperwallet.android.model.graphql.field.TransferMethodConfigurationFieldResult;
 import com.hyperwallet.android.model.graphql.field.TransferMethodUpdateConfigurationFieldResult;
 import com.hyperwallet.android.model.graphql.keyed.TransferMethodConfigurationKeyResult;
-import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationTransferTypesFeeAndProcessingTimeQuery;
+import com.hyperwallet.android.model.graphql.query.TransferMethodTypesFeeAndProcessingTimesQuery;
 import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationFieldQuery;
 import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationKeysQuery;
 import com.hyperwallet.android.model.graphql.query.TransferMethodUpdateConfigurationFieldQuery;
@@ -1266,7 +1266,7 @@ public class Hyperwallet {
      * @param listener the callback handler of responses from the Hyperwallet platform; must not be null
      */
     public void retrieveTransferMethodTypesFeesAndProcessingTimes(
-            @NonNull final TransferMethodConfigurationTransferTypesFeeAndProcessingTimeQuery query,
+            @NonNull final TransferMethodTypesFeeAndProcessingTimesQuery query,
             @NonNull final HyperwalletListener<HyperwalletTransferMethodConfigurationKey> listener) {
         GqlTransaction.Builder<TransferMethodConfigurationKeyResult> builder = new GqlTransaction.Builder<>(
                 query, new TypeReference<TransferMethodConfigurationKeyResult>() {
