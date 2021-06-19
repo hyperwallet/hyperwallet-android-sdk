@@ -63,7 +63,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
-public class RetrieveTransferMethodTypesFeeAndProcessingTimeConfigurationKeysTest {
+public class RetrieveTransferMethodTypesFeeAndProcessingTimeTest {
 
     @Rule
     public HyperwalletMockWebServer mServer = new HyperwalletMockWebServer();
@@ -83,8 +83,9 @@ public class RetrieveTransferMethodTypesFeeAndProcessingTimeConfigurationKeysTes
     private CountDownLatch mAwait = new CountDownLatch(1);
 
     @Test
-    public void testRetrieveTransferMethodConfigurationKeys_returnsFields() throws InterruptedException {
-        String responseBody = mExternalResourceManager.getResourceContent("tmc_get_keys_fee_processing_time_response.json");
+    public void testRetrieveTransferMethodTypesFeesAndProcessingTimes_returnsFields() throws InterruptedException {
+        String responseBody = mExternalResourceManager.getResourceContent(
+                "tmc_get_transfer_method_fee_processing_time_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 
         Hyperwallet.getDefault().retrieveTransferMethodTypesFeesAndProcessingTimes(
@@ -194,7 +195,7 @@ public class RetrieveTransferMethodTypesFeeAndProcessingTimeConfigurationKeysTes
     }
 
     @Test
-    public void testRetrieveTransferMethodConfigurationKeys_withErrorReturningFields()
+    public void testRetrieveTransferMethodTypesFeesAndProcessingTimes_withErrorReturningFields()
             throws InterruptedException {
         String responseBody = mExternalResourceManager.getResourceContentError("tmc_gql_error_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_BAD_REQUEST).withBody(responseBody).mock();
@@ -223,7 +224,7 @@ public class RetrieveTransferMethodTypesFeeAndProcessingTimeConfigurationKeysTes
     }
 
     @Test
-    public void testRetrieveTransferMethodConfigurationKeys_withErrorAndData() throws InterruptedException {
+    public void testRetrieveTransferMethodTypesFeesAndProcessingTimes_withErrorAndData() throws InterruptedException {
         String responseBody = mExternalResourceManager.getResourceContent("tmc_get_keys_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 

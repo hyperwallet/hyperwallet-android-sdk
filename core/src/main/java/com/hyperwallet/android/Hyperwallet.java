@@ -1252,7 +1252,7 @@ public class Hyperwallet {
     }
 
     /**
-     * Returns the transfer method configuration key,TransferMethods, processing times, and fees set for the User that is associated
+     * Returns the transfer method types, processing times, and fees set for the User that is associated
      * with the authentication token returned from
      * {@link HyperwalletAuthenticationTokenProvider#retrieveAuthenticationToken(HyperwalletAuthenticationTokenListener)}.
      *
