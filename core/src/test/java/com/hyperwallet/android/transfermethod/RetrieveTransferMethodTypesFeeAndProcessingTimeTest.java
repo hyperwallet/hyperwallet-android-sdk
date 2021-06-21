@@ -85,7 +85,7 @@ public class RetrieveTransferMethodTypesFeeAndProcessingTimeTest {
     @Test
     public void testRetrieveTransferMethodTypesFeesAndProcessingTimes_returnsFields() throws InterruptedException {
         String responseBody = mExternalResourceManager.getResourceContent(
-                "tmc_get_transfer_method_fee_processing_time_response.json");
+                "tmc_get_transfer_method_types_fee_processing_time_response.json");
         mServer.mockResponse().withHttpResponseCode(HttpURLConnection.HTTP_OK).withBody(responseBody).mock();
 
         Hyperwallet.getDefault().retrieveTransferMethodTypesFeesAndProcessingTimes(
