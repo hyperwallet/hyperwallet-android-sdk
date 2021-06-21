@@ -475,7 +475,7 @@ Hyperwallet.getDefault().listTransfers(transferQueryParam, listener);
 
 ## Transfer Method Configurations
 
-### Get countries, currencies and transfer method types
+### Get countries, currencies
 ```java
 TransferMethodConfigurationKeysQuery query = new TransferMethodConfigurationKeysQuery();
 Hyperwallet.getDefault().retrieveTransferMethodConfigurationKeys(query, listener);
@@ -490,6 +490,16 @@ Country firstCountry = countrySet.iterator().next();
 // Get currencies based on first country
 Set<Currency> currencySet =  result.getCurrencies(firstCountry.getCode());
 Currency firstCurrency = currencySet.iterator().next();
+
+```
+### Get transfer method types, fees and processing times for Country and Currency
+```java
+TransferMethodTypesFeeAndProcessingTimesQuery query = new TransferMethodTypesFeeAndProcessingTimesQuery("US", "USD");
+Hyperwallet.getDefault().retrieveTransferMethodTypesFeesAndProcessingTimes(query, listener);
+// onSuccess: response (TransferMethodConfigurationKey)
+//         will contain a dataset of available Transfer Method Configurations for the program
+// onFailure: error (ErrorType) will contain Errors containing information about what caused the failure
+
 
 // Get Transfer Method Types for Country/Currency combination
 Set<TransferMethodType> transferMethodTypeSet =
