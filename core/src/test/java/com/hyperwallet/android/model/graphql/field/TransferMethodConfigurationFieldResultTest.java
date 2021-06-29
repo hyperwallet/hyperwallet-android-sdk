@@ -52,7 +52,7 @@ public class TransferMethodConfigurationFieldResultTest {
             throws JSONException, ReflectiveOperationException {
         String data = mResourceManager.getResourceContent("tmc_field_response.json");
         JSONObject jsonObject = new JSONObject(data);
-        JSONObject processingTimeObject = jsonObject.getJSONObject("data").getJSONObject("processingTimes");
+        JSONObject processingTimeObject = jsonObject.getJSONObject("data").getJSONObject("countries");
         processingTimeObject.getJSONArray("nodes").remove(0);
         TransferMethodConfigurationFieldResult fieldResult =
                 new TransferMethodConfigurationFieldResult(jsonObject);

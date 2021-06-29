@@ -61,7 +61,7 @@ public class TransferMethodConfigurationFieldResult extends GqlResponse<Transfer
     @Override
     @Nullable
     public List<Fee> getFees() {
-        return getData().getFeeConnection() != null ? getData().getFeeConnection().getNodes() : null;
+        return getData().getFee();
     }
 
     /**
@@ -70,7 +70,6 @@ public class TransferMethodConfigurationFieldResult extends GqlResponse<Transfer
     @Override
     @Nullable
     public ProcessingTime getProcessingTime() {
-        return getData().getProcessingTimeConnection() != null ?
-                getData().getProcessingTimeConnection().getNodeAt(0) : null;
+        return getData().getProcessingTime();
     }
 }
