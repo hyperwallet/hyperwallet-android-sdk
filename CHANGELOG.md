@@ -3,6 +3,7 @@ Changelog
 [1.0.0-beta10](https://github.com/hyperwallet/hyperwallet-android-sdk/releases/tag/1.0.0-beta10)
 -------------------
 * Performance update for Add Transfer Method GraphQL
+* Enhancement for TransferMethodConfigurationField GraphQL
 
 [1.0.0-beta09](https://github.com/hyperwallet/hyperwallet-android-sdk/releases/tag/1.0.0-beta09)
 -------------------
