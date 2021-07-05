@@ -1,16 +1,42 @@
 {
   "data": {
-    "transferMethodUIConfigurations": {
+    "transferMethodCreateUIConfigurations": {
       "count": 1,
       "nodes": [
 
       ]
     },
-    "fees": {
+    "countries": {
       "nodes": [
         {
-          "value": "5.00",
-          "feeRateType": "FLAT"
+          "code": "CA",
+          "name": "Canada",
+          "iso3": "CAN",
+          "currencies": {
+            "nodes": [
+              {
+                "code": "CAD",
+                "name": "CAD",
+                "transferMethodTypes": {
+                  "nodes": [
+                    {
+                      "code": "BANK_ACCOUNT",
+                      "name": "Bank Account",
+                      "fees": {
+                        "nodes": [
+                          {
+                            "currency": "CAD",
+                            "feeRateType": "FLAT",
+                            "value": "5.00"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
         }
       ]
     }

@@ -1,6 +1,7 @@
 package com.hyperwallet.android.model.graphql;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.json.JSONObject;
@@ -19,6 +20,7 @@ public class ConnectionTest {
 
         Connection<ProcessingTime> processingTimeConnection = new Connection<>(processingTime, ProcessingTime.class);
         assertThat(Connection.hasNodes(processingTimeConnection), is(true));
+        assertThat(processingTimeConnection.getNodeAt(0),is(notNullValue()));
     }
 
     @Test
