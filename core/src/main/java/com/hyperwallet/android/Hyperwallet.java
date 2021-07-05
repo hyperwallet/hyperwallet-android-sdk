@@ -39,6 +39,8 @@ import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurat
 import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
 import com.hyperwallet.android.model.graphql.field.TransferMethodConfigurationFieldResult;
 import com.hyperwallet.android.model.graphql.field.TransferMethodUpdateConfigurationFieldResult;
+import com.hyperwallet.android.model.graphql.field.TransferMethodUpdateConfigurationField;
+import com.hyperwallet.android.model.graphql.field.TransferMethodUpdateConfigurationFieldResult;
 import com.hyperwallet.android.model.graphql.keyed.TransferMethodConfigurationKeyResult;
 import com.hyperwallet.android.model.graphql.query.TransferMethodTypesFeeAndProcessingTimesQuery;
 import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationFieldQuery;
@@ -55,6 +57,7 @@ import com.hyperwallet.android.model.transfermethod.BankCard;
 import com.hyperwallet.android.model.transfermethod.BankCardQueryParam;
 import com.hyperwallet.android.model.transfermethod.PaperCheck;
 import com.hyperwallet.android.model.transfermethod.PaperCheckQueryParam;
+import com.hyperwallet.android.model.transfermethod.PaperCheck;
 import com.hyperwallet.android.model.transfermethod.PayPalAccount;
 import com.hyperwallet.android.model.transfermethod.PayPalAccountQueryParam;
 import com.hyperwallet.android.model.transfermethod.PrepaidCard;
@@ -63,6 +66,7 @@ import com.hyperwallet.android.model.transfermethod.TransferMethod;
 import com.hyperwallet.android.model.transfermethod.TransferMethodQueryParam;
 import com.hyperwallet.android.model.transfermethod.VenmoAccount;
 import com.hyperwallet.android.model.transfermethod.VenmoAccountQueryParam;
+import com.hyperwallet.android.model.transfermethod.PaperCheckQueryParam;
 import com.hyperwallet.android.model.user.User;
 
 import org.json.JSONException;
