@@ -42,7 +42,7 @@ import javax.net.ssl.HttpsURLConnection;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public final class HttpClient {
     private static final String TAG = HttpClient.class.getName();
-    private static final int DEFAULT_TIMEOUT = 5_000;
+    private static final int DEFAULT_TIMEOUT = 30_000;
 
     private final Map<String, String> mQueryMap;
     private final Map<String, String> mHeaderMap;
