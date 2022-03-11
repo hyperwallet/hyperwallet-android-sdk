@@ -20,7 +20,7 @@ allprojects {
         jcenter()
         mavenLocal()
     }
-    project.version = "1.0.0-beta11-SNAPSHOT"
+    project.version = "1.0.0-beta11"
 }
 
 task clean(type: Delete) {
