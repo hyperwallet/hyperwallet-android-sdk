@@ -1,0 +1,16 @@
+com.hyperwallet.android
+com.hyperwallet.android.exception
+com.hyperwallet.android.listener
+com.hyperwallet.android.model
+com.hyperwallet.android.model.balance
+com.hyperwallet.android.model.graphql
+com.hyperwallet.android.model.graphql.error
+com.hyperwallet.android.model.graphql.field
+com.hyperwallet.android.model.graphql.keyed
+com.hyperwallet.android.model.graphql.query
+com.hyperwallet.android.model.paging
+com.hyperwallet.android.model.receipt
+com.hyperwallet.android.model.transfer
+com.hyperwallet.android.model.transfermethod
+com.hyperwallet.android.model.user
+com.hyperwallet.android.util
