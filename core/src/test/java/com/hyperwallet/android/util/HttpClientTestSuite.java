@@ -70,8 +70,8 @@ public class HttpClientTestSuite {
             HttpURLConnection httpURLConnection = client.getHttpUrlConnection();
 
             assertNotNull(httpURLConnection);
-            assertThat(httpURLConnection.getConnectTimeout(), is(5_000));
-            assertThat(httpURLConnection.getReadTimeout(), is(5_000));
+            assertThat(httpURLConnection.getConnectTimeout(), is(30_000));
+            assertThat(httpURLConnection.getReadTimeout(), is(30_000));
             assertNotNull(httpURLConnection.getRequestProperties());
             assertThat(httpURLConnection.getRequestProperties(), aMapWithSize(0));
         }
