@@ -1,4 +1,5 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.hyperwallet.android/core-sdk.svg?color=0FA81E)]()
+[![Build Status](https://tc.aws.paylution.net/app/rest/builds/buildType:HyperwalletAndroidSdkSandbox_Artifact_HyperwalletAndroidCoreSdkSandbox/statusIcon)] (http://tc.aws.paylution.net/viewType.html?buildTypeId=HyperwalletAndroidSdkSandbox_Artifact_HyperwalletAndroidCoreSdkSandbox&guest=1)
 
 # Hyperwallet Android Core SDK
 
@@ -31,10 +32,6 @@ When enabling Proguard, please add a rule in `proguard-rules.pro` file in your m
 ```properties
 -keep public class com.hyperwallet.android.** { *; }
 ```
-
-<script type="text/javascript" src="https://tc.aws.paylution.net/externalStatus.html?js=1&buildTypeId=HyperwalletAndroidSdkSandbox_Artifact_HyperwalletAndroidCoreSdkSandbox">
-</script>
-
 
 ## Initialization
 
