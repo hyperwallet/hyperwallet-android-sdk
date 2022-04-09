@@ -57,7 +57,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
     additionalSourceDirs.from = files(coverageSourceDirs)
     sourceDirectories.from = files(coverageSourceDirs)
     executionData.from = files("${buildDir}/jacoco/testDebugUnitTest.exec")
-    println '##teamcity[jacocoReport dataPath=\'core/build/jacoco/testDebugUnitTest.exec\' excludes=\'**/R.class\' includes=\'com.hyperwallet.android.*\' toolVersion=\'0.8.2\']'
+    println '##teamcity[jacocoReport dataPath=\'/core/build/jacoco/testDebugUnitTest.exec\' classpath=\'**/intermediates/javac/debug/*/classes/**\' excludes=\'**/R.class **/R$*.class **/BuildConfig.* **/Manifest*.* android/**/*.* jdk.internal.* **com/hyperwallet/android/Hyperwallet.class **/com/hyperwallet/android/Hyperwallet$*.class\' includes=\'com.hyperwallet.android.*\' toolVersion=\'0.8.2\']'
 }
 
 task jacocoTestCoverageVerification(type: JacocoCoverageVerification, dependsOn: 'jacocoTestReport') {

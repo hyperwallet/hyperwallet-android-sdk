@@ -32,6 +32,10 @@ When enabling Proguard, please add a rule in `proguard-rules.pro` file in your m
 -keep public class com.hyperwallet.android.** { *; }
 ```
 
+<script type="text/javascript" src="https://tc.aws.paylution.net/externalStatus.html?js=1&buildTypeId=HyperwalletAndroidSdkSandbox_Artifact_HyperwalletAndroidCoreSdkSandbox">
+</script>
+
+
 ## Initialization
 
 After you're done installing the SDK, you need to initialize an instance in order to utilize core SDK functions. Also you need to provide a [HyperwalletAuthenticationTokenProvider](#Authentication) object to retrieve an authentication token.
