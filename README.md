@@ -1,5 +1,8 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.hyperwallet.android/core-sdk.svg?color=0FA81E)]()
-[![Build Status](https://tc.aws.paylution.net/app/rest/builds/buildType:HyperwalletAndroidSdkSandbox_Artifact_HyperwalletAndroidCoreSdkSandbox/statusIcon)] (http://tc.aws.paylution.net/viewType.html?buildTypeId=HyperwalletAndroidSdkSandbox_Artifact_HyperwalletAndroidCoreSdkSandbox&guest=1)
+[![Build Status](https://tc.aws.paylution.net/externalStatus.html?js=1&buildTypeId=HyperwalletAndroidSdkSandbox_Artifact_HyperwalletAndroidCoreSdkSandbox&guest=1)]()
+
+
+externalStatus.html
 
 # Hyperwallet Android Core SDK
 
