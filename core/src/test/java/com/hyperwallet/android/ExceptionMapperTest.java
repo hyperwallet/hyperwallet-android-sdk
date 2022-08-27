@@ -70,6 +70,50 @@ public class ExceptionMapperTest {
     }
 
     @Test
+    public void testToHyperwalletException_convertRestUnauthenticatedHyperwalletException() throws Exception {
+        when(mResources.getString(R.string.authentication_token_provider_exception)).thenReturn(
+                "Authentication token retrieval attempt resulted in an error");
+        Errors errorsFromJson = JsonUtils.fromJsonString(mResourceManager.getResourceContentError(
+                        "jwt_token_expired.json"),
+                new TypeReference<Errors>() {
+                });
+        HyperwalletRestException hyperwalletException = new HyperwalletRestException(HttpURLConnection.HTTP_UNAUTHORIZED, errorsFromJson);
+        HyperwalletException hyperwalletExceptionResult = toHyperwalletException(hyperwalletException);
+        assertNotNull(hyperwalletExceptionResult);
+
+        final Errors errors = hyperwalletExceptionResult.getErrors();
+        assertNotNull(errors);
+        final List<Error> list = errors.getErrors();
+        assertThat(list, hasSize(1));
+
+        Error error = list.get(0);
+        assertThat(error.getCode(), is(equalTo("EC_AUTHENTICATION_TOKEN_PROVIDER_EXCEPTION")));
+        assertThat(error.getMessageFromResourceWhenAvailable(mResources), is(equalTo("Authentication token retrieval attempt resulted in an error")));
+    }
+
+    @Test
+    public void testToHyperwalletException_convertGqlUnauthenticatedHyperwalletException() throws Exception {
+        when(mResources.getString(R.string.authentication_token_provider_exception)).thenReturn(
+                "Authentication token retrieval attempt resulted in an error");
+        GqlErrors gqlErrors = JsonUtils.fromJsonString(mResourceManager.getResourceContentError(
+                "jwt_token_expired.json"), new TypeReference<GqlErrors>() {
+        });
+
+        HyperwalletGqlException hyperwalletException = new HyperwalletGqlException(HttpURLConnection.HTTP_UNAUTHORIZED, gqlErrors);
+        HyperwalletException hyperwalletExceptionResult = toHyperwalletException(hyperwalletException);
+        assertNotNull(hyperwalletExceptionResult);
+
+        final Errors errors = hyperwalletExceptionResult.getErrors();
+        assertNotNull(errors);
+        final List<Error> list = errors.getErrors();
+        assertThat(list, hasSize(1));
+
+        Error error = list.get(0);
+        assertThat(error.getCode(), is(equalTo("EC_AUTHENTICATION_TOKEN_PROVIDER_EXCEPTION")));
+        assertThat(error.getMessageFromResourceWhenAvailable(mResources), is(equalTo("Authentication token retrieval attempt resulted in an error")));
+    }
+
+    @Test
     public void testToHyperwalletException_convertIOException() {
         when(mResources.getString(R.string.io_exception)).thenReturn(
                 "An error that is preventing access to the required data and/or resources has occurred");
@@ -167,7 +211,8 @@ public class ExceptionMapperTest {
                 "gql_error_response.json"), new TypeReference<GqlErrors>() {
         });
 
-        HyperwalletException hyperwalletException = toHyperwalletException(new HyperwalletGqlException(gqlErrors));
+        HyperwalletException hyperwalletException = toHyperwalletException(
+                new HyperwalletGqlException(HttpURLConnection.HTTP_BAD_REQUEST, gqlErrors));
         assertNotNull(hyperwalletException);
 
         final Errors errors = hyperwalletException.getErrors();
@@ -201,26 +246,6 @@ public class ExceptionMapperTest {
         Error error = list.get(0);
         assertThat(error.getCode(), is(equalTo("SYSTEM_ERROR")));
         assertThat(error.getMessage(), is(equalTo("A system error has occurred. Please try again. If you continue to receive this error, please contact customer support for assistance (Ref ID: 99b4ad5c-4aac-4cc2-aa9b-4b4f4844ac9b).")));
-    }
-
-    @Test
-    public void testToHyperwalletRestException_convertUnmappedExceptionUnauthorized() throws Exception {
-        when(mResources.getString(R.string.unexpected_exception)).thenReturn(
-                "An unexpected error has occurred, please try again");
-        HyperwalletRestException hyperwalletRestException = new HyperwalletRestException(HttpURLConnection.HTTP_UNAUTHORIZED, null);
-        HyperwalletException hyperwalletException = toHyperwalletException(hyperwalletRestException);
-        assertNotNull(hyperwalletException);
-        assertThat(hyperwalletException, instanceOf(HyperwalletException.class));
-
-        final Errors errors = hyperwalletException.getErrors();
-        assertNotNull(errors);
-        final List<Error> list = errors.getErrors();
-        assertThat(list, hasSize(1));
-
-        Error error = list.get(0);
-        assertThat(error.getCode(), is(equalTo("EC_UNEXPECTED_EXCEPTION")));
-        assertThat(error.getMessageFromResourceWhenAvailable(mResources),
-                is(equalTo("An unexpected error has occurred, please try again")));
     }
 
     @Test

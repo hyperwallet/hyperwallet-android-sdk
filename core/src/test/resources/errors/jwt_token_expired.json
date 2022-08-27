@@ -1,0 +1,8 @@
+{
+  "errors":[
+    {
+      "message":"JWT expired",
+      "code":"JWT_EXPIRED"
+    }
+  ]
+}
