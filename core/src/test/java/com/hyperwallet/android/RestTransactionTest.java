@@ -1,16 +1,22 @@
 package com.hyperwallet.android;
 
+import android.content.res.Resources;
 import android.os.Handler;
 
 import com.hyperwallet.android.exception.HyperwalletException;
 import com.hyperwallet.android.exception.HyperwalletGqlException;
 import com.hyperwallet.android.listener.HyperwalletListener;
+import com.hyperwallet.android.model.Error;
+import com.hyperwallet.android.model.Errors;
 import com.hyperwallet.android.model.TypeReference;
+import com.hyperwallet.android.model.graphql.HyperwalletTransferMethodConfigurationKey;
 import com.hyperwallet.android.model.graphql.error.GqlErrors;
+import com.hyperwallet.android.model.graphql.query.TransferMethodConfigurationKeysQuery;
 import com.hyperwallet.android.model.transfermethod.BankAccount;
 import com.hyperwallet.android.rule.ExternalResourceManager;
 import com.hyperwallet.android.util.HttpClient;
 import com.hyperwallet.android.util.JsonUtils;
+import com.hyperwallet.android.sdk.R;
 
 import org.hamcrest.CoreMatchers;
 import org.json.JSONObject;
@@ -24,6 +30,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.robolectric.RobolectricTestRunner;
 
+import java.net.HttpURLConnection;
 import java.util.UUID;
 
 import static com.hyperwallet.android.model.transfermethod.TransferMethod.TransferMethodTypes.BANK_ACCOUNT;
@@ -32,6 +39,7 @@ import static com.hyperwallet.android.util.HttpMethod.POST;
 import static com.hyperwallet.android.util.HttpMethod.PUT;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -50,9 +58,14 @@ public class RestTransactionTest {
     private HyperwalletListener<BankAccount> mListener;
     @Mock
     private HttpClient mHttpClient;
+    @Mock
+    private Resources mResources;
+
 
     @Captor
     private ArgumentCaptor<String> mPayloadCaptor;
+    @Captor
+    private ArgumentCaptor<HyperwalletException> mExceptionArgumentCaptor;
 
     @Captor
     private ArgumentCaptor<Runnable> mRunnableCaptor;
@@ -152,7 +165,7 @@ public class RestTransactionTest {
                 "gql_error_response.json"), new TypeReference<GqlErrors>() {
         });
         when(mListener.getHandler()).thenReturn(null);
-        HyperwalletGqlException gqlException = new HyperwalletGqlException(gqlErrors);
+        HyperwalletGqlException gqlException = new HyperwalletGqlException(HttpURLConnection.HTTP_BAD_REQUEST, gqlErrors);
         restTransaction.onFailure(gqlException);
         verify(mListener).onFailure(gqlException);
     }
@@ -173,10 +186,38 @@ public class RestTransactionTest {
         });
         Handler handler = mock(Handler.class);
         when(mListener.getHandler()).thenReturn(handler);
-        HyperwalletGqlException gqlException = new HyperwalletGqlException(gqlErrors);
+        HyperwalletGqlException gqlException = new HyperwalletGqlException(HttpURLConnection.HTTP_BAD_REQUEST, gqlErrors);
         restTransaction.onFailure(gqlException);
 
         verify(handler).post(any(Runnable.class));
+    }
+
+    @Test
+    public void testHandleErrors_responseUnauthorized() throws Exception {
+        when(mResources.getString(R.string.authentication_token_provider_exception)).thenReturn(
+                "Authentication token retrieval attempt resulted in an error");
+        final PathFormatter pathFormatter = new PathFormatter("users/{0}/bank-accounts");
+        final String token = "eyJhbGciOiJIUzI1NiJ9.eyJncmFwaHFsLXVyaSI6Imh0dHA6XC9cLzEyNy4wLjAuMTo1MzEyN1wvZ3JhcGhxb";
+        String responseBody = mExternalResourceManager.getResourceContentError("jwt_token_expired.json");
+
+        TransferMethodConfigurationKeysQuery keysQuery = new TransferMethodConfigurationKeysQuery();
+
+        RestTransaction.Builder<BankAccount> accountBuilder =
+                new RestTransaction.Builder<>(GET, pathFormatter, new TypeReference<BankAccount>() {
+                }, mListener, contextId);
+        final RestTransaction restTransaction = accountBuilder
+                .build("http://hyperwallet.com/rest/v3/", token, "test-user-token");
+
+        restTransaction.handleErrors(HttpURLConnection.HTTP_UNAUTHORIZED, responseBody);
+        verify(mListener).onFailure(mExceptionArgumentCaptor.capture());
+
+        HyperwalletException exception = mExceptionArgumentCaptor.getValue();
+        assertThat(exception.getErrors().getErrors().size(), is(1));
+        Error error = exception.getErrors().getErrors().get(0);
+
+        assertThat(error.getCode(), is(equalTo("EC_AUTHENTICATION_TOKEN_PROVIDER_EXCEPTION")));
+        assertThat(error.getMessageFromResourceWhenAvailable(mResources),
+                is(equalTo("Authentication token retrieval attempt resulted in an error")));
     }
 
     @Test
@@ -210,7 +251,7 @@ public class RestTransactionTest {
         GqlErrors gqlErrors = JsonUtils.fromJsonString(mExternalResourceManager.getResourceContentError(
                 "gql_error_response.json"), new TypeReference<GqlErrors>() {
         });
-        HyperwalletGqlException gqlException = new HyperwalletGqlException(gqlErrors);
+        HyperwalletGqlException gqlException = new HyperwalletGqlException(HttpURLConnection.HTTP_BAD_REQUEST, gqlErrors);
         restTransaction.onFailure(gqlException);
 
         verify(handler).post(mRunnableCaptor.capture());

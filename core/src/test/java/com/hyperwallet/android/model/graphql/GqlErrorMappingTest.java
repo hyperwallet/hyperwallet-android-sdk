@@ -24,6 +24,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
+import java.net.HttpURLConnection;
 import java.util.List;
 
 @RunWith(RobolectricTestRunner.class)
@@ -60,7 +61,7 @@ public class GqlErrorMappingTest {
         GqlErrors gqlErrors = JsonUtils.fromJsonString(mResourceManager.getResourceContentError(
                 "gql_error_response.json"), new TypeReference<GqlErrors>() {
         });
-        HyperwalletException hyperwalletException = toHyperwalletException(new HyperwalletGqlException(gqlErrors));
+        HyperwalletException hyperwalletException = toHyperwalletException(new HyperwalletGqlException(HttpURLConnection.HTTP_BAD_REQUEST, gqlErrors));
 
         assertThat(hyperwalletException, is(notNullValue()));
         final Errors errors = hyperwalletException.getErrors();

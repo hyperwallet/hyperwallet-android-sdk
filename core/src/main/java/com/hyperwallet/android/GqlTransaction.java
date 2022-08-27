@@ -73,7 +73,7 @@ class GqlTransaction extends HttpTransaction {
             InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         GqlErrors gqlErrors = JsonUtils.fromJsonString(response, new TypeReference<GqlErrors>() {
         });
-        onFailure(new HyperwalletGqlException(gqlErrors));
+        onFailure(new HyperwalletGqlException(responseCode, gqlErrors));
     }
 
     /**

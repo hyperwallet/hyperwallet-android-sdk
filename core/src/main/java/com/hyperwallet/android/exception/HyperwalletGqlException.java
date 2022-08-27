@@ -35,13 +35,17 @@ import java.util.List;
  */
 public class HyperwalletGqlException extends HyperwalletException {
 
+    private final int mHttpCode;
+
     /**
      * Constructs a {@code HyperwalletGqlException} with the specified {@link GqlErrors} cause.
      *
      * @param gqlErrors the {@code GqlErrors} cause of the exception, must not be null
      */
-    public HyperwalletGqlException(@NonNull final GqlErrors gqlErrors) {
+    public HyperwalletGqlException(int httpCode, @NonNull final GqlErrors gqlErrors) {
         super();
+        mHttpCode = httpCode;
+
         List<Error> errorList = new ArrayList<>();
         List<GqlError> errors = gqlErrors.getGQLErrors();
         for (GqlError gqlError : errors) {
@@ -50,5 +54,14 @@ public class HyperwalletGqlException extends HyperwalletException {
             errorList.add(new Error(gqlError.getMessage(), code));
         }
         mErrors = new Errors(errorList);
+    }
+
+    /**
+     * Returns the HTTP response code.
+     *
+     * @return the HTTP response code
+     */
+    public int getHttpCode() {
+        return mHttpCode;
     }
 }
