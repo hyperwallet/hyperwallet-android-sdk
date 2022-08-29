@@ -65,14 +65,21 @@ public final class ExceptionMapper {
      */
     public static HyperwalletException toHyperwalletException(@NonNull final Exception exception) {
         if (exception instanceof HyperwalletGqlException) {
+            HyperwalletGqlException hyperwalletGqlException = (HyperwalletGqlException) exception;
+            if (hyperwalletGqlException.getHttpCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
+                return initHyperwalletException(R.string.authentication_token_provider_exception,
+                        EC_AUTHENTICATION_TOKEN_PROVIDER_EXCEPTION, exception);
+            }
             return (HyperwalletGqlException) exception;
         } else if (exception instanceof HyperwalletRestException) {
             HyperwalletRestException hyperwalletRestException = (HyperwalletRestException) exception;
             if (hyperwalletRestException.getHttpCode() == HttpURLConnection.HTTP_BAD_REQUEST) {
                 return hyperwalletRestException;
-            } else {
-                return initHyperwalletException(R.string.unexpected_exception, EC_UNEXPECTED_EXCEPTION, exception);
+            } else if (hyperwalletRestException.getHttpCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
+                return initHyperwalletException(R.string.authentication_token_provider_exception,
+                        EC_AUTHENTICATION_TOKEN_PROVIDER_EXCEPTION, exception);
             }
+            return initHyperwalletException(R.string.unexpected_exception, EC_UNEXPECTED_EXCEPTION, exception);
         } else if (exception instanceof HyperwalletException) {
             return (HyperwalletException) exception;
         } else if (exception instanceof IOException) {
@@ -90,7 +97,7 @@ public final class ExceptionMapper {
     }
 
     private static HyperwalletException initHyperwalletException(@StringRes int stringResourceId,
-            @NonNull final String code, @NonNull final Throwable throwable) {
+                                                                 @NonNull final String code, @NonNull final Throwable throwable) {
         Error error = new Error(stringResourceId, code);
         List<Error> errorList = new ArrayList<>();
         errorList.add(error);

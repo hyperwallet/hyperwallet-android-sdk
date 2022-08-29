@@ -49,9 +49,11 @@ class GqlTransaction extends HttpTransaction {
      * @param typeReference       The class type reference to use in order to deserialize response into Hyperwallet SDK
      *                            object
      */
-    private GqlTransaction(@NonNull final String uri, @NonNull final String body,
-            @NonNull final String authenticationToken, @NonNull final HyperwalletListener hyperwalletListener,
-            @NonNull final TypeReference typeReference) {
+    private GqlTransaction(@NonNull final String uri,
+                           @NonNull final String body,
+                           @NonNull final String authenticationToken,
+                           @NonNull final HyperwalletListener hyperwalletListener,
+                           @NonNull final TypeReference typeReference) {
         super(HttpMethod.POST, uri, typeReference, hyperwalletListener);
         addHeader(HTTP_HEADER_AUTHORIZATION, AUTHENTICATION_STRATEGY + authenticationToken);
         setPayload(body);
@@ -69,11 +71,12 @@ class GqlTransaction extends HttpTransaction {
      * Refer to {@link HttpTransaction#handleErrors(int, String)}
      */
     @Override
-    protected void handleErrors(final int responseCode, @NonNull final String response) throws JSONException,
+    protected void handleErrors(final int responseCode,
+                                @NonNull final String response) throws JSONException,
             InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         GqlErrors gqlErrors = JsonUtils.fromJsonString(response, new TypeReference<GqlErrors>() {
         });
-        onFailure(new HyperwalletGqlException(gqlErrors));
+        onFailure(new HyperwalletGqlException(responseCode, gqlErrors));
     }
 
     /**
@@ -92,15 +95,16 @@ class GqlTransaction extends HttpTransaction {
          * @param listener callback object; refer to {@link HyperwalletListener}
          */
         protected Builder(@NonNull final GqlQuery gqlQuery,
-                @NonNull final TypeReference<T> typeReference,
-                @NonNull final HyperwalletListener listener) {
+                          @NonNull final TypeReference<T> typeReference,
+                          @NonNull final HyperwalletListener listener) {
             this.gqlQuery = gqlQuery;
             this.typeReference = typeReference;
             this.listener = listener;
         }
 
-        protected GqlTransaction build(@NonNull final String uri, @NonNull final String userToken,
-                @NonNull final String authenticationToken) {
+        protected GqlTransaction build(@NonNull final String uri,
+                                       @NonNull final String userToken,
+                                       @NonNull final String authenticationToken) {
             String query = gqlQuery.toQuery(userToken);
             return new GqlTransaction(uri, query, authenticationToken, listener, typeReference);
         }
