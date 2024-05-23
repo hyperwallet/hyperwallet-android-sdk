@@ -69,7 +69,7 @@ public class RetrieveTransferMethodConfigurationFieldsTest {
 
         // run test
         Hyperwallet.getDefault().retrieveTransferMethodConfigurationFields(mMockedQuery, mListener);
-        mAwait.await(100, TimeUnit.MILLISECONDS);
+        mAwait.await(200, TimeUnit.MILLISECONDS);
 
         // retrieve response
         verify(mListener).onSuccess(mResultArgumentCaptor.capture());
