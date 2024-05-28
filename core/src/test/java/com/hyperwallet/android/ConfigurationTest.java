@@ -4,7 +4,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.fail;
 
 import org.json.JSONException;
@@ -103,11 +102,14 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void testParsePayload_parseTokenWithNonJsonPayload() {
-        JSONException exception = assertThrows(JSONException.class, new Configuration("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9."
+    public void testParsePayload_parseTokenWithNonJsonPayload() throws JSONException {
+        mThrown.expect(JSONException.class);
+        mThrown.expectMessage(
+                "Value this of type java.lang.String cannot be converted to JSONObject");
+
+        new Configuration("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9."
                 + "dGhpcyBpcyBhIHRlc3Q.2Mv6q63MjtSI1ER-61sy04TwtD8VY1mpQ2ZPrWYdJfjcdqq8aiIdx6-PsUn"
-                + "8kTBt3pfaYB2ZRk-xgIeIbUirqA"));
-        assertThat(exception.getMessage(), equalTo("Value this of type java.lang.String cannot be converted to JSONObject"));
+                + "8kTBt3pfaYB2ZRk-xgIeIbUirqA");
     }
 
     @Test
