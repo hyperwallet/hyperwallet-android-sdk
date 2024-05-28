@@ -12,6 +12,7 @@ android {
         targetSdkVersion 34
         versionCode 3
         versionName version
+        buildConfigField 'String', 'VERSION_NAME', "\"${version}\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
