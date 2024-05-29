@@ -5,11 +5,11 @@ apply plugin: 'org.sonarqube'
 apply from: "$projectDir/config/jacoco-settings.gradle"
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 32
     testOptions.unitTests.includeAndroidResources = true
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 32
         versionCode 3
         versionName version
         buildConfigField 'String', 'VERSION_NAME', "\"${version}\""
