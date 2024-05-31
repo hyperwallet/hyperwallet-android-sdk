@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java-version: [ 9 ]
+        java-version: [ 11 ]
 
     steps:
       - uses: actions/checkout@v4
