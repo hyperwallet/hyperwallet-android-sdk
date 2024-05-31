@@ -34,4 +34,4 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Build CORE SDK ${{ matrix.java-version }}
-        run: ./gradlew clean lint testDebugUnitTest jacocoTestCoverageVerification
+        run: ./gradlew clean lint testDebugUnitTest jacocoTestCoverageVerification  --stacktrace
