@@ -39,7 +39,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:1.2.0"
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.robolectric:robolectric:4.10'
+    testImplementation 'org.robolectric:robolectric:4.12'
     testImplementation "org.mockito:mockito-core:3.2.0"
     testImplementation "com.squareup.okhttp3:mockwebserver:3.11.0"
     testImplementation group: 'pl.pragmatists', name: 'JUnitParams', version: "1.1.1"
