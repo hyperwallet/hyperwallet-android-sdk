@@ -13,12 +13,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.Date;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(instrumentedPackages={"com.hyperwallet"})
 public class ConfigurationTest {
 
     private static Configuration mConfiguration;
