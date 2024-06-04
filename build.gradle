@@ -2,11 +2,11 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.2'
+        classpath 'com.android.tools.build:gradle:3.6.4'
         classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7"
         
         // NOTE: Do not place your application dependencies here; they belong
@@ -17,7 +17,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         mavenLocal()
     }
     project.version = "1.0.0-beta12"
