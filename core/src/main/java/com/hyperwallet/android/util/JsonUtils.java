@@ -179,7 +179,7 @@ public final class JsonUtils {
         Class<T> parameterType =
                 (Class<T>) ((ParameterizedType) typeReference.getType()).getActualTypeArguments()[0];
         JSONObject jsonObject = new JSONObject(data);
-        Constructor<T> rawTypeConstructor = rawType.getConstructor(JSONObject.class, parameterType.getClass());
+        Constructor<T> rawTypeConstructor = rawType.getDeclaredConstructor(JSONObject.class, parameterType.getClass());
         return rawTypeConstructor.newInstance(jsonObject, parameterType);
     }
 
@@ -196,7 +196,7 @@ public final class JsonUtils {
             throws JSONException, InvocationTargetException, NoSuchMethodException, InstantiationException,
             IllegalAccessException {
         JSONObject jsonObject = new JSONObject(jsonString);
-        Constructor<T> constructor = fromClass.getConstructor(JSONObject.class);
+        Constructor<T> constructor = fromClass.getDeclaredConstructor(JSONObject.class);
         return constructor.newInstance(jsonObject);
     }
 }
