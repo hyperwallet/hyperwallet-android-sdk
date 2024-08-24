@@ -59,7 +59,7 @@ public class PageList<T> {
             if (jsonArray != null) {
                 mDataList = new ArrayList<>();
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    Constructor<T> constructor = clazz.getConstructor(JSONObject.class);
+                    Constructor<T> constructor = clazz.getDeclaredConstructor(JSONObject.class);
                     mDataList.add(constructor.newInstance(jsonArray.getJSONObject(i)));
                 }
             }

@@ -60,7 +60,7 @@ public class Connection<T> {
             mPageInfo = new PageInfo(pageInfoObject);
         }
 
-        Constructor<?> constructor = clazz.getConstructor(JSONObject.class);
+        Constructor<?> constructor = clazz.getDeclaredConstructor(JSONObject.class);
         JSONArray jsonArray = data.optJSONArray(NODES);
         if (jsonArray != null) {
             mNodes = new ArrayList<>(jsonArray.length());

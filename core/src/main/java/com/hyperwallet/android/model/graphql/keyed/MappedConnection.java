@@ -56,7 +56,7 @@ public class MappedConnection<T extends KeyedNode> extends Connection<T> {
             JSONException, IllegalAccessException, InstantiationException, InvocationTargetException {
 
         super(data, clazz);
-        Constructor<?> constructor = clazz.getConstructor(JSONObject.class);
+        Constructor<?> constructor = clazz.getDeclaredConstructor(JSONObject.class);
         JSONArray jsonArray = data.optJSONArray(NODES);
         if (jsonArray != null && jsonArray.length() != 0) {
             mNodes = new LinkedHashMap<>(jsonArray.length());
