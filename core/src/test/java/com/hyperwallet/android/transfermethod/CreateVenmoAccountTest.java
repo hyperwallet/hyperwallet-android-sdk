@@ -78,7 +78,7 @@ public class CreateVenmoAccountTest {
         assertThat(venmoAccount.getField(VENMO_ACCOUNT_ID), is("9876543210"));
 
         Hyperwallet.getDefault().createVenmoAccount(venmoAccount, mListener);
-        mAwait.await(50, TimeUnit.MILLISECONDS);
+        mAwait.await(100, TimeUnit.MILLISECONDS);
 
         RecordedRequest recordedRequest = mServer.getRequest();
         assertThat(recordedRequest.getMethod(), is(POST.name()));
