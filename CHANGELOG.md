@@ -1,5 +1,9 @@
 Changelog
 =========
+[1.0.1](https://github.com/hyperwallet/hyperwallet-android-sdk/releases/tag/1.0.1)
+-------------------
+* Handle error no such method exception
+=========
 [1.0.0-beta12](https://github.com/hyperwallet/hyperwallet-android-sdk/releases/tag/1.0.0-beta12)
 -------------------
 * Handle HTTP 401
