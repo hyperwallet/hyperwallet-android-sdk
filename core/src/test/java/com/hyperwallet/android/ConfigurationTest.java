@@ -6,6 +6,8 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.fail;
 
+import com.hyperwallet.android.util.HwShadowSystemClock;
+
 import org.json.JSONException;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -13,10 +15,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.util.Date;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(shadows = { HwShadowSystemClock.class})
 public class ConfigurationTest {
 
     private static Configuration mConfiguration;

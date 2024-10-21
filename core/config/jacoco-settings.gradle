@@ -1,6 +1,6 @@
 apply plugin: 'jacoco'
 
-final def jacocoVersion = "0.8.2"
+final def jacocoVersion = "0.8.8"
 
 jacoco {
     toolVersion = jacocoVersion

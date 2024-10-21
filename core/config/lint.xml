@@ -6,4 +6,7 @@
     <issue id="GradleDependency">
         <ignore regexp="(build).gradle"/>
     </issue>
+    <issue id="UnusedResources">
+        <ignore path="res/values/strings.xml" />
+    </issue>
 </lint>
