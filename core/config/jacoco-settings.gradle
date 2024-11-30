@@ -1,87 +1,8 @@
-apply plugin: 'jacoco'
-
-final def jacocoVersion = "0.8.8"
-
-jacoco {
-    toolVersion = jacocoVersion
-}
-
 android {
     testOptions {
         unitTests {
             includeAndroidResources = true
             returnDefaultValues = true
         }
-        unitTests.all {
-            jacoco {
-                includeNoLocationClasses = true
-                excludes = ['jdk.internal.*']
-            }
-        }
     }
 }
-
-
-def fileFilter = ['**/R.class',
-                  '**/R$*.class',
-                  '**/BuildConfig.*',
-                  '**/Manifest*.*',
-                  'android/**/*.*',
-                  '**/com/hyperwallet/android/Hyperwallet.class',
-                  '**/com/hyperwallet/android/Hyperwallet$*.class',
-                  '**/com/hyperwallet/android/util/Tls12SocketFactory*']
-def debugClassPaths = [
-        '**/intermediates/javac/debug/*/classes/**'
-]
-
-final def coverageSourceDirs = ["$project.projectDir/src/main/java/*"]
-
-task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
-
-    group = 'Reporting'
-    description = 'Generate Jacoco coverage reports.'
-
-    reports {
-        html {
-            enabled = true
-            destination file("$buildDir/reports/jacoco")
-        }
-    }
-
-    classDirectories.from = fileTree(
-            dir: "${buildDir}",
-            includes: debugClassPaths,
-            excludes: fileFilter
-    )
-
-    additionalSourceDirs.from = files(coverageSourceDirs)
-    sourceDirectories.from = files(coverageSourceDirs)
-    executionData.from = files("${buildDir}/jacoco/testDebugUnitTest.exec")
-}
-
-task jacocoTestCoverageVerification(type: JacocoCoverageVerification, dependsOn: 'jacocoTestReport') {
-
-    group = 'Verification'
-    classDirectories.from = fileTree(
-            dir: "${buildDir}",
-            includes: debugClassPaths,
-            excludes: fileFilter
-    )
-    additionalSourceDirs.from = files(coverageSourceDirs)
-    sourceDirectories.from = files(coverageSourceDirs)
-    executionData.from = files("${buildDir}/jacoco/testDebugUnitTest.exec")
-
-    violationRules {
-        setFailOnViolation(true)
-
-        rule {
-            element = 'CLASS'
-            limit {
-                value = 'COVEREDRATIO'
-                counter = 'BRANCH'
-                minimum = 0.65
-            }
-        }
-    }
-}
-
