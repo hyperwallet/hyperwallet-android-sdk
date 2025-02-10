@@ -35,4 +35,3 @@ jobs:
 
       - name: Build CORE SDK ${{ matrix.java-version }}
         run: ./gradlew --scan clean lint testDebugUnitTest jacocoTestCoverageVerification
-
