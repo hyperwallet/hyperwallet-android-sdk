@@ -21,7 +21,7 @@ We also provide an out-of-the-box  [Hyperwallet Android UI SDK](https://github.c
 To install Hyperwallet Core SDK, you just need to add the dependency into your build.gradle file in Android Studio (or Gradle). For example:
 
 ```bash
-api 'com.hyperwallet.android:core-sdk:1.0.1'
+api 'com.hyperwallet.android:core-sdk:1.0.2'
 ```
 
 ### Proguard
@@ -30,6 +30,13 @@ When enabling Proguard, please add a rule in `proguard-rules.pro` file in your m
 
 ```properties
 -keep public class com.hyperwallet.android.** { *; }
+```
+
+On Grandle 7 and above, please add rules as well. 
+Note: That will prevent `java.lang.NoSuchMethodException: com.hyperwallet.android.model.TypeReference.<init> [class org.json.JSONObject]`
+```properties
+-keep,allowobfuscation,allowshrinking class com.hyperwallet.android.model.TypeReference
+-keep,allowobfuscation,allowshrinking class * extends com.hyperwallet.android.model.TypeReference
 ```
 
 ## Initialization
