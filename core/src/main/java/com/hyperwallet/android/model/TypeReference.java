@@ -29,10 +29,10 @@ public class TypeReference<T> {
 
     public TypeReference() {
         Type superclass = getClass().getGenericSuperclass();
-        if (superclass instanceof Class) {
-            type = superclass;
-        } else {
+        if (superclass instanceof ParameterizedType) {
             type = ((ParameterizedType) superclass).getActualTypeArguments()[0];
+        } else {
+            type = superclass;
         }
     }
 

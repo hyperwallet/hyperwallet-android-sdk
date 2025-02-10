@@ -84,4 +84,3 @@ task jacocoTestCoverageVerification(type: JacocoCoverageVerification, dependsOn:
         }
     }
 }
-
