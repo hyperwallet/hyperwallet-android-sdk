@@ -19,6 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        distribution: 'zulu'
         java-version: [ 11 ]
 
     steps:
