@@ -31,7 +31,7 @@ jobs:
           java-version: ${{ matrix.java-version }}
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v1
+        uses: android-actions/setup-android@v3
 
       - name: Build CORE SDK ${{ matrix.java-version }}
         run: ./gradlew --scan clean lint testDebugUnitTest jacocoTestCoverageVerification
