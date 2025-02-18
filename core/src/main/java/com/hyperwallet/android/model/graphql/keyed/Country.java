@@ -38,6 +38,8 @@ public class Country implements KeyedNode {
     private static final String CURRENCIES = "currencies";
 
     private final Set<Currency> mCurrencies;
+
+    private final String mDefaultCurrencyCode;
     private final String mCode;
     private final MappedConnection<Currency> mCurrencyMappedConnection;
     private final String mName;
@@ -52,6 +54,7 @@ public class Country implements KeyedNode {
         mCode = country.optString(COUNTRY_CODE);
         mName = country.optString(COUNTRY_NAME);
         mCurrencies = new LinkedHashSet<>(1);
+        mDefaultCurrencyCode = country.optString("defaultCurrencyCode");
         JSONObject currencies = country.optJSONObject(CURRENCIES);
         if (currencies != null && currencies.length() != 0) {
             mCurrencyMappedConnection = new MappedConnection<>(currencies, Currency.class);
@@ -76,6 +79,14 @@ public class Country implements KeyedNode {
     @Override
     public String getName() {
         return mName;
+    }
+
+    /**
+     * @return Currency code represented in ISO 4217 three-letter code format
+     */
+
+    public String getDefaultCurrency() {
+        return mDefaultCurrencyCode;
     }
 
     /**
