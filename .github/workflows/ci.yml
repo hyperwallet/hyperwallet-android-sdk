@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        distribution: 'zulu'
+        distribution: 'temurin'
         java-version: [ 11 ]
 
     steps:
