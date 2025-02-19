@@ -19,8 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        distribution: 'zulu'
-        java-version: [ 11 ]
+        java-version: [ 17 ]
 
     steps:
       - uses: actions/checkout@v4
@@ -28,10 +27,11 @@ jobs:
       - name: Setup JDK ${{ matrix.java }}
         uses: actions/setup-java@v4
         with:
+          distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
+        uses: android-actions/setup-android@v3
 
       - name: Build CORE SDK ${{ matrix.java-version }}
         run: ./gradlew --scan clean lint testDebugUnitTest jacocoTestCoverageVerification
