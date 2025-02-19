@@ -19,7 +19,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        distribution: 'temurin'
         java-version: [ 11 ]
 
     steps:
