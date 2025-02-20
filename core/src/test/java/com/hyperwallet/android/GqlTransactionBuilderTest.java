@@ -57,6 +57,7 @@ public class GqlTransactionBuilderTest {
                 + "\t\tnodes {\n"
                 + "\t\t\tcode\n"
                 + "\t\t\tname\n"
+                + "\t\t\tdefaultCurrencyCode\n"
                 + "\t\t\tcurrencies {\n"
                 + "\t\t\t\tnodes {\n"
                 + "\t\t\t\t\tcode\n"
