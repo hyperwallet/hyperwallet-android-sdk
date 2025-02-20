@@ -24,7 +24,7 @@ android {
             // Rename the artifact to core-<version>.aar, required since gradle 7
             libraryVariants.all { variant ->
                 variant.outputs.all { output ->
-                    outputFileName = "${archivesBaseName}-${defaultConfig.versionName}.aar"
+                    outputFileName = "${archivesBaseName}-${version}.aar"
                 }
             }
         }
