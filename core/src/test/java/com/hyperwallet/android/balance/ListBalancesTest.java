@@ -21,7 +21,6 @@ import static org.mockito.Mockito.when;
 
 import com.hyperwallet.android.Hyperwallet;
 import com.hyperwallet.android.exception.HyperwalletException;
-import com.hyperwallet.android.exception.HyperwalletRestException;
 import com.hyperwallet.android.listener.HyperwalletListener;
 import com.hyperwallet.android.model.Error;
 import com.hyperwallet.android.model.Errors;
@@ -32,6 +31,7 @@ import com.hyperwallet.android.rule.ExternalResourceManager;
 import com.hyperwallet.android.rule.HyperwalletMockWebServer;
 import com.hyperwallet.android.rule.HyperwalletSdkMock;
 import com.hyperwallet.android.sdk.R;
+import com.hyperwallet.android.util.MockShadowSystemClock;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -42,6 +42,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -49,6 +50,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(shadows = { MockShadowSystemClock.class})
 public class ListBalancesTest {
     @Rule
     public ExternalResourceManager mExternalResourceManager = new ExternalResourceManager();
